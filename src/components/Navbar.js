@@ -22,9 +22,9 @@ function Navbar() {
             <div class='container'>
                 <div class='d-flex align-items-center justify-content-between'>
                     <div class='logo'>
-                        <div class='site-logo'>
-                            <a href='/' class='js-logo-clone'>ShopMax</a>
-                        </div>
+                        <a href='/' class='js-logo-clone'>
+                            <img src={process.env.PUBLIC_URL + '/logo.png'} style={{ height: 80 }} />
+                        </a>
                     </div>
                     <div class='main-nav d-none d-lg-block'>
                         <nav class='site-navigation text-right text-md-center' role='navigation'>
