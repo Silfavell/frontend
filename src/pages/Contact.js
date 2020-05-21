@@ -3,12 +3,13 @@ import React from 'react'
 
 import '../style/fonts/icomoon/style.css'
 import '../style/css/googleMukta.css'
-import '../style/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/owl.theme.default.min.css'
 import '../style/css/style.css'
 
 import Footer from '../components/Footer'
 import NavBar from '../components/Navbar'
+import FirstImage from '../components/FirstImage'
 
 import bg from '../style/images/hero_2.jpg'
 
@@ -16,21 +17,7 @@ function Contact() {
   return (
     <div class="site-wrap">
       <NavBar />
-      <div
-        class="site-blocks-cover inner-page"
-        style={{
-          backgroundImage: `url(${bg})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
-        data-aos="fade">
-        <div class="container">
-          <div class="row">
-
-          </div>
-        </div>
-      </div>
+      <FirstImage />
 
       <div class="custom-border-bottom py-3">
         <div class="container">

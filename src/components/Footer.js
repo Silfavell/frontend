@@ -3,7 +3,7 @@ import React from 'react'
 
 import '../style/fonts/icomoon/style.css'
 import '../style/css/googleMukta.css'
-import '../style/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
 
 import about1 from '../style/images/about_1.jpg'
