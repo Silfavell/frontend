@@ -1,0 +1,41 @@
+.product .interface-container .interface {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.product:hover .interface-container .interface,
+.product:active .interface-container .interface {
+    visibility: unset;
+}
+
+.product .interface-container .interface .top {
+    position: absolute;
+    display: flex;
+    top: 0;
+}
+
+.product .interface-container .interface .bottom {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    background-color: rgba(73,14,111,0.7);
+}
+
+.product .interface-container .interface .bottom .inspect,
+.product .interface-container .interface .bottom .add-to-cart {
+    padding: 8px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.product .interface-container .interface .top .add-to-favorite {
+    padding: 8px;
+    margin: 2px;
+    cursor: pointer;
+}
