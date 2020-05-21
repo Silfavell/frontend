@@ -12,23 +12,22 @@ class Product extends React.Component {
         } = this.props.item
 
         return (
-            <div className="col-md-3 ml-auto d-relative">
+            <div className='col-md-3 ml-auto d-relative'>
                 <img
-                    src="http://silfavell.com/img/product/4.jpg"
-                    alt=""
-                    className="w-100" />
+                    src='http://silfavell.com/img/product/4.jpg'
+                    alt=''
+                    className='w-100' />
 
-                <div class="mb-3">
-                    <div className="col-md-12 d-flex flex-row justify-content-center align-items-center">
-                        <div class="p-2 text-black font-weight-normal">
-                            {name}
+                <div class='mb-3'>
+                    <div className='col-md-12  d-flex align-items-center justify-content-center'>
+                        <div class='h4 p-2 text-black font-weight-normal'>
+                            {'₺' + price.toFixed(2).toString().replace('.', ',')}
                         </div>
                     </div>
-                    <div className="col-md-12">
-                        {price}
-                    </div>
-                    <div className="col-md-12">
-                        1
+                    <div className='col-md-12 d-flex flex-row justify-content-center align-items-center' style={{ textAlign: 'center' }}>
+                        <div class='p-2 text-black font-weight-normal'>
+                            {name}
+                        </div>
                     </div>
                 </div>
             </div>

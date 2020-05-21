@@ -8,8 +8,8 @@ import img from '../style/images/prod_1.png'
 
 const product = {
     img,
-    name: 'Roc Leke Karşıtı Güneş Koruma Kremi SPF 50 50 ml',
-    price: 54.50
+    name: 'Black and White stripes Dress',
+    price: 114.50
 }
 
 function ControlledCarousel() {
@@ -23,12 +23,13 @@ function ControlledCarousel() {
         <Carousel
             activeIndex={index}
             indicators={false}
+            interval={null}
             onSelect={handleSelect}>
             {
                 [1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
                     <Carousel.Item>
-                        <div className="col-md-12">
-                            <div className="row">
+                        <div className='col-md-12'>
+                            <div className='row'>
                                 <Product item={product} />
                                 <Product item={product} />
                                 <Product item={product} />
