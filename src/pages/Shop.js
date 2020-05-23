@@ -10,7 +10,7 @@ import '../style/css/style.css'
 class Shop extends React.Component {
     render() {
         return (
-            <SiteWrap firstImage>
+            <SiteWrap divider firstImage>
                 <div class='container'>
                     <div class='row mb-5'>
                         <div class='col-md-9 order-1'>
