@@ -11,21 +11,19 @@ import FirstImage from '../components/FirstImage'
 import '../style/css/style.css'
 import '../style/css/googleMukta.css'
 
-import Product from '../components/Product'
+import SiteWrap from '../components/SiteWrap'
 import Carousel from '../components/Carousel'
 
 class Home extends React.Component {
     render() {
         return (
-            <>
-                <Navbar />
-                <FirstImage />
+            <SiteWrap>
                 <div className='site-section'>
                     <div className='container'>
                         <div className='row'>
 
                             <div className='col-md-12 p-4'>
-                                <h2 class='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
+                                <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
                                     Best Seller
                             </h2>
                             </div>
@@ -35,7 +33,7 @@ class Home extends React.Component {
 
                             <div className='col-md-12 p-4' />
                             <div className='col-md-12  p-4'>
-                                <h2 class='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
+                                <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
                                     En Son Gezdiklerin
                                 </h2>
                             </div>
@@ -45,8 +43,7 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Footer />
-            </>
+            </SiteWrap>
         )
     }
 }

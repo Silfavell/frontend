@@ -26,7 +26,7 @@ function FirstImage() {
                 [1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
                     <Carousel.Item>
                         <div
-                            class='site-blocks-cover inner-page'
+                            className='site-blocks-cover inner-page'
                             style={{
                                 backgroundImage: `url(${bg})`,
                                 backgroundRepeat: 'no-repeat',
@@ -34,8 +34,8 @@ function FirstImage() {
                                 backgroundPosition: 'center'
                             }}
                             data-aos='fade'>
-                            <div class='container'>
-                                <div class='row'>
+                            <div className='container'>
+                                <div className='row'>
 
                                 </div>
                             </div>

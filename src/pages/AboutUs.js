@@ -2,28 +2,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import FirstImage from '../components/FirstImage'
+import SiteWrap from '../components/SiteWrap'
 
 class AboutUs extends React.Component {
     render() {
         return (
-            <>
-                <Navbar />
-                <FirstImage />
-                <div class='site-section'>
-                    <div class='container'>
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="row">
-                                    <div className="col-md-7">
-                                        <div className="p-3 p-lg-5 border">
-                                            <div class='col-md-12'>
-                                                <h2 class='h3 mb-3 text-black'>Silfavell Hakkında</h2>
+            <SiteWrap>
+                <div className='site-section'>
+                    <div className='container'>
+                        <div className='row'>
+                            <div className='col-md-12'>
+                                <div className='row'>
+                                    <div className='col-md-7'>
+                                        <div className='p-3 p-lg-5 border'>
+                                            <div className='col-md-12'>
+                                                <h2 className='h3 mb-3 text-black'>Silfavell Hakkında</h2>
                                             </div>
 
-                                            <div class='col-md-12'>
+                                            <div className='col-md-12'>
                                                 <p>
                                                     Doğuş Planet, e-ticaret sektöründe faaliyet göstermek üzere, Doğuş Grubu ile Güney Kore’nin en büyük gruplarından SK Group’un ortaklığında Haziran 2012’de kuruldu.
                                                 </p>
@@ -51,22 +47,22 @@ class AboutUs extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className="col-md-5 ml-auto">
-                                        <div class='p-4 border mb-3'>
-                                            <span class='d-block text-primary h6 text-uppercase'>Vizyonumuz</span>
-                                            <p class='mb-0'>
+                                    <div className='col-md-5 ml-auto'>
+                                        <div className='p-4 border mb-3'>
+                                            <span className='d-block text-primary h6 text-uppercase'>Vizyonumuz</span>
+                                            <p className='mb-0'>
                                                 Türkiye’de ve bölgede e-ticaret sektörünün lideri olmak.
                                             </p>
                                         </div>
-                                        <div class='p-4 border mb-3'>
-                                            <span class='d-block text-primary h6 text-uppercase'>Misyonumuz</span>
-                                            <p class='mb-0'>
+                                        <div className='p-4 border mb-3'>
+                                            <span className='d-block text-primary h6 text-uppercase'>Misyonumuz</span>
+                                            <p className='mb-0'>
                                                 E-ticaret sektöründe hem müşterilere hem mağazalara yenilikçi hizmetler sunarak Türkiye e-ticaret sektörünün yeniden şekillendirilmesine öncülük etmek.
                                             </p>
                                         </div>
-                                        <div class='p-4 border mb-3'>
-                                            <span class='d-block text-primary h6 text-uppercase'>Stratejimiz</span>
-                                            <p class='mb-0'>
+                                        <div className='p-4 border mb-3'>
+                                            <span className='d-block text-primary h6 text-uppercase'>Stratejimiz</span>
+                                            <p className='mb-0'>
                                                 Stratejik ortaklıklarla güçlü entegrasyona dayanan eko-sistemimizde, müşterilere Güven ve Kolaylık; mağazalara ise Destek ve Özen üzerine dayalı değer önerileri sunmaktır.
                                             </p>
                                         </div>
@@ -76,8 +72,7 @@ class AboutUs extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Footer />
-            </>
+            </SiteWrap>
         )
     }
 }
