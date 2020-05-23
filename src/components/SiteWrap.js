@@ -1,22 +1,28 @@
 import React from 'react'
+
 import Navbar from './Navbar'
 import Footer from './Footer'
 import Divider from './Divider'
 import FirstImage from './FirstImage'
 
+import '../style/css/style.css'
+
 class SiteWrap extends React.Component {
     render() {
-        console.log(this.props)
         return (
             <div className='site-wrap'>
-                <Navbar />
-                <FirstImage />
+                <Navbar firstImage={this.props.firstImage} />
+                {
+                    this.props.firstImage && <FirstImage />
+                }
                 {
                     this.props.divider && <Divider />
                 }
-                {
-                    this.props.children
-                }
+                <div className='site-section'>
+                    {
+                        this.props.children
+                    }
+                </div>
                 <Footer />
             </div>
         )

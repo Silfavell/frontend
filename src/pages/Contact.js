@@ -9,10 +9,10 @@ import '../style/css/style.css'
 
 import SiteWrap from '../components/SiteWrap'
 
-function Contact() {
-  return (
-    <SiteWrap>
-      <div className='site-section'>
+class Contact extends React.Component {
+  render(){
+    return (
+      <SiteWrap firstImage>
         <div className='container'>
           <div className='row'>
             <div className='col-md-12'>
@@ -76,9 +76,9 @@ function Contact() {
             </div>
           </div>
         </div>
-      </div>
-    </SiteWrap>
-  )
+      </SiteWrap>
+    )
+  }
 }
 
 export default Contact
