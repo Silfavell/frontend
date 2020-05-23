@@ -12,7 +12,7 @@ import SiteWrap from '../components/SiteWrap'
 class SignUp extends React.Component {
     render() {
         return (
-            <SiteWrap>
+            <SiteWrap divider>
                 <div className='container'>
                     <div className="col-md-12 d-flex align-items-center justify-content-center">
                         <div className='col-md-6'>
@@ -72,12 +72,6 @@ class SignUp extends React.Component {
                                         <div className='col-md-12 d-flex align-items-md-start justify-content-md-start'>
                                             <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' />
                                             <label htmlFor='dont-forget' className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
-                                        </div>
-                                    </div>
-
-                                    <div className='form-group row'>
-                                        <div className='col-lg-12'>
-                                            <input type='submit' className='btn btn-primary btn-lg btn-block' value='Oturum Aç' />
                                         </div>
                                     </div>
 
