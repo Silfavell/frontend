@@ -75,10 +75,9 @@ function Footer() {
                     </div>
                 </div>
                 <div className='row pt-5 mt-5 text-center'>
-                    <div className='col-md-12'>
-                        <p>Copyright © 2020, Silfavell Inc.</p>
+                    <div class="col-md-12">
+                        <p>Copyright &copy; {new Date().getFullYear()}, Silfavell Inc</p>
                     </div>
-
                 </div>
             </div>
         </footer>

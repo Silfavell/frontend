@@ -22,7 +22,7 @@ class Shop extends React.Component {
                                             <div class='dropdown mr-1 ml-md-auto'>
                                                 <button type='button' class='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuOffset' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                                     Latest
-                                </button>
+                                                </button>
                                                 <div class='dropdown-menu' aria-labelledby='dropdownMenuOffset'>
                                                     <a class='dropdown-item' href='#'>Men</a>
                                                     <a class='dropdown-item' href='#'>Women</a>

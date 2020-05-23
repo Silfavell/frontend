@@ -4,10 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import FirstImage from '../components/FirstImage'
-
 import '../style/css/style.css'
 import '../style/css/googleMukta.css'
 

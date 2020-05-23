@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 
-import '../style/fonts/icomoon/style.css'
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
@@ -10,15 +9,6 @@ import '../style/css/style.css'
 function Navbar() {
     return (
         <div className='site-navbar bg-white py-2'>
-
-            <div className='search-wrap'>
-                <div className='container'>
-                    <a href='#' className='search-close js-search-close'><span className='icon-close2'></span></a>
-                    <form action='#' method='post'>
-                        <input type='text' className='form-control' placeholder='Search keyword and hit enter...' />
-                    </form>
-                </div>
-            </div>
 
             <div className='container'>
                 <div className='d-flex align-items-center justify-content-between'>
@@ -58,8 +48,6 @@ function Navbar() {
                         </nav>
                     </div>
                     <div className='icons'>
-                        <a href='#' className='icons-btn d-inline-block js-search-open'><span className='icon-search'></span></a>
-                        <a href='#' className='icons-btn d-inline-block'><span className='icon-heart-o'></span></a>
                         <a href='/cart' className='icons-btn d-inline-block bag'>
                             <span className='icon-shopping-bag'></span>
                             <span className='number'>2</span>
