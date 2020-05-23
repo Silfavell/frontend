@@ -49,7 +49,7 @@ function Navbar() {
                                 <li><a href='/shop'>Shop</a></li>
                                 <li><a href='#'>Catalogue</a></li>
                                 <li><a href='#'>New Arrivals</a></li>
-                                <li class='active'><a href='/contact'>Contact</a></li>
+                                <li class='active'><a href='#'>Contact (footera taşındı)</a></li>
                             </ul>
                         </nav>
                     </div>

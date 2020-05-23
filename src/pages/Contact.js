@@ -9,7 +9,6 @@ import '../style/css/style.css'
 
 import Footer from '../components/Footer'
 import NavBar from '../components/Navbar'
-import FirstImage from '../components/FirstImage'
 
 import bg from '../style/images/hero_2.jpg'
 
@@ -17,17 +16,6 @@ function Contact() {
   return (
     <div class='site-wrap'>
       <NavBar />
-      <FirstImage />
-
-      <div class='custom-border-bottom py-3'>
-        <div class='container'>
-          <div class='row'>
-            <div class='col-md-12 mb-0'><a href='index.html'>Home</a> <span class='mx-2 mb-0'>/</span> <strong class='text-black'>Contact</strong></div>
-          </div>
-        </div>
-      </div>
-
-
       <div class='site-section'>
         <div class='container'>
           <div class='row'>
@@ -89,7 +77,6 @@ function Contact() {
                 <span class='d-block text-primary h6 text-uppercase'>Canada</span>
                 <p class='mb-0'>203 Fake St. Mountain View, San Francisco, California, USA</p>
               </div>
-
             </div>
           </div>
         </div>

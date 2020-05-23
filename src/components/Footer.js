@@ -44,7 +44,8 @@ function Footer() {
                             </div>
                             <div class='col-md-6 col-lg-4'>
                                 <ul class='list-unstyled'>
-                                    <li><a href='#'>Point of sale</a></li>
+                                    <li><a href='about-us'>Hakkımızda</a></li>
+                                    <li><a href='contact'>İletişim</a></li>
                                     <li><a href='#'>Hardware</a></li>
                                     <li><a href='#'>Software</a></li>
                                 </ul>
