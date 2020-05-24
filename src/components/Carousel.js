@@ -4,10 +4,8 @@ import { Carousel } from 'react-bootstrap'
 
 import Product from './Product'
 
-import img from '../style/images/prod_1.png'
-
 const product = {
-    img,
+    img: `${process.env.PUBLIC_URL}/product.jpg`,
     name: 'Black and White stripes Dress',
     price: 114.50
 }
