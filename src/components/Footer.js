@@ -64,10 +64,14 @@ function Footer() {
                         </div>
 
                         <div className='block-7'>
-                            <div className="row">
-                                <img className='col-md-6' alt='' src={`${process.env.PUBLIC_URL}/google-play.png`} />
-                                <img className='col-md-6' alt='' src={`${process.env.PUBLIC_URL}/apple-store.png`} />
-                            </div>
+                            {
+                                /*
+                                <div className="row">
+                                    <img className='col-md-6' alt='' src={`${process.env.PUBLIC_URL}/google-play.png`} />
+                                    <img className='col-md-6' alt='' src={`${process.env.PUBLIC_URL}/apple-store.png`} />
+                                </div>
+                                */
+                            }
                             {
                                 /*
                                 <form action='#' method='post'>
