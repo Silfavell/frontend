@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import { IoMdPerson, IoIosBasket } from 'react-icons/io'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -49,8 +50,11 @@ class Navbar extends React.Component {
                             </nav>
                         </div>
                         <div className='icons'>
+                            <a href='/sign-in' className='icons-btn d-inline-block bag'>
+                                <IoMdPerson size={26} />
+                            </a>
                             <a href='/cart' className='icons-btn d-inline-block bag'>
-                                <span className='icon-shopping-bag'></span>
+                                <IoIosBasket size={26} />
                                 <span className='number'>2</span>
                             </a>
                             <a href='#' className='site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none'><span className='icon-menu'></span></a>

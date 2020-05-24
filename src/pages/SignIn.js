@@ -14,43 +14,45 @@ class SignIn extends React.Component {
         return (
             <SiteWrap divider>
                 <div className='container'>
-                    <div className="col-md-12 d-flex align-items-center justify-content-center">
+                    <div className='col-md-12 d-flex align-items-center justify-content-center'>
                         <div className='col-md-6'>
-                            <form action='#' method='post'>
-                                <div className='p-3 p-lg-5'>
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='c_email' className='text-black'>E-Posta</label>
-                                            <input type='email' className='form-control' id='c_email' name='c_email' placeholder='E-Posta adresinizi giriniz' />
-                                        </div>
-                                    </div>
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='password' className='text-black'>Password</label>
-                                            <input type='password' className='form-control' id='password' name='password' placeholder='Şifrenizi giriniz' />
-                                        </div>
-                                    </div>
-                                    <div className='form-group row'>
-                                        <div className='col-md-6 d-flex align-items-center justify-content-start'>
-                                            <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' />
-                                            <label htmlFor='dont-forget' className='form-check-label ml-2'>Beni Unutma</label>
-                                        </div>
-                                        <div className='col-md-6 d-flex align-items-flex-end justify-content-end'>
-                                            <a href='forgot-password'>Şifremi Unuttum</a>
-                                        </div>
-                                    </div>
-                                    <div className='form-group row'>
-                                        <div className='col-lg-12'>
-                                            <input type='submit' className='btn btn-primary btn-lg btn-block' value='Oturum Aç' />
-                                        </div>
-                                    </div>
-                                    <div className='form-group row'>
-                                        <div className='col-lg-12'>
-                                            <input type='submit' className='btn btn-primary btn-lg btn-block' value='Üye Ol' />
-                                        </div>
+                            <div className='p-3 p-lg-5'>
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='c_email' className='text-black'>E-Posta</label>
+                                        <input type='email' className='form-control' id='c_email' name='c_email' placeholder='E-Posta adresinizi giriniz' />
                                     </div>
                                 </div>
-                            </form>
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='password' className='text-black'>Password</label>
+                                        <input type='password' className='form-control' id='password' name='password' placeholder='Şifrenizi giriniz' />
+                                    </div>
+                                </div>
+                                <div className='form-group row'>
+                                    <div className='col-md-6 d-flex align-items-center justify-content-start'>
+                                        <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' />
+                                        <label htmlFor='dont-forget' className='form-check-label ml-2'>Beni Unutma</label>
+                                    </div>
+                                    <div className='col-md-6 d-flex align-items-flex-end justify-content-end'>
+                                        <a href='forgot-password'>Şifremi Unuttum</a>
+                                    </div>
+                                </div>
+                                <div className='form-group row'>
+                                    <div className='col-lg-12'>
+                                        <a href='/sign-in'>
+                                            <button className='btn btn-primary btn-lg btn-block'>Oturum Aç</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className='row'>
+                                    <div className='col-lg-12'>
+                                        <a href='/sign-up'>
+                                            <button className='btn btn-primary btn-lg btn-block'>Üye Ol</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
