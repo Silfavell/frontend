@@ -21,15 +21,14 @@ class SignUp extends React.Component {
 
                                     <div className='form-group row'>
                                         <div className='col-md-12'>
-                                            <label htmlFor='name' className='text-black'>Name <span className='text-danger'>*</span></label>
-                                            <input type='name' className='form-control' id='name' name='name' placeholder='Adınızı giriniz' />
-                                        </div>
-                                    </div>
-
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='surname' className='text-black'>Surname <span className='text-danger'>*</span></label>
-                                            <input type='name' className='form-control' id='surname' name='surname' placeholder='Soyadınızı giriniz' />
+                                            <label htmlFor='nameSurname' className='text-black'>Name Surname <span className='text-danger'>*</span></label>
+                                            <input
+                                                onChange={this.onNameSurnameChange}
+                                                type='name'
+                                                className='form-control'
+                                                id='nameSurname'
+                                                name='nameSurname'
+                                                placeholder='Adınız ve Soyadınızı giriniz' />
                                         </div>
                                     </div>
 

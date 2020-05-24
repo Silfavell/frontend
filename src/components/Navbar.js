@@ -2,12 +2,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { IoMdPerson, IoIosBasket } from 'react-icons/io'
+import Cookies from 'universal-cookie'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
 
+const cookies = new Cookies()
+
 class Navbar extends React.Component {
+
+    onPersonClick = () => {
+        return cookies.get('token') ? '/edit-profile' : '/sign-in'
+    }
+
     render() {
         return (
             <div className={`site-navbar bg-white py-2 ${!this.props.firstImage ? 'custom-border-bottom' : ''}`}>
@@ -50,7 +58,7 @@ class Navbar extends React.Component {
                             </nav>
                         </div>
                         <div className='icons'>
-                            <a href='/sign-in' className='icons-btn d-inline-block bag'>
+                            <a href={this.onPersonClick()} className='icons-btn d-inline-block bag'>
                                 <IoMdPerson size={26} />
                             </a>
                             <a href='/cart' className='icons-btn d-inline-block bag'>
