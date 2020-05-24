@@ -28,7 +28,7 @@ class Product extends React.Component {
                         </div>
 
                         <div className='bottom col-md-12'>
-                            <div className='col-md-6 d-flex align-items-center justify-content-center text-white inspect'>Incele</div>
+                            <a href={'/123'} className='col-md-6 d-flex align-items-center justify-content-center text-white inspect'>Incele</a>
                             <div className='col-md-6 d-flex align-items-center justify-content-center text-white add-to-cart'>Sepete Ekle</div>
                         </div>
                     </div>

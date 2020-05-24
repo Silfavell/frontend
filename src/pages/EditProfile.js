@@ -13,37 +13,11 @@ import SiteWrap from '../components/SiteWrap'
 
 const cookies = new Cookies()
 
-class SignIn extends React.Component {
+class EditProfile extends React.Component {
 
     state = {
         phoneNumber: '905466666666',
         password: '1234'
-    }
-
-    onSignInClick = () => {
-        const url = `${process.env.REACT_APP_API_URL}/login`
-
-        axios.post(url, this.state).then(({ status, data }) => {
-            if (status === 200) {
-                cookies.set('token', data.token)
-                cookies.set('user', JSON.stringify(data.user))
-                this.props.history.push('/')
-            }
-        })
-    }
-
-    onPhoneChange = (event) => {
-        this.setState({ phoneNumber: event.target.value })
-    }
-
-    onPasswordChange = (event) => {
-        this.setState({ password: event.target.value })
-    }
-
-    UNSAFE_componentWillMount() {
-        if (cookies.get('token')) {
-            this.props.history.push('/')
-        }
     }
 
     render() {
@@ -109,4 +83,4 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn
+export default EditProfile

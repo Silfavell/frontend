@@ -29,25 +29,17 @@ function Footer() {
                             </div>
                             <div className='col-md-6 col-lg-4'>
                                 <ul className='list-unstyled'>
-                                    <li><a href='#'>Sell online</a></li>
-                                    <li><a href='#'>Features</a></li>
-                                    <li><a href='#'>Shopping cart</a></li>
-                                    <li><a href='#'>Store builder</a></li>
-                                </ul>
-                            </div>
-                            <div className='col-md-6 col-lg-4'>
-                                <ul className='list-unstyled'>
-                                    <li><a href='#'>Mobile commerce</a></li>
-                                    <li><a href='#'>Dropshipping</a></li>
-                                    <li><a href='#'>Website development</a></li>
-                                </ul>
-                            </div>
-                            <div className='col-md-6 col-lg-4'>
-                                <ul className='list-unstyled'>
                                     <li><a href='about-us'>Hakkımızda</a></li>
                                     <li><a href='contact'>İletişim</a></li>
-                                    <li><a href='#'>Hardware</a></li>
-                                    <li><a href='#'>Software</a></li>
+                                </ul>
+                            </div>
+                            <div className='col-md-6 col-lg-4'>
+                                <ul className='list-unstyled'>
+                                </ul>
+                            </div>
+                            <div className='col-md-6 col-lg-4'>
+                                <ul className='list-unstyled'>
+
                                 </ul>
                             </div>
                         </div>
