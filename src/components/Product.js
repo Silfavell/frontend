@@ -16,7 +16,7 @@ class Product extends React.Component {
             <div className='col-md-3 ml-auto d-relative product'>
                 <div className='position-relative interface-container'>
                     <img
-                        src={process.env.PUBLIC_URL + '/product.jpg'}
+                        src={img}
                         alt=''
                         className='w-100' />
 

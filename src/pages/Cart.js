@@ -3,6 +3,14 @@
 import React from 'react'
 
 import SiteWrap from '../components/SiteWrap'
+import CartItem from '../components/CartItem'
+
+const cartItem = {
+    img: process.env.PUBLIC_URL + '/product.jpg',
+    name: 'Top Up T - Shirt',
+    price: 72.35,
+    quantity: 2
+}
 
 class Cart extends React.Component {
     render() {
@@ -14,53 +22,8 @@ class Cart extends React.Component {
                             <div class='site-blocks-table'>
                                 <table class='table border'>
                                     <tbody>
-                                        <tr>
-                                            <td class='product-thumbnail'>
-                                                <img src={`${process.env.PUBLIC_URL}/product.jpg`} alt='Image' class='img-fluid' />
-                                            </td>
-                                            <td class='product-name'>
-                                                <h2 class='h5 text-black'>Top Up T-Shirt</h2>
-                                            </td>
-                                            <td>$49.00</td>
-                                            <td>
-                                                <div class='input-group mb-3' style={{ maxWidth: 120 }}>
-                                                    <div class='input-group-prepend'>
-                                                        <button class='btn btn-outline-primary js-btn-minus' type='button'>&#43;</button>
-                                                    </div>
-                                                    <input type='text' class='form-control text-center' value='1' placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1' />
-                                                    <div class='input-group-append'>
-                                                        <button class='btn btn-outline-primary js-btn-plus' type='button'>&#45;</button>
-                                                    </div>
-                                                </div>
-
-                                            </td>
-                                            <td>$49.00</td>
-                                            <td><a href='#' class='btn btn-primary height-auto btn-sm'>X</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class='product-thumbnail'>
-                                                <img src={`${process.env.PUBLIC_URL}/product.jpg`} alt='Image' class='img-fluid' />
-                                            </td>
-                                            <td class='product-name'>
-                                                <h2 class='h5 text-black'>Polo Shirt</h2>
-                                            </td>
-                                            <td>$49.00</td>
-                                            <td>
-                                                <div class='input-group mb-3' style={{ maxWidth: 120 }}>
-                                                    <div class='input-group-prepend'>
-                                                        <button class='btn btn-outline-primary js-btn-minus' type='button'>&#43;</button>
-                                                    </div>
-                                                    <input type='text' class='form-control text-center' value='1' placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1' />
-                                                    <div class='input-group-append'>
-                                                        <button class='btn btn-outline-primary js-btn-plus' type='button'>&#45;</button>
-                                                    </div>
-                                                </div>
-
-                                            </td>
-                                            <td>$49.00</td>
-                                            <td><a href='#' class='btn btn-primary height-auto btn-sm'>X</a></td>
-                                        </tr>
+                                        <CartItem item={cartItem} />
+                                        <CartItem item={cartItem} />
                                     </tbody>
                                 </table>
                             </div>
