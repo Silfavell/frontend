@@ -14,8 +14,14 @@ const cookies = new Cookies()
 
 class EditProfile extends React.Component {
 
+    state = {}
+
     UNSAFE_componentWillMount() {
-        this.setState(cookies.get('user'))
+        if (cookies.get('user')) { // TODO cookie'ye set etmek yerine request ile almak daha mantılı, cookie editlenebilir.
+            this.setState(cookies.get('user'))
+        } else {
+            this.props.history.push('/')
+        }
     }
 
     onNameSurnameChange = (event) => {
@@ -31,7 +37,6 @@ class EditProfile extends React.Component {
     }
 
     render() {
-
         const {
             nameSurname,
             email,
@@ -45,7 +50,7 @@ class EditProfile extends React.Component {
                         <div className='col-md-6'>
                             <form action='#' method='post'>
                                 <div className='p-3 p-lg-5'>
-                                
+
                                     <div className='form-group row'>
                                         <div className='col-md-12'>
                                             <label htmlFor='nameSurname' className='text-black'>Name Surname <span className='text-danger'>*</span></label>
@@ -88,13 +93,13 @@ class EditProfile extends React.Component {
                                     </div>
 
                                     {   /*
-                                        <div className='form-group row'>
-                                            <div className='col-md-12 d-flex align-items-md-start justify-content-md-start'>
-                                                <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' checked />
-                                                <label htmlFor='dont-forget' className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
+                                            <div className='form-group row'>
+                                                <div className='col-md-12 d-flex align-items-md-start justify-content-md-start'>
+                                                    <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' checked />
+                                                    <label htmlFor='dont-forget' className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        */
+                                            */
                                     }
 
                                     <div className='form-group row'>
