@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { IoMdPerson, IoIosBasket } from 'react-icons/io'
+import { IoMdPerson, IoIosBasket, IoMdMenu } from 'react-icons/io'
 import Cookies from 'universal-cookie'
 
 import '../style/css/googleMukta.css'
@@ -112,9 +112,13 @@ class Navbar extends React.Component {
                                             <span className='number'>2</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href='#' className='site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none'>
+                                            <IoMdMenu size={26} />
+                                        </a>
+                                    </li>
                                 </div>
                             </div>
-                            <a href='#' className='site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none'><span className='icon-menu'></span></a>
                         </div>
                     </div>
                 </div>
