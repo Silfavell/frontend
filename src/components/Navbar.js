@@ -12,13 +12,26 @@ const cookies = new Cookies()
 
 class Navbar extends React.Component {
 
+    state = {
+        loggedIn: cookies.get('token')
+    }
+
+    onLogoutClick = () => {
+        cookies.remove('token')
+        cookies.remove('user')
+        this.setState({
+            loggedIn: false
+        })
+    }
+
     renderPersonMenu = () => {
-        if (cookies.get('token')) {
+        if (this.state.loggedIn) {
             return (
                 <ul className='dropdown'>
                     <li><a href='#'>Menu One</a></li>
                     <li><a href='#'>Menu Two</a></li>
-                    <li><a href='/edit-profile'>Profilimi düzenle</a></li>
+                    <li><a href='/edit-profile'>Profilimi Düzenle</a></li>
+                    <li><div onClick={this.onLogoutClick}>Çıkış Yap</div></li>
                     {
                         /*
                             <li className='has-children'>
