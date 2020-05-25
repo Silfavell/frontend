@@ -88,6 +88,7 @@ class EditProfile extends React.Component {
                                                 id='phone'
                                                 name='phone'
                                                 placeholder='Telefon Numaranızı giriniz'
+                                                disabled
                                                 value={phoneNumber} />
                                         </div>
                                     </div>
