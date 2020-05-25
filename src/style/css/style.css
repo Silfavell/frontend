@@ -31,6 +31,10 @@ a:hover {
     color: #000;
 }
 
+.site-wrap {
+    overflow-x: hidden;
+}
+
 .site-wrap:before {
     -webkit-transition: .3s all ease-in-out;
     -o-transition: .3s all ease-in-out;
