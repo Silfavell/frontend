@@ -6,6 +6,8 @@ import {
 } from 'react-router-dom'
 import 'dotenv/config'
 
+import axios from './utils/axios'
+
 import Home from './pages/Home'
 import Contact from './pages/Contact'
 import ShopSingle from './pages/ShopSingle'
@@ -15,6 +17,9 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Cart from './pages/Cart'
 import EditProfile from './pages/EditProfile'
+import UpdatePassword from './pages/UpdatePassword'
+
+axios()
 
 class App extends React.Component {
     render() {
@@ -29,6 +34,7 @@ class App extends React.Component {
                     <Route exact path='/sign-up' component={SignUp} />
                     <Route exact path='/cart' component={Cart} />
                     <Route exact path='/edit-profile' component={EditProfile} />
+                    <Route exact path='/update-password' component={UpdatePassword} />
                     <Route exact path='/:_id' component={ShopSingle} />
                 </Switch>
             </Router >
