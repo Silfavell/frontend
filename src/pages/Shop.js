@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
+import axios from 'axios'
 
 import SiteWrap from '../components/SiteWrap'
 import ShopProduct from '../components/ShopProduct'
@@ -16,6 +17,18 @@ const product = {
 }
 
 class Shop extends React.Component {
+
+    state = {
+        categories: [],
+        products: []
+    }
+
+    UNSAFE_componentWillMount() {
+        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => {
+            this.setState({ categories: data })
+        })
+    }
+
     render() {
         return (
             <SiteWrap divider firstImage>
@@ -83,9 +96,11 @@ class Shop extends React.Component {
                             <div class='border p-4 rounded mb-4'>
                                 <h3 class='mb-3 h6 text-uppercase text-black d-block'>Categories</h3>
                                 <ul class='list-unstyled mb-0'>
-                                    <li class='mb-1'><a href='#' class='d-flex'><span>Men</span> <span class='text-black ml-auto'>(2,220)</span></a></li>
-                                    <li class='mb-1'><a href='#' class='d-flex'><span>Women</span> <span class='text-black ml-auto'>(2,550)</span></a></li>
-                                    <li class='mb-1'><a href='#' class='d-flex'><span>Children</span> <span class='text-black ml-auto'>(2,124)</span></a></li>
+                                    {
+                                        this.state.categories.map((category) => (
+                                            <li class='mb-1'><a href='#' class='d-flex'><span>{category.name}</span> <span class='text-black ml-auto'>(2,220)</span></a></li>
+                                        ))
+                                    }
                                 </ul>
                             </div>
 
