@@ -4,7 +4,6 @@ import {
     Switch,
     Route
 } from 'react-router-dom'
-import 'dotenv/config'
 
 import axios from './utils/axios'
 
