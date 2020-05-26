@@ -9,23 +9,27 @@ import ShopProduct from '../components/ShopProduct'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
 
-
-const product = {
-    img: `${process.env.PUBLIC_URL}/product.jpg`,
-    name: 'Black and White stripes Dress',
-    price: 114.50
-}
-
 class Shop extends React.Component {
 
     state = {
         categories: [],
-        products: []
+        products: [],
+        page: 0
+    }
+
+    onCategoryClick = (categoryId) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/products-by-range?categoryId=${categoryId}&start=${this.state.page * 10}&quantity=10`).then(({ data }) => {
+            this.setState({ products: data })
+        })
     }
 
     UNSAFE_componentWillMount() {
         axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => {
             this.setState({ categories: data })
+
+            axios.get(`${process.env.REACT_APP_API_URL}/products-by-range?categoryId=${data[0]._id}&start=0&quantity=10`).then(({ data }) => {
+                this.setState({ products: data })
+            })
         })
     }
 
@@ -64,16 +68,11 @@ class Shop extends React.Component {
                                 </div>
                             </div>
                             <div class='row mb-5'>
-                                <ShopProduct item={product} />
-                                <ShopProduct item={product} />
-                                <ShopProduct item={product} />
-                                <ShopProduct item={product} />
-                                <ShopProduct item={product} />
-                                <ShopProduct item={product} />
-                                <ShopProduct item={product} />
-                                <ShopProduct item={product} />
-                                <ShopProduct item={product} />
-                                <ShopProduct item={product} />
+                                {
+                                    this.state.products.map((product) => (
+                                        <ShopProduct item={JSON.parse(product)} />
+                                    ))
+                                }
                             </div>
                             <div class='row'>
                                 <div class='col-md-12 text-center'>
@@ -98,7 +97,11 @@ class Shop extends React.Component {
                                 <ul class='list-unstyled mb-0'>
                                     {
                                         this.state.categories.map((category) => (
-                                            <li class='mb-1'><a href='#' class='d-flex'><span>{category.name}</span> <span class='text-black ml-auto'>(2,220)</span></a></li>
+                                            <li class='mb-1'>
+                                                <span class='d-flex text-primary' style={{ cursor: 'pointer' }} onClick={() => this.onCategoryClick(category._id)}>
+                                                    <span>{category.name}</span> <span class='text-black ml-auto'>(2,220)</span>
+                                                </span>
+                                            </li>
                                         ))
                                     }
                                 </ul>
