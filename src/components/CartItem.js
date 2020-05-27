@@ -1,9 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
+import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 class CartItem extends React.Component {
+
+    onIncreaseClick = () => {
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then((res) => {
+            alert('Ürün sepete eklendi (1)')
+        })
+    }
+
+    onDecreaseClick = () => {
+        axios.delete(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then((res) => {
+            alert('Ürün sepetten çıkarıldı (1)')
+        })
+    }
+
     render() {
         const {
             img,
@@ -11,7 +25,7 @@ class CartItem extends React.Component {
             price,
             quantity
         } = this.props.item
-        
+
         return (
             <tr>
                 <td class='product-thumbnail'>
@@ -24,17 +38,19 @@ class CartItem extends React.Component {
                 <td>
                     <div class='input-group mb-3' style={{ maxWidth: 120 }}>
                         <div class='input-group-prepend'>
-                            <button class='btn btn-outline-primary js-btn-minus' type='button'>&#43;</button>
+                            <button class='btn btn-outline-primary js-btn-minus' type='button' onClick={this.onDecreaseClick}>&#45;</button>
                         </div>
                         <input type='text' class='form-control text-center' value={quantity} placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1' />
                         <div class='input-group-append'>
-                            <button class='btn btn-outline-primary js-btn-plus' type='button'>&#45;</button>
+                            <button class='btn btn-outline-primary js-btn-plus' type='button' onClick={this.onIncreaseClick}>&#43;</button>
                         </div>
                     </div>
 
                 </td>
                 <td>{'₺' + price.toFixed(2).toString().replace('.', ',')}</td>
-                <td><a href='#' class='btn btn-primary height-auto btn-sm'>X</a></td>
+                {
+                    // <td><a href='#' class='btn btn-primary height-auto btn-sm'>X</a></td>
+                }
             </tr>
         )
     }
