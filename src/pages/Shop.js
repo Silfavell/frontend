@@ -64,47 +64,47 @@ class Shop extends React.Component {
         } else {
             return (
                 <SiteWrap divider firstImage>
-                    <div class='container'>
-                        <div class='row mb-5'>
-                            <div class='col-md-9 order-1'>
-                                <div class='row align'>
-                                    <div class='col-md-12 mb-5'>
-                                        <div class='float-md-left'><h2 class='text-black h5'>Shop All</h2></div>
-                                        <div class='d-flex'>
-                                            <div class='dropdown mr-1 ml-md-auto'>
-                                                <button type='button' class='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuOffset' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                    <div className='container'>
+                        <div className='row mb-5'>
+                            <div className='col-md-9 order-1'>
+                                <div className='row align'>
+                                    <div className='col-md-12 mb-5'>
+                                        <div className='float-md-left'><h2 className='text-black h5'>Shop All</h2></div>
+                                        <div className='d-flex'>
+                                            <div className='dropdown mr-1 ml-md-auto'>
+                                                <button type='button' className='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuOffset' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                                     Latest
                                                     </button>
-                                                <div class='dropdown-menu' aria-labelledby='dropdownMenuOffset'>
-                                                    <a class='dropdown-item' href='#'>Men</a>
-                                                    <a class='dropdown-item' href='#'>Women</a>
-                                                    <a class='dropdown-item' href='#'>Children</a>
+                                                <div className='dropdown-menu' aria-labelledby='dropdownMenuOffset'>
+                                                    <a className='dropdown-item' href='#'>Men</a>
+                                                    <a className='dropdown-item' href='#'>Women</a>
+                                                    <a className='dropdown-item' href='#'>Children</a>
                                                 </div>
                                             </div>
-                                            <div class='btn-group'>
-                                                <button type='button' class='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuReference' data-toggle='dropdown'>Reference</button>
-                                                <div class='dropdown-menu' aria-labelledby='dropdownMenuReference'>
-                                                    <a class='dropdown-item' href='#'>Relevance</a>
-                                                    <a class='dropdown-item' href='#'>Name, A to Z</a>
-                                                    <a class='dropdown-item' href='#'>Name, Z to A</a>
-                                                    <div class='dropdown-divider'></div>
-                                                    <a class='dropdown-item' href='#'>Price, low to high</a>
-                                                    <a class='dropdown-item' href='#'>Price, high to low</a>
+                                            <div className='btn-group'>
+                                                <button type='button' className='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuReference' data-toggle='dropdown'>Reference</button>
+                                                <div className='dropdown-menu' aria-labelledby='dropdownMenuReference'>
+                                                    <a className='dropdown-item' href='#'>Relevance</a>
+                                                    <a className='dropdown-item' href='#'>Name, A to Z</a>
+                                                    <a className='dropdown-item' href='#'>Name, Z to A</a>
+                                                    <div className='dropdown-divider'></div>
+                                                    <a className='dropdown-item' href='#'>Price, low to high</a>
+                                                    <a className='dropdown-item' href='#'>Price, high to low</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class='row mb-5'>
+                                <div className='row mb-5'>
                                     {
                                         this.state.products.map((product) => (
                                             <ShopProduct item={JSON.parse(product)} />
                                         ))
                                     }
                                 </div>
-                                <div class='row'>
-                                    <div class='col-md-12 text-center'>
-                                        <div class='site-block-27'>
+                                <div className='row'>
+                                    <div className='col-md-12 text-center'>
+                                        <div className='site-block-27'>
                                             <ul>
                                                 <li style={{ marginLeft: 5, cursor: 'pointer' }}><span>&lt;</span></li>
                                                 {
@@ -112,7 +112,7 @@ class Shop extends React.Component {
                                                     Array.from(new Array(Math.ceil(this.state.productsLength / 18))).map((_, index) => (
                                                         <li
                                                             style={{ marginLeft: 5, cursor: 'pointer' }}
-                                                            class={index === this.state.page ? 'active' : ''}
+                                                            className={index === this.state.page ? 'active' : ''}
                                                             onClick={() => this.onPageClick(index)}
                                                         >
 
@@ -128,14 +128,14 @@ class Shop extends React.Component {
                                 </div>
                             </div>
 
-                            <div class='col-md-3 order-2 mb-5 mb-md-0'>
-                                <div class='border p-4 rounded mb-4'>
-                                    <h3 class='mb-3 h6 text-uppercase text-black d-block'>Categories</h3>
-                                    <ul class='list-unstyled mb-0'>
+                            <div className='col-md-3 order-2 mb-5 mb-md-0'>
+                                <div className='border p-4 rounded mb-4'>
+                                    <h3 className='mb-3 h6 text-uppercase text-black d-block'>Categories</h3>
+                                    <ul className='list-unstyled mb-0'>
                                         {
                                             this.state.categories.map((category) => (
-                                                <li class='mb-1'>
-                                                    <span class='d-flex text-primary' style={{ cursor: 'pointer' }} onClick={() => this.onCategoryClick(category._id)}>
+                                                <li className='mb-1'>
+                                                    <span className='d-flex text-primary' style={{ cursor: 'pointer' }} onClick={() => this.onCategoryClick(category._id)}>
                                                         <span>{category.name}</span>
                                                     </span>
                                                 </li>
@@ -144,39 +144,39 @@ class Shop extends React.Component {
                                     </ul>
                                 </div>
 
-                                <div class='border p-4 rounded mb-4'>
-                                    <div class='mb-4'>
-                                        <h3 class='mb-3 h6 text-uppercase text-black d-block'>Filter by Price</h3>
-                                        <div id='slider-range' class='border-primary'></div>
-                                        <input type='text' name='text' id='amount' class='form-control border-0 pl-0 bg-white' disabled='' />
+                                <div className='border p-4 rounded mb-4'>
+                                    <div className='mb-4'>
+                                        <h3 className='mb-3 h6 text-uppercase text-black d-block'>Filter by Price</h3>
+                                        <div id='slider-range' className='border-primary'></div>
+                                        <input type='text' name='text' id='amount' className='form-control border-0 pl-0 bg-white' disabled='' />
                                     </div>
 
-                                    <div class='mb-4'>
-                                        <h3 class='mb-3 h6 text-uppercase text-black d-block'>Size</h3>
-                                        <label for='s_sm' class='d-flex'>
-                                            <input type='checkbox' id='s_sm' class='mr-2 mt-1' /> <span class='text-black'>Small (2,319)</span>
+                                    <div className='mb-4'>
+                                        <h3 className='mb-3 h6 text-uppercase text-black d-block'>Size</h3>
+                                        <label htmlFor='s_sm' className='d-flex'>
+                                            <input type='checkbox' id='s_sm' className='mr-2 mt-1' /> <span className='text-black'>Small (2,319)</span>
                                         </label>
-                                        <label for='s_md' class='d-flex'>
-                                            <input type='checkbox' id='s_md' class='mr-2 mt-1' /> <span class='text-black'>Medium (1,282)</span>
+                                        <label htmlFor='s_md' className='d-flex'>
+                                            <input type='checkbox' id='s_md' className='mr-2 mt-1' /> <span className='text-black'>Medium (1,282)</span>
                                         </label>
-                                        <label for='s_lg' class='d-flex'>
-                                            <input type='checkbox' id='s_lg' class='mr-2 mt-1' /> <span class='text-black'>Large (1,392)</span>
+                                        <label htmlFor='s_lg' className='d-flex'>
+                                            <input type='checkbox' id='s_lg' className='mr-2 mt-1' /> <span className='text-black'>Large (1,392)</span>
                                         </label>
                                     </div>
 
-                                    <div class='mb-4'>
-                                        <h3 class='mb-3 h6 text-uppercase text-black d-block'>Color</h3>
-                                        <a href='#' class='d-flex color-item align-items-center' >
-                                            <span class='bg-danger color d-inline-block rounded-circle mr-2'></span> <span class='text-black'>Red (2,429)</span>
+                                    <div className='mb-4'>
+                                        <h3 className='mb-3 h6 text-uppercase text-black d-block'>Color</h3>
+                                        <a href='#' className='d-flex color-item align-items-center' >
+                                            <span className='bg-danger color d-inline-block rounded-circle mr-2'></span> <span className='text-black'>Red (2,429)</span>
                                         </a>
-                                        <a href='#' class='d-flex color-item align-items-center' >
-                                            <span class='bg-success color d-inline-block rounded-circle mr-2'></span> <span class='text-black'>Green (2,298)</span>
+                                        <a href='#' className='d-flex color-item align-items-center' >
+                                            <span className='bg-success color d-inline-block rounded-circle mr-2'></span> <span className='text-black'>Green (2,298)</span>
                                         </a>
-                                        <a href='#' class='d-flex color-item align-items-center' >
-                                            <span class='bg-info color d-inline-block rounded-circle mr-2'></span> <span class='text-black'>Blue (1,075)</span>
+                                        <a href='#' className='d-flex color-item align-items-center' >
+                                            <span className='bg-info color d-inline-block rounded-circle mr-2'></span> <span className='text-black'>Blue (1,075)</span>
                                         </a>
-                                        <a href='#' class='d-flex color-item align-items-center' >
-                                            <span class='bg-primary color d-inline-block rounded-circle mr-2'></span> <span class='text-black'>Purple (1,075)</span>
+                                        <a href='#' className='d-flex color-item align-items-center' >
+                                            <span className='bg-primary color d-inline-block rounded-circle mr-2'></span> <span className='text-black'>Purple (1,075)</span>
                                         </a>
                                     </div>
                                 </div>

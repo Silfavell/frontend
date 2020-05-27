@@ -79,7 +79,7 @@ function Footer() {
                     </div>
                 </div>
                 <div className='row pt-5 mt-5 text-center'>
-                    <div class="col-md-12">
+                    <div className="col-md-12">
                         <p>Copyright &copy; {new Date().getFullYear()}, Silfavell Inc</p>
                     </div>
                 </div>
