@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import axios from 'axios'
 import { IoMdPerson, IoIosBasket, IoMdMenu } from 'react-icons/io'
 import Cookies from 'universal-cookie'
 
@@ -13,7 +14,14 @@ const cookies = new Cookies()
 class Navbar extends React.Component {
 
     state = {
-        loggedIn: cookies.get('token')
+        loggedIn: cookies.get('token'),
+        productsLength: 0
+    }
+
+    UNSAFE_componentWillMount() {
+        axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => {
+            this.setState({ productsLength: data ? Object.values(data).length : 0 })
+        })
     }
 
     onLogoutClick = () => {
@@ -109,7 +117,7 @@ class Navbar extends React.Component {
                                     <li>
                                         <a href='/cart' className='icons-btn d-inline-block bag'>
                                             <IoIosBasket size={26} />
-                                            <span className='number'>2</span>
+                                            <span className='number'>{this.state.productsLength}</span>
                                         </a>
                                     </li>
                                     <li>
