@@ -15,27 +15,37 @@ class Shop extends React.Component {
     state = {
         categories: [],
         products: [],
+        productsLength: 0,
+        categoryId: null,
         page: 0,
         fetching: true
     }
 
-    onCategoryClick = (categoryId) => {
+    fetchProducts = () => {
         this.setState({ fetching: true })
-        axios.get(`${process.env.REACT_APP_API_URL}/products-by-range?categoryId=${categoryId}&start=${this.state.page * 10}&quantity=10`).then(({ data }) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/products-by-range?categoryId=${this.state.categoryId}&start=${this.state.page * 10}&quantity=9`).then(({ data }) => {
             this.setState({ products: data, fetching: false })
         })
     }
 
+    onCategoryClick = (categoryId) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/products-length/${categoryId}`).then(({ data }) => {
+            this.setState({ categoryId, productsLength: data }, () => {
+                this.fetchProducts()
+            })
+        })
+    }
+
     onPageClick = (page) => {
-        this.setState({ page })
+        this.setState({ page }, () => {
+            this.fetchProducts()
+        })
     }
 
     UNSAFE_componentWillMount() {
         axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => {
-            this.setState({ categories: data })
-
-            axios.get(`${process.env.REACT_APP_API_URL}/products-by-range?categoryId=${data[0]._id}&start=0&quantity=10`).then(({ data }) => {
-                this.setState({ products: data, fetching: false })
+            this.setState({ categories: data, categoryId: data[0]._id }, () => {
+                this.fetchProducts()
             })
         })
     }
@@ -93,14 +103,14 @@ class Shop extends React.Component {
                                                 <li style={{ marginLeft: 5, cursor: 'pointer' }}><span>&lt;</span></li>
                                                 {
                                                     // pages
-                                                    [1, 2, 3, 4, 5].map((page) => (
+                                                    Array.from(new Array(Math.ceil(this.state.productsLength / 10))).map((_, index) => (
                                                         <li
                                                             style={{ marginLeft: 5, cursor: 'pointer' }}
-                                                            class={page === this.state.page ? 'active' : ''}
-                                                            onClick={() => this.onPageClick(page)}
+                                                            class={index === this.state.page ? 'active' : ''}
+                                                            onClick={() => this.onPageClick(index)}
                                                         >
 
-                                                            <span>{page}</span>
+                                                            <span>{index + 1}</span>
 
                                                         </li>
                                                     ))
@@ -120,7 +130,7 @@ class Shop extends React.Component {
                                             this.state.categories.map((category) => (
                                                 <li class='mb-1'>
                                                     <span class='d-flex text-primary' style={{ cursor: 'pointer' }} onClick={() => this.onCategoryClick(category._id)}>
-                                                        <span>{category.name}</span> <span class='text-black ml-auto'>(2,220)</span>
+                                                        <span>{category.name}</span>
                                                     </span>
                                                 </li>
                                             ))
