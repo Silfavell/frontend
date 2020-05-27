@@ -43,10 +43,16 @@ class Shop extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => {
-            this.setState({ categories: data, categoryId: data[0]._id }, () => {
-                this.fetchProducts()
+        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data: categories }) => {
+
+            axios.get(`${process.env.REACT_APP_API_URL}/products-length/${categories[0]._id}`).then(({ data: productsLength }) => {
+
+                this.setState({ categories, categoryId: categories[0]._id, productsLength }, () => {
+                    this.fetchProducts()
+                })
+
             })
+
         })
     }
 
