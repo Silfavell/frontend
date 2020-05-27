@@ -21,7 +21,7 @@ class SignUp extends React.Component {
         nameSurname: '',
         email: '',
         password: '',
-        rePassword: '',
+        // rePassword: '',
         activationCode: ''
     }
 
@@ -62,9 +62,11 @@ class SignUp extends React.Component {
     }
 
     sendActivationCode = () => {
+        /*
         if (this.state.password !== this.state.rePassword) {
             alert('Yeni şifreniz tekrarı ile eşleşmemektedir')
-        } else {
+        } else { 
+        */
             const url = `${process.env.REACT_APP_API_URL}/send-activation-code`
 
             axios.post(url, {
@@ -78,7 +80,7 @@ class SignUp extends React.Component {
             }).catch((err) => {
                 alert(err.response.data)
             })
-        }
+        //}
     }
 
     renderSignUpScreen = () => {
@@ -87,7 +89,7 @@ class SignUp extends React.Component {
             nameSurname,
             email,
             password,
-            rePassword
+            // rePassword
         } = this.state
 
         return (
@@ -135,20 +137,24 @@ class SignUp extends React.Component {
                     </div>
                 </div>
 
-                <div className='form-group row'>
-                    <div className='col-md-12'>
-                        <label htmlFor='repassword' className='text-black'>Password (repeat) <span className='text-danger'>*</span></label>
-                        <input
-                            onChange={this.onRePasswordChange}
+                {
+                    /*
+                        <div className='form-group row'>
+                            <div className='col-md-12'>
+                                <label htmlFor='repassword' className='text-black'>Password (repeat) <span className='text-danger'>*</span></label>
+                                <input
+                                    onChange={this.onRePasswordChange}
 
-                            type='password'
-                            className='form-control'
-                            id='repassword'
-                            name='repassword'
-                            placeholder='Şifrenizi yeniden giriniz'
-                            value={rePassword} />
-                    </div>
-                </div>
+                                    type='password'
+                                    className='form-control'
+                                    id='repassword'
+                                    name='repassword'
+                                    placeholder='Şifrenizi yeniden giriniz'
+                                    value={rePassword} />
+                            </div>
+                        </div>
+                    */
+                }
 
                 <div className='form-group row'>
                     <div className='col-md-12'>

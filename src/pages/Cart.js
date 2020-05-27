@@ -1,18 +1,25 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
+import axios from 'axios'
 
 import SiteWrap from '../components/SiteWrap'
 import CartItem from '../components/CartItem'
 
-const cartItem = {
-    img: process.env.PUBLIC_URL + '/product.jpg',
-    name: 'Top Up T - Shirt',
-    price: 72.35,
-    quantity: 2
-}
-
 class Cart extends React.Component {
+
+    state = {
+        products: []
+    }
+
+    UNSAFE_componentWillMount() {
+        axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => {
+            if (data) {
+                this.setState({ products: Object.values(data) })
+            }
+        })
+    }
+
     render() {
         return (
             <SiteWrap divider>
@@ -22,8 +29,11 @@ class Cart extends React.Component {
                             <div class='site-blocks-table'>
                                 <table class='table border'>
                                     <tbody>
-                                        <CartItem item={cartItem} />
-                                        <CartItem item={cartItem} />
+                                        {
+                                            this.state.products.map((product) => (
+                                                <CartItem item={product} />
+                                            ))
+                                        }
                                     </tbody>
                                 </table>
                             </div>

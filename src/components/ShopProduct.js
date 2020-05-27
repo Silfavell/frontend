@@ -1,10 +1,18 @@
 import React from 'react'
+import axios from 'axios'
 import { IoMdHeartEmpty } from 'react-icons/io'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Product.css'
 
 class ShopProduct extends React.Component {
+
+    onAddToCasketClick = () => {
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then((res) => {
+            alert('Ürün sepete eklendi')
+        })
+    }
+
     render() {
         const {
             img,
@@ -29,7 +37,7 @@ class ShopProduct extends React.Component {
 
                         <div className='bottom col-md-12'>
                             <div className='col-md-6 d-flex align-items-center justify-content-center text-white inspect'>Incele</div>
-                            <div className='col-md-6 d-flex align-items-center justify-content-center text-white add-to-cart'>Sepete Ekle</div>
+                            <div className='col-md-6 d-flex align-items-center justify-content-center text-white add-to-cart' onClick={this.onAddToCasketClick}>Sepete Ekle</div>
                         </div>
                     </div>
                 </div>
