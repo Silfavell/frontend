@@ -23,7 +23,7 @@ class Shop extends React.Component {
 
     fetchProducts = () => {
         this.setState({ fetching: true })
-        axios.get(`${process.env.REACT_APP_API_URL}/products-by-range?categoryId=${this.state.categoryId}&start=${this.state.page * 10}&quantity=9`).then(({ data }) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/products-by-range?categoryId=${this.state.categoryId}&start=${this.state.page * 18}&quantity=17`).then(({ data }) => {
             this.setState({ products: data, fetching: false })
         })
     }
@@ -109,7 +109,7 @@ class Shop extends React.Component {
                                                 <li style={{ marginLeft: 5, cursor: 'pointer' }}><span>&lt;</span></li>
                                                 {
                                                     // pages
-                                                    Array.from(new Array(Math.ceil(this.state.productsLength / 10))).map((_, index) => (
+                                                    Array.from(new Array(Math.ceil(this.state.productsLength / 18))).map((_, index) => (
                                                         <li
                                                             style={{ marginLeft: 5, cursor: 'pointer' }}
                                                             class={index === this.state.page ? 'active' : ''}

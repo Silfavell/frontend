@@ -13,7 +13,7 @@ class ShopProduct extends React.Component {
         } = this.props.item
 
         return (
-            <div className='col-lg-6 col-md-6 item-entry mb-4 product'>
+            <div className='col-lg-4 col-md-4 item-entry mb-4 product'>
                 <div className='position-relative interface-container'>
                     <img
                         src={process.env.PUBLIC_URL + '/product.jpg'}
