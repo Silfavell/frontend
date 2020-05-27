@@ -1,17 +1,24 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import axios from 'axios'
-import { IoIosAdd } from 'react-icons/io'
 
 import SiteWrap from '../components/SiteWrap'
 import EmptyAddressCart from '../components/EmptyAddressCart'
 import AddressCart from '../components/AddressCart'
+import AddressPopup from '../components/AddressPopup'
 
 class Payment extends React.Component {
 
     state = {
-        products: []
+        products: [],
+        showSaveAddressPopup: false
+    }
+
+    showSaveAddressPopup = () => {
+        this.setState({ showSaveAddressPopup: true })
+    }
+
+    hideSaveAddressPopup = () => {
+        this.setState({ showSaveAddressPopup: false })
     }
 
     UNSAFE_componentWillMount() {
@@ -31,6 +38,9 @@ class Payment extends React.Component {
 
         return (
             <SiteWrap divider>
+                {
+                    this.state.showSaveAddressPopup && <AddressPopup hideSaveAddressPopup={this.hideSaveAddressPopup} />
+                }
                 <div className='container'>
                     <div className='row mb-5'>
                         <div className='col-md-12'>
@@ -39,14 +49,14 @@ class Payment extends React.Component {
                     </div>
 
                     <div className='row mb-5 border'>
-                        <div className='col-md-12 p-4   '>
+                        <div className='col-md-12 p-4'>
                             <h2 className={'text-secondary'}>Adres Seçimi</h2>
                         </div>
                         <div className='col-md-12 p-4'>
                             <div className='row'>
                                 <AddressCart />
                                 <AddressCart />
-                                <EmptyAddressCart />
+                                <EmptyAddressCart showSaveAddressPopup={this.showSaveAddressPopup} />
                             </div>
                         </div>
                     </div>
