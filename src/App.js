@@ -18,6 +18,7 @@ import Cart from './pages/Cart'
 import EditProfile from './pages/EditProfile'
 import UpdatePassword from './pages/UpdatePassword'
 import ForgotPassword from './pages/ForgotPassword'
+import Payment from './pages/Payment'
 
 axios()
 
@@ -33,6 +34,7 @@ class App extends React.Component {
                     <Route exact path='/sign-in' component={SignIn} />
                     <Route exact path='/sign-up' component={SignUp} />
                     <Route exact path='/cart' component={Cart} />
+                    <Route exact path='/payment' component={Payment} />
                     <Route exact path='/edit-profile' component={EditProfile} />
                     <Route exact path='/update-password' component={UpdatePassword} />
                     <Route exact path='/forgot-password' component={ForgotPassword} />

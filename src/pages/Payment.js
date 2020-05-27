@@ -2,11 +2,13 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import axios from 'axios'
+import { IoIosAdd } from 'react-icons/io'
 
 import SiteWrap from '../components/SiteWrap'
-import CartItem from '../components/CartItem'
+import EmptyAddressCart from '../components/EmptyAddressCart'
+import AddressCart from '../components/AddressCart'
 
-class Cart extends React.Component {
+class Payment extends React.Component {
 
     state = {
         products: []
@@ -20,8 +22,8 @@ class Cart extends React.Component {
         })
     }
 
-    onCheckoutClick = () => {
-        this.props.history.push('/payment')
+    onCompletePaymentClick = () => {
+        console.log('complete payment')
     }
 
     render() {
@@ -32,16 +34,19 @@ class Cart extends React.Component {
                 <div class='container'>
                     <div class='row mb-5'>
                         <div class='col-md-12'>
-                            <div class='site-blocks-table'>
-                                <table class='table border'>
-                                    <tbody>
-                                        {
-                                            this.state.products.map((product) => (
-                                                <CartItem item={product} />
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
+                            <div className='border'></div>
+                        </div>
+                    </div>
+
+                    <div class='row mb-5 border'>
+                        <div class='col-md-12 p-4   '>
+                            <h2 className={'text-secondary'}>Adres Seçimi</h2>
+                        </div>
+                        <div class='col-md-12 p-4'>
+                            <div className='row'>
+                                <AddressCart />
+                                <AddressCart />
+                                <EmptyAddressCart />
                             </div>
                         </div>
                     </div>
@@ -90,7 +95,7 @@ class Cart extends React.Component {
 
                                     <div class='row'>
                                         <div class='col-md-12'>
-                                            <button class='btn btn-primary btn-lg btn-block' onClick={this.onCheckoutClick}>Proceed To Checkout</button>
+                                            <button class='btn btn-primary btn-lg btn-block' onClick={this.onCompletePaymentClick}>Ödemeye Geç</button>
                                         </div>
                                     </div>
                                 </div>
@@ -98,9 +103,9 @@ class Cart extends React.Component {
                         </div>
                     </div>
                 </div>
-            </SiteWrap>
+            </SiteWrap >
         )
     }
 }
 
-export default Cart
+export default Payment
