@@ -1,15 +1,19 @@
 import React from 'react'
 import axios from 'axios'
+import Cookies from 'universal-cookie'
 
 import SiteWrap from '../components/SiteWrap'
 import EmptyAddressCart from '../components/EmptyAddressCart'
 import AddressCart from '../components/AddressCart'
 import AddressPopup from '../components/AddressPopup'
 
+const cookies = new Cookies()
+
 class Payment extends React.Component {
 
     state = {
         products: [],
+        addresses: [],
         showSaveAddressPopup: false
     }
 
@@ -24,7 +28,7 @@ class Payment extends React.Component {
     UNSAFE_componentWillMount() {
         axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => {
             if (data) {
-                this.setState({ products: Object.values(data) })
+                this.setState({ products: Object.values(data), addresses: cookies.get('user').addresses })
             }
         })
     }
@@ -54,8 +58,11 @@ class Payment extends React.Component {
                         </div>
                         <div className='col-md-12 p-4'>
                             <div className='row'>
-                                <AddressCart />
-                                <AddressCart />
+                                {
+                                    this.state.addresses.map((address) => (
+                                        <AddressCart item={address} />
+                                    ))
+                                }
                                 <EmptyAddressCart showSaveAddressPopup={this.showSaveAddressPopup} />
                             </div>
                         </div>
