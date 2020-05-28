@@ -3,7 +3,7 @@ import React from 'react'
 class AddressCart extends React.Component {
 
     onClick = () => {
-        console.log('select address')
+        this.props.setSelectedAddress(this.props.index)
     }
 
     render() {
@@ -16,8 +16,16 @@ class AddressCart extends React.Component {
         } = this.props.item
 
         return (
-            <div className="col-md-4 d-relative" style={{ padding: 4, cursor: 'pointer' }} onClick={this.onClick}>
-                <div style={{ height: 180 }} className='border'>
+            <div className="col-md-4 d-relative"
+                style={{
+                    padding: 4,
+                    cursor: 'pointer'
+                }}
+                onClick={this.onClick}>
+                <div style={{
+                    height: 180,
+                    border: this.props.selected ? '3px solid #80DF80' : '1px solid #dee2e6'
+                }}>
 
                     <p style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', lineHeight: '17px' }} className={'text-black px-3 pt-2'}>
                         <b>

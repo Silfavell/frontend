@@ -18,6 +18,7 @@ class Payment extends React.Component {
         addresses: [],
         cards: [],
         selectedAddress: 0,
+        selectedCard: 0,
         showSaveAddressPopup: false,
         showNewCardSection: false,
 
@@ -27,6 +28,14 @@ class Payment extends React.Component {
         expireYear: '09',
         expireMonth: '2023',
         cvc2: '555'
+    }
+
+    setSelectedCard = (selectedCard) => {
+        this.setState({ selectedCard })
+    }
+
+    setSelectedAddress = (selectedAddress) => {
+        this.setState({ selectedAddress })
     }
 
     saveCard = () => {
@@ -83,7 +92,15 @@ class Payment extends React.Component {
 
     onCompletePaymentClick = () => {
         console.log('complete payment')
-        this.saveCard()
+        // this.saveCard()
+        axios.post(`${process.env.REACT_APP_API_URL}/user/order`, {
+            address: this.state.addresses[this.state.selectedAddress]._id,
+            card: this.state.cards[this.state.selectedCard].cardToken
+        }).then((result) => {
+            console.log(result)
+        }).catch((err) => {
+            alert(err.response.data.error)
+        })
     }
 
     onAddressOptionsClick = () => {
@@ -128,8 +145,11 @@ class Payment extends React.Component {
             <div className='col-md-12 p-4'>
                 <div className='row'>
                     {
-                        this.state.addresses.map((address) => (
-                            <AddressCart item={address} />
+                        this.state.addresses.map((address, index) => (
+                            <AddressCart
+                                index={index}
+                                item={address}
+                                selected={this.state.selectedAddress === index} setSelectedAddress={this.setSelectedAddress} />
                         ))
                     }
                     <EmptyAddressCart showSaveAddressPopup={this.showSaveAddressPopup} />
@@ -159,8 +179,12 @@ class Payment extends React.Component {
 
                     <div className='form-group row'>
                         {
-                            this.state.cards.map((card) => (
-                                <PaymentCard item={card} />
+                            this.state.cards.map((card, index) => (
+                                <PaymentCard
+                                    index={index}
+                                    item={card}
+                                    selected={this.state.selectedCard === index} setSelectedCard={this.setSelectedCard}
+                                />
                             ))
                         }
                     </div>

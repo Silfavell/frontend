@@ -3,8 +3,7 @@ import React from 'react'
 class PaymentCard extends React.Component {
 
     onClick = () => {
-        console.log('set selected card')
-        // this.props.setSelectedCard(this.props.item.)
+        this.props.setSelectedCard(this.props.index)
     }
 
     render() {
