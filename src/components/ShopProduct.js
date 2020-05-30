@@ -15,6 +15,7 @@ class ShopProduct extends React.Component {
 
     render() {
         const {
+            _id,
             img,
             name,
             price
@@ -36,7 +37,7 @@ class ShopProduct extends React.Component {
                         </div>
 
                         <div className='bottom col-md-12'>
-                            <div className='col-md-6 d-flex align-items-center justify-content-center text-white inspect'>Incele</div>
+                            <a href={`/${_id}`} className='col-md-6 d-flex align-items-center justify-content-center text-white inspect'>Incele</a>
                             <div className='col-md-6 d-flex align-items-center justify-content-center text-white add-to-cart' onClick={this.onAddToCasketClick}>Sepete Ekle</div>
                         </div>
                     </div>
