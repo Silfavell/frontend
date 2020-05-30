@@ -76,18 +76,32 @@ class Payment extends React.Component {
         this.setState({ showSaveAddressPopup: false })
     }
 
-    UNSAFE_componentWillMount() {
-        axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data: products }) => {
-            if (products) {
-                axios.get(`${process.env.REACT_APP_API_URL}/user/list-cards`).then(({ data }) => {
-                    this.setState({
-                        products: Object.values(products),
-                        addresses: cookies.get('user').addresses,
-                        cards: data.cardDetails
-                    })
-                })
-            }
+    getCart = () => (
+        axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data: cart }) => cart)
+    )
+
+    getPaymentCards = () => (
+        axios.get(`${process.env.REACT_APP_API_URL}/user/list-cards`).then(({ data }) => data.cardDetails)
+    )
+
+    getAddresses = () => (
+        axios.get(`${process.env.REACT_APP_API_URL}/user/profile`).then(({ status, data: { addresses } }) => addresses)
+    )
+
+    setDatas = () => (
+        Promise.all([this.getCart(), this.getPaymentCards(), this.getAddresses()]).then((results) => {
+            this.setState({
+                products: Object.values(results[0]),
+                cards: results[1],
+                addresses: results[2]
+            })
+        }).catch((err) => {
+            console.log((err))
         })
+    )
+
+    UNSAFE_componentWillMount() {
+        this.setDatas()
     }
 
     onCompletePaymentClick = () => {

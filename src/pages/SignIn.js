@@ -26,7 +26,6 @@ class SignIn extends React.Component {
         axios.post(url, this.state).then(({ status, data }) => {
             if (status === 200) {
                 cookies.set('token', data.token)
-                cookies.set('user', JSON.stringify(data.user))
                 this.props.history.push('/')
             }
         })
