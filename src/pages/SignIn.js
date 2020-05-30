@@ -16,8 +16,8 @@ const cookies = new Cookies()
 class SignIn extends React.Component {
 
     state = {
-        phoneNumber: '905466666666',
-        password: '1234'
+        phoneNumber: '905555555566',
+        password: '12345'
     }
 
     onSignInClick = () => {
@@ -28,6 +28,8 @@ class SignIn extends React.Component {
                 cookies.set('token', data.token)
                 this.props.history.push('/')
             }
+        }).catch((err) => {
+            alert(err.response.data.error)
         })
     }
 

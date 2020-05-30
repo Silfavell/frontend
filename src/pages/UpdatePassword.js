@@ -29,14 +29,15 @@ class UpdatePassword extends React.Component {
             alert('Yeni şifre eskisi ise aynı olamaz')
         } else {
             const url = `${process.env.REACT_APP_API_URL}/user/change-password`
-            console.log('yeah')
+
             axios.put(url, {
                 oldPassword: this.state.oldPassword,
                 newPassword: this.state.newPassword
-            }).then((x) => {
-                console.log(x)
+            }).then((result) => {
+                console.log(result)
+                alert('Şifreniz değiştirildi.')
             }).catch((err) => {
-                console.log(err.response.data)
+                alert(err.response.data.error)
             })
         }
     }
