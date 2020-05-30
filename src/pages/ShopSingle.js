@@ -35,9 +35,14 @@ class ShopSingle extends React.Component {
             category
         } = this.state.product
 
+        const divider = [
+            { path: '/shop', title: 'shop' },
+            { path: null, title: name }
+        ]
+
         if (this.state.product._id) {
             return (
-                <SiteWrap divider firstImage>
+                <SiteWrap divider={divider}>
                     <div className='container'>
                         <div className='row'>
                             <div className='col-md-6'>

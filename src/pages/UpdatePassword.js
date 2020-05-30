@@ -61,8 +61,16 @@ class UpdatePassword extends React.Component {
             reNewPassword
         } = this.state
 
+        const divider = [
+            {
+                path: null,
+                title: 'Şifremi Değiştir'
+            }
+        ]
+
         return (
-            <SiteWrap divider>
+            <SiteWrap
+                divider={divider}>
                 <div className='container'>
                     <div className="col-md-12 d-flex align-items-center justify-content-center">
                         <div className='col-md-6'>

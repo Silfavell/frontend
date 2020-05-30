@@ -65,8 +65,15 @@ class EditProfile extends React.Component {
             phoneNumber
         } = this.state
 
+        const divider = [
+            {
+                path: null,
+                title: 'Profilimi Düzenle'
+            }
+        ]
+
         return (
-            <SiteWrap divider>
+            <SiteWrap divider={divider}>
                 <div className='container'>
                     <div className="col-md-12 d-flex align-items-center justify-content-center">
                         <div className='col-md-6'>

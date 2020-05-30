@@ -112,8 +112,15 @@ class Cart extends React.Component {
     render() {
         const totalPrice = this.state.products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.price) * currentValue.quantity, 0).toFixed(2)
 
+        const divider = [
+            {
+                path: null,
+                title: 'Sepetim'
+            }
+        ]
+
         return (
-            <SiteWrap divider>
+            <SiteWrap divider={divider}>
                 {
                     this.state.products.length > 0 ?
                         this.cartWithProducts(totalPrice) : this.cartWithoutProducts()

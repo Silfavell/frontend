@@ -57,13 +57,21 @@ class Shop extends React.Component {
     }
 
     render() {
+
+        const divider = [
+            {
+                path: null,
+                title: 'shop'
+            }
+        ]
+
         if (this.state.fetching) {
             return (
                 <Loading />
             )
         } else {
             return (
-                <SiteWrap divider>
+                <SiteWrap divider={divider}>
                     <div className='container'>
                         <div className='row mb-5'>
                             <div className='col-md-9 order-1'>

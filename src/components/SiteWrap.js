@@ -16,7 +16,7 @@ class SiteWrap extends React.Component {
                     this.props.firstImage && <FirstImage />
                 }
                 {
-                    this.props.divider && <Divider />
+                    this.props.divider && <Divider divider={this.props.divider}/>
                 }
                 <div className='site-section'>
                     {
