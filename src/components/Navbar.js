@@ -36,8 +36,6 @@ class Navbar extends React.Component {
         if (this.state.loggedIn) {
             return (
                 <ul className='dropdown'>
-                    <li><a href='#'>Menu One</a></li>
-                    <li><a href='#'>Menu Two</a></li>
                     <li><a href='/edit-profile'>Profilimi Düzenle</a></li>
                     <li><a href='/update-password'>Şifremi değiştir</a></li>
                     <li><div onClick={this.onLogoutClick}>Çıkış Yap</div></li>

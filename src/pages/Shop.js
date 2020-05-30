@@ -63,18 +63,18 @@ class Shop extends React.Component {
             )
         } else {
             return (
-                <SiteWrap divider firstImage>
+                <SiteWrap divider>
                     <div className='container'>
                         <div className='row mb-5'>
                             <div className='col-md-9 order-1'>
                                 <div className='row align'>
                                     <div className='col-md-12 mb-5'>
-                                        <div className='float-md-left'><h2 className='text-black h5'>Shop All</h2></div>
+                                        <div className='float-md-left'><h3 className='text-gray text-uppercase'>{this.props.location.pathname.replace('/', '')}</h3></div>
                                         <div className='d-flex'>
                                             <div className='dropdown mr-1 ml-md-auto'>
                                                 <button type='button' className='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuOffset' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                                     Latest
-                                                    </button>
+                                                </button>
                                                 <div className='dropdown-menu' aria-labelledby='dropdownMenuOffset'>
                                                     <a className='dropdown-item' href='#'>Men</a>
                                                     <a className='dropdown-item' href='#'>Women</a>
@@ -128,7 +128,8 @@ class Shop extends React.Component {
                                 </div>
                             </div>
 
-                            <div className='col-md-3 order-2 mb-5 mb-md-0'>
+                            <div className='col-md-3 order mb-5 mb-md-0'>
+
                                 <div className='border p-4 rounded mb-4'>
                                     <h3 className='mb-3 h6 text-uppercase text-black d-block'>Categories</h3>
                                     <ul className='list-unstyled mb-0'>
