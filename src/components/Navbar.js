@@ -69,9 +69,9 @@ class Navbar extends React.Component {
         return (
             <div className={`site-navbar bg-white py-2 ${!this.props.firstImage ? 'custom-border-bottom' : ''}`}>
 
-                <div className='container'>
+                <div className='container-fluid'>
                     <div className='d-flex align-items-center justify-content-between'>
-                        <div className='logo'>
+                        <div className='logo flex-grow-1 d-flex align-items-center justify-content-center'>
                             <a href='/' className='js-logo-clone'>
                                 <img src={process.env.PUBLIC_URL + '/logo.png'} style={{ height: 80 }} />
                             </a>
@@ -80,33 +80,97 @@ class Navbar extends React.Component {
                             <nav className='site-navigation text-right text-md-center' role='navigation'>
                                 <ul className='site-menu js-clone-nav d-none d-lg-block'>
 
-                                    <li><a href='/'>Home</a></li>
-
                                     <li className='has-children'>
-                                        <a href='/shop'>Shop</a>
+                                        <a href='/shop'>Makyaj</a>
                                         <ul className='dropdown'>
-                                            <li><a href='#'>Menu One</a></li>
-                                            <li><a href='#'>Menu Two</a></li>
-                                            <li><a href='#'>Menu Three</a></li>
-                                            <li className='has-children'>
-                                                <a href='#'>Sub Menu</a>
-                                                <ul className='dropdown'>
-                                                    <li><a href='#'>Menu One</a></li>
-                                                    <li><a href='#'>Menu Two</a></li>
-                                                    <li><a href='#'>Menu Three</a></li>
-                                                </ul>
-                                            </li>
+                                            <li><a href='#'>Göz</a></li>
+                                            <li><a href='#'>Dudak</a></li>
+                                            <li><a href='#'>Tırnak</a></li>
+                                            <li><a href='#'>Yüz</a></li>
+                                            <li><a href='#'>Makyaj Temizleme</a></li>
+                                            <li><a href='#'>Makyaj Fırçaları</a></li>
+                                            <li><a href='#'>Makyaj Aksesuarları</a></li>
+                                            <li><a href='#'>Manikür & Pedikür</a></li>
+                                            <li><a href='#'>Popüler Markalar</a></li>
                                         </ul>
                                     </li>
 
-                                    <li><a href='#'>Catalogue</a></li>
-                                    <li><a href='#'>New Arrivals</a></li>
-                                    <li className='active'><a href='#'>Contact (footera taşındı)</a></li>
+                                    <li className='has-children'>
+                                        <a href='/shop'>Cilt Bakım</a>
+                                        <ul className='dropdown'>
+                                            <li><a href='#'>Yüz Bakımı</a></li>
+                                            <li><a href='#'>Clit Nemlendirici Kremler</a></li>
+                                            <li><a href='#'>Yüz Masker</a></li>
+                                            <li><a href='#'>Yüz Serumları</a></li>
+                                            <li><a href='#'>El & Vücut Bakımı</a></li>
+                                            <li><a href='#'>Göz Bakımı</a></li>
+                                            <li><a href='#'>Dudak Bakımı</a></li>
+                                            <li><a href='#'>Epilasyon, Ağda & Tıraş</a></li>
+                                            <li><a href='#'>Güneş Ürünleri</a></li>
+                                            <li><a href='#'>Ayak Bakımı</a></li>
+                                            <li><a href='#'>Popüler Markalar</a></li>
+                                        </ul>
+                                    </li>
 
+
+                                    <li className='has-children'>
+                                        <a href='/shop'>Saç Bakım</a>
+                                        <ul className='dropdown'>
+                                            <li><a href='#'>Şampuanlar</a></li>
+                                            <li><a href='#'>Saç Kremleri</a></li>
+                                            <li><a href='#'>Saç Şekillendirici</a></li>
+                                            <li><a href='#'>Saç Bakım Ürünleri</a></li>
+                                            <li><a href='#'>Fırça & Taraklar</a></li>
+                                            <li><a href='#'>Saç Boyaları</a></li>
+                                            <li><a href='#'>Popüler Markalar</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li className='has-children'>
+                                        <a href='/shop'>Sağlık & Hijyen</a>
+                                        <ul className='dropdown'>
+                                            <li><a href='#'>Ağız & Diş Bakımı</a></li>
+                                            <li><a href='#'>Ayak Bakımı</a></li>
+                                            <li><a href='#'>Duş & Banyo</a></li>
+                                            <li><a href='#'>Sabunlar</a></li>
+                                            <li><a href='#'>Cinsel Sağlık</a></li>
+                                            <li><a href='#'>Hijyen</a></li>
+                                            <li><a href='#'>Sağlık</a></li>
+                                            <li><a href='#'>Popüler Markalar</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li className='has-children'>
+                                        <a href='/shop'>Parfüm & Deodorant</a>
+                                        <ul className='dropdown'>
+                                            <li><a href='#'>Erkek</a></li>
+                                            <li><a href='#'>Kadın</a></li>
+                                            <li><a href='#'>Kolonya</a></li>
+                                            <li><a href='#'>Popüler Markalar</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li className='has-children'>
+                                        <a href='/shop'>Erkek Bakım</a>
+                                        <ul className='dropdown'>
+                                            <li><a href='#'>Erkek Tıraş Ürünleri</a></li>
+                                            <li><a href='#'>Tıraş Bıçakları & Yedekleri</a></li>
+                                            <li><a href='#'>Erkek Duş Jeli</a></li>
+                                            <li><a href='#'>Erkek Cilt Bakım</a></li>
+                                            <li><a href='#'>Sakal & Bıyık Bakımı</a></li>
+                                            <li><a href='#'>Erkek Saç Boyası</a></li>
+                                            <li><a href='#'>Aile Planlama & Cinsel Sağlık</a></li>
+                                            <li><a href='#'>Saç Şekillendirici</a></li>
+                                            <li><a href='#'>Erkek Şampuanı</a></li>
+                                            <li><a href='#'>Erkek Parfüm</a></li>
+                                            <li><a href='#'>Deodorant</a></li>
+                                            <li><a href='#'>Popüler Markalar</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
-                        <div className='icons'>
+                        <div className='icons flex-grow-1 d-flex align-items-center justify-content-center '>
                             <div className='site-navigation icon-dropdown'>
                                 <div className='site-menu'>
                                     <li className='has-children'>

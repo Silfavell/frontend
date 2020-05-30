@@ -25,7 +25,7 @@ function Footer() {
                     <div className='col-lg-5 ml-auto mb-5 mb-lg-0'>
                         <div className='row'>
                             <div className='col-md-12'>
-                                <h3 className='footer-heading mb-4'>Quick Links</h3>
+                                <h3 className='footer-heading mb-4'>silfavell.com</h3>
                             </div>
                             <div className='col-md-6 col-lg-4'>
                                 <ul className='list-unstyled'>
@@ -47,21 +47,25 @@ function Footer() {
 
                     <div className='col-md-6 col-lg-3'>
                         <div className='block-5 mb-5'>
-                            <h3 className='footer-heading mb-4'>Contact Info</h3>
+                            <h3 className='footer-heading mb-4'>İletişim</h3>
                             <ul className='list-unstyled'>
-                                <li className='address'>203 Fake St. Mountain View, San Francisco, California, USA</li>
-                                <li className='phone'><a href='tel://23923929210'>+2 392 3929 210</a></li>
-                                <li className='email'>emailaddress@domain.com</li>
+                                {
+                                    /*
+                                        <li className='address'>203 Fake St. Mountain View, San Francisco, California, USA</li>
+                                        <li className='phone'><a href='tel://23923929210'>+2 392 3929 210</a></li>
+                                    */
+                                }
+                                <li className='email'>silfavell@gmail.com</li>
                             </ul>
                         </div>
 
                         <div className='block-7'>
                             {
                                 /*
-                                <div className="row">
-                                    <img className='col-md-6' alt='' src={`${process.env.PUBLIC_URL}/google-play.png`} />
-                                    <img className='col-md-6' alt='' src={`${process.env.PUBLIC_URL}/apple-store.png`} />
-                                </div>
+                                    <div className="row">
+                                        <img className='col-md-6' alt='' src={`${process.env.PUBLIC_URL}/google-play.png`} />
+                                        <img className='col-md-6' alt='' src={`${process.env.PUBLIC_URL}/apple-store.png`} />
+                                    </div>
                                 */
                             }
                             {
