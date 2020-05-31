@@ -106,7 +106,7 @@ class Shop extends React.Component {
                                 <div className='row mb-5'>
                                     {
                                         this.state.products.map((product) => (
-                                            <ShopProduct item={JSON.parse(product)} />
+                                            <ShopProduct key={product._id.toString()} item={product} />
                                         ))
                                     }
                                 </div>

@@ -19,9 +19,11 @@ class Navbar extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => {
-            this.setState({ productsLength: data ? Object.values(data).length : 0 })
-        })
+        if (cookies.get('token')) {
+            axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => {
+                this.setState({ productsLength: data ? Object.values(data).length : 0 })
+            })
+        }
     }
 
     onLogoutClick = () => {
