@@ -16,8 +16,8 @@ const cookies = new Cookies()
 class SignIn extends React.Component {
 
     state = {
-        phoneNumber: '905555555566',
-        password: '12345'
+        phoneNumber: '905466666666',
+        password: '1234'
     }
 
     onSignInClick = () => {
@@ -48,8 +48,13 @@ class SignIn extends React.Component {
     }
 
     render() {
+
+        const divider = [
+            { path: null, title: 'Giriş Yap' }
+        ]
+
         return (
-            <SiteWrap divider>
+            <SiteWrap divider={divider}>
                 <div className='container'>
                     <div className='col-md-12 d-flex align-items-center justify-content-center'>
                         <div className='col-md-6'>

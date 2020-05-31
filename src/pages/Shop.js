@@ -23,7 +23,11 @@ class Shop extends React.Component {
 
     fetchProducts = () => {
         this.setState({ fetching: true })
-        axios.get(`${process.env.REACT_APP_API_URL}/products-by-range?categoryId=${this.state.categoryId}&start=${this.state.page * 18}&quantity=17`).then(({ data }) => {
+        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}`
+
+        // &start=${this.state.page * 18}&quantity=17
+        axios.get(`${url}`).then(({ data }) => {
+            console.log(data)
             this.setState({ products: data, fetching: false })
         })
     }
@@ -43,9 +47,9 @@ class Shop extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data: categories }) => {
+        this.getCategories().then(categories => {
 
-            axios.get(`${process.env.REACT_APP_API_URL}/products-length/${categories[0]._id}`).then(({ data: productsLength }) => {
+            this.getProductsLengthOfCategory(categories[0]._id).then((productsLength) => {
 
                 this.setState({ categories, categoryId: categories[0]._id, productsLength }, () => {
                     this.fetchProducts()
@@ -56,12 +60,20 @@ class Shop extends React.Component {
         })
     }
 
+    getProductsLengthOfCategory = (categoryId) => (
+        axios.get(`${process.env.REACT_APP_API_URL}/products-length/${categoryId}`).then(({ data: productsLength }) => productsLength)
+    )
+
+    getCategories = () => (
+        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => data)
+    )
+
     render() {
 
         const divider = [
             {
                 path: null,
-                title: 'shop'
+                title: 'Shop'
             }
         ]
 
@@ -139,7 +151,7 @@ class Shop extends React.Component {
                             <div className='col-md-3 order mb-5 mb-md-0'>
 
                                 <div className='border p-4 rounded mb-4'>
-                                    <h3 className='mb-3 h6 text-uppercase text-black d-block'>Categories</h3>
+                                    <h3 className='mb-3 h6 text-uppercase text-black d-block'>Related Categories</h3>
                                     <ul className='list-unstyled mb-0'>
                                         {
                                             this.state.categories.map((category) => (
