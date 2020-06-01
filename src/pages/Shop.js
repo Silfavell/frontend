@@ -72,7 +72,7 @@ class Shop extends React.Component {
             }
         ]
 
-        if (this.state.fetching) {
+        if (this.state.fetching || !currentCategory) {
             return (
                 <Loading />
             )
