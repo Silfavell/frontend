@@ -14,8 +14,11 @@ class ShopSingle extends React.Component {
 
     componentWillMount() {
         // axios.get(`http://178.62.245.193:3000/product/${'5ebd4417b6e6fb001239f439'}`).then((result) => {
+
         axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`).then((result) => {
             this.setState({ product: result.data })
+        }).catch((err) => {
+            console.log(err.response)
         })
     }
 
@@ -41,7 +44,7 @@ class ShopSingle extends React.Component {
             { path: null, title: name }
         ]
 
-        if (this.state.product._id) {
+        if (_id) {
             return (
                 <SiteWrap divider={divider}>
                     <div className='container'>

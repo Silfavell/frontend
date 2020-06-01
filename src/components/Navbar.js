@@ -20,16 +20,22 @@ class Navbar extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
+        const arr = [this.getCategories()]
+
         if (cookies.get('token')) {
-            Promise.all([this.getCartProductsLength(), this.getCategories()]).then((vals) => {
-                this.setState({ productsLength: vals[0], categories: vals[1] })
-            })
+            arr.push(this.getCartProductsLength())
         }
+
+        Promise.all(arr).then((vals) => {
+            this.setState({ categories: vals[0], productsLength: vals[1] ?? 0 })
+        }).catch((err) => {
+            console.log(err.response)
+        })
     }
 
     getCartProductsLength = () => (
         axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => (
-            data ? Object.values(data).length : 0
+            (data && data.cart) ? Object.values(data.cart).length : 0
         ))
     )
 
@@ -90,76 +96,22 @@ class Navbar extends React.Component {
                         <div className='main-nav d-none d-lg-block'>
                             <nav className='site-navigation text-right text-md-center' role='navigation'>
                                 <ul className='site-menu js-clone-nav d-none d-lg-block'>
-
                                     {
                                         this.state.categories.map((category) => (
-                                            <li className='has-children'>
+                                            <li className={'has-children'}>
                                                 <a href={`/shop?categoryId=${category._id}`}>{category.name}</a>
                                                 <ul className='dropdown'>
                                                     {
                                                         category.subCategories.map((subCategory) => (
-                                                            <li><a href={`/shop?categoryId=${category._id}&subCategoryId=${subCategory._id}`}>{subCategory.name}</a></li>
+                                                            <li>
+                                                                <a href={`/shop?categoryId=${category._id}&subCategoryId=${subCategory._id}`}>{subCategory.name}</a>
+                                                            </li>
                                                         ))
                                                     }
                                                 </ul>
                                             </li>
                                         ))
                                     }
-
-                                    <li className='has-children'>
-                                        <a href='/shop'>Saç Bakım</a>
-                                        <ul className='dropdown'>
-                                            <li><a href='#'>Şampuanlar</a></li>
-                                            <li><a href='#'>Saç Kremleri</a></li>
-                                            <li><a href='#'>Saç Şekillendirici</a></li>
-                                            <li><a href='#'>Saç Bakım Ürünleri</a></li>
-                                            <li><a href='#'>Fırça & Taraklar</a></li>
-                                            <li><a href='#'>Saç Boyaları</a></li>
-                                            <li><a href='#'>Popüler Markalar</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li className='has-children'>
-                                        <a href='/shop'>Sağlık & Hijyen</a>
-                                        <ul className='dropdown'>
-                                            <li><a href='#'>Ağız & Diş Bakımı</a></li>
-                                            <li><a href='#'>Ayak Bakımı</a></li>
-                                            <li><a href='#'>Duş & Banyo</a></li>
-                                            <li><a href='#'>Sabunlar</a></li>
-                                            <li><a href='#'>Cinsel Sağlık</a></li>
-                                            <li><a href='#'>Hijyen</a></li>
-                                            <li><a href='#'>Sağlık</a></li>
-                                            <li><a href='#'>Popüler Markalar</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li className='has-children'>
-                                        <a href='/shop'>Parfüm & Deodorant</a>
-                                        <ul className='dropdown'>
-                                            <li><a href='#'>Erkek</a></li>
-                                            <li><a href='#'>Kadın</a></li>
-                                            <li><a href='#'>Kolonya</a></li>
-                                            <li><a href='#'>Popüler Markalar</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li className='has-children'>
-                                        <a href='/shop'>Erkek Bakım</a>
-                                        <ul className='dropdown'>
-                                            <li><a href='#'>Erkek Tıraş Ürünleri</a></li>
-                                            <li><a href='#'>Tıraş Bıçakları & Yedekleri</a></li>
-                                            <li><a href='#'>Erkek Duş Jeli</a></li>
-                                            <li><a href='#'>Erkek Cilt Bakım</a></li>
-                                            <li><a href='#'>Sakal & Bıyık Bakımı</a></li>
-                                            <li><a href='#'>Erkek Saç Boyası</a></li>
-                                            <li><a href='#'>Aile Planlama & Cinsel Sağlık</a></li>
-                                            <li><a href='#'>Saç Şekillendirici</a></li>
-                                            <li><a href='#'>Erkek Şampuanı</a></li>
-                                            <li><a href='#'>Erkek Parfüm</a></li>
-                                            <li><a href='#'>Deodorant</a></li>
-                                            <li><a href='#'>Popüler Markalar</a></li>
-                                        </ul>
-                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -188,7 +140,7 @@ class Navbar extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         )
     }
 }

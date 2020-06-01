@@ -14,8 +14,8 @@ class Cart extends React.Component {
 
     UNSAFE_componentWillMount() {
         axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => {
-            if (data) {
-                this.setState({ products: Object.values(data) })
+            if (data && data.cart) {
+                this.setState({ products: Object.values(data.cart) })
             }
         })
     }
