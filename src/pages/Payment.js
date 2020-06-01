@@ -81,7 +81,7 @@ class Payment extends React.Component {
     )
 
     getPaymentCards = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/user/list-cards`).then(({ data }) => data.cardDetails)
+        axios.get(`${process.env.REACT_APP_API_URL}/user/list-cards`).then(({ data }) => data.cardDetails ?? [])
     )
 
     getAddresses = () => (
@@ -91,7 +91,7 @@ class Payment extends React.Component {
     setDatas = () => (
         Promise.all([this.getCart(), this.getPaymentCards(), this.getAddresses()]).then((results) => {
             this.setState({
-                products: Object.values(results[0]),
+                products: Object.values(results[0].cart),
                 cards: results[1],
                 addresses: results[2]
             })
@@ -320,8 +320,14 @@ class Payment extends React.Component {
     render() {
         const totalPrice = this.state.products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.price) * currentValue.quantity, 0).toFixed(2)
 
+        const divider = [
+            {
+                path: null, title: 'Payment'
+            }
+        ]
+
         return (
-            <SiteWrap divider>
+            <SiteWrap divider={divider}>
                 {
                     this.state.showSaveAddressPopup && <AddressPopup hideSaveAddressPopup={this.hideSaveAddressPopup} />
                 }

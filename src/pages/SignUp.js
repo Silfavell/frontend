@@ -66,19 +66,19 @@ class SignUp extends React.Component {
             alert('Yeni şifreniz tekrarı ile eşleşmemektedir')
         } else { 
         */
-            const url = `${process.env.REACT_APP_API_URL}/send-activation-code`
+        const url = `${process.env.REACT_APP_API_URL}/send-activation-code`
 
-            axios.post(url, {
-                phoneNumber: this.state.phoneNumber,
-                activationCodeType: 0
-            }).then(({ status, data }) => {
-                if (status === 202) {
-                    $('#register').hide()
-                    $('#activation').fadeIn('slow')
-                }
-            }).catch((err) => {
-                alert(err.response.data)
-            })
+        axios.post(url, {
+            phoneNumber: this.state.phoneNumber,
+            activationCodeType: 0
+        }).then(({ status, data }) => {
+            if (status === 202) {
+                $('#register').hide()
+                $('#activation').fadeIn('slow')
+            }
+        }).catch((err) => {
+            alert(err.response.data)
+        })
         //}
     }
 
@@ -226,8 +226,14 @@ class SignUp extends React.Component {
     }
 
     render() {
+        const divider = [
+            {
+                path: null, title: 'Üye Ol'
+            }
+        ]
+
         return (
-            <SiteWrap divider>
+            <SiteWrap divider={divider}>
                 <div className='container'>
                     <div className="col-md-12 d-flex align-items-center justify-content-center">
                         <div className='col-md-6'>
