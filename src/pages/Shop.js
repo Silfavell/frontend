@@ -163,9 +163,9 @@ class Shop extends React.Component {
                                     <div className='mb-4'>
                                         <h3 className='mb-3 h6 text-uppercase text-black d-block'>Brands</h3>
                                         {
-                                            currentCategory?.brands.map((brand) => (
-                                                <label htmlFor='s_sm' className='d-flex align-items-center justify-content-start'>
-                                                    <input type='checkbox' id='s_sm' className='mr-2 mt-1' /> <span className='text-black'>{`${brand.name} (${brand.productQuantity})`}</span>
+                                            (subCategory?.brands ?? currentCategory?.brands).map((brand) => (
+                                                <label htmlFor={brand._id} className='d-flex align-items-center justify-content-start' style={{ cursor: 'pointer' }}>
+                                                    <input type='checkbox' id={brand._id} className='mr-2 mt-1' style={{ cursor: 'pointer' }} /> <span className='text-black'>{`${brand.name} (${brand.productQuantity})`}</span>
                                                 </label>
                                             ))
                                         }
