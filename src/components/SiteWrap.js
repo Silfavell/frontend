@@ -10,7 +10,7 @@ import '../style/css/style.css'
 class SiteWrap extends React.Component {
     render() {
         return (
-            <div className='site-wrap'>
+            <div className='site-wrap' ref={this.props.siteRef}>
                 <Navbar firstImage={this.props.firstImage} />
                 {
                     this.props.firstImage && <FirstImage />

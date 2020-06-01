@@ -21,11 +21,13 @@ class Shop extends React.Component {
         fetching: true
     }
 
-    fetchProducts = () => {
-        this.setState({ fetching: true })
-        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}`
+    siteRef = React.createRef()
 
-        // &start=${this.state.page * 18}&quantity=17
+    fetchProducts = () => {
+        this.scrollToTop()
+        this.setState({ fetching: true })
+        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&start=${this.state.page * 18}&quantity=18`
+
         axios.get(`${url}`).then(({ data }) => {
             console.log(data)
             this.setState({ products: data, fetching: false })
@@ -37,6 +39,8 @@ class Shop extends React.Component {
             this.fetchProducts()
         })
     }
+
+    scrollToTop = () => window.scrollTo({ behavior: 'smooth', top: this.siteRef?.current?.offsetTop })
 
     UNSAFE_componentWillMount() {
         this.getCategories().then(categories => {
@@ -78,7 +82,7 @@ class Shop extends React.Component {
             )
         } else {
             return (
-                <SiteWrap divider={divider}>
+                <SiteWrap divider={divider} siteRef={this.siteRef}>
                     <div className='container'>
                         <div className='row mb-5'>
                             <div className='col-md-9 order-1'>
