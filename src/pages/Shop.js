@@ -190,7 +190,8 @@ class Shop extends React.Component {
                                                         brand={brand.name}
                                                         className='mr-2 mt-1'
                                                         style={{ cursor: 'pointer' }}
-                                                        onChange={this.onBrandSelectionChange} />
+                                                        onChange={this.onBrandSelectionChange}
+                                                        checked={this.state.selectedBrands.includes(brand.name)} />
                                                     <span className='text-black'>
                                                         {`${brand.name} (${brand.productQuantity})`}
                                                     </span>
