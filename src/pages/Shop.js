@@ -32,14 +32,6 @@ class Shop extends React.Component {
         })
     }
 
-    onCategoryClick = (categoryId) => {
-        axios.get(`${process.env.REACT_APP_API_URL}/products-length/${categoryId}`).then(({ data }) => {
-            this.setState({ categoryId, productsLength: data }, () => {
-                this.fetchProducts()
-            })
-        })
-    }
-
     onPageClick = (page) => {
         this.setState({ page }, () => {
             this.fetchProducts()
@@ -70,6 +62,9 @@ class Shop extends React.Component {
 
     render() {
 
+        const currentCategory = this.state.categories.find(category => category._id === this.state.products[0]?.categoryId)
+        const subCategory = this.props.location.search.includes('subCategoryId') ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products[0].subCategoryId) : null
+
         const divider = [
             {
                 path: null,
@@ -89,7 +84,7 @@ class Shop extends React.Component {
                             <div className='col-md-9 order-1'>
                                 <div className='row align'>
                                     <div className='col-md-12 mb-5'>
-                                        <div className='float-md-left'><h3 className='text-gray text-uppercase'>{this.props.location.pathname.replace('/', '')}</h3></div>
+                                        <div className='float-md-left'><h3 className='text-gray text-uppercase'>{subCategory?.name ?? currentCategory?.name}</h3></div>
                                         <div className='d-flex'>
                                             <div className='dropdown mr-1 ml-md-auto'>
                                                 <button type='button' className='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuOffset' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
@@ -154,11 +149,10 @@ class Shop extends React.Component {
                                     <h3 className='mb-3 h6 text-uppercase text-black d-block'>Related Categories</h3>
                                     <ul className='list-unstyled mb-0'>
                                         {
-                                            this.state.categories.map((category) => (
+                                            currentCategory?.subCategories.map((category) => (
                                                 <li className='mb-1'>
-                                                    <span className='d-flex text-primary' style={{ cursor: 'pointer' }} onClick={() => this.onCategoryClick(category._id)}>
-                                                        <span>{category.name}</span>
-                                                    </span>
+                                                    <a className='d-flex text-primary'
+                                                        href={`/shop?categoryId=${this.state.products[0]?.categoryId}&subCategoryId=${category._id}`}>{category.name}</a>
                                                 </li>
                                             ))
                                         }
@@ -167,16 +161,14 @@ class Shop extends React.Component {
 
                                 <div className='border p-4 rounded mb-4'>
                                     <div className='mb-4'>
-                                        <h3 className='mb-3 h6 text-uppercase text-black d-block'>Size</h3>
-                                        <label htmlFor='s_sm' className='d-flex'>
-                                            <input type='checkbox' id='s_sm' className='mr-2 mt-1' /> <span className='text-black'>Small (2,319)</span>
-                                        </label>
-                                        <label htmlFor='s_md' className='d-flex'>
-                                            <input type='checkbox' id='s_md' className='mr-2 mt-1' /> <span className='text-black'>Medium (1,282)</span>
-                                        </label>
-                                        <label htmlFor='s_lg' className='d-flex'>
-                                            <input type='checkbox' id='s_lg' className='mr-2 mt-1' /> <span className='text-black'>Large (1,392)</span>
-                                        </label>
+                                        <h3 className='mb-3 h6 text-uppercase text-black d-block'>Brands</h3>
+                                        {
+                                            currentCategory?.brands.map((brand) => (
+                                                <label htmlFor='s_sm' className='d-flex'>
+                                                    <input type='checkbox' id='s_sm' className='mr-2 mt-1' /> <span className='text-black'>{`${brand.name} (${brand.productQuantity})`}</span>
+                                                </label>
+                                            ))
+                                        }
                                     </div>
 
                                     <div className='mb-4'>
