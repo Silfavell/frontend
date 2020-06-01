@@ -17,7 +17,6 @@ class Shop extends React.Component {
         products: [],
         selectedBrands: [],
         productsLength: 0,
-        categoryId: null,
         page: 0,
         fetching: true
     }
@@ -32,35 +31,31 @@ class Shop extends React.Component {
 
         const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&start=${this.state.page * 18}&quantity=18${brands}`
 
-        axios.get(`${url}`).then(({ data }) => {
-            console.log(data)
-            this.setState({ products: data, fetching: false })
-        })
+        return axios.get(url).then(({ data }) => data)
     }
 
     onPageClick = (page) => {
         this.setState({ page }, () => {
-            this.fetchProducts()
+            this.fetchProducts().then((products) => (
+                this.setState({ products, fetching: false })
+            ))
         })
     }
 
     scrollToTop = () => window.scrollTo({ behavior: 'smooth', top: this.siteRef?.current?.offsetTop })
 
     UNSAFE_componentWillMount() {
-        this.getCategories().then(categories => {
-
-            this.getProductsLengthOfCategory(categories[0]._id).then((productsLength) => {
-
-                this.setState({ categories, categoryId: categories[0]._id, productsLength }, () => {
-                    this.fetchProducts()
-                })
-
+        Promise.all([this.getCategories(), this.getProductsLength(), this.fetchProducts()]).then((vals) => {
+            this.setState({
+                categories: vals[0],
+                productsLength: vals[1],
+                products: vals[2],
+                fetching: false
             })
-
         })
     }
 
-    getProductsLengthOfCategory = (categoryId) => {
+    getProductsLength = () => {
         const brands = this.state.selectedBrands.length > 0 ? '&brands=' + this.state.selectedBrands.reduce((prevVal, currentVal) => prevVal + currentVal + ',', '') : ''
 
         const url = `${process.env.REACT_APP_API_URL}/products-length${this.props.location.search}${brands}`
@@ -78,7 +73,10 @@ class Shop extends React.Component {
         } else {
             this.state.selectedBrands.push(event.target.getAttribute('brand'))
         }
-        this.fetchProducts()
+
+        Promise.all([this.fetchProducts(), this.getProductsLength()]).then((vals) => {
+            this.setState({ products: vals[0], productsLength: vals[1], fetching: false })
+        })
     }
 
     render() {
