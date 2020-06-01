@@ -15,6 +15,7 @@ class Shop extends React.Component {
     state = {
         categories: [],
         products: [],
+        selectedBrands: [],
         productsLength: 0,
         categoryId: null,
         page: 0,
@@ -26,7 +27,10 @@ class Shop extends React.Component {
     fetchProducts = () => {
         this.scrollToTop()
         this.setState({ fetching: true })
-        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&start=${this.state.page * 18}&quantity=18`
+
+        const brands = this.state.selectedBrands.length > 0 ? '&brands=' + this.state.selectedBrands.reduce((prevVal, currentVal) => prevVal + currentVal + ',', '') : ''
+
+        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&start=${this.state.page * 18}&quantity=18${brands}`
 
         axios.get(`${url}`).then(({ data }) => {
             console.log(data)
@@ -56,13 +60,26 @@ class Shop extends React.Component {
         })
     }
 
-    getProductsLengthOfCategory = (categoryId) => (
-        axios.get(`${process.env.REACT_APP_API_URL}/products-length/${categoryId}`).then(({ data: productsLength }) => productsLength)
-    )
+    getProductsLengthOfCategory = (categoryId) => {
+        const brands = this.state.selectedBrands.length > 0 ? '&brands=' + this.state.selectedBrands.reduce((prevVal, currentVal) => prevVal + currentVal + ',', '') : ''
+
+        const url = `${process.env.REACT_APP_API_URL}/products-length${this.props.location.search}${brands}`
+
+        return axios.get(url).then(({ data: productsLength }) => productsLength)
+    }
 
     getCategories = () => (
         axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => data)
     )
+
+    onBrandSelectionChange = (event) => {
+        if (this.state.selectedBrands.includes(event.target.getAttribute('brand'))) {
+            this.state.selectedBrands.splice(this.state.selectedBrands.indexOf(event.target.getAttribute('brand')), 1)
+        } else {
+            this.state.selectedBrands.push(event.target.getAttribute('brand'))
+        }
+        this.fetchProducts()
+    }
 
     render() {
 
@@ -167,9 +184,18 @@ class Shop extends React.Component {
                                     <div className='mb-4'>
                                         <h3 className='mb-3 h6 text-uppercase text-black d-block'>Brands</h3>
                                         {
-                                            (subCategory?.brands ?? currentCategory?.brands).map((brand) => (
+                                            (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
                                                 <label htmlFor={brand._id} className='d-flex align-items-center justify-content-start' style={{ cursor: 'pointer' }}>
-                                                    <input type='checkbox' id={brand._id} className='mr-2 mt-1' style={{ cursor: 'pointer' }} /> <span className='text-black'>{`${brand.name} (${brand.productQuantity})`}</span>
+                                                    <input
+                                                        type='checkbox'
+                                                        id={brand._id}
+                                                        brand={brand.name}
+                                                        className='mr-2 mt-1'
+                                                        style={{ cursor: 'pointer' }}
+                                                        onChange={this.onBrandSelectionChange} />
+                                                    <span className='text-black'>
+                                                        {`${brand.name} (${brand.productQuantity})`}
+                                                    </span>
                                                 </label>
                                             ))
                                         }
