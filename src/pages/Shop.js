@@ -164,7 +164,7 @@ class Shop extends React.Component {
                                         <h3 className='mb-3 h6 text-uppercase text-black d-block'>Brands</h3>
                                         {
                                             currentCategory?.brands.map((brand) => (
-                                                <label htmlFor='s_sm' className='d-flex'>
+                                                <label htmlFor='s_sm' className='d-flex align-items-center justify-content-center'>
                                                     <input type='checkbox' id='s_sm' className='mr-2 mt-1' /> <span className='text-black'>{`${brand.name} (${brand.productQuantity})`}</span>
                                                 </label>
                                             ))
