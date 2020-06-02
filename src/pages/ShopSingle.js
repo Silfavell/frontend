@@ -15,7 +15,7 @@ class ShopSingle extends React.Component {
     componentWillMount() {
         // axios.get(`http://178.62.245.193:3000/product/${'5ebd4417b6e6fb001239f439'}`).then((result) => {
 
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`).then((result) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`, { headers: { Authorization: 'DO_NOT_SET_AUTH' } }).then((result) => {
             this.setState({ product: result.data })
         }).catch((err) => {
             console.log(err.response)
@@ -24,8 +24,11 @@ class ShopSingle extends React.Component {
 
     addProductToCart = () => {
         // axios.get(`http://178.62.245.193:3000/product/${this.props.match.params._id}`).then((result) => {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`).then((result) => {
-            console.log(result.data)
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`).then(({ status, data }) => {
+            if (status === 200) {
+                console.log(data)
+                alert('Ürünü sepete eklendi (1)')
+            }
         })
     }
 
@@ -107,7 +110,7 @@ class ShopSingle extends React.Component {
                                     </div>
 
                                 </div>
-                                <p><a href='cart.html' className='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Add To Cart</a></p>
+                                <p onClick={this.addProductToCart} className='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Add To Cart</p>
 
                             </div>
                         </div>
