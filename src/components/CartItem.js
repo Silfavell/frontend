@@ -9,12 +9,16 @@ class CartItem extends React.Component {
     onIncreaseClick = () => {
         axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then((res) => {
             alert('Ürün sepete eklendi (1)')
+        }).catch((err) => {
+            alert(err.response.data.error)
         })
     }
 
     onDecreaseClick = () => {
         axios.delete(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then((res) => {
             alert('Ürün sepetten çıkarıldı (1)')
+        }).catch((err) => {
+            alert(err.response.data.error)
         })
     }
 
