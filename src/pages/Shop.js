@@ -55,7 +55,7 @@ class Shop extends React.Component {
                 if (currentFilter.includes(filter)) {
                     if (isBrand) {
                         if (currentFilter.includes(filterValue)) {
-                            return currentFilter.split(`,${filterValue}`).join('')
+                            return currentFilter.split(`,${filterValue}`).join('').split(`${filterValue}`).join('')
                         } else {
                             return `${currentFilter},${filterValue}`
                         }
@@ -205,7 +205,7 @@ class Shop extends React.Component {
                                                         className='mr-2 mt-1'
                                                         style={{ cursor: 'pointer' }}
                                                         onChange={this.onBrandSelectionChange}
-                                                        checked={this.props.location.search.includes(brand.name)} />
+                                                        checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
                                                     <Link
                                                         className='text-black'
                                                         to={(location) => (
