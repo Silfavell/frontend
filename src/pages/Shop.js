@@ -43,7 +43,6 @@ class Shop extends React.Component {
     refresh = () => {
         this.setState({ fetching: true }, () => {
             Promise.all([this.fetchProducts(), this.getProductsLength()]).then((vals) => {
-                console.log(vals[1])
                 this.setState({ products: vals[0], productsLength: vals[1], fetching: false })
                 this.scrollToTop()
             })
@@ -54,6 +53,13 @@ class Shop extends React.Component {
         if (location.search.includes(filter)) {
             const search = location.search.split('&').map((currentFilter, index) => {
                 if (currentFilter.includes(filter)) {
+                    if (isBrand) {
+                        if (currentFilter.includes(filterValue)) {
+                            return currentFilter.split(`,${filterValue}`).join('')
+                        } else {
+                            return `${currentFilter},${filterValue}`
+                        }
+                    }
                     return `${filter}=${filterValue}`
                 } else {
                     return currentFilter
@@ -203,7 +209,7 @@ class Shop extends React.Component {
                                                     <Link
                                                         className='text-black'
                                                         to={(location) => (
-                                                            this.onFilterLinkClick(location, 'brands', brand.name)
+                                                            this.onFilterLinkClick(location, 'brands', brand.name, true)
                                                         )}>
                                                         {`${brand.name} (${brand.productQuantity})`}
                                                     </Link>
