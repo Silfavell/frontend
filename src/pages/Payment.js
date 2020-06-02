@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie'
 import $ from 'jquery'
 
 import SiteWrap from '../components/SiteWrap'
+import Loading from '../components/Loading'
 import EmptyAddressCart from '../components/EmptyAddressCart'
 import AddressCart from '../components/AddressCart'
 import AddressPopup from '../components/AddressPopup'
@@ -14,6 +15,7 @@ const cookies = new Cookies()
 class Payment extends React.Component {
 
     state = {
+        fetching: true,
         products: [],
         addresses: [],
         cards: [],
@@ -93,7 +95,8 @@ class Payment extends React.Component {
             this.setState({
                 products: Object.values(results[0].cart),
                 cards: results[1],
-                addresses: results[2]
+                addresses: results[2],
+                fetching: false
             })
         }).catch((err) => {
             console.log((err))
@@ -110,8 +113,11 @@ class Payment extends React.Component {
         axios.post(`${process.env.REACT_APP_API_URL}/user/order`, {
             address: this.state.addresses[this.state.selectedAddress]._id,
             card: this.state.cards[this.state.selectedCard].cardToken
-        }).then((result) => {
-            console.log(result)
+        }).then(({ status, data }) => {
+            if (status === 200) {
+                alert('Siparişiniz alınmıştır.')
+                this.props.history.push('/')
+            }
         }).catch((err) => {
             alert(err.response.data.error)
         })
@@ -325,64 +331,67 @@ class Payment extends React.Component {
                 path: null, title: 'Payment'
             }
         ]
-
-        return (
-            <SiteWrap divider={divider}>
-                {
-                    this.state.showSaveAddressPopup && <AddressPopup hideSaveAddressPopup={this.hideSaveAddressPopup} />
-                }
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-md-9'>
-                            <div className='row mb-5'>
-                                <div className='col-md-12'>
-                                    <div className='row border'>
-                                        <div className='col-md-6 border-right p-3' style={{ cursor: 'pointer' }} onClick={this.onAddressOptionsClick}>
-                                            <h3 className={'text-secondary'}>Adres Bilgileri</h3>
-                                            <p className={'text-primary h5'}>{this.state.addresses[this.state.selectedAddress]?.addressTitle}</p>
-                                            <p className={'text-black h6'}>{this.state.addresses[this.state.selectedAddress]?.openAddress}</p>
-                                        </div>
-                                        <div className='col-md-6 p-3' style={{ cursor: 'pointer' }} onClick={this.onPaymentOptionsClick}>
-                                            <h3 className={'text-secondary'}>Ödeme Seçenekleri</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {
-                                this.renderPaymentOptions()
-                            }
-                            {
-                                this.renderAddresses()
-                            }
-                        </div>
-                        <div className='col-md-3'>
-                            <div className='col-md-12 border p-4'>
-                                <div className='row'>
-                                    <div className='col-md-12 text-left mb-5'>
-                                        <h3 className='text-black h4 text-uppercase'>Cart Totals</h3>
-                                    </div>
-                                </div>
+        if (this.state.fetching) {
+            return <Loading />
+        } else {
+            return (
+                <SiteWrap divider={divider}>
+                    {
+                        this.state.showSaveAddressPopup && <AddressPopup hideSaveAddressPopup={this.hideSaveAddressPopup} />
+                    }
+                    <div className='container'>
+                        <div className='row'>
+                            <div className='col-md-9'>
                                 <div className='row mb-5'>
-                                    <div className='col-md-6'>
-                                        <span className='text-black'>Total</span>
-                                    </div>
-                                    <div className='col-md-6 text-right'>
-                                        <strong className='text-black'>{`₺${totalPrice}`}</strong>
+                                    <div className='col-md-12'>
+                                        <div className='row border'>
+                                            <div className='col-md-6 border-right p-3' style={{ cursor: 'pointer' }} onClick={this.onAddressOptionsClick}>
+                                                <h3 className={'text-secondary'}>Adres Bilgileri</h3>
+                                                <p className={'text-primary h5'}>{this.state.addresses[this.state.selectedAddress]?.addressTitle}</p>
+                                                <p className={'text-black h6'}>{this.state.addresses[this.state.selectedAddress]?.openAddress}</p>
+                                            </div>
+                                            <div className='col-md-6 p-3' style={{ cursor: 'pointer' }} onClick={this.onPaymentOptionsClick}>
+                                                <h3 className={'text-secondary'}>Ödeme Seçenekleri</h3>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className='row pt-3'>
-                                <div className='col-md-12'>
-                                    <button className='btn btn-primary btn-lg btn-block' onClick={this.onCompletePaymentClick}>Ödemeye Geç</button>
+                                {
+                                    this.renderPaymentOptions()
+                                }
+                                {
+                                    this.renderAddresses()
+                                }
+                            </div>
+                            <div className='col-md-3'>
+                                <div className='col-md-12 border p-4'>
+                                    <div className='row'>
+                                        <div className='col-md-12 text-left mb-5'>
+                                            <h3 className='text-black h4 text-uppercase'>Cart Totals</h3>
+                                        </div>
+                                    </div>
+                                    <div className='row mb-5'>
+                                        <div className='col-md-6'>
+                                            <span className='text-black'>Total</span>
+                                        </div>
+                                        <div className='col-md-6 text-right'>
+                                            <strong className='text-black'>{`₺${totalPrice}`}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='row pt-3'>
+                                    <div className='col-md-12'>
+                                        <button className='btn btn-primary btn-lg btn-block' onClick={this.onCompletePaymentClick}>Ödemeye Geç</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </SiteWrap>
-        )
+                </SiteWrap>
+            )
+        }
     }
 }
 
