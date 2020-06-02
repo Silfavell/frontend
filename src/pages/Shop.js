@@ -52,6 +52,7 @@ class Shop extends React.Component {
     onFilterLinkClick = (location, filter, filterValue, isBrand) => {
         if (location.search.includes(filter)) {
             const search = location.search.split('&').map((currentFilter, index) => {
+                currentFilter = currentFilter.split('%20').join(' ')
                 if (currentFilter.includes(filter)) {
                     if (isBrand) {
                         if (currentFilter.includes(filterValue)) {
@@ -66,6 +67,9 @@ class Shop extends React.Component {
                 }
             }).join('&')
 
+            if (search.endsWith('brands=') || search.includes('brands=&')) {
+                return `${location.pathname}${search.replace('&brands=', '')}`
+            }
             return `${location.pathname}${search}`
         } else {
             return `${location.pathname}${location.search}&${filter}=${filterValue}`
