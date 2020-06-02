@@ -9,40 +9,62 @@ import Loading from '../components/Loading'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
+import { Link } from 'react-router-dom'
 
 class Shop extends React.Component {
 
     state = {
         categories: [],
         products: [],
-        selectedBrands: [],
         productsLength: 0,
-        page: 0,
         fetching: true
     }
 
     siteRef = React.createRef()
 
     fetchProducts = () => {
-        this.scrollToTop()
-        this.setState({ fetching: true })
-
-        const brands = this.state.selectedBrands.length > 0 ? '&brands=' + this.state.selectedBrands.reduce((prevVal, currentVal) => prevVal + currentVal + ',', '') : ''
-
-        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&start=${this.state.page * 18}&quantity=18${brands}`
+        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&quantity=18`
 
         return axios.get(url).then(({ data }) => data)
     }
 
-    onPageClick = (page) => {
-        this.setState({ page }, () => {
-            this.fetchProducts().then((products) => (
-                this.setState({ products, fetching: false })
-            ))
+    scrollToTop = () => window.scrollTo({ behavior: 'smooth', top: this.siteRef?.current?.offsetTop })
+
+    getProductsLength = () => {
+        const url = `${process.env.REACT_APP_API_URL}/products-length${this.props.location.search}`
+
+        return axios.get(url).then(({ data: productsLength }) => productsLength)
+    }
+
+    getCategories = () => (
+        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => data)
+    )
+
+    refresh = () => {
+        this.setState({ fetching: true }, () => {
+            Promise.all([this.fetchProducts(), this.getProductsLength()]).then((vals) => {
+                console.log(vals[1])
+                this.setState({ products: vals[0], productsLength: vals[1], fetching: false })
+                this.scrollToTop()
+            })
         })
     }
 
-    scrollToTop = () => window.scrollTo({ behavior: 'smooth', top: this.siteRef?.current?.offsetTop })
+    onFilterLinkClick = (location, filter, filterValue, isBrand) => {
+        if (location.search.includes(filter)) {
+            const search = location.search.split('&').map((currentFilter, index) => {
+                if (currentFilter.includes(filter)) {
+                    return `${filter}=${filterValue}`
+                } else {
+                    return currentFilter
+                }
+            }).join('&')
+
+            return `${location.pathname}${search}`
+        } else {
+            return `${location.pathname}${location.search}&${filter}=${filterValue}`
+        }
+    }
 
     UNSAFE_componentWillMount() {
         Promise.all([this.getCategories(), this.getProductsLength(), this.fetchProducts()]).then((vals) => {
@@ -55,28 +77,10 @@ class Shop extends React.Component {
         })
     }
 
-    getProductsLength = () => {
-        const brands = this.state.selectedBrands.length > 0 ? '&brands=' + this.state.selectedBrands.reduce((prevVal, currentVal) => prevVal + currentVal + ',', '') : ''
-
-        const url = `${process.env.REACT_APP_API_URL}/products-length${this.props.location.search}${brands}`
-
-        return axios.get(url).then(({ data: productsLength }) => productsLength)
-    }
-
-    getCategories = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => data)
-    )
-
-    onBrandSelectionChange = (event) => {
-        if (this.state.selectedBrands.includes(event.target.getAttribute('brand'))) {
-            this.state.selectedBrands.splice(this.state.selectedBrands.indexOf(event.target.getAttribute('brand')), 1)
-        } else {
-            this.state.selectedBrands.push(event.target.getAttribute('brand'))
+    componentDidUpdate(prevProps) {
+        if (this.props.location.search !== prevProps.location.search) {
+            this.refresh()
         }
-
-        Promise.all([this.fetchProducts(), this.getProductsLength()]).then((vals) => {
-            this.setState({ products: vals[0], productsLength: vals[1], fetching: false })
-        })
     }
 
     render() {
@@ -105,25 +109,26 @@ class Shop extends React.Component {
                                     <div className='col-md-12 mb-5'>
                                         <div className='float-md-left'><h3 className='text-gray text-uppercase'>{subCategory?.name ?? currentCategory?.name}</h3></div>
                                         <div className='d-flex'>
-                                            <div className='dropdown mr-1 ml-md-auto'>
-                                                <button type='button' className='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuOffset' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                                    Latest
-                                                </button>
-                                                <div className='dropdown-menu' aria-labelledby='dropdownMenuOffset'>
-                                                    <a className='dropdown-item' href='#'>Men</a>
-                                                    <a className='dropdown-item' href='#'>Women</a>
-                                                    <a className='dropdown-item' href='#'>Children</a>
-                                                </div>
-                                            </div>
-                                            <div className='btn-group'>
-                                                <button type='button' className='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuReference' data-toggle='dropdown'>Reference</button>
+                                            <div className='btn-group mr-1 ml-md-auto'>
+                                                <button type='button' className='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuReference' data-toggle='dropdown'>Sırala</button>
                                                 <div className='dropdown-menu' aria-labelledby='dropdownMenuReference'>
-                                                    <a className='dropdown-item' href='#'>Relevance</a>
-                                                    <a className='dropdown-item' href='#'>Name, A to Z</a>
-                                                    <a className='dropdown-item' href='#'>Name, Z to A</a>
-                                                    <div className='dropdown-divider'></div>
-                                                    <a className='dropdown-item' href='#'>Price, low to high</a>
-                                                    <a className='dropdown-item' href='#'>Price, high to low</a>
+                                                    {
+                                                        /*
+                                                            <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(0)}>Akıllı Sıralama</span>
+                                                            <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(1)}>Çok Satanlar</span>
+                                                            <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(2)}>En Yeniler</span>
+                                                            <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(5)}>En Yüksek Puan</span>
+                                                            <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(6)}>En Çok Yorumlanan</span>
+                                                            <div className='dropdown-divider' />
+                                                        */
+                                                    }
+                                                    <Link className='dropdown-item' style={{ cursor: 'pointer' }} to={(location) => (
+                                                        this.onFilterLinkClick(location, 'sortType', 3)
+                                                    )}>En Düşük Fiyat</Link>
+
+                                                    <Link className='dropdown-item' style={{ cursor: 'pointer' }} to={(location) => (
+                                                        this.onFilterLinkClick(location, 'sortType', 4)
+                                                    )}>En Yüksek Fiyat</Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -147,11 +152,14 @@ class Shop extends React.Component {
                                                         <li
                                                             style={{ marginLeft: 5, cursor: 'pointer' }}
                                                             className={index === this.state.page ? 'active' : ''}
-                                                            onClick={() => this.onPageClick(index)}
                                                         >
-
-                                                            <span>{index + 1}</span>
-
+                                                            <Link
+                                                                className='text-black'
+                                                                to={(location) => (
+                                                                    this.onFilterLinkClick(location, 'start', index * 18)
+                                                                )}>
+                                                                {index + 1}
+                                                            </Link>
                                                         </li>
                                                     ))
                                                 }
@@ -191,10 +199,14 @@ class Shop extends React.Component {
                                                         className='mr-2 mt-1'
                                                         style={{ cursor: 'pointer' }}
                                                         onChange={this.onBrandSelectionChange}
-                                                        checked={this.state.selectedBrands.includes(brand.name)} />
-                                                    <span className='text-black'>
+                                                        checked={this.props.location.search.includes(brand.name)} />
+                                                    <Link
+                                                        className='text-black'
+                                                        to={(location) => (
+                                                            this.onFilterLinkClick(location, 'brands', brand.name)
+                                                        )}>
                                                         {`${brand.name} (${brand.productQuantity})`}
-                                                    </span>
+                                                    </Link>
                                                 </label>
                                             ))
                                         }
