@@ -1,5 +1,7 @@
 /* eslint-disable react/style-prop-object */
 import React from 'react'
+import axios from 'axios'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
@@ -11,6 +13,24 @@ import SiteWrap from '../components/SiteWrap'
 import Carousel from '../components/Carousel'
 
 class Home extends React.Component {
+
+    state = {
+        visitedProducts: []
+    }
+
+    fetchProducts = () => {
+        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${JSON.parse(window.localStorage.visitedProducts).join(',')}&quantity=32`
+        return axios.get(url).then(({ data }) => data)
+    }
+
+    UNSAFE_componentWillMount() {
+        if (window.localStorage.visitedProducts) {
+            this.fetchProducts().then((visitedProducts) => {
+                this.setState({ visitedProducts })
+            })
+        }
+    }
+
     render() {
         return (
             <SiteWrap firstImage>
@@ -24,7 +44,7 @@ class Home extends React.Component {
                         </div>
                         <div className='col-md-12 p-4' />
 
-                        <Carousel />
+                        <Carousel products={[]} />
 
                         <div className='col-md-12 p-4' />
                         <div className='col-md-12  p-4'>
@@ -34,7 +54,7 @@ class Home extends React.Component {
                         </div>
                         <div className='col-md-12 p-4' />
 
-                        <Carousel />
+                        <Carousel products={this.state.visitedProducts} />
                     </div>
                 </div>
             </SiteWrap>

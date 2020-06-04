@@ -5,12 +5,6 @@ import 'react-multi-carousel/lib/styles.css'
 
 import Product from './Product'
 
-const product = {
-    img: `${process.env.PUBLIC_URL}/product.jpg`,
-    name: 'Black and White stripes Dress',
-    price: 114.50
-}
-
 const responsive = {
     desktop: {
         breakpoint: { max: 3000, min: 1024 },
@@ -29,25 +23,25 @@ const responsive = {
     }
 }
 
-function ControlledCarousel() {
-    return (
-        <div className='col-md-12 carousel-container'>
-            <Carousel
-                containerClass='carousel-container'
-                responsive={responsive}
-                renderButtonGroupOutside={true}
-                autoPlay={false}
-            >
-                <Product item={product} />
-                <Product item={product} />
-                <Product item={product} />
-                <Product item={product} />
-                <Product item={product} />
-                <Product item={product} />
-                <Product item={product} />
-            </Carousel>
-        </div>
-    )
+class CarouselComponent extends React.Component {
+    render() {
+        return (
+            <div className='col-md-12 carousel-container'>
+                <Carousel
+                    containerClass='carousel-container'
+                    responsive={responsive}
+                    renderButtonGroupOutside={true}
+                    autoPlay={false}
+                >
+                    {
+                        this.props.products.map((product) => (
+                            <Product item={product} />
+                        ))
+                    }
+                </Carousel>
+            </div>
+        )
+    }
 }
 
-export default ControlledCarousel
+export default CarouselComponent

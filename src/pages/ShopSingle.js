@@ -14,9 +14,20 @@ class ShopSingle extends React.Component {
 
     componentWillMount() {
         // axios.get(`http://178.62.245.193:3000/product/${'5ebd4417b6e6fb001239f439'}`).then((result) => {
-
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`, { headers: { Authorization: 'DO_NOT_SET_AUTH' } }).then((result) => {
-            this.setState({ product: result.data })
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`, { headers: { Authorization: 'DO_NOT_SET_AUTH' } }).then(({ data: product }) => {
+            this.setState({ product }, () => {
+                const visitedProducts = window.localStorage.getItem('visitedProducts')
+                if (visitedProducts) {
+                    const visitedProductsAsArray = JSON.parse(visitedProducts)
+                    if (visitedProductsAsArray.indexOf(product._id) !== -1) {
+                        visitedProductsAsArray.splice(visitedProductsAsArray.indexOf(product._id), 1)
+                    }
+                    visitedProductsAsArray.push(product._id)
+                    window.localStorage.setItem('visitedProducts', JSON.stringify(visitedProductsAsArray))
+                } else {
+                    window.localStorage.setItem('visitedProducts', JSON.stringify([product._id]))
+                }
+            })
         }).catch((err) => {
             console.log(err.response)
         })
