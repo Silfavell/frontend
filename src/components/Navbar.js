@@ -83,7 +83,7 @@ class Navbar extends React.Component {
     }
 
     onMenuClick = () => {
-        this.props.changeMobileMenuStatus()
+        this.props.changeMobileMenuStatus(true)
     }
 
     render() {

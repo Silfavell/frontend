@@ -1,4 +1,5 @@
 import React from 'react'
+import $ from 'jquery'
 
 import Navbar from './Navbar'
 import Footer from './Footer'
@@ -13,13 +14,19 @@ class SiteWrap extends React.Component {
         isMobileMenuOpen: false
     }
 
-    changeMobileMenuStatus = () => {
-        this.setState({ isMobileMenuOpen: !this.state.isMobileMenuOpen })
+    changeMobileMenuStatus = (isMobileMenuOpen) => {
+        this.setState({ isMobileMenuOpen })
+    }
+
+    onOutsideMenuClick = (event) => {
+        if (this.state.isMobileMenuOpen && $('.site-mobile-menu').find(event.target).length === 0) {
+            this.changeMobileMenuStatus(false)
+        }
     }
 
     render() {
         return (
-            <div className={`site-wrap ${this.state.isMobileMenuOpen ? 'offcanvas-menu' : ''}`} ref={this.props.siteRef} >
+            <div className={`site-wrap ${this.state.isMobileMenuOpen ? 'offcanvas-menu' : ''}`} ref={this.props.siteRef} onClick={this.onOutsideMenuClick}>
                 <Navbar firstImage={this.props.firstImage} changeMobileMenuStatus={this.changeMobileMenuStatus} />
                 {
                     this.props.firstImage && <FirstImage />
