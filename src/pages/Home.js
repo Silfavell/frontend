@@ -15,20 +15,27 @@ import Carousel from '../components/Carousel'
 class Home extends React.Component {
 
     state = {
-        visitedProducts: []
+        visitedProducts: [],
+        bestSeller: []
     }
 
-    fetchProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${JSON.parse(window.localStorage.getItem('visitedProducts')).join(',')}&quantity=32`
+    fetchProducts = (productIds) => {
+        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${productIds}&quantity=32`
         return axios.get(url).then(({ data }) => data)
     }
 
     UNSAFE_componentWillMount() {
         if (window.localStorage.visitedProducts) {
-            this.fetchProducts().then((visitedProducts) => {
+            const visitedProductIds = JSON.parse(window.localStorage.getItem('visitedProducts')).join(',')
+
+            this.fetchProducts(visitedProductIds).then((visitedProducts) => {
                 this.setState({ visitedProducts })
             })
         }
+
+        this.fetchProducts(['5ed559e1d464530b18e37405', '5ed4ffae10bad04b78d3c758'].join(',')).then((bestSeller) => {
+            this.setState({ bestSeller })
+        })
     }
 
     render() {
@@ -44,7 +51,7 @@ class Home extends React.Component {
                         </div>
                         <div className='col-md-12 p-4' />
 
-                        <Carousel products={[]} />
+                        <Carousel products={this.state.bestSeller} />
 
                         {
                             this.state.visitedProducts.length > 0 && (
