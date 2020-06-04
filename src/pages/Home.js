@@ -33,7 +33,7 @@ class Home extends React.Component {
             })
         }
 
-        this.fetchProducts(['5ed559e1d464530b18e37405', '5ed4ffae10bad04b78d3c758'].join(',')).then((bestSeller) => {
+        this.fetchProducts(['5ed559e1d464530b18e37405', '5ed4ffae10bad04b78d3c758'].join(',')).then((bestSeller) => { // TODO
             this.setState({ bestSeller })
         })
     }
