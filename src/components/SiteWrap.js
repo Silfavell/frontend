@@ -8,15 +8,24 @@ import FirstImage from './FirstImage'
 import '../style/css/style.css'
 
 class SiteWrap extends React.Component {
+
+    state = {
+        isMobileMenuOpen: false
+    }
+
+    changeMobileMenuStatus = () => {
+        this.setState({ isMobileMenuOpen: !this.state.isMobileMenuOpen })
+    }
+
     render() {
         return (
-            <div className='site-wrap' ref={this.props.siteRef}>
-                <Navbar firstImage={this.props.firstImage} />
+            <div className={`site-wrap ${this.state.isMobileMenuOpen ? 'offcanvas-menu' : ''}`} ref={this.props.siteRef} >
+                <Navbar firstImage={this.props.firstImage} changeMobileMenuStatus={this.changeMobileMenuStatus} />
                 {
                     this.props.firstImage && <FirstImage />
                 }
                 {
-                    this.props.divider && <Divider divider={this.props.divider}/>
+                    this.props.divider && <Divider divider={this.props.divider} />
                 }
                 <div className='site-section'>
                     {
@@ -24,7 +33,7 @@ class SiteWrap extends React.Component {
                     }
                 </div>
                 <Footer />
-            </div>
+            </div >
         )
     }
 }
