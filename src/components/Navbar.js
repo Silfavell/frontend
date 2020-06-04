@@ -61,7 +61,7 @@ class Navbar extends React.Component {
     renderPersonMenu = () => {
         if (this.state.loggedIn) {
             return (
-                <ul className='dropdown'>
+                <ul className='dropdown' style={{ left: '-200%' }}>
                     <li><a href='/edit-profile'>Profilimi Düzenle</a></li>
                     <li><a href='/update-password'>Şifremi değiştir</a></li>
                     <li><div onClick={this.onLogoutClick}>Çıkış Yap</div></li>
