@@ -19,7 +19,7 @@ class Home extends React.Component {
     }
 
     fetchProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${JSON.parse(window.localStorage.visitedProducts).join(',')}&quantity=32`
+        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${JSON.parse(window.localStorage.getItem('visitedProducts')).join(',')}&quantity=32`
         return axios.get(url).then(({ data }) => data)
     }
 
@@ -40,21 +40,27 @@ class Home extends React.Component {
                         <div className='col-md-12 p-4'>
                             <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
                                 Best Seller
-                            </h2>
+                                    </h2>
                         </div>
                         <div className='col-md-12 p-4' />
 
                         <Carousel products={[]} />
 
-                        <div className='col-md-12 p-4' />
-                        <div className='col-md-12  p-4'>
-                            <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
-                                En Son Gezdiklerin
-                            </h2>
-                        </div>
-                        <div className='col-md-12 p-4' />
+                        {
+                            this.state.visitedProducts.length > 0 && (
+                                <>
+                                    <div className='col-md-12 p-4' />
+                                    <div className='col-md-12  p-4'>
+                                        <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
+                                            En Son Gezdiklerin
+                                        </h2>
+                                    </div>
+                                    <div className='col-md-12 p-4' />
 
-                        <Carousel products={this.state.visitedProducts} />
+                                    <Carousel products={this.state.visitedProducts} />
+                                </>
+                            )
+                        }
                     </div>
                 </div>
             </SiteWrap>

@@ -26,7 +26,15 @@ class SignIn extends React.Component {
         axios.post(url, this.state).then(({ status, data }) => {
             if (status === 200) {
                 cookies.set('token', data.token)
-                this.props.history.push('/')
+
+                if (window.localStorage.getItem('cart')) {
+                    axios.post(`${process.env.REACT_APP_API_URL}/user/cart`, JSON.parse(window.localStorage.getItem('cart'))).then(() => {
+                        window.localStorage.removeItem('cart')
+                        this.props.history.push('/')
+                    })
+                } else {
+                    this.props.history.push('/')
+                }
             }
         }).catch((err) => {
             alert(err.response.data.error)

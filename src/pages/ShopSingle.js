@@ -2,9 +2,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from 'axios'
 import React from 'react'
+import Cookies from 'universal-cookie'
 
 import Loading from '../components/Loading'
 import SiteWrap from '../components/SiteWrap'
+
+const cookies = new Cookies()
 
 class ShopSingle extends React.Component {
 
@@ -34,10 +37,25 @@ class ShopSingle extends React.Component {
     }
 
     addProductToCart = () => {
-        // axios.get(`http://178.62.245.193:3000/product/${this.props.match.params._id}`).then((result) => {
         axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`).then(({ status, data }) => {
             if (status === 200) {
-                console.log(data)
+                if (!cookies.get('token')) {
+                    const cart = window.localStorage.getItem('cart')
+
+                    if (cart) {
+                        const cartAsArray = JSON.parse(cart)
+                        const foundProduct = cartAsArray.find((cartProduct) => cartProduct._id === data._id)
+                        if (foundProduct) {
+                            cartAsArray[cartAsArray.indexOf(foundProduct)].quantity++
+                        } else {
+                            cartAsArray.push({ _id: data._id, quantity: 1 })
+                        }
+                        window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
+                    } else {
+                        window.localStorage.setItem('cart', JSON.stringify([{ _id: data._id, quantity: 1 }]))
+                    }
+                }
+
                 alert('Ürünü sepete eklendi (1)')
             }
         })

@@ -2,9 +2,12 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import axios from 'axios'
+import Cookies from 'universal-cookie'
 
 import SiteWrap from '../components/SiteWrap'
 import CartItem from '../components/CartItem'
+
+const cookies = new Cookies()
 
 class Cart extends React.Component {
 
@@ -12,12 +15,36 @@ class Cart extends React.Component {
         products: []
     }
 
+    fetchOfflineCartProducts = () => {
+        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${
+            JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => cartProduct._id).join(',')
+            }`
+
+
+        return axios.get(url).then(({ data }) => data)
+    }
+
     UNSAFE_componentWillMount() {
-        axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => {
-            if (data && data.cart) {
-                this.setState({ products: Object.values(data.cart) })
+        if (cookies.get('token')) {
+            axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => {
+                if (data && data.cart) {
+                    this.setState({ products: Object.values(data.cart) })
+                }
+            })
+        } else {
+            const cart = window.localStorage.getItem('cart')
+
+            if (cart) {
+                const cartAsArray = JSON.parse(window.localStorage.getItem('cart'))
+                if (cartAsArray.length > 0) {
+                    this.fetchOfflineCartProducts().then((products) => {
+                        this.setState({
+                            products: products.map((product, index) => Object.assign(product, { quantity: cartAsArray[index].quantity }))
+                        })
+                    })
+                }
             }
-        })
+        }
     }
 
     onCheckoutClick = () => {

@@ -20,17 +20,24 @@ class Navbar extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        const arr = [this.getCategories()]
-
         if (cookies.get('token')) {
-            arr.push(this.getCartProductsLength())
+            Promise.all([this.getCategories(), this.getCartProductsLength()]).then((vals) => {
+                this.setState({ categories: vals[0], productsLength: vals[1] ?? 0 })
+            }).catch((err) => {
+                console.log(err.response)
+            })
+        } else {
+            this.getCategories().then((categories) => {
+                const cart = window.localStorage.getItem('cart')
+                if (cart) {
+                    this.setState({ categories, productsLength: JSON.parse(cart).length })
+                } else {
+                    this.setState({ categories, productsLength: 0 })
+                }
+            }).catch((err) => {
+                console.log(err.response)
+            })
         }
-
-        Promise.all(arr).then((vals) => {
-            this.setState({ categories: vals[0], productsLength: vals[1] ?? 0 })
-        }).catch((err) => {
-            console.log(err.response)
-        })
     }
 
     getCartProductsLength = () => (
