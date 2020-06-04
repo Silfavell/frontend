@@ -21,7 +21,7 @@ class Product extends React.Component {
         } = this.props.item
 
         return (
-            <div className='col-md-3 ml-auto d-relative product'>
+            <div className='col-md-12 ml-auto d-relative product'>
                 <div className='position-relative interface-container'>
                     <img
                         src={img}

@@ -1,6 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
-import React, { useState } from 'react'
-import { Carousel } from 'react-bootstrap'
+import React from 'react'
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
 
 import Product from './Product'
 
@@ -10,34 +11,42 @@ const product = {
     price: 114.50
 }
 
-function ControlledCarousel() {
-    const [index, setIndex] = useState(0);
-
-    const handleSelect = (selectedIndex, e) => {
-        setIndex(selectedIndex);
+const responsive = {
+    desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 4,
+        slidesToSlide: 4
+    },
+    tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2,
+        slidesToSlide: 2
+    },
+    mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+        slidesToSlide: 1
     }
+}
 
+function ControlledCarousel() {
     return (
-        <Carousel
-            activeIndex={index}
-            indicators={false}
-            interval={null}
-            onSelect={handleSelect}>
-            {
-                [1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
-                    <Carousel.Item>
-                        <div className='col-md-12'>
-                            <div className='row'>
-                                <Product item={product} />
-                                <Product item={product} />
-                                <Product item={product} />
-                                <Product item={product} />
-                            </div>
-                        </div>
-                    </Carousel.Item>
-                ))
-            }
-        </Carousel>
+        <div className='col-md-12 carousel-container'>
+            <Carousel
+                containerClass='carousel-container'
+                responsive={responsive}
+                renderButtonGroupOutside={true}
+                autoPlay={false}
+            >
+                <Product item={product} />
+                <Product item={product} />
+                <Product item={product} />
+                <Product item={product} />
+                <Product item={product} />
+                <Product item={product} />
+                <Product item={product} />
+            </Carousel>
+        </div>
     )
 }
 
