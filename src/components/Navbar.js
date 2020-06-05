@@ -78,6 +78,7 @@ class Navbar extends React.Component {
                 <ul className='dropdown' style={{ left: '-200%', zIndex: 9999 }}>
                     <li><a href='/edit-profile'>Profilimi Düzenle</a></li>
                     <li><a href='/update-password'>Şifremi değiştir</a></li>
+                    <li><a href='/favorite-products'>Favorilerim</a></li>
                     <li><div onClick={this.onLogoutClick}>Çıkış Yap</div></li>
                     {
                         /*
@@ -105,16 +106,16 @@ class Navbar extends React.Component {
 
     renderSearchBarTop = () => (
         <div className='search-top'>
-            <div class='input-group' style={{ border: '1px solid #E83E8C' }}>
+            <div className='input-group' style={{ border: '1px solid #E83E8C' }}>
                 <input
                     type='text'
-                    class='form-control border-0'
+                    className='form-control border-0'
                     placeholder='Search'
                     onChange={this.onSearchTextChange}
                     value={this.state.searchText} />
 
-                <div class='input-group-append'>
-                    <button class='btn' type='button'>
+                <div className='input-group-append'>
+                    <button className='btn' type='button'>
                         {
                             (this.state.searchText.length > 0 && this.state.searchedProducts.length > 0) && (
                                 <IoMdClose color={'#8C92A0'} size={26} onClick={this.onSearchClearClick} />
@@ -142,16 +143,16 @@ class Navbar extends React.Component {
 
     renderSearchBarBottom = () => (
         <div className='search-bottom'>
-            <div class='input-group' style={{ border: '1px solid #E83E8C' }}>
+            <div className='input-group' style={{ border: '1px solid #E83E8C' }}>
                 <input
                     type='text'
-                    class='form-control border-0'
+                    className='form-control border-0'
                     placeholder='Search'
                     onChange={this.onSearchTextChange}
                     value={this.state.searchText} />
 
-                <div class='input-group-append'>
-                    <button class='btn' type='button'>
+                <div className='input-group-append'>
+                    <button className='btn' type='button'>
                         {
                             (this.state.searchText.length > 0 && this.state.searchedProducts.length > 0) && (
                                 <IoMdClose color={'#8C92A0'} size={26} onClick={this.onSearchClearClick} />
@@ -185,15 +186,15 @@ class Navbar extends React.Component {
     render() {
         return (
             <>
-                <div class='site-mobile-menu'>
-                    <div class='site-mobile-menu-body'>
-                        <ul class='site-nav-wrap'>
+                <div className='site-mobile-menu'>
+                    <div className='site-mobile-menu-body'>
+                        <ul className='site-nav-wrap'>
                             {
                                 this.state.categories.map((category) => (
                                     <li className={'has-children'}>
                                         {
                                             category.subCategories.length > 0 &&
-                                            <span class='arrow-collapse collapsed' data-toggle='collapse' data-target={`#collapseItem${category._id}`} />
+                                            <span className='arrow-collapse collapsed' data-toggle='collapse' data-target={`#collapseItem${category._id}`} />
                                         }
                                         <a href={`/shop?categoryId=${category._id}`}>{category.name}</a>
                                         <ul className='collapse' id={`collapseItem${category._id}`}>
