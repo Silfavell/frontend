@@ -1,9 +1,16 @@
-.search-bar-container {
+.search-bottom {
+    margin-top: 10px;
+    display: none;
+}
+
+.search-top,
+.search-bottom {
     position: relative;
     flex-grow: 2;
 }
 
-.search-results {
+.search-top .search-results,
+.search-bottom .search-results {
     position: absolute;
     left: 0;
     right: 0;
@@ -17,7 +24,8 @@
     box-shadow: 0 0px 4px 0px rgba(0 0 0 0.05);
 }
 
-.active-search {
+.search-top .active-search,
+.search-bottom .active-search {
     -webkit-transition-delay: 0s;
     -o-transition-delay: 0s;
     transition-delay: 0s;
@@ -27,7 +35,11 @@
 }
 
 @media (max-width: 991.98px) {
-    .search-bar-container {
+    .search-top {
         display: none;
+    }
+
+    .search-bottom {
+        display: block;
     }
 }

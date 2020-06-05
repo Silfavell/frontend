@@ -103,8 +103,8 @@ class Navbar extends React.Component {
         }
     }
 
-    renderSearchBar = () => (
-        <div className='search-bar-container'>
+    renderSearchBarTop = () => (
+        <div className='search-top'>
             <div class='input-group' style={{ border: '1px solid #E83E8C' }}>
                 <input
                     type='text'
@@ -136,6 +136,33 @@ class Navbar extends React.Component {
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    )
+
+    renderSearchBarBottom = () => (
+        <div className='search-bottom'>
+            <div class='input-group' style={{ border: '1px solid #E83E8C' }}>
+                <input
+                    type='text'
+                    class='form-control border-0'
+                    placeholder='Search'
+                    onChange={this.onSearchTextChange}
+                    value={this.state.searchText} />
+
+                <div class='input-group-append'>
+                    <button class='btn' type='button'>
+                        {
+                            (this.state.searchText.length > 0 && this.state.searchedProducts.length > 0) && (
+                                <IoMdClose color={'#8C92A0'} size={26} onClick={this.onSearchClearClick} />
+                            )
+                        }
+                        <IoIosSearch color={'#8C92A0'} size={26} onClick={this.search} />
+                    </button>
+                </div>
+            </div>
+            <div className={`search-results ${this.state.searchedProducts.length > 0 ? 'active-search' : ''}`}>
+
             </div>
         </div>
     )
@@ -195,7 +222,7 @@ class Navbar extends React.Component {
                                 </a>
                             </div>
                             {
-                                this.renderSearchBar()
+                                this.renderSearchBarTop()
                             }
 
                             <div className='icons d-flex align-items-center justify-content-center flex-grow-1'>
@@ -225,6 +252,9 @@ class Navbar extends React.Component {
                     </div>
                     <div className='container-fluid'>
                         <div className='align-items-center justify-content-between bottom-search'>
+                            {
+                                this.renderSearchBarBottom()
+                            }
                             <div className='main-nav d-none d-lg-block'>
                                 <nav className='site-navigation text-right text-md-center' role='navigation'>
                                     <ul className='site-menu js-clone-nav d-none d-lg-block'>
