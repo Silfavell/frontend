@@ -1,0 +1,22 @@
+.search-results {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top: 20px;
+    z-index: 9999;
+    visibility: hidden;
+    opacity: 0;
+    border: 1px solid #edf0f5;
+    border-top: unset;
+    transition: 0.2s 0s;
+    box-shadow: 0 0px 4px 0px rgba(0 0 0 0.05);
+}
+
+.active-search {
+    -webkit-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+    margin-top: 0px;
+    visibility: visible;
+    opacity: 1;
+}

@@ -8,6 +8,9 @@ import Cookies from 'universal-cookie'
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
+import './custom.css'
+
+import SearchProduct from './SearchProduct'
 
 const cookies = new Cookies()
 
@@ -16,7 +19,9 @@ class Navbar extends React.Component {
     state = {
         loggedIn: cookies.get('token'),
         productsLength: 0,
-        categories: []
+        categories: [],
+        searchText: '',
+        searchedProducts: []
     }
 
     UNSAFE_componentWillMount() {
@@ -38,6 +43,15 @@ class Navbar extends React.Component {
                 console.log(err.response)
             })
         }
+    }
+
+    search = () => {
+        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${[
+            '5ed559e1d464530b18e37405', '5ed4ffae10bad04b78d3c758', '5ed55ad5d464530b18e3741f', '5ed55affd464530b18e37421'
+        ].join(',')}&quantity=32`
+        axios.get(url).then(({ data }) => {
+            this.setState({ searchedProducts: data })
+        })
     }
 
     getCartProductsLength = () => (
@@ -132,13 +146,26 @@ class Navbar extends React.Component {
                                     <img src={process.env.PUBLIC_URL + '/logo.png'} style={{ height: 80 }} />
                                 </a>
                             </div>
-                            <div className='flex-grow-1'>
-                                <div class='input-group border'>
+                            <div style={{ position: 'relative', flexGrow: 2 }}>
+                                <div class='input-group' style={{ border: '1px solid #E83E8C' }}>
                                     <input type='text' class='form-control border-0' placeholder='Search' />
                                     <div class='input-group-append'>
-                                        <button class='btn' type='button'>
+                                        <button class='btn' type='button' onClick={this.search}>
                                             <IoIosSearch color={'#8C92A0'} size={26} />
                                         </button>
+                                    </div>
+                                </div>
+                                <div className={`search-results ${this.state.searchedProducts.length > 0 ? 'active-search' : ''}`}>
+                                    <div style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
+                                        <div className='col-md-12'>
+                                            <div className='row'>
+                                                {
+                                                    this.state.searchedProducts.map((product) => (
+                                                        <SearchProduct item={product} />
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
