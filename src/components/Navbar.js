@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import axios from 'axios'
-import { IoMdPerson, IoIosBasket, IoMdMenu } from 'react-icons/io'
+import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch } from 'react-icons/io'
 import Cookies from 'universal-cookie'
 
 import '../style/css/googleMukta.css'
@@ -61,7 +61,7 @@ class Navbar extends React.Component {
     renderPersonMenu = () => {
         if (this.state.loggedIn) {
             return (
-                <ul className='dropdown' style={{ left: '-200%' }}>
+                <ul className='dropdown' style={{ left: '-200%', zIndex: 9999 }}>
                     <li><a href='/edit-profile'>Profilimi Düzenle</a></li>
                     <li><a href='/update-password'>Şifremi değiştir</a></li>
                     <li><div onClick={this.onLogoutClick}>Çıkış Yap</div></li>
@@ -119,35 +119,6 @@ class Navbar extends React.Component {
                                     </li>
                                 ))
                             }
-
-
-                            {
-                                /*
-                                <li class='has-children active'><span class='arrow-collapse collapsed' data-toggle='collapse' data-target='#collapseItem0' />
-                                <a href='index.html'>Home</a>
-                                <ul class='collapse' id='collapseItem0'>
-                                    <li><a href='#'>Menu One</a></li>
-                                    <li><a href='#'>Menu Two</a></li>
-                                    <li><a href='#'>Menu Three</a></li>
-                                    <li class='has-children'>
-                                        <span class='arrow-collapse collapsed' data-toggle='collapse' data-target='#collapseItem1' />
-                                        <a href='#'>Sub Menu</a>
-                                        <ul class='collapse' id='collapseItem1'>
-                                            <li><a href='#'>Menu One</a></li>
-                                            <li><a href='#'>Menu Two</a></li>
-                                            <li><a href='#'>Menu Three</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li><a href='shop.html'>Shop</a></li>
-                            <li><a href='#'>Catalogue</a></li>
-                            <li><a href='#'>New Arrivals</a></li>
-                            <li><a href='contact.html'>Contact</a></li>
-                            */
-                            }
-
                         </ul>
                     </div>
                 </div>
@@ -155,12 +126,50 @@ class Navbar extends React.Component {
                 <div className={`site-navbar bg-white py-2 ${!this.props.firstImage ? 'custom-border-bottom' : ''}`}>
 
                     <div className='container-fluid'>
-                        <div className='d-flex align-items-center justify-content-between'>
+                        <div className='align-items-center justify-content-between d-flex direction-row'>
                             <div className='logo flex-grow-1 d-flex align-items-center justify-content-center'>
                                 <a href='/' className='js-logo-clone'>
                                     <img src={process.env.PUBLIC_URL + '/logo.png'} style={{ height: 80 }} />
                                 </a>
                             </div>
+                            <div className='flex-grow-1'>
+                                <div class='input-group border'>
+                                    <input type='text' class='form-control border-0' placeholder='Search' />
+                                    <div class='input-group-append'>
+                                        <button class='btn' type='button'>
+                                            <IoIosSearch color={'#8C92A0'} size={26} />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className='icons d-flex align-items-center justify-content-center flex-grow-1'>
+                                <div className='site-navigation icon-dropdown'>
+                                    <div className='site-menu'>
+                                        <li className='has-children'>
+                                            <IoMdPerson size={26} />
+                                            {
+                                                this.renderPersonMenu()
+                                            }
+                                        </li>
+                                        <li>
+                                            <a href='/cart' className='icons-btn d-inline-block bag'>
+                                                <IoIosBasket color={'#8C92A0'} size={26} />
+                                                <span className='number'>{this.state.productsLength}</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href='#' className='site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none'>
+                                                <IoMdMenu color={'#8C92A0'} size={26} onClick={this.onMenuClick} />
+                                            </a>
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='container-fluid'>
+                        <div className='align-items-center justify-content-between'>
                             <div className='main-nav d-none d-lg-block'>
                                 <nav className='site-navigation text-right text-md-center' role='navigation'>
                                     <ul className='site-menu js-clone-nav d-none d-lg-block'>
@@ -182,29 +191,6 @@ class Navbar extends React.Component {
                                         }
                                     </ul>
                                 </nav>
-                            </div>
-                            <div className='icons flex-grow-1 d-flex align-items-center justify-content-center '>
-                                <div className='site-navigation icon-dropdown'>
-                                    <div className='site-menu'>
-                                        <li className='has-children'>
-                                            <IoMdPerson size={26} />
-                                            {
-                                                this.renderPersonMenu()
-                                            }
-                                        </li>
-                                        <li>
-                                            <a href='/cart' className='icons-btn d-inline-block bag'>
-                                                <IoIosBasket size={26} />
-                                                <span className='number'>{this.state.productsLength}</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href='#' className='site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none'>
-                                                <IoMdMenu size={26} onClick={this.onMenuClick} />
-                                            </a>
-                                        </li>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
