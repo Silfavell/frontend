@@ -103,6 +103,43 @@ class Navbar extends React.Component {
         }
     }
 
+    renderSearchBar = () => (
+        <div className='search-bar-container'>
+            <div class='input-group' style={{ border: '1px solid #E83E8C' }}>
+                <input
+                    type='text'
+                    class='form-control border-0'
+                    placeholder='Search'
+                    onChange={this.onSearchTextChange}
+                    value={this.state.searchText} />
+
+                <div class='input-group-append'>
+                    <button class='btn' type='button'>
+                        {
+                            (this.state.searchText.length > 0 && this.state.searchedProducts.length > 0) && (
+                                <IoMdClose color={'#8C92A0'} size={26} onClick={this.onSearchClearClick} />
+                            )
+                        }
+                        <IoIosSearch color={'#8C92A0'} size={26} onClick={this.search} />
+                    </button>
+                </div>
+            </div>
+            <div className={`search-results ${this.state.searchedProducts.length > 0 ? 'active-search' : ''}`}>
+                <div style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
+                    <div className='col-md-12'>
+                        <div className='row'>
+                            {
+                                this.state.searchedProducts.map((product) => (
+                                    <SearchProduct item={product} />
+                                ))
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+
     onMenuClick = () => {
         this.props.changeMobileMenuStatus(true)
     }
@@ -157,40 +194,9 @@ class Navbar extends React.Component {
                                     <img src={process.env.PUBLIC_URL + '/logo.png'} style={{ height: 80 }} />
                                 </a>
                             </div>
-                            <div style={{ position: 'relative', flexGrow: 2 }}>
-                                <div class='input-group' style={{ border: '1px solid #E83E8C' }}>
-                                    <input
-                                        type='text'
-                                        class='form-control border-0'
-                                        placeholder='Search'
-                                        onChange={this.onSearchTextChange}
-                                        value={this.state.searchText} />
-
-                                    <div class='input-group-append'>
-                                        <button class='btn' type='button'>
-                                            {
-                                                (this.state.searchText.length > 0 && this.state.searchedProducts.length > 0) && (
-                                                    <IoMdClose color={'#8C92A0'} size={26} onClick={this.onSearchClearClick} />
-                                                )
-                                            }
-                                            <IoIosSearch color={'#8C92A0'} size={26} onClick={this.search} />
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className={`search-results ${this.state.searchedProducts.length > 0 ? 'active-search' : ''}`}>
-                                    <div style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
-                                        <div className='col-md-12'>
-                                            <div className='row'>
-                                                {
-                                                    this.state.searchedProducts.map((product) => (
-                                                        <SearchProduct item={product} />
-                                                    ))
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                this.renderSearchBar()
+                            }
 
                             <div className='icons d-flex align-items-center justify-content-center flex-grow-1'>
                                 <div className='site-navigation icon-dropdown'>
@@ -208,7 +214,7 @@ class Navbar extends React.Component {
                                             </a>
                                         </li>
                                         <li>
-                                            <a href='#' className='site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none'>
+                                            <a href='#' className='site-menu-toggle js-menu-toggle d-inline-block d-lg-none'>
                                                 <IoMdMenu color={'#8C92A0'} size={26} onClick={this.onMenuClick} />
                                             </a>
                                         </li>
@@ -218,7 +224,7 @@ class Navbar extends React.Component {
                         </div>
                     </div>
                     <div className='container-fluid'>
-                        <div className='align-items-center justify-content-between'>
+                        <div className='align-items-center justify-content-between bottom-search'>
                             <div className='main-nav d-none d-lg-block'>
                                 <nav className='site-navigation text-right text-md-center' role='navigation'>
                                     <ul className='site-menu js-clone-nav d-none d-lg-block'>
