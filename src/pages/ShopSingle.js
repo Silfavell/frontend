@@ -66,9 +66,7 @@ class ShopSingle extends React.Component {
             _id,
             name,
             price,
-            brand,
-            image,
-            category
+            brand
         } = this.state.product
 
         const divider = [

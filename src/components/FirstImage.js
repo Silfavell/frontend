@@ -24,7 +24,7 @@ function FirstImage() {
             onSelect={handleSelect}>
             {
                 [1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
-                    <Carousel.Item>
+                    <Carousel.Item key={x}>
                         <div
                             className='site-blocks-cover inner-page'
                             style={{

@@ -191,7 +191,7 @@ class Navbar extends React.Component {
                         <ul className='site-nav-wrap'>
                             {
                                 this.state.categories.map((category) => (
-                                    <li className={'has-children'}>
+                                    <li className={'has-children'} key={category._id}>
                                         {
                                             category.subCategories.length > 0 &&
                                             <span className='arrow-collapse collapsed' data-toggle='collapse' data-target={`#collapseItem${category._id}`} />
@@ -200,7 +200,7 @@ class Navbar extends React.Component {
                                         <ul className='collapse' id={`collapseItem${category._id}`}>
                                             {
                                                 category.subCategories.map((subCategory) => (
-                                                    <li>
+                                                    <li key={subCategory._id}>
                                                         <a href={`/shop?categoryId=${category._id}&subCategoryId=${subCategory._id}`}>{subCategory.name}</a>
                                                     </li>
                                                 ))
@@ -261,12 +261,12 @@ class Navbar extends React.Component {
                                     <ul className='site-menu js-clone-nav d-none d-lg-block'>
                                         {
                                             this.state.categories.map((category) => (
-                                                <li className={'has-children'}>
+                                                <li className={'has-children'} key={category._id}>
                                                     <a href={`/shop?categoryId=${category._id}`}>{category.name}</a>
                                                     <ul className='dropdown'>
                                                         {
                                                             category.subCategories.map((subCategory) => (
-                                                                <li>
+                                                                <li key={subCategory._id}>
                                                                     <a href={`/shop?categoryId=${category._id}&subCategoryId=${subCategory._id}`}>{subCategory.name}</a>
                                                                 </li>
                                                             ))

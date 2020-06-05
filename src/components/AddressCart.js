@@ -9,10 +9,7 @@ class AddressCart extends React.Component {
     render() {
         const {
             openAddress,
-            addressTitle,
-            buildingNo,
-            floor,
-            aptNo
+            addressTitle
         } = this.props.item
 
         return (

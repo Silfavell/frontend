@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import Cookies from 'universal-cookie'
 import $ from 'jquery'
 
 import SiteWrap from '../components/SiteWrap'
@@ -9,8 +8,6 @@ import EmptyAddressCart from '../components/EmptyAddressCart'
 import AddressCart from '../components/AddressCart'
 import AddressPopup from '../components/AddressPopup'
 import PaymentCard from '../components/PaymentCard'
-
-const cookies = new Cookies()
 
 class Payment extends React.Component {
 
@@ -47,7 +44,7 @@ class Payment extends React.Component {
             cardHolderName,
             expireMonth,
             expireYear,
-            cvc2
+            // cvc2
         } = this.state
 
         axios.post(`${process.env.REACT_APP_API_URL}/user/payment-card`, {
