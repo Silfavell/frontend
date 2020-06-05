@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import axios from 'axios'
-import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch } from 'react-icons/io'
+import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose } from 'react-icons/io'
 import Cookies from 'universal-cookie'
 
 import '../style/css/googleMukta.css'
@@ -107,6 +107,17 @@ class Navbar extends React.Component {
         this.props.changeMobileMenuStatus(true)
     }
 
+    onSearchTextChange = (event) => {
+        this.setState({ searchText: event.target.value })
+    }
+
+    onSearchClearClick = () => {
+        this.setState({
+            searchText: '',
+            searchedProducts: []
+        })
+    }
+
     render() {
         return (
             <>
@@ -148,10 +159,21 @@ class Navbar extends React.Component {
                             </div>
                             <div style={{ position: 'relative', flexGrow: 2 }}>
                                 <div class='input-group' style={{ border: '1px solid #E83E8C' }}>
-                                    <input type='text' class='form-control border-0' placeholder='Search' />
+                                    <input
+                                        type='text'
+                                        class='form-control border-0'
+                                        placeholder='Search'
+                                        onChange={this.onSearchTextChange}
+                                        value={this.state.searchText} />
+
                                     <div class='input-group-append'>
-                                        <button class='btn' type='button' onClick={this.search}>
-                                            <IoIosSearch color={'#8C92A0'} size={26} />
+                                        <button class='btn' type='button'>
+                                            {
+                                                (this.state.searchText.length > 0 && this.state.searchedProducts.length > 0) && (
+                                                    <IoMdClose color={'#8C92A0'} size={26} onClick={this.onSearchClearClick} />
+                                                )
+                                            }
+                                            <IoIosSearch color={'#8C92A0'} size={26} onClick={this.search} />
                                         </button>
                                     </div>
                                 </div>
