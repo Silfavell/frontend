@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { IoMdHeartEmpty } from 'react-icons/io'
+import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Product.css'
@@ -10,6 +10,22 @@ class ShopProduct extends React.Component {
     onAddToCasketClick = () => {
         axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then((res) => {
             alert('Ürün sepete eklendi')
+        })
+    }
+
+    addToFavoriteProducts = () => {
+        axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ data, status }) => {
+            if (status === 200) {
+                alert('Ürün favorilere eklendi')
+            }
+        })
+    }
+
+    removeFromFavoriteProdutcs = () => {
+        axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ data, status }) => {
+            if (status === 200) {
+                alert('Ürün favorilerden çıkarıldı')
+            }
         })
     }
 
@@ -32,7 +48,10 @@ class ShopProduct extends React.Component {
                     <div className='interface'>
                         <div className='top col-md-12'>
                             <div className='col-md-6 d-flex align-items-center text-white add-to-favorite'>
-                                <IoMdHeartEmpty size={24} />
+                                {
+                                    this.props.favorite ? <IoMdHeart size={32} color={'#6610F2'} onClick={this.removeFromFavoriteProdutcs} />
+                                        : <IoMdHeartEmpty size={32} onClick={this.addToFavoriteProducts} />
+                                }
                             </div>
                         </div>
 

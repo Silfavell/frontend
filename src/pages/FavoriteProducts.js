@@ -55,7 +55,7 @@ class FavoriteProducts extends React.Component {
                                 <div className='row'>
                                     {
                                         this.state.products.map((product) => (
-                                            <ShopProduct key={product._id} item={product} />
+                                            <ShopProduct key={product._id} item={product} favorite />
                                         ))
                                     }
                                 </div>
