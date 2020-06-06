@@ -76,7 +76,7 @@ class Navbar extends React.Component {
     renderPersonMenu = () => {
         if (this.state.loggedIn) {
             return (
-                <ul className='dropdown' style={{ left: '-200%', zIndex: 9999 }}>
+                <ul className='dropdown-test'>
                     <li><a href='/edit-profile'>Profilimi Düzenle</a></li>
                     <li><a href='/update-password'>Şifremi değiştir</a></li>
                     <li><a href='/favorite-products'>Favorilerim</a></li>
@@ -97,7 +97,7 @@ class Navbar extends React.Component {
             )
         } else {
             return (
-                <ul className='dropdown'>
+                <ul className='dropdown-test'>
                     <li><a href='/sign-in'>Giriş yap</a></li>
                     <li><a href='/sign-up'>Üye Ol</a></li>
                 </ul>
@@ -238,7 +238,7 @@ class Navbar extends React.Component {
                             <div className='icons d-flex align-items-center justify-content-center flex-grow-1'>
                                 <div className='site-navigation icon-dropdown'>
                                     <div className='site-menu'>
-                                        <li className='has-children'>
+                                        <li className='has-children person-menu'>
                                             <IoMdPerson size={26} />
                                             {
                                                 this.renderPersonMenu()

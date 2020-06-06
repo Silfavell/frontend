@@ -4,11 +4,12 @@ class NavCartItem extends React.Component {
     render() {
         const {
             name,
-            price
+            price,
+            quantity
         } = this.props.item
 
         return (
-            <div className='item col-md-12 p-2' style={{ borderTop: '1px solid #f9f9f9' }}>
+            <div className='item col-md-12 p-2'>
                 <div className='row'>
                     <div className='col-md-4'>
                         <img
@@ -24,8 +25,13 @@ class NavCartItem extends React.Component {
                                 </div>
                             </div>
                             <div className='col-md-12'>
-                                <div className='h6 p-3 text-black font-weight-normal' style={{ wordWrap: 'break-word' }}>
+                                <div className='h6 p-3 text-black font-weight-normal'>
                                     {'₺' + price.toFixed(2).toString().replace('.', ',')}
+                                </div>
+                            </div>
+                            <div className='col-md-12'>
+                                <div className='h6 text-black font-weight-normal'>
+                                    {'Adet: ' + quantity}
                                 </div>
                             </div>
                         </div>
