@@ -11,6 +11,7 @@ import '../style/css/style.css'
 import './custom.css'
 
 import SearchProduct from './SearchProduct'
+import NavCartItem from './NavCartItem'
 
 const cookies = new Cookies()
 
@@ -18,7 +19,7 @@ class Navbar extends React.Component {
 
     state = {
         loggedIn: cookies.get('token'),
-        productsLength: 0,
+        products: [],
         categories: [],
         searchText: '',
         searchedProducts: []
@@ -26,8 +27,8 @@ class Navbar extends React.Component {
 
     UNSAFE_componentWillMount() {
         if (cookies.get('token')) {
-            Promise.all([this.getCategories(), this.getCartProductsLength()]).then((vals) => {
-                this.setState({ categories: vals[0], productsLength: vals[1] ?? 0 })
+            Promise.all([this.getCategories(), this.getCartProducts()]).then((vals) => {
+                this.setState({ categories: vals[0], products: vals[1] })
             }).catch((err) => {
                 console.log(err.response)
             })
@@ -35,9 +36,9 @@ class Navbar extends React.Component {
             this.getCategories().then((categories) => {
                 const cart = window.localStorage.getItem('cart')
                 if (cart) {
-                    this.setState({ categories, productsLength: JSON.parse(cart).length })
+                    this.setState({ categories, products: JSON.parse(cart) })
                 } else {
-                    this.setState({ categories, productsLength: 0 })
+                    this.setState({ categories, products: [] })
                 }
             }).catch((err) => {
                 console.log(err.response)
@@ -54,9 +55,9 @@ class Navbar extends React.Component {
         })
     }
 
-    getCartProductsLength = () => (
+    getCartProducts = () => (
         axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => (
-            (data && data.cart) ? Object.values(data.cart).length : 0
+            (data && data.cart) ? Object.values(data.cart) : []
         ))
     )
 
@@ -246,7 +247,14 @@ class Navbar extends React.Component {
                                         <li>
                                             <a href='/cart' className='icons-btn d-inline-block bag'>
                                                 <IoIosBasket color={'#8C92A0'} size={26} />
-                                                <span className='number'>{this.state.productsLength}</span>
+                                                <span className='number'>{this.state.products.length}</span>
+                                                <div className='cart'>
+                                                    {
+                                                        this.state.products.map((product) => (
+                                                            <NavCartItem item={product} />
+                                                        ))
+                                                    }
+                                                </div>
                                             </a>
                                         </li>
                                         <li>

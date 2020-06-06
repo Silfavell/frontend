@@ -2,7 +2,6 @@
 import React from 'react'
 import axios from 'axios'
 
-import '../style/fonts/icomoon/style.css'
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/owl.theme.default.min.css'

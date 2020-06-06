@@ -390,7 +390,6 @@ a:hover {
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    font-family: 'icomoon';
 }
 */
 
@@ -624,7 +623,6 @@ a:hover {
 .site-mobile-menu .site-nav-wrap .arrow-collapse:before {
     font-size: 18px;
     z-index: 20;
-    font-family: "icomoon";
     content: "\e313";
     position: absolute;
     top: 50%;
@@ -932,7 +930,6 @@ a:hover {
 
 .block-5 ul li:before {
     top: 0;
-    font-family: "icomoon";
     content: "";
     position: absolute;
     left: 0;

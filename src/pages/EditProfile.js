@@ -3,7 +3,6 @@ import React from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
-import '../style/fonts/icomoon/style.css'
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/owl.theme.default.min.css'

@@ -3,7 +3,6 @@
 import React from 'react'
 import { IoLogoAndroid, IoLogoApple, IoLogoFacebook, IoLogoInstagram, IoLogoTwitter } from 'react-icons/io'
 
-import '../style/fonts/icomoon/style.css'
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'

@@ -1,3 +1,33 @@
+/* CART */
+.bag .cart {
+    max-height: 400px;
+    position: absolute;
+    width: 400px;
+    right: -50px;
+    margin-top: 40px;
+    z-index: 9999;
+    visibility: hidden;
+    opacity: 0; 
+    border-top: unset;
+    transition: 0.2s 0s;
+    box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.05);
+    background-color: white;
+    border: 1px solid #edf0f5;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.bag:hover .cart,
+.bag:active .cart {
+    -webkit-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+    margin-top: 20px;
+    visibility: visible;
+    opacity: 1;
+}
+
+/* SEARCH */
 .search-bottom {
     margin-top: 10px;
     display: none;
@@ -35,7 +65,7 @@
     border: 1px solid #edf0f5;
     border-top: unset;
     transition: 0.2s 0s;
-    box-shadow: 0 0px 4px 0px rgba(0 0 0 0.05);
+    box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.05);
 }
 
 .search-top .active-search,
