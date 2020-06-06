@@ -1,4 +1,5 @@
 /* CART */
+
 .bag .cart {
     max-height: 400px;
     position: absolute;
@@ -25,6 +26,12 @@
     margin-top: 20px;
     visibility: visible;
     opacity: 1;
+}
+
+@media (max-width: 991.98px) {
+    .bag .cart {
+        display: none;
+    }
 }
 
 /* SEARCH */
