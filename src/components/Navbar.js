@@ -45,10 +45,10 @@ class Navbar extends React.Component {
         }
     }
 
-    search = () => {
+    onSearchClick = () => {
         const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${[
             '5ed559e1d464530b18e37405', '5ed4ffae10bad04b78d3c758', '5ed55ad5d464530b18e3741f', '5ed55affd464530b18e37421'
-        ].join(',')}&quantity=32`
+        ].join(',')}&quantity=6`
         axios.get(url).then(({ data }) => {
             this.setState({ searchedProducts: data })
         })
@@ -104,9 +104,13 @@ class Navbar extends React.Component {
         }
     }
 
+    onSearchBackgroundClick = () => {
+        this.onSearchClearClick()
+    }
+
     renderSearchBarTop = () => (
         <div className='search-top'>
-            <div className='input-group' style={{ border: '1px solid #E83E8C' }}>
+            <div className='input-group' style={{ border: '1px solid #E83E8C', zIndex: 9999 }}>
                 <input
                     type='text'
                     className='form-control border-0'
@@ -114,17 +118,21 @@ class Navbar extends React.Component {
                     onChange={this.onSearchTextChange}
                     value={this.state.searchText} />
 
-                <div className='input-group-append'>
+                <div className='input-group-append bg-white'>
                     <button className='btn' type='button'>
                         {
                             (this.state.searchText.length > 0 && this.state.searchedProducts.length > 0) && (
                                 <IoMdClose color={'#8C92A0'} size={26} onClick={this.onSearchClearClick} />
                             )
                         }
-                        <IoIosSearch color={'#8C92A0'} size={26} onClick={this.search} />
+                        <IoIosSearch color={'#8C92A0'} size={26} onClick={this.onSearchClick} />
                     </button>
                 </div>
             </div>
+            <div className={`background ${this.state.searchedProducts.length > 0 ? 'visible' : ''}`} onClick={this.onSearchBackgroundClick}>
+
+            </div>
+
             <div className={`search-results ${this.state.searchedProducts.length > 0 ? 'active-search' : ''}`}>
                 <div style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
                     <div className='col-md-12'>

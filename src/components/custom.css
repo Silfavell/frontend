@@ -9,6 +9,20 @@
     flex-grow: 2;
 }
 
+.search-top .background {
+    position: fixed;
+    background-color: rgba(50,50,50,.5);
+    top: 0;
+    bottom: 0; 
+    left: 0;
+    right: 0;
+    visibility: hidden;
+}
+
+.search-top .visible {
+    visibility: visible;
+}
+
 .search-top .search-results,
 .search-bottom .search-results {
     position: absolute;
