@@ -78,14 +78,14 @@ class CartItem extends React.Component {
 
         return (
             <tr>
-                <td className='product-thumbnail'>
+                <td className='product-thumbnail' style={{ minWidth: 200 }}>
                     <img src={`${process.env.PUBLIC_URL}/product.jpg`} alt='Image' className='img-fluid' />
                 </td>
                 <td className='product-name'>
                     <h2 className='h5 text-black'>{name}</h2>
                 </td>
                 <td>{'Toplam ₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}</td>
-                <td>
+                <td style={{ minWidth: 200 }}>
                     <div className='input-group'>
                         <div className='input-group-prepend'>
                             <button className='btn btn-outline-primary js-btn-minus' type='button' onClick={this.onDecreaseClick}>&#45;</button>
