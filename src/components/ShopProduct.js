@@ -1,6 +1,9 @@
 import React from 'react'
 import axios from 'axios'
+import VanillaToasts from 'vanillatoasts'
 import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io'
+
+import 'vanillatoasts/vanillatoasts.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Product.css'
@@ -8,13 +11,20 @@ import './Product.css'
 class ShopProduct extends React.Component {
 
     onAddToCasketClick = () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then((res) => {
-            alert('Ürün sepete eklendi')
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then(({ status }) => {
+            if (status === 200) {
+                VanillaToasts.create({
+                    positionClass: 'topRight',
+                    title: 'Ürün sepete eklendi.',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
+            }
         })
     }
 
     addToFavoriteProducts = () => {
-        axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ data, status }) => {
+        axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ status }) => {
             if (status === 200) {
                 alert('Ürün favorilere eklendi')
             }
@@ -22,7 +32,7 @@ class ShopProduct extends React.Component {
     }
 
     removeFromFavoriteProdutcs = () => {
-        axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ data, status }) => {
+        axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ status }) => {
             if (status === 200) {
                 alert('Ürün favorilerden çıkarıldı')
             }

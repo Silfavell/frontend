@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
+import VanillaToasts from 'vanillatoasts'
 import { IoMdHeartEmpty } from 'react-icons/io'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Product.css'
@@ -8,8 +10,17 @@ import './Product.css'
 class Product extends React.Component {
 
     onAddToCasketClick = () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then((res) => {
-            alert('Ürün sepete eklendi')
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then(({ status }) => {
+            if (status === 200) {
+                VanillaToasts.create({
+                    title: 'Welcome to my site',
+                    positionClass: 'topRight',
+                    text: 'This toast will hide after 5000ms or when you click it',
+                    type: 'success',
+                    // icon: '/img/alert-icon.jpg',
+                    timeout: 5000
+                })
+            }
         })
     }
 

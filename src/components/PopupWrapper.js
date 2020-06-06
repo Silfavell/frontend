@@ -11,7 +11,7 @@ class PopupWrapper extends React.Component {
                 width: '100%',
                 height: '100vh',
                 backgroundColor: 'rgba(0,0,0,0.5)',
-                zIndex: 9999,
+                zIndex: 11,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
@@ -28,7 +28,7 @@ class PopupWrapper extends React.Component {
                             top: 10,
                             right: 10,
                             cursor: 'pointer',
-                            zIndex: 9999
+                            zIndex: 11
                         }}
                         size={32}
                         color={'black'}

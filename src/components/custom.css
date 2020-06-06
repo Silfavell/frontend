@@ -6,7 +6,7 @@
     width: 400px;
     right: -50px;
     margin-top: 40px;
-    z-index: 9999;
+    z-index: 11;
     visibility: hidden;
     opacity: 0; 
     border-top: unset;
@@ -25,7 +25,7 @@
     padding: 0;
     right: -50px;
     margin-top: 40px;
-    z-index: 9999;
+    z-index: 11;
     visibility: hidden;
     opacity: 0; 
     border-top: unset;
@@ -118,7 +118,7 @@
     left: 0;
     right: 0;
     margin-top: 20px;
-    z-index: 9999;
+    z-index: 11;
     visibility: hidden;
     opacity: 0;
     border: 1px solid #edf0f5;

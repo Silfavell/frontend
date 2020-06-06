@@ -111,7 +111,7 @@ class Navbar extends React.Component {
 
     renderSearchBarTop = () => (
         <div className='search-top'>
-            <div className='input-group' style={{ border: '1px solid #E83E8C', zIndex: 9999 }}>
+            <div className='input-group' style={{ border: '1px solid #E83E8C', zIndex: 11 }}>
                 <input
                     type='text'
                     className='form-control border-0'
