@@ -49,13 +49,16 @@ class FavoriteProducts extends React.Component {
                 <SiteWrap divider={divider}>
                     <div className='container'>
                         <div className='row mb-5'>
-                            <div className='col-md-9 order-1'>
-                                <div className='row'>
-                                    {
-                                        this.state.products.map((product) => (
-                                            <ShopProduct key={product._id} item={product} favorite />
-                                        ))
-                                    }
+                            <div className='row'>
+                                <div className='col-md-3 border'></div>
+                                <div className='col-md-9 order-1'>
+                                    <div className='row'>
+                                        {
+                                            this.state.products.map((product) => (
+                                                <ShopProduct key={product._id} item={product} favorite />
+                                            ))
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>

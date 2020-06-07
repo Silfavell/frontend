@@ -368,7 +368,7 @@ class Payment extends React.Component {
                                             <h3 className='text-black h4 text-uppercase'>Cart Totals</h3>
                                         </div>
                                     </div>
-                                    <div className='row mb-5'>
+                                    <div className='row'>
                                         <div className='col-md-6'>
                                             <span className='text-black'>Total</span>
                                         </div>

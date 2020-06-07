@@ -84,7 +84,6 @@ class CartItem extends React.Component {
                 <td className='product-name'>
                     <h2 className='h5 text-black'>{name}</h2>
                 </td>
-                <td>{'Toplam ₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}</td>
                 <td style={{ minWidth: 200 }}>
                     <div className='input-group'>
                         {
