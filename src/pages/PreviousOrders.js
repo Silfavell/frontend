@@ -49,9 +49,7 @@ class PreviousOrders extends React.Component {
                 <SiteWrap divider={divider}>
                     <div className='container'>
                         <div className='row mb-5'>
-                            <div className="col-md-3 border mb-3">
-                            </div>
-                            <div className='col-md-9 order-1'>
+                            <div className='col-md-12 order-1'>
                                 <div className='row'>
                                     {
                                         this.state.orders.map((order) => (
