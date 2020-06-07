@@ -26,7 +26,7 @@ function Footer() {
                     <div className='col-lg-5 ml-auto mb-5 mb-lg-0'>
                         <div className='row'>
                             <div className='col-md-12'>
-                                <h3 className='footer-heading mb-4' style={{ letterSpacing: '.1em' }}>silfavell.com</h3>
+                                <h3 className='footer-heading mb-4' style={{ letterSpacing: '.1em' }}>Silfavell</h3>
                             </div>
                             <div className='col-md-6 col-lg-4'>
                                 <ul className='list-unstyled'>
