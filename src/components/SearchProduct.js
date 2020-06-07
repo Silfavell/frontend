@@ -12,7 +12,7 @@ class SearchProduct extends React.Component {
         return (
             <a
                 href={`/${_id}`}
-                className='col-md-4 p-2'
+                className='col-md-3 p-2'
                 style={{ cursor: 'pointer' }}>
 
                 <div className='px-4 py-2 border h-100'>
