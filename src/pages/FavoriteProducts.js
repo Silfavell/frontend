@@ -6,6 +6,7 @@ import axios from 'axios'
 import SiteWrap from '../components/SiteWrap'
 import ShopProduct from '../components/ShopProduct'
 import Loading from '../components/Loading'
+import ProfileColumn from '../components/ProfileColumn'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
@@ -50,7 +51,7 @@ class FavoriteProducts extends React.Component {
                     <div className='container'>
                         <div className='row mb-5'>
                             <div className='row'>
-                                <div className='col-md-3 border'></div>
+                                <ProfileColumn />
                                 <div className='col-md-9 order-1'>
                                     <div className='row'>
                                         {

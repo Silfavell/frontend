@@ -37,6 +37,13 @@
     text-align: left;
 }
 
+.column-dropdown {
+    padding: 0;
+    text-align: left;
+    margin-top: 40px;
+}
+
+.column-dropdown li,
 .dropdown-test li {
     list-style: none;
     padding: 0;
@@ -49,7 +56,8 @@
     color: #25262a;
 }
 
-.dropdown-test li * {
+.dropdown-test li *,
+.column-dropdown li * {
     padding: 9px 20px;
     text-transform: none !important;
 }

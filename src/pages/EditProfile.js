@@ -3,12 +3,13 @@ import React from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
+import SiteWrap from '../components/SiteWrap'
+import ProfileColumn from '../components/ProfileColumn'
+
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/owl.theme.default.min.css'
 import '../style/css/style.css'
-
-import SiteWrap from '../components/SiteWrap'
 
 const cookies = new Cookies()
 
@@ -75,7 +76,7 @@ class EditProfile extends React.Component {
             <SiteWrap divider={divider}>
                 <div className='container'>
                     <div className='row'>
-                        <div className='col-md-3 border'></div>
+                        <ProfileColumn />
                         <div className='col-md-9 d-flex align-items-center justify-content-center'>
                             <div className='col-md-6'>
                                 <div className='p-3 p-lg-5'>
