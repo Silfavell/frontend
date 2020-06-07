@@ -87,9 +87,14 @@ class CartItem extends React.Component {
                 <td>{'Toplam ₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}</td>
                 <td style={{ minWidth: 200 }}>
                     <div className='input-group'>
-                        <div className='input-group-prepend'>
-                            <button className='btn btn-outline-primary js-btn-minus' type='button' onClick={this.onDecreaseClick}>&#45;</button>
-                        </div>
+                        {
+                            !this.props.order && (
+                                <div className='input-group-prepend'>
+                                    <button className='btn btn-outline-primary js-btn-minus' type='button' onClick={this.onDecreaseClick}>&#45;</button>
+                                </div>
+                            )
+                        }
+
                         <input
                             type='text'
                             className='form-control text-center'
@@ -98,9 +103,13 @@ class CartItem extends React.Component {
                             aria-label='Example text with button addon'
                             aria-describedby='button-addon1'
                         />
-                        <div className='input-group-append'>
-                            <button className='btn btn-outline-primary js-btn-plus' type='button' onClick={this.onIncreaseClick}>&#43;</button>
-                        </div>
+                        {
+                            !this.props.order && (
+                                <div className='input-group-append'>
+                                    <button className='btn btn-outline-primary js-btn-plus' type='button' onClick={this.onIncreaseClick}>&#43;</button>
+                                </div>
+                            )
+                        }
                     </div>
 
                 </td>
