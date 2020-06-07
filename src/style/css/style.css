@@ -9,6 +9,7 @@ body {
 
 .btn-primary {
     background-color: #ee4266 !important;
+    border-color: #ee4266 !important;;
 }
 
 ::-moz-selection {
