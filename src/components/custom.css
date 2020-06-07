@@ -40,7 +40,8 @@
 .column-dropdown {
     padding: 0;
     text-align: left;
-    margin-top: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 .column-dropdown li,
