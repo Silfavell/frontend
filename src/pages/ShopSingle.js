@@ -87,7 +87,7 @@ class ShopSingle extends React.Component {
                             </div>
                             <div className='col-md-6'>
                                 <h2 className='text-black'>{name}</h2>
-                                <p className='text-primary h6'>{brand}</p>
+                                <p className='text-primary h5'>{brand}</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt facere, natus soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga voluptas, distinctio, aperiam, ratione dolore.</p>
                                 <p className='mb-4'>Ex numquam veritatis debitis minima quo error quam eos dolorum quidem perferendis. Quos repellat dignissimos minus, eveniet nam voluptatibus molestias omnis reiciendis perspiciatis illum hic magni iste, velit aperiam quis.</p>
                                 <p><strong className='text-primary h4'>{'₺' + price.toFixed(2).toString().replace('.', ',')}</strong></p>
