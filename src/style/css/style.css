@@ -7,6 +7,10 @@ body {
     font-size: 16px;
 }
 
+.btn-primary {
+    background-color: #ee4266 !important;
+}
+
 ::-moz-selection {
     background: #000;
     color: #fff;

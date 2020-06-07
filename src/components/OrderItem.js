@@ -1,8 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
-import axios from 'axios'
-import Cookies from 'universal-cookie'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import CartItem from './CartItem'

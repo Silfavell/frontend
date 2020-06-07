@@ -4,7 +4,6 @@ import React from 'react'
 import axios from 'axios'
 
 import SiteWrap from '../components/SiteWrap'
-import ShopProduct from '../components/ShopProduct'
 import Loading from '../components/Loading'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
