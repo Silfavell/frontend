@@ -48,7 +48,6 @@ class Product extends React.Component {
 
     render() {
         const {
-            _id,
             name,
             price
         } = this.props.item

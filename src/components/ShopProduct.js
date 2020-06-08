@@ -75,7 +75,6 @@ class ShopProduct extends React.Component {
 
     render() {
         const {
-            _id,
             img,
             name,
             price
