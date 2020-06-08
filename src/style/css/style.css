@@ -350,6 +350,7 @@ a:hover {
 .site-navbar .site-navigation .site-menu>li {
     display: inline-block;
     padding: 10px 5px;
+    z-index: 9998;
 }
 
 .site-navbar .site-navigation .site-menu>li>a {

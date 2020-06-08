@@ -76,6 +76,10 @@
     color: #25262a;
 }
 
+.bag, .person-menu {
+    z-index: 9999 !important;
+}
+
 .bag:hover .cart,
 .bag:active .cart,
 .person-menu:hover .dropdown-test,
