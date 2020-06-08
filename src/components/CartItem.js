@@ -3,6 +3,7 @@
 import React from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
+import VanillaToasts from 'vanillatoasts'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -13,9 +14,19 @@ class CartItem extends React.Component {
     onIncreaseClick = () => {
         if (cookies.get('token')) {
             axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then((res) => {
-                alert('Ürün sepete eklendi (1)')
+                VanillaToasts.create({
+                    title: `Ürünü sepete eklendi`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
             }).catch((err) => {
-                alert(err.response.data.error)
+                VanillaToasts.create({
+                    title: err.response.data.error,
+                    positionClass: 'topRight',
+                    type: 'error',
+                    timeout: 3 * 1000
+                })
             })
         } else {
             const cart = window.localStorage.getItem('cart')
@@ -33,16 +44,31 @@ class CartItem extends React.Component {
                 window.localStorage.setItem('cart', JSON.stringify([{ _id: this.props.item._id, quantity: 1 }]))
             }
 
-            alert('Ürün sepete eklendi (1)')
+            VanillaToasts.create({
+                title: `Ürünü sepete eklendi`,
+                positionClass: 'topRight',
+                type: 'success',
+                timeout: 3 * 1000
+            })
         }
     }
 
     onDecreaseClick = () => {
         if (cookies.get('token')) {
             axios.delete(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then((res) => {
-                alert('Ürün sepetten çıkarıldı (1)')
+                VanillaToasts.create({
+                    title: `Ürünü sepetten çıkarıldı`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
             }).catch((err) => {
-                alert(err.response.data.error)
+                VanillaToasts.create({
+                    title: err.response.data.error,
+                    positionClass: 'topRight',
+                    type: 'error',
+                    timeout: 3 * 1000
+                })
             })
         } else {
             const cart = window.localStorage.getItem('cart')
@@ -56,14 +82,28 @@ class CartItem extends React.Component {
                     if (cartAsArray[cartAsArray.indexOf(foundProduct)].quantity === 0)
                         cartAsArray.splice(cartAsArray.indexOf(foundProduct), 1)
 
-
-                    alert('Ürün sepetten çıkarıldı (1)')
+                    VanillaToasts.create({
+                        title: `Ürün sepetten çıkarıldı`,
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
                 } else {
-                    alert('Ürün sepette bulunamadı')
+                    VanillaToasts.create({
+                        title: `Ürünü sepette bulunamadı`,
+                        positionClass: 'topRight',
+                        type: 'error',
+                        timeout: 3 * 1000
+                    })
                 }
                 window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
             } else {
-                alert('Ürün sepette bulunamadı')
+                VanillaToasts.create({
+                    title: `Ürünü sepette bulunamadı`,
+                    positionClass: 'topRight',
+                    type: 'error',
+                    timeout: 3 * 1000
+                })
             }
         }
     }

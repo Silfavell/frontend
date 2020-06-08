@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import axios from 'axios'
+import VanillaToasts from 'vanillatoasts'
 
 import SiteWrap from '../components/SiteWrap'
 import ProfileColumn from '../components/ProfileColumn'
@@ -20,24 +21,55 @@ class UpdatePassword extends React.Component {
 
     onUpdateClick = () => {
         if (this.state.oldPassword === '' || this.state.newPassword === '') {
-            alert('Lütfen gerekli alanlarını doldurunuz')
+            VanillaToasts.create({
+                title: 'Lütfen gerekli alanlarını doldurunuz',
+                positionClass: 'topRight',
+                type: 'success',
+                timeout: 3 * 1000
+            })
         } else if (this.state.newPassword.length < 4) {
-            alert('Yeni şifreniz en az 4 haneli olmalı')
+            VanillaToasts.create({
+                title: 'Yeni şifreniz en az 4 haneli olmalı',
+                positionClass: 'topRight',
+                type: 'success',
+                timeout: 3 * 1000
+            })
         } if (this.state.newPassword !== this.state.reNewPassword) {
-            alert('Yeni şifreniz tekrarı ile eşleşmemektedir')
+            VanillaToasts.create({
+                title: 'Yeni şifreniz tekrarı ile eşleşmemektedir',
+                positionClass: 'topRight',
+                type: 'success',
+                timeout: 3 * 1000
+            })
         } else if (this.state.oldPassword === this.state.newPassword) {
-            alert('Yeni şifre eskisi ise aynı olamaz')
+            VanillaToasts.create({
+                title: 'Yeni şifre eskisi ise aynı olamaz',
+                positionClass: 'topRight',
+                type: 'success',
+                timeout: 3 * 1000
+            })
         } else {
             const url = `${process.env.REACT_APP_API_URL}/user/change-password`
 
             axios.put(url, {
                 oldPassword: this.state.oldPassword,
                 newPassword: this.state.newPassword
-            }).then((result) => {
-                console.log(result)
-                alert('Şifreniz değiştirildi.')
+            }).then(({ status }) => {
+                if (status === 200) {
+                    VanillaToasts.create({
+                        title: 'Şifreniz değiştirildi.',
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
+                }
             }).catch((err) => {
-                alert(err.response.data.error)
+                VanillaToasts.create({
+                    title: err.response.data.error,
+                    positionClass: 'topRight',
+                    type: 'error',
+                    timeout: 3 * 1000
+                })
             })
         }
     }

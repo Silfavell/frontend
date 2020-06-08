@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from 'axios'
+import VanillaToasts from 'vanillatoasts'
+
 import PopupWrapper from './PopupWrapper'
 
 class AddressPopup extends React.Component {
@@ -42,7 +44,12 @@ class AddressPopup extends React.Component {
                     this.props.hideSaveAddressPopup()
                 }
             }).catch((err) => {
-                alert(err.response.data.error)
+                VanillaToasts.create({
+                    title: err.response.data.error,
+                    positionClass: 'topRight',
+                    type: 'error',
+                    timeout: 3 * 1000
+                })
             })
     }
 

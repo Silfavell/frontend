@@ -34,10 +34,10 @@ class ShopProduct extends React.Component {
                 }
 
                 VanillaToasts.create({
-                    title: 'Ürünü sepete eklendi (1)',
+                    title: `Ürünü sepete eklendi`,
                     positionClass: 'topRight',
                     type: 'success',
-                    timeout: 5000
+                    timeout: 3 * 1000
                 })
             }
         })
@@ -46,7 +46,12 @@ class ShopProduct extends React.Component {
     addToFavoriteProducts = () => {
         axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ status }) => {
             if (status === 200) {
-                alert('Ürün favorilere eklendi')
+                VanillaToasts.create({
+                    title: `Ürün favorilere eklendi`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
             }
         })
     }
@@ -54,7 +59,12 @@ class ShopProduct extends React.Component {
     removeFromFavoriteProdutcs = () => {
         axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ status }) => {
             if (status === 200) {
-                alert('Ürün favorilerden çıkarıldı')
+                VanillaToasts.create({
+                    title: `Ürün favorilerden çıkarıldı`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
             }
         })
     }

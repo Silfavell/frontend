@@ -3,6 +3,7 @@ import React from 'react'
 import axios from 'axios'
 import $ from 'jquery'
 import Cookies from 'universal-cookie'
+import VanillaToasts from 'vanillatoasts'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -62,7 +63,12 @@ class SignUp extends React.Component {
     sendActivationCode = () => {
         /*
         if (this.state.password !== this.state.rePassword) {
-            alert('Yeni şifreniz tekrarı ile eşleşmemektedir')
+                VanillaToasts.create({
+                    title: `Yeni şifreniz tekrarı ile eşleşmemektedir.`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
         } else { 
         */
         const url = `${process.env.REACT_APP_API_URL}/send-activation-code`
@@ -76,7 +82,12 @@ class SignUp extends React.Component {
                 $('#activation').fadeIn('slow')
             }
         }).catch((err) => {
-            alert(err.response.data)
+            VanillaToasts.create({
+                title: err.response.data.error,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
         })
         //}
     }

@@ -2,6 +2,7 @@
 import React from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
+import VanillaToasts from 'vanillatoasts'
 
 import SiteWrap from '../components/SiteWrap'
 import ProfileColumn from '../components/ProfileColumn'
@@ -24,7 +25,13 @@ class EditProfile extends React.Component {
                     this.setState(data)
                 }
             }).catch((err) => {
-                alert(err.response.data.error)
+                VanillaToasts.create({
+                    title: err.response.data.error,
+                    positionClass: 'topRight',
+                    type: 'error',
+                    timeout: 3 * 1000
+                })
+
                 this.props.history.push('/')
             })
         } else {
@@ -41,7 +48,13 @@ class EditProfile extends React.Component {
                 this.setState(data)
             }
         }).catch((err) => {
-            alert(err.response.data.error)
+            VanillaToasts.create({
+                title: err.response.data.error,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
+
             this.props.history.push('/')
         })
     }

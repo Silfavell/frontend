@@ -33,10 +33,10 @@ class Product extends React.Component {
                 }
 
                 VanillaToasts.create({
-                    title: 'Ürünü sepete eklendi (1)',
+                    title: `Ürünü sepete eklendi`,
                     positionClass: 'topRight',
                     type: 'success',
-                    timeout: 5000
+                    timeout: 3 * 1000
                 })
             }
         })

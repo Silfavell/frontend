@@ -2,6 +2,7 @@
 import React from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
+import VanillaToasts from 'vanillatoasts'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -36,7 +37,12 @@ class SignIn extends React.Component {
                 }
             }
         }).catch((err) => {
-            alert(err.response.data.error)
+            VanillaToasts.create({
+                title: err.response.data.error,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
         })
     }
 

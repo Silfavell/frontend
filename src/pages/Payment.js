@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import $ from 'jquery'
+import VanillaToasts from 'vanillatoasts'
 
 import SiteWrap from '../components/SiteWrap'
 import Loading from '../components/Loading'
@@ -59,7 +60,12 @@ class Payment extends React.Component {
         }).then((res) => {
             console.log(res)
         }).catch((err) => {
-            alert(err.response.data.error)
+            VanillaToasts.create({
+                title: err.response.data.error,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
         })
     }
 
@@ -112,11 +118,20 @@ class Payment extends React.Component {
             card: this.state.cards[this.state.selectedCard].cardToken
         }).then(({ status, data }) => {
             if (status === 200) {
-                alert('Siparişiniz alınmıştır.')
-                this.props.history.push('/')
+                VanillaToasts.create({
+                    title: `Siparişiniz alınmıştır.`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
             }
         }).catch((err) => {
-            alert(err.response.data.error)
+            VanillaToasts.create({
+                title: err.response.data.error,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
         })
     }
 

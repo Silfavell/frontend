@@ -2,6 +2,7 @@
 import React from 'react'
 import axios from 'axios'
 import $ from 'jquery'
+import VanillaToasts from 'vanillatoasts'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -22,11 +23,26 @@ class UpdatePassword extends React.Component {
 
     onUpdateClick = () => {
         if (this.state.newPassword === '' || this.state.reNewPassword === '') {
-            alert('Lütfen gerekli alanlarını doldurunuz')
+            VanillaToasts.create({
+                title: `Lütfen gerekli alanlarını doldurunuz`,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
         } else if (this.state.newPassword.length < 4) {
-            alert('Yeni şifreniz en az 4 haneli olmalı')
+            VanillaToasts.create({
+                title: `Yeni şifreniz en az 4 haneli olmalı`,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
         } if (this.state.newPassword !== this.state.reNewPassword) {
-            alert('Yeni şifreniz tekrarı ile eşleşmemektedir')
+            VanillaToasts.create({
+                title: `Yeni şifreniz tekrarı ile eşleşmemektedir`,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
         } else {
             const url = `${process.env.REACT_APP_API_URL}/reset-password`
 
@@ -36,7 +52,13 @@ class UpdatePassword extends React.Component {
                 activationCode: this.state.activationCode
             }).then(({ status }) => {
                 if (status === 200) {
-                    alert('Şifreniz değiştirildi.')
+                    VanillaToasts.create({
+                        title: `Şifreniz değiştirildi`,
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
+
                     this.props.history.push('/sign-in')
                 }
             }).catch((err) => {
@@ -59,7 +81,12 @@ class UpdatePassword extends React.Component {
                 })
             }
         }).catch((err) => {
-            alert(err.response.data)
+            VanillaToasts.create({
+                title: err.response.data.error,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
         })
     }
 

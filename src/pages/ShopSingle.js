@@ -3,6 +3,7 @@
 import axios from 'axios'
 import React from 'react'
 import Cookies from 'universal-cookie'
+import VanillaToasts from 'vanillatoasts'
 
 import Loading from '../components/Loading'
 import SiteWrap from '../components/SiteWrap'
@@ -56,7 +57,12 @@ class ShopSingle extends React.Component {
                     }
                 }
 
-                alert('Ürünü sepete eklendi (1)')
+                VanillaToasts.create({
+                    title: `Ürünü sepete eklendi.`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
             }
         })
     }
