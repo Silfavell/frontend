@@ -147,7 +147,7 @@ class Shop extends React.Component {
                                 <div className='row mb-5'>
                                     {
                                         this.state.products.map((product) => (
-                                            <ShopProduct key={product._id.toString()} item={product} />
+                                            <ShopProduct key={product._id} item={product} />
                                         ))
                                     }
                                 </div>
@@ -220,22 +220,6 @@ class Shop extends React.Component {
                                                 </label>
                                             ))
                                         }
-                                    </div>
-
-                                    <div className='mb-4'>
-                                        <h3 className='mb-3 h6 text-uppercase text-black d-block'>Color</h3>
-                                        <a href='#' className='d-flex color-item align-items-center' >
-                                            <span className='bg-danger color d-inline-block rounded-circle mr-2'></span> <span className='text-black'>Red (2,429)</span>
-                                        </a>
-                                        <a href='#' className='d-flex color-item align-items-center' >
-                                            <span className='bg-success color d-inline-block rounded-circle mr-2'></span> <span className='text-black'>Green (2,298)</span>
-                                        </a>
-                                        <a href='#' className='d-flex color-item align-items-center' >
-                                            <span className='bg-info color d-inline-block rounded-circle mr-2'></span> <span className='text-black'>Blue (1,075)</span>
-                                        </a>
-                                        <a href='#' className='d-flex color-item align-items-center' >
-                                            <span className='bg-primary color d-inline-block rounded-circle mr-2'></span> <span className='text-black'>Purple (1,075)</span>
-                                        </a>
                                     </div>
                                 </div>
                             </div>

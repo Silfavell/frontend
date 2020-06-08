@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import axios from 'axios'
+import VanillaToasts from 'vanillatoasts'
 
-import '../style/fonts/icomoon/style.css'
+import SiteWrap from '../components/SiteWrap'
+import ProfileColumn from '../components/ProfileColumn'
+
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/owl.theme.default.min.css'
 import '../style/css/style.css'
-
-import SiteWrap from '../components/SiteWrap'
 
 class UpdatePassword extends React.Component {
 
@@ -20,24 +21,55 @@ class UpdatePassword extends React.Component {
 
     onUpdateClick = () => {
         if (this.state.oldPassword === '' || this.state.newPassword === '') {
-            alert('Lütfen gerekli alanlarını doldurunuz')
+            VanillaToasts.create({
+                title: 'Lütfen gerekli alanlarını doldurunuz',
+                positionClass: 'topRight',
+                type: 'success',
+                timeout: 3 * 1000
+            })
         } else if (this.state.newPassword.length < 4) {
-            alert('Yeni şifreniz en az 4 haneli olmalı')
+            VanillaToasts.create({
+                title: 'Yeni şifreniz en az 4 haneli olmalı',
+                positionClass: 'topRight',
+                type: 'success',
+                timeout: 3 * 1000
+            })
         } if (this.state.newPassword !== this.state.reNewPassword) {
-            alert('Yeni şifreniz tekrarı ile eşleşmemektedir')
+            VanillaToasts.create({
+                title: 'Yeni şifreniz tekrarı ile eşleşmemektedir',
+                positionClass: 'topRight',
+                type: 'success',
+                timeout: 3 * 1000
+            })
         } else if (this.state.oldPassword === this.state.newPassword) {
-            alert('Yeni şifre eskisi ise aynı olamaz')
+            VanillaToasts.create({
+                title: 'Yeni şifre eskisi ise aynı olamaz',
+                positionClass: 'topRight',
+                type: 'success',
+                timeout: 3 * 1000
+            })
         } else {
             const url = `${process.env.REACT_APP_API_URL}/user/change-password`
 
             axios.put(url, {
                 oldPassword: this.state.oldPassword,
                 newPassword: this.state.newPassword
-            }).then((result) => {
-                console.log(result)
-                alert('Şifreniz değiştirildi.')
+            }).then(({ status }) => {
+                if (status === 200) {
+                    VanillaToasts.create({
+                        title: 'Şifreniz değiştirildi.',
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
+                }
             }).catch((err) => {
-                alert(err.response.data.error)
+                VanillaToasts.create({
+                    title: err.response.data.error,
+                    positionClass: 'topRight',
+                    type: 'error',
+                    timeout: 3 * 1000
+                })
             })
         }
     }
@@ -72,9 +104,10 @@ class UpdatePassword extends React.Component {
             <SiteWrap
                 divider={divider}>
                 <div className='container'>
-                    <div className="col-md-12 d-flex align-items-center justify-content-center">
-                        <div className='col-md-6'>
-                            <div className='p-3 p-lg-5'>
+                    <div className='row'>
+                        <ProfileColumn />
+                        <div className="col-md-9 d-flex align-items-center justify-content-center">
+                            <div className='col-md-6'>
 
                                 <div className='form-group row'>
                                     <div className='col-md-12'>

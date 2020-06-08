@@ -54,7 +54,7 @@ class Cart extends React.Component {
     cartWithProducts = (totalPrice) => (
         <div className='container'>
             <div className='row mb-5'>
-                <div className='col-md-12'>
+                <div className='col-md-9'>
                     <div className='site-blocks-table'>
                         <table className='table border'>
                             <tbody>
@@ -65,6 +65,29 @@ class Cart extends React.Component {
                                 }
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div className='col-md-3'>
+                    <div className='col-md-12 border p-4'>
+                        <div className='row'>
+                            <div className='col-md-12 text-left mb-5'>
+                                <h3 className='text-black h4 text-uppercase'>Cart Totals</h3>
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <div className='col-md-6'>
+                                <span className='text-black'>Total</span>
+                            </div>
+                            <div className='col-md-6 text-right'>
+                                <strong className='text-black'>{`₺${totalPrice}`}</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='row pt-3'>
+                        <div className='col-md-12'>
+                            <button className='btn btn-primary btn-lg btn-block' onClick={this.onCheckoutClick}>Ödemeye Geç</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -91,31 +114,6 @@ class Cart extends React.Component {
                         </div>
                         <div className='col-md-4'>
                             <button className='btn btn-primary btn-sm px-4'>Apply Coupon</button>
-                        </div>
-                    </div>
-                </div>
-                <div className='col-md-6 pl-5'>
-                    <div className='row justify-content-end'>
-                        <div className='col-md-7'>
-                            <div className='row'>
-                                <div className='col-md-12 text-right border-bottom mb-5'>
-                                    <h3 className='text-black h4 text-uppercase'>Cart Totals</h3>
-                                </div>
-                            </div>
-                            <div className='row mb-5'>
-                                <div className='col-md-6'>
-                                    <span className='text-black'>Total</span>
-                                </div>
-                                <div className='col-md-6 text-right'>
-                                    <strong className='text-black'>{`₺${totalPrice}`}</strong>
-                                </div>
-                            </div>
-
-                            <div className='row'>
-                                <div className='col-md-12'>
-                                    <button className='btn btn-primary btn-lg btn-block' onClick={this.onCheckoutClick}>Proceed To Checkout</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

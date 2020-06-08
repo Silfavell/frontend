@@ -6,6 +6,10 @@ class PaymentCard extends React.Component {
         this.props.setSelectedCard(this.props.index)
     }
 
+    onDeleteClick = () => {
+        this.props.showDeleteCardPopup(this.props.item.cardToken)
+    }
+
     render() {
         return (
             <div className='col-md-12 mb-4' style={{
@@ -21,7 +25,9 @@ class PaymentCard extends React.Component {
                             <img alt='' src={'https://n11scdn.akamaized.net/static/new-design/static/img/layout/mastercard-logo.png?v=1590583905836'} />
                         </span>
 
-                        <span className='text-primary float-md-right' style={{ fontWeight: 'bold', cursor: 'pointer' }}>Sil</span>
+                        <span className='text-primary float-md-right' style={{ fontWeight: 'bold', cursor: 'pointer' }} onClick={this.onDeleteClick}>
+                            Sil
+                        </span>
 
                     </div>
                 </div>

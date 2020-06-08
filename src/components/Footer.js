@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import { IoLogoAndroid, IoLogoApple, IoLogoFacebook, IoLogoInstagram, IoLogoTwitter } from 'react-icons/io'
 
-import '../style/fonts/icomoon/style.css'
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
@@ -15,17 +15,18 @@ function Footer() {
             <div className='container'>
                 <div className='row'>
                     <div className='col-md-6 col-lg-3 mb-4 mb-lg-0'>
-                        <h3 className='footer-heading mb-4'>Promo</h3>
+                        <h3 className='footer-heading mb-4' style={{ letterSpacing: '.1em' }}>Promo</h3>
                         <a href='#' className='block-6'>
                             <img src={about1} alt='Image placeholder' className='img-fluid rounded mb-4' />
                             <h3 className='font-weight-light  mb-0'>Finding Your Perfect Shirts This Summer</h3>
                             <p>Promo from  July 15 &mdash; 25, 2019</p>
                         </a>
                     </div>
+
                     <div className='col-lg-5 ml-auto mb-5 mb-lg-0'>
                         <div className='row'>
                             <div className='col-md-12'>
-                                <h3 className='footer-heading mb-4'>silfavell.com</h3>
+                                <h3 className='footer-heading mb-4' style={{ letterSpacing: '.1em' }}>Silfavell</h3>
                             </div>
                             <div className='col-md-6 col-lg-4'>
                                 <ul className='list-unstyled'>
@@ -47,7 +48,7 @@ function Footer() {
 
                     <div className='col-md-6 col-lg-3'>
                         <div className='block-5 mb-5'>
-                            <h3 className='footer-heading mb-4'>İletişim</h3>
+                            <h3 className='footer-heading mb-4' style={{ letterSpacing: '.1em' }}>Uygulamamızı İndirin</h3>
                             <ul className='list-unstyled'>
                                 {
                                     /*
@@ -55,19 +56,54 @@ function Footer() {
                                         <li className='phone'><a href='tel://23923929210'>+2 392 3929 210</a></li>
                                     */
                                 }
-                                <li className='email'>silfavell@gmail.com</li>
+
+                                <li className='d-flex align-items-center justify-content-start pl-0'>
+                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android'>
+                                        <IoLogoAndroid size={32} color={'#EE4266'} className='mr-2' />
+                                        Google Play
+                                    </a>
+                                </li>
+
+                                <li className='d-flex align-items-center justify-content-start pl-0'>
+                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android'>
+                                        <IoLogoApple size={32} color={'#EE4266'} className='mr-2' />
+                                        App Store
+                                    </a>
+                                </li>
+                            </ul>
+                            <h3 className='footer-heading my-4' style={{ letterSpacing: '.1em' }}>Bizi Takip Edin</h3>
+                            <ul className='list-unstyled'>
+                                {
+                                    /*
+                                        <li className='address'>203 Fake St. Mountain View, San Francisco, California, USA</li>
+                                        <li className='phone'><a href='tel://23923929210'>+2 392 3929 210</a></li>
+                                    */
+                                }
+
+                                <li className='d-flex align-items-center justify-content-start pl-0'>
+                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android'>
+                                        <IoLogoFacebook size={32} color={'#EE4266'} className='mr-2' />
+                                        Facebook
+                                    </a>
+                                </li>
+
+                                <li className='d-flex align-items-center justify-content-start pl-0'>
+                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android'>
+                                        <IoLogoInstagram size={32} color={'#EE4266'} className='mr-2' />
+                                        Instagram
+                                    </a>
+                                </li>
+
+                                <li className='d-flex align-items-center justify-content-start pl-0'>
+                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android'>
+                                        <IoLogoTwitter size={32} color={'#EE4266'} className='mr-2' />
+                                        Twitter
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 
                         <div className='block-7'>
-                            {
-                                /*
-                                    <div className="row">
-                                        <img className='col-md-6' alt='' src={`${process.env.PUBLIC_URL}/google-play.png`} />
-                                        <img className='col-md-6' alt='' src={`${process.env.PUBLIC_URL}/apple-store.png`} />
-                                    </div>
-                                */
-                            }
                             {
                                 /*
                                 <form action='#' method='post'>
@@ -82,7 +118,7 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className='row pt-5 mt-5 text-center'>
+                <div className='row pt-2 mt-2 text-center'>
                     <div className="col-md-12">
                         <p>Copyright &copy; {new Date().getFullYear()}, Silfavell Inc</p>
                     </div>

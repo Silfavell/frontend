@@ -17,7 +17,8 @@
     "react-multi-carousel": "^2.5.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "universal-cookie": "^4.0.3"
+    "universal-cookie": "^4.0.3",
+    "vanillatoasts": "^1.4.0"
   },
   "scripts": {
     "start": "env REACT_APP_NODE_ENV=prod serve -s build",

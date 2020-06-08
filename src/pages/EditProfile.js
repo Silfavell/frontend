@@ -2,14 +2,15 @@
 import React from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
+import VanillaToasts from 'vanillatoasts'
 
-import '../style/fonts/icomoon/style.css'
+import SiteWrap from '../components/SiteWrap'
+import ProfileColumn from '../components/ProfileColumn'
+
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/owl.theme.default.min.css'
 import '../style/css/style.css'
-
-import SiteWrap from '../components/SiteWrap'
 
 const cookies = new Cookies()
 
@@ -24,7 +25,13 @@ class EditProfile extends React.Component {
                     this.setState(data)
                 }
             }).catch((err) => {
-                alert(err.response.data.error)
+                VanillaToasts.create({
+                    title: err.response.data.error,
+                    positionClass: 'topRight',
+                    type: 'error',
+                    timeout: 3 * 1000
+                })
+
                 this.props.history.push('/')
             })
         } else {
@@ -41,7 +48,13 @@ class EditProfile extends React.Component {
                 this.setState(data)
             }
         }).catch((err) => {
-            alert(err.response.data.error)
+            VanillaToasts.create({
+                title: err.response.data.error,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
+
             this.props.history.push('/')
         })
     }
@@ -75,9 +88,10 @@ class EditProfile extends React.Component {
         return (
             <SiteWrap divider={divider}>
                 <div className='container'>
-                    <div className="col-md-12 d-flex align-items-center justify-content-center">
-                        <div className='col-md-6'>
-                            <div className='p-3 p-lg-5'>
+                    <div className='row'>
+                        <ProfileColumn />
+                        <div className='col-md-9 d-flex align-items-center justify-content-center'>
+                            <div className='col-md-6'>
 
                                 <div className='form-group row'>
                                     <div className='col-md-12'>

@@ -7,6 +7,11 @@ body {
     font-size: 16px;
 }
 
+.btn-primary {
+    background-color: #ee4266 !important;
+    border-color: #ee4266 !important;;
+}
+
 ::-moz-selection {
     background: #000;
     color: #fff;
@@ -218,8 +223,6 @@ a:hover {
     display: block;
     text-align: center;
     font-size: 28px;
-    height: 40px;
-    width: 40px;
     line-height: 40px;
 }
 
@@ -231,7 +234,6 @@ a:hover {
 .site-navbar {
     background: #fff;
     margin-bottom: 0px;
-    z-index: 1999;
     position: relative;
     background: #fff !important;
 }
@@ -348,6 +350,7 @@ a:hover {
 .site-navbar .site-navigation .site-menu>li {
     display: inline-block;
     padding: 10px 5px;
+    z-index: 9998;
 }
 
 .site-navbar .site-navigation .site-menu>li>a {
@@ -357,6 +360,16 @@ a:hover {
     color: #25262a;
     font-size: 15px;
     text-decoration: none !important;
+}
+
+@media (max-width: 426px) {
+    .site-navbar .site-navigation .site-menu>li {
+        padding: 4px 2px;
+    }
+    
+    .site-navbar .site-navigation .site-menu>li>a {
+        padding: 4px 4px;
+    }
 }
 
 .site-navbar .site-navigation .site-menu>li>a:hover {
@@ -372,6 +385,7 @@ a:hover {
     padding-right: 20px;
 }
 
+/*
 .site-navbar .site-navigation .site-menu .has-children>a:before {
     position: absolute;
     content: "\e313";
@@ -381,8 +395,8 @@ a:hover {
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    font-family: 'icomoon';
 }
+*/
 
 .site-navbar .site-navigation .site-menu .has-children .dropdown {
     visibility: hidden;
@@ -614,7 +628,6 @@ a:hover {
 .site-mobile-menu .site-nav-wrap .arrow-collapse:before {
     font-size: 18px;
     z-index: 20;
-    font-family: "icomoon";
     content: "\e313";
     position: absolute;
     top: 50%;
@@ -695,8 +708,8 @@ a:hover {
 
 .site-blocks-cover.inner-page,
 .site-blocks-cover.inner-page .row {
-    min-height: 400px;
-    height: 500px;
+    min-height: 350px;
+    height: 400px;
 }
 
 .site-blocks-cover h2 {
@@ -922,7 +935,6 @@ a:hover {
 
 .block-5 ul li:before {
     top: 0;
-    font-family: "icomoon";
     content: "";
     position: absolute;
     left: 0;
@@ -1163,7 +1175,7 @@ a:hover {
 
 .bag .number {
     position: absolute;
-    top: 0;
+    top: 25px;
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -1171,7 +1183,7 @@ a:hover {
     color: #fff;
     font-size: 12px;
     background: #ee4266;
-    right: -10px;
+    right: 6px;
 }
 
 .search-wrap {

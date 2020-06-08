@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { Carousel } from 'react-bootstrap'
 
-import '../style/fonts/icomoon/style.css'
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/owl.theme.default.min.css'
@@ -24,7 +23,7 @@ function FirstImage() {
             onSelect={handleSelect}>
             {
                 [1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
-                    <Carousel.Item>
+                    <Carousel.Item key={x}>
                         <div
                             className='site-blocks-cover inner-page'
                             style={{
