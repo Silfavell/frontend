@@ -42,6 +42,10 @@ class Product extends React.Component {
         })
     }
 
+    onInspectClick = () => {
+        window.location.replace(this.props.item._id)
+    }
+
     render() {
         const {
             _id,
@@ -67,7 +71,7 @@ class Product extends React.Component {
                         </div>
 
                         <div className='bottom col-md-12'>
-                            <a href={`/${_id}`} className='col-md-6 d-flex align-items-center justify-content-center text-white inspect'>Incele</a>
+                            <div className='col-md-6 d-flex align-items-center justify-content-center text-white inspect' onClick={this.onInspectClick}>Incele</div>
                             <div className='col-md-6 d-flex align-items-center justify-content-center text-white add-to-cart' onClick={this.addProductToCart}>Sepete Ekle</div>
                         </div>
                     </div>
