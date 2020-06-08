@@ -1,6 +1,4 @@
 import React from 'react'
-import axios from 'axios'
-import VanillaToasts from 'vanillatoasts'
 
 class PaymentCard extends React.Component {
 
@@ -9,18 +7,7 @@ class PaymentCard extends React.Component {
     }
 
     onDeleteClick = () => {
-        axios.put(`${process.env.REACT_APP_API_URL}/user/payment-card`, {
-            cardToken: this.props.item.cardToken
-        }).then(({ status }) => {
-            if (status === 200) {
-                VanillaToasts.create({
-                    title: 'Kart silindi',
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
-                })
-            }
-        })
+        this.props.showDeleteCardPopup(this.props.item.cardToken)
     }
 
     render() {
@@ -38,7 +25,7 @@ class PaymentCard extends React.Component {
                             <img alt='' src={'https://n11scdn.akamaized.net/static/new-design/static/img/layout/mastercard-logo.png?v=1590583905836'} />
                         </span>
 
-                        <span className='text-primary float-md-right' style={{ fontWeight: 'bold', cursor: 'pointer' }} onClick={this.props.showDeleteAddressPopup}>
+                        <span className='text-primary float-md-right' style={{ fontWeight: 'bold', cursor: 'pointer' }} onClick={this.onDeleteClick}>
                             Sil
                         </span>
 

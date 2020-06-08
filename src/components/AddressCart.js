@@ -20,7 +20,8 @@ class AddressCart extends React.Component {
                 }}
                 onClick={this.onClick}>
                 <div style={{
-                    height: 180,
+                    minHeight: 120,
+                    height: '100%',
                     border: this.props.selected ? '3px solid #80DF80' : '1px solid #dee2e6'
                 }}>
 

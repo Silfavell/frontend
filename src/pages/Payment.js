@@ -7,9 +7,11 @@ import SiteWrap from '../components/SiteWrap'
 import Loading from '../components/Loading'
 import EmptyAddressCart from '../components/EmptyAddressCart'
 import AddressCart from '../components/AddressCart'
-import AddressPopup from '../components/AddressPopup'
 import PaymentCard from '../components/PaymentCard'
-import AddressDeletePopup from '../components/AddressDeletePopup'
+
+import AddressPopup from '../components/AddressPopup'
+import CreditCardPopup from '../components/CreditCardPopup'
+import CardDeletePopup from '../components/CardDeletePopup'
 
 class Payment extends React.Component {
 
@@ -18,18 +20,14 @@ class Payment extends React.Component {
         products: [],
         addresses: [],
         cards: [],
+
         selectedAddress: 0,
         selectedCard: 0,
-        showSaveAddressPopup: false,
-        showDeleteAddressPopup: false,
-        showNewCardSection: false,
 
-        cardAlias: 'Alias',
-        cardHolderName: 'Holder',
-        cardNumber: '5526080000000006',
-        expireYear: '09',
-        expireMonth: '2023',
-        cvc2: '555'
+        showSaveAddressPopup: false,
+        showDeleteCardPopup: false,
+        showCardPopup: false,
+        deleteCardToken: null
     }
 
     setSelectedCard = (selectedCard) => {
@@ -40,39 +38,12 @@ class Payment extends React.Component {
         this.setState({ selectedAddress })
     }
 
-    saveCard = () => {
-        const {
-            cardAlias,
-            cardNumber,
-            cardHolderName,
-            expireMonth,
-            expireYear,
-            // cvc2
-        } = this.state
-
-        axios.post(`${process.env.REACT_APP_API_URL}/user/payment-card`, {
-            card: {
-                cardAlias,
-                cardHolderName,
-                cardNumber,
-                expireMonth,
-                expireYear,
-                // cvc2
-            }
-        }).then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            VanillaToasts.create({
-                title: err.response.data.error,
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
-        })
+    showCardPopup = () => {
+        this.setState({ showCardPopup: true })
     }
 
-    showNewCardSection = (event) => {
-        this.setState({ showNewCardSection: event.target.checked })
+    hideCreditCardPopup = () => {
+        this.setState({ showCardPopup: false })
     }
 
     showSaveAddressPopup = () => {
@@ -83,12 +54,12 @@ class Payment extends React.Component {
         this.setState({ showSaveAddressPopup: false })
     }
 
-    showDeleteAddressPopup = () => {
-        this.setState({ showDeleteAddressPopup: true })
+    showDeleteCardPopup = (deleteCardToken) => {
+        this.setState({ showDeleteCardPopup: true, deleteCardToken })
     }
 
-    hideDeleteAddressPopup = () => {
-        this.setState({ showDeleteAddressPopup: false })
+    hideDeleteCardPopup = () => {
+        this.setState({ showDeleteCardPopup: false })
     }
 
     getCart = () => (
@@ -121,12 +92,10 @@ class Payment extends React.Component {
     }
 
     onCompletePaymentClick = () => {
-        console.log('complete payment')
-        // this.saveCard()
         axios.post(`${process.env.REACT_APP_API_URL}/user/order`, {
             address: this.state.addresses[this.state.selectedAddress]._id,
             card: this.state.cards[this.state.selectedCard].cardToken
-        }).then(({ status, data }) => {
+        }).then(({ status }) => {
             if (status === 200) {
                 VanillaToasts.create({
                     title: `Siparişiniz alınmıştır.`,
@@ -155,31 +124,7 @@ class Payment extends React.Component {
         $('#paymentOptions').fadeIn('slow')
     }
 
-    onAliasChange = (event) => {
-        this.setState({ cardAlias: event.target.value })
-    }
-
-    onCardHolderNameChange = (event) => {
-        this.setState({ cardHolderName: event.target.value })
-    }
-
-    onCardNoChange = (event) => {
-        this.setState({ cardNumber: event.target.value })
-    }
-
-    onExpireMonthChange = (event) => {
-        this.setState({ expireMonth: event.target.value })
-    }
-
-    onExpireYearChange = (event) => {
-        this.setState({ expireYear: event.target.value })
-    }
-
-    onCvcChange = (event) => {
-        this.setState({ cvc2: event.target.value })
-    }
-
-    renderAddresses = () => (
+    renderAddressesSection = () => (
         <div id={'addresses'} className='row mb-5 border'>
             <div className='col-md-12 p-4'>
                 <h3 className={'text-secondary'}>Adres Seçimi</h3>
@@ -200,24 +145,9 @@ class Payment extends React.Component {
         </div>
     )
 
-    renderPaymentOptions = () => {
-        const {
-            cardAlias,
-            cardNumber,
-            cardHolderName,
-            expireMonth,
-            expireYear,
-            cvc2
-        } = this.state
-
+    renderPaymentOptionsSection = () => {
         return (
             <div id={'paymentOptions'} className='row mb-5 border' style={{ display: 'none' }}>
-
-                {
-                    this.state.showDeleteAddressPopup && <AddressDeletePopup hideDeleteAddressPopup={this.hideDeleteAddressPopup} />
-                }
-
-
                 <div className='col-md-12 p-4'>
                     <p className={'text-gray h6'}>Kredi kartı bilgileriniz Silfavell tarafından saklanmamaktadır.</p>
                     <p className={'text-black font-weight-bold h6'}>Ödeme altyapısı MasterPass tarafından sağlanmaktadır.</p>
@@ -231,7 +161,7 @@ class Payment extends React.Component {
                                 <PaymentCard
                                     index={index}
                                     item={card}
-                                    showDeleteAddressPopup={this.showDeleteAddressPopup}
+                                    showDeleteCardPopup={this.showDeleteCardPopup}
                                     selected={this.state.selectedCard === index} setSelectedCard={this.setSelectedCard}
                                 />
                             ))
@@ -241,7 +171,7 @@ class Payment extends React.Component {
                     <div className='form-group row'>
                         <div className='col-md-12'>
                             <input
-                                onChange={this.showNewCardSection}
+                                onChange={this.showCardPopup}
                                 type='checkbox'
                                 className='form-check-label'
                                 id='dont-forget'
@@ -253,98 +183,6 @@ class Payment extends React.Component {
                                 htmlFor='dont-forget'
                                 className='form-check-label ml-2 text-primary'
                                 style={{ cursor: 'pointer' }}>Yeni Bir Kredi Kartı Bilgisi Girerek Öde.</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div id={'new-card'} className='col-md-12 p-4' style={{ display: this.state.showNewCardSection ? 'unset' : 'none' }}>
-                    <div className='row'>
-                        <div className='col-md-12'>
-                            <div className='row'>
-                                <div className='col-md-12'>
-
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='cardAlias' className='text-black'>Card Alias <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onAliasChange}
-                                                type='text'
-                                                className='form-control'
-                                                id='cardAlias'
-                                                name='cardAlias'
-                                                value={cardAlias}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='cardHolderName' className='text-black'>Kart üzerindeki isim <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onCardHolderNameChange}
-                                                type='text'
-                                                className='form-control'
-                                                id='cardHolderName'
-                                                name='cardHolderName'
-                                                value={cardHolderName}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='cardNumber' className='text-black'>Kart No <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onCardNoChange}
-                                                type='text'
-                                                className='form-control'
-                                                id='cardNumber'
-                                                name='cardNumber'
-                                                value={cardNumber}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className='form-group row'>
-                                        <div className='col-md-6'>
-                                            <label htmlFor='expireMonth' className='text-black'>Expire Month <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onExpireMonthChange}
-                                                type='text'
-                                                className='form-control'
-                                                id='expireMonth'
-                                                name='expireMonth'
-                                                value={expireMonth}
-                                            />
-                                        </div>
-                                        <div className='col-md-6'>
-                                            <label htmlFor='expireYear' className='text-black'>Expire Year <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onExpireYearChange}
-                                                type='text'
-                                                className='form-control'
-                                                id='expireYear'
-                                                name='expireYear'
-                                                value={expireYear}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='cvc2' className='text-black'>CVC2 <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onCvcChange}
-                                                type='text'
-                                                className='form-control'
-                                                id='cvc2'
-                                                name='cvc2'
-                                                value={cvc2}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -360,14 +198,25 @@ class Payment extends React.Component {
                 path: null, title: 'Payment'
             }
         ]
+
         if (this.state.fetching) {
             return <Loading />
         } else {
             return (
                 <SiteWrap divider={divider}>
+
                     {
                         this.state.showSaveAddressPopup && <AddressPopup hideSaveAddressPopup={this.hideSaveAddressPopup} />
                     }
+
+                    {
+                        this.state.showCardPopup && <CreditCardPopup hideCreditCardPopup={this.hideCreditCardPopup} />
+                    }
+
+                    {
+                        this.state.showDeleteCardPopup && <CardDeletePopup deleteCardToken={this.state.deleteCardToken} hideDeleteCardPopup={this.hideDeleteCardPopup} />
+                    }
+
                     <div className='container'>
                         <div className='row'>
                             <div className='col-md-9'>
@@ -389,10 +238,10 @@ class Payment extends React.Component {
                                 </div>
 
                                 {
-                                    this.renderPaymentOptions()
+                                    this.renderPaymentOptionsSection()
                                 }
                                 {
-                                    this.renderAddresses()
+                                    this.renderAddressesSection()
                                 }
                             </div>
                             <div className='col-md-3'>

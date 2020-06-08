@@ -4,11 +4,11 @@ import VanillaToasts from 'vanillatoasts'
 
 import PopupWrapper from './PopupWrapper'
 
-class AddressDeletePopup extends React.Component {
+class CardDeletePopup extends React.Component {
 
     onConfirm = () => {
         axios.put(`${process.env.REACT_APP_API_URL}/user/payment-card`, {
-            cardToken: this.props.item.cardToken
+            cardToken: this.props.deleteCardToken
         }).then(({ status }) => {
             if (status === 200) {
                 VanillaToasts.create({
@@ -17,7 +17,11 @@ class AddressDeletePopup extends React.Component {
                     type: 'success',
                     timeout: 3 * 1000
                 })
+
+                this.props.hideDeleteCardPopup()
             }
+        }).catch((error) => {
+            this.props.hideDeleteCardPopup()
         })
     }
 
@@ -26,29 +30,28 @@ class AddressDeletePopup extends React.Component {
             return
         }
 
-        this.props.hideDeleteAddressPopup()
+        this.props.hideDeleteCardPopup()
     }
 
     onCloseClick = (event) => {
-        this.props.hideDeleteAddressPopup()
+        this.props.hideDeleteCardPopup()
     }
-
 
     render() {
         return (
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
-                <div className="col-md-12">
-                    <div className="row">
-                        <div className="col-md-12">
+                <div className='col-md-12'>
+                    <div className='row'>
+                        <div className='col-md-12'>
                             <div className='p-lg-5'>
                                 <div className='form-group row mb-5'>
                                     <div className='col-lg-12'>
-                                        <span className='text-black h5'>Adresinizin silinmesini onaylıyor musunuz?</span>
+                                        <span className='text-black h5'>Kartınızın silinmesini onaylıyor musunuz?</span>
                                     </div>
                                 </div>
                                 <div className='form-group row'>
                                     <div className='col-lg-6 ml-auto'>
-                                        <button className='btn btn-primary btn-lg btn-block' onClick={this.onSaveAddressClick}>Evet</button>
+                                        <button className='btn btn-primary btn-lg btn-block' onClick={this.onConfirm}>Evet</button>
                                     </div>
                                 </div>
                             </div>
@@ -61,4 +64,4 @@ class AddressDeletePopup extends React.Component {
     }
 }
 
-export default AddressDeletePopup
+export default CardDeletePopup
