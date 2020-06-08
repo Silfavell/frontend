@@ -7,7 +7,9 @@ class ProfileColumn extends React.Component {
                 <ul className='column-dropdown border'>
                     <li><a href='/edit-profile'>Profilimi Düzenle</a></li>
                     <li><a href='/update-password'>Şifremi değiştir</a></li>
-                    <li><a href='/favorite-products'>Favorilerim</a></li>
+                    {
+                        // <li><a href='/favorite-products'>Favorilerim</a></li>
+                    }
                     <li><a href='/previous-orders'>Siparişlerim</a></li>
                 </ul>
             </div>

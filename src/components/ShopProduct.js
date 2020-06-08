@@ -89,8 +89,8 @@ class ShopProduct extends React.Component {
                         <div className='top col-md-12'>
                             <div className='col-md-6 d-flex align-items-center text-white add-to-favorite'>
                                 {
-                                    this.props.favorite ? <IoMdHeart size={32} color={'#6610F2'} onClick={this.removeFromFavoriteProdutcs} />
-                                        : <IoMdHeartEmpty size={32} onClick={this.addToFavoriteProducts} />
+                                    // this.props.favorite ? <IoMdHeart size={32} color={'#6610F2'} onClick={this.removeFromFavoriteProdutcs} />
+                                    //     : <IoMdHeartEmpty size={32} onClick={this.addToFavoriteProducts} />
                                 }
                             </div>
                         </div>

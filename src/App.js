@@ -38,7 +38,9 @@ class App extends React.Component {
                     <Route exact path='/cart' component={Cart} />
                     <Route exact path='/payment' component={Payment} />
                     <Route exact path='/edit-profile' component={EditProfile} />
-                    <Route exact path='/favorite-products' component={FavoriteProducts} />
+                    {
+                        // <Route exact path='/favorite-products' component={FavoriteProducts} />
+                    }
                     <Route exact path='/previous-orders' component={PreviousOrders} />
                     <Route exact path='/update-password' component={UpdatePassword} />
                     <Route exact path='/forgot-password' component={ForgotPassword} />
