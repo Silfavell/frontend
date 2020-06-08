@@ -9,6 +9,7 @@ import EmptyAddressCart from '../components/EmptyAddressCart'
 import AddressCart from '../components/AddressCart'
 import AddressPopup from '../components/AddressPopup'
 import PaymentCard from '../components/PaymentCard'
+import AddressDeletePopup from '../components/AddressDeletePopup'
 
 class Payment extends React.Component {
 
@@ -20,6 +21,7 @@ class Payment extends React.Component {
         selectedAddress: 0,
         selectedCard: 0,
         showSaveAddressPopup: false,
+        showDeleteAddressPopup: false,
         showNewCardSection: false,
 
         cardAlias: 'Alias',
@@ -79,6 +81,14 @@ class Payment extends React.Component {
 
     hideSaveAddressPopup = () => {
         this.setState({ showSaveAddressPopup: false })
+    }
+
+    showDeleteAddressPopup = () => {
+        this.setState({ showDeleteAddressPopup: true })
+    }
+
+    hideDeleteAddressPopup = () => {
+        this.setState({ showDeleteAddressPopup: false })
     }
 
     getCart = () => (
@@ -202,6 +212,12 @@ class Payment extends React.Component {
 
         return (
             <div id={'paymentOptions'} className='row mb-5 border' style={{ display: 'none' }}>
+
+                {
+                    this.state.showDeleteAddressPopup && <AddressDeletePopup hideDeleteAddressPopup={this.hideDeleteAddressPopup} />
+                }
+
+
                 <div className='col-md-12 p-4'>
                     <p className={'text-gray h6'}>Kredi kartı bilgileriniz Silfavell tarafından saklanmamaktadır.</p>
                     <p className={'text-black font-weight-bold h6'}>Ödeme altyapısı MasterPass tarafından sağlanmaktadır.</p>
@@ -215,6 +231,7 @@ class Payment extends React.Component {
                                 <PaymentCard
                                     index={index}
                                     item={card}
+                                    showDeleteAddressPopup={this.showDeleteAddressPopup}
                                     selected={this.state.selectedCard === index} setSelectedCard={this.setSelectedCard}
                                 />
                             ))
@@ -346,7 +363,7 @@ class Payment extends React.Component {
         if (this.state.fetching) {
             return <Loading />
         } else {
-                return (
+            return (
                 <SiteWrap divider={divider}>
                     {
                         this.state.showSaveAddressPopup && <AddressPopup hideSaveAddressPopup={this.hideSaveAddressPopup} />
@@ -365,7 +382,7 @@ class Payment extends React.Component {
                                             <div className='col-md-6 p-3' style={{ cursor: 'pointer' }} onClick={this.onPaymentOptionsClick}>
                                                 <h3 className={'text-secondary'}>Ödeme Seçenekleri</h3>
                                                 <p className={'text-primary h5'}>{this.state.cards[this.state.selectedCard]?.cardAlias}</p>
-                                                <p className={'text-black h6'}>{'**** **** **** '+this.state.cards[this.state.selectedCard]?.lastFourDigits}</p>
+                                                <p className={'text-black h6'}>{this.state.cards[this.state.selectedCard] ? '**** **** **** ' + this.state.cards[this.state.selectedCard]?.lastFourDigits : ''}</p>
                                             </div>
                                         </div>
                                     </div>
