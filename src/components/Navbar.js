@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import axios from 'axios'
-import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose } from 'react-icons/io'
 import Cookies from 'universal-cookie'
+import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose } from 'react-icons/io'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -34,14 +34,21 @@ class Navbar extends React.Component {
             })
         } else {
             this.getCategories().then((categories) => {
-                const cart = window.localStorage.getItem('cart')
-                if (cart) {
-                    this.setState({ categories, products: JSON.parse(cart) })
+                if (window.localStorage.getItem('cart')) {
+                    const cartAsArray = JSON.parse(window.localStorage.getItem('cart'))
+                    if (cartAsArray.length > 0) {
+                        this.fetchOfflineCartProducts().then((products) => {
+                            this.setState({
+                                categories,
+                                products: products.map((product, index) => Object.assign(product, { quantity: cartAsArray[index].quantity }))
+                            })
+                        })
+                    }
                 } else {
                     this.setState({ categories, products: [] })
                 }
             }).catch((err) => {
-                console.log(err.response)
+                console.log(err)
             })
         }
     }
@@ -64,6 +71,15 @@ class Navbar extends React.Component {
             (data && data.cart) ? Object.values(data.cart) : []
         ))
     )
+
+    fetchOfflineCartProducts = () => {
+        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${
+            JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => cartProduct._id).join(',')
+            }`
+
+
+        return axios.get(url).then(({ data }) => data)
+    }
 
     getCategories = () => (
         axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => data)

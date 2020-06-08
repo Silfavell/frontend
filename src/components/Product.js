@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Cookies from 'universal-cookie'
 import VanillaToasts from 'vanillatoasts'
 import { IoMdHeartEmpty } from 'react-icons/io'
 
@@ -7,17 +8,34 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Product.css'
 
+const cookies = new Cookies()
+
 class Product extends React.Component {
 
-    onAddToCasketClick = () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then(({ status }) => {
+    addProductToCart = () => {
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then(({ status, data }) => {
             if (status === 200) {
+                if (!cookies.get('token')) {
+                    const cart = window.localStorage.getItem('cart')
+
+                    if (cart) {
+                        const cartAsArray = JSON.parse(cart)
+                        const foundProduct = cartAsArray.find((cartProduct) => cartProduct._id === data._id)
+                        if (foundProduct) {
+                            cartAsArray[cartAsArray.indexOf(foundProduct)].quantity++
+                        } else {
+                            cartAsArray.push({ _id: data._id, quantity: 1 })
+                        }
+                        window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
+                    } else {
+                        window.localStorage.setItem('cart', JSON.stringify([{ _id: data._id, quantity: 1 }]))
+                    }
+                }
+
                 VanillaToasts.create({
-                    title: 'Welcome to my site',
+                    title: 'Ürünü sepete eklendi (1)',
                     positionClass: 'topRight',
-                    text: 'This toast will hide after 5000ms or when you click it',
                     type: 'success',
-                    // icon: '/img/alert-icon.jpg',
                     timeout: 5000
                 })
             }
@@ -26,6 +44,7 @@ class Product extends React.Component {
 
     render() {
         const {
+            _id,
             name,
             price
         } = this.props.item
@@ -46,8 +65,8 @@ class Product extends React.Component {
                         </div>
 
                         <div className='bottom col-md-12'>
-                            <a href={'/123'} className='col-md-6 d-flex align-items-center justify-content-center text-white inspect'>Incele</a>
-                            <div className='col-md-6 d-flex align-items-center justify-content-center text-white add-to-cart' onClick={this.onAddToCasketClick}>Sepete Ekle</div>
+                            <a href={`/${_id}`} className='col-md-6 d-flex align-items-center justify-content-center text-white inspect'>Incele</a>
+                            <div className='col-md-6 d-flex align-items-center justify-content-center text-white add-to-cart' onClick={this.addProductToCart}>Sepete Ekle</div>
                         </div>
                     </div>
                 </div>
