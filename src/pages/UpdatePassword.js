@@ -108,57 +108,55 @@ class UpdatePassword extends React.Component {
                         <ProfileColumn />
                         <div className="col-md-9 d-flex align-items-center justify-content-center">
                             <div className='col-md-6'>
-                                <div className='p-3 p-lg-5'>
 
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='old_password' className='text-black'>Eski Şifre <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onOldPasswordChange}
-                                                type='password'
-                                                className='form-control'
-                                                id='old_password'
-                                                name='old_password'
-                                                placeholder='Eski Şifrenizi giriniz'
-                                                value={oldPassword} />
-                                        </div>
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='old_password' className='text-black'>Eski Şifre <span className='text-danger'>*</span></label>
+                                        <input
+                                            onChange={this.onOldPasswordChange}
+                                            type='password'
+                                            className='form-control'
+                                            id='old_password'
+                                            name='old_password'
+                                            placeholder='Eski Şifrenizi giriniz'
+                                            value={oldPassword} />
                                     </div>
-
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='new_password' className='text-black'>Yeni Şifre <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onNewPasswordChange}
-                                                type='password'
-                                                className='form-control'
-                                                id='new_password'
-                                                name='new_password'
-                                                placeholder='Yeni Şifrenizi giriniz'
-                                                value={newPassword} />
-                                        </div>
-                                    </div>
-
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='re_new_password' className='text-black'>Yeni Şifre (tekrar) <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onReNewPasswordChange}
-                                                type='password'
-                                                className='form-control'
-                                                id='re_new_password'
-                                                name='re_new_password'
-                                                placeholder='Yeni Şifrenizi tekrar giriniz'
-                                                value={reNewPassword} />
-                                        </div>
-                                    </div>
-
-                                    <div className='form-group row'>
-                                        <div className='col-lg-12'>
-                                            <button onClick={this.onUpdateClick} className='btn btn-primary btn-lg btn-block'>Şifremi Güncelle</button>
-                                        </div>
-                                    </div>
-
                                 </div>
+
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='new_password' className='text-black'>Yeni Şifre <span className='text-danger'>*</span></label>
+                                        <input
+                                            onChange={this.onNewPasswordChange}
+                                            type='password'
+                                            className='form-control'
+                                            id='new_password'
+                                            name='new_password'
+                                            placeholder='Yeni Şifrenizi giriniz'
+                                            value={newPassword} />
+                                    </div>
+                                </div>
+
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='re_new_password' className='text-black'>Yeni Şifre (tekrar) <span className='text-danger'>*</span></label>
+                                        <input
+                                            onChange={this.onReNewPasswordChange}
+                                            type='password'
+                                            className='form-control'
+                                            id='re_new_password'
+                                            name='re_new_password'
+                                            placeholder='Yeni Şifrenizi tekrar giriniz'
+                                            value={reNewPassword} />
+                                    </div>
+                                </div>
+
+                                <div className='form-group row'>
+                                    <div className='col-lg-12'>
+                                        <button onClick={this.onUpdateClick} className='btn btn-primary btn-lg btn-block'>Şifremi Güncelle</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

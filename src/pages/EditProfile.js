@@ -92,51 +92,50 @@ class EditProfile extends React.Component {
                         <ProfileColumn />
                         <div className='col-md-9 d-flex align-items-center justify-content-center'>
                             <div className='col-md-6'>
-                                <div className='p-3 p-lg-5'>
 
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='nameSurname' className='text-black'>Name Surname <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onNameSurnameChange}
-                                                type='name'
-                                                className='form-control'
-                                                id='nameSurname'
-                                                name='nameSurname'
-                                                placeholder='Adınız ve Soyadınızı giriniz'
-                                                value={nameSurname} />
-                                        </div>
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='nameSurname' className='text-black'>Name Surname <span className='text-danger'>*</span></label>
+                                        <input
+                                            onChange={this.onNameSurnameChange}
+                                            type='name'
+                                            className='form-control'
+                                            id='nameSurname'
+                                            name='nameSurname'
+                                            placeholder='Adınız ve Soyadınızı giriniz'
+                                            value={nameSurname} />
                                     </div>
+                                </div>
 
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='c_email' className='text-black'>E-Mail <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onEmailChange}
-                                                type='email'
-                                                className='form-control'
-                                                id='c_email'
-                                                name='c_email'
-                                                placeholder='E-Posta adresinizi giriniz' value={email} />
-                                        </div>
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='c_email' className='text-black'>E-Mail <span className='text-danger'>*</span></label>
+                                        <input
+                                            onChange={this.onEmailChange}
+                                            type='email'
+                                            className='form-control'
+                                            id='c_email'
+                                            name='c_email'
+                                            placeholder='E-Posta adresinizi giriniz' value={email} />
                                     </div>
+                                </div>
 
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='phone' className='text-black'>Phone Number <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onPhoneChange}
-                                                type='phone'
-                                                className='form-control'
-                                                id='phone'
-                                                name='phone'
-                                                placeholder='Telefon Numaranızı giriniz'
-                                                disabled
-                                                value={phoneNumber} />
-                                        </div>
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='phone' className='text-black'>Phone Number <span className='text-danger'>*</span></label>
+                                        <input
+                                            onChange={this.onPhoneChange}
+                                            type='phone'
+                                            className='form-control'
+                                            id='phone'
+                                            name='phone'
+                                            placeholder='Telefon Numaranızı giriniz'
+                                            disabled
+                                            value={phoneNumber} />
                                     </div>
+                                </div>
 
-                                    {   /*
+                                {   /*
                                             <div className='form-group row'>
                                                 <div className='col-md-12 d-flex align-items-md-start justify-content-md-start'>
                                                     <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' checked />
@@ -144,22 +143,21 @@ class EditProfile extends React.Component {
                                                 </div>
                                             </div>
                                             */
-                                    }
+                                }
 
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' checked disabled />
-                                            <label htmlFor='dont-forget' className='form-check-label ml-2'>Üyelik Sözleşmesi şartlarını okudum ve kabul ediyorum.</label>
-                                        </div>
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' checked disabled />
+                                        <label htmlFor='dont-forget' className='form-check-label ml-2'>Üyelik Sözleşmesi şartlarını okudum ve kabul ediyorum.</label>
                                     </div>
-
-                                    <div className='form-group row'>
-                                        <div className='col-lg-12'>
-                                            <button className='btn btn-primary btn-lg btn-block' onClick={this.onSaveClick}>Kaydet</button>
-                                        </div>
-                                    </div>
-
                                 </div>
+
+                                <div className='form-group row'>
+                                    <div className='col-lg-12'>
+                                        <button className='btn btn-primary btn-lg btn-block' onClick={this.onSaveClick}>Kaydet</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

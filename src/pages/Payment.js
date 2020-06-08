@@ -169,20 +169,8 @@ class Payment extends React.Component {
                     </div>
 
                     <div className='form-group row'>
-                        <div className='col-md-12'>
-                            <input
-                                onChange={this.showCardPopup}
-                                type='checkbox'
-                                className='form-check-label'
-                                id='dont-forget'
-                                name='dont-forget'
-                                placeholder=''
-                                style={{ cursor: 'pointer' }} />
-
-                            <label
-                                htmlFor='dont-forget'
-                                className='form-check-label ml-2 text-primary'
-                                style={{ cursor: 'pointer' }}>Yeni Bir Kredi Kartı Bilgisi Girerek Öde.</label>
+                        <div className='ml-auto'>
+                            <button className='btn btn-primary btn-lg btn-block' onClick={this.showCardPopup}>Yeni Bir Kredi Kartı Bilgisi Girerek Öde.</button>
                         </div>
                     </div>
                 </div>
