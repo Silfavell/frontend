@@ -60,7 +60,9 @@ class Product extends React.Component {
                     <div className='interface'>
                         <div className='top col-md-12'>
                             <div className='col-md-6 d-flex align-items-center text-white add-to-favorite'>
-                                <IoMdHeartEmpty size={24} />
+                                {
+                                    // <IoMdHeartEmpty size={24} />
+                                }
                             </div>
                         </div>
 
