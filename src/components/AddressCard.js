@@ -1,6 +1,4 @@
 import React from 'react'
-import axios from 'axios'
-import VanillaToasts from 'vanillatoasts'
 
 class AddressCard extends React.Component {
 
@@ -9,25 +7,7 @@ class AddressCard extends React.Component {
     }
 
     onDeleteClick = () => {
-        axios.delete(`${process.env.REACT_APP_API_URL}/user/address/${this.props.item._id}`).then(({ status }) => {
-            if (status === 200) {
-                VanillaToasts.create({
-                    title: `Adresiniz silindi`,
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
-                })
-            }
-        }).catch((err) => {
-            console.log(err)
-
-            VanillaToasts.create({
-                title: err.response.data.error,
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
-        })
+        this.props.showDeleteAddressPopup(this.props.item._id)
     }
 
     render() {

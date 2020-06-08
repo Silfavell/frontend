@@ -12,6 +12,7 @@ import PaymentCard from '../components/PaymentCard'
 import AddressPopup from '../components/AddressPopup'
 import CreditCardPopup from '../components/CreditCardPopup'
 import CardDeletePopup from '../components/CardDeletePopup'
+import AddressDeletePopup from '../components/AddressDeletePopup'
 
 class Payment extends React.Component {
 
@@ -25,9 +26,11 @@ class Payment extends React.Component {
         selectedCard: 0,
 
         showSaveAddressPopup: false,
+        showDeleteAddressPopup: false,
         showDeleteCardPopup: false,
         showCardPopup: false,
-        deleteCardToken: null
+        deleteCardToken: null,
+        deleteAddressId: null
     }
 
     setSelectedCard = (selectedCard) => {
@@ -52,6 +55,14 @@ class Payment extends React.Component {
 
     hideSaveAddressPopup = () => {
         this.setState({ showSaveAddressPopup: false })
+    }
+
+    showDeleteAddressPopup = (deleteAddressId) => {
+        this.setState({ showDeleteAddressPopup: true, deleteAddressId })
+    }
+
+    hideDeleteAddressPopup = () => {
+        this.setState({ showDeleteAddressPopup: false })
     }
 
     showDeleteCardPopup = (deleteCardToken) => {
@@ -136,6 +147,7 @@ class Payment extends React.Component {
                             <AddressCard
                                 index={index}
                                 item={address}
+                                showDeleteAddressPopup={this.showDeleteAddressPopup}
                                 selected={this.state.selectedAddress === index} setSelectedAddress={this.setSelectedAddress} />
                         ))
                     }
@@ -195,6 +207,10 @@ class Payment extends React.Component {
 
                     {
                         this.state.showSaveAddressPopup && <AddressPopup hideSaveAddressPopup={this.hideSaveAddressPopup} />
+                    }
+
+                    {
+                        this.state.showDeleteAddressPopup && <AddressDeletePopup deleteAddressId={this.state.deleteAddressId} hideDeleteAddressPopup={this.hideDeleteAddressPopup} />
                     }
 
                     {
