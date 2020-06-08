@@ -135,7 +135,7 @@
     z-index: 11;
     visibility: hidden;
     opacity: 0;
-    border: 1px solid #edf0f5;
+    border: 1px solid transparent;
     border-top: unset;
     transition: 0.2s 0s;
     box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.05);
