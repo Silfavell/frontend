@@ -5,8 +5,8 @@ import VanillaToasts from 'vanillatoasts'
 
 import SiteWrap from '../components/SiteWrap'
 import Loading from '../components/Loading'
-import EmptyAddressCart from '../components/EmptyAddressCart'
-import AddressCart from '../components/AddressCart'
+import EmptyAddressCard from '../components/EmptyAddressCard'
+import AddressCard from '../components/AddressCard'
 import PaymentCard from '../components/PaymentCard'
 
 import AddressPopup from '../components/AddressPopup'
@@ -133,13 +133,13 @@ class Payment extends React.Component {
                 <div className='row'>
                     {
                         this.state.addresses.map((address, index) => (
-                            <AddressCart
+                            <AddressCard
                                 index={index}
                                 item={address}
                                 selected={this.state.selectedAddress === index} setSelectedAddress={this.setSelectedAddress} />
                         ))
                     }
-                    <EmptyAddressCart showSaveAddressPopup={this.showSaveAddressPopup} />
+                    <EmptyAddressCard showSaveAddressPopup={this.showSaveAddressPopup} />
                 </div>
             </div>
         </div>
