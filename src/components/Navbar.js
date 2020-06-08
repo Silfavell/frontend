@@ -253,13 +253,18 @@ class Navbar extends React.Component {
                                             <a href='/cart' className='icons-btn d-inline-block bag'>
                                                 <IoIosBasket color={'#8C92A0'} size={26} />
                                                 <span className='number'>{this.state.products.length}</span>
-                                                <div className='cart'>
-                                                    {
-                                                        this.state.products.map((product) => (
-                                                            <NavCartItem item={product} />
-                                                        ))
-                                                    }
-                                                </div>
+                                                {
+                                                    this.state.products.length > 0 &&
+                                                    (
+                                                        <div className='cart'>
+                                                            {
+                                                                this.state.products.map((product) => (
+                                                                    <NavCartItem item={product} />
+                                                                ))
+                                                            }
+                                                        </div>
+                                                    )
+                                                }
                                             </a>
                                         </li>
                                         <li>
