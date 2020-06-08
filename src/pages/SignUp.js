@@ -203,13 +203,13 @@ class SignUp extends React.Component {
 
                 <div className='form-group row'>
                     <div className='col-md-12'>
-                        <label htmlFor='phone' className='text-black'>Aktivasyon Kodu <span className='text-danger'>*</span></label>
+                        <label htmlFor='activation-code' className='text-black'>Aktivasyon Kodu <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onActivationCodeChange}
-                            type='phone'
+                            type='text'
                             className='form-control'
-                            id='phone'
-                            name='phone'
+                            id='activation-code'
+                            name='activation-code'
                             placeholder='Aktivasyon kodunuzu giriniz'
                             value={activationCode} />
                     </div>
