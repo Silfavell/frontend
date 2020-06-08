@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
 import VanillaToasts from 'vanillatoasts'
-import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io'
+// import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io'
 
 import 'vanillatoasts/vanillatoasts.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
