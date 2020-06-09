@@ -19,38 +19,8 @@ class Navbar extends React.Component {
 
     state = {
         loggedIn: cookies.get('token'),
-        products: [],
-        categories: [],
         searchText: '',
         searchedProducts: []
-    }
-
-    UNSAFE_componentWillMount() {
-        if (cookies.get('token')) {
-            Promise.all([this.getCategories(), this.getCartProducts()]).then((vals) => {
-                this.setState({ categories: vals[0], products: vals[1] })
-            }).catch((err) => {
-                console.log(err.response)
-            })
-        } else {
-            this.getCategories().then((categories) => {
-                if (window.localStorage.getItem('cart')) {
-                    const cartAsArray = JSON.parse(window.localStorage.getItem('cart'))
-                    if (cartAsArray.length > 0) {
-                        this.fetchOfflineCartProducts().then((products) => {
-                            this.setState({
-                                categories,
-                                products: products.map((product, index) => Object.assign(product, { quantity: cartAsArray[index].quantity }))
-                            })
-                        })
-                    }
-                } else {
-                    this.setState({ categories, products: [] })
-                }
-            }).catch((err) => {
-                console.log(err)
-            })
-        }
     }
 
     onSearchClick = () => {
@@ -65,25 +35,6 @@ class Navbar extends React.Component {
             this.setState({ searchedProducts: data })
         })
     }
-
-    getCartProducts = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => (
-            (data && data.cart) ? Object.values(data.cart) : []
-        ))
-    )
-
-    fetchOfflineCartProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${
-            JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => cartProduct._id).join(',')
-            }`
-
-
-        return axios.get(url).then(({ data }) => data)
-    }
-
-    getCategories = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => data)
-    )
 
     onLogoutClick = () => {
         cookies.remove('token')
@@ -222,7 +173,7 @@ class Navbar extends React.Component {
                     <div className='site-mobile-menu-body'>
                         <ul className='site-nav-wrap'>
                             {
-                                this.state.categories.map((category) => (
+                                this.props.categories.map((category) => (
                                     <li className={'has-children'} key={category._id}>
                                         {
                                             category.subCategories.length > 0 &&
@@ -270,13 +221,13 @@ class Navbar extends React.Component {
                                         <li>
                                             <a href='/cart' className='icons-btn d-inline-block bag'>
                                                 <IoIosBasket color={'#8C92A0'} size={26} />
-                                                <span className='number'>{this.state.products.length}</span>
+                                                <span className='number'>{this.props.products.length}</span>
                                                 {
-                                                    this.state.products.length > 0 &&
+                                                    this.props.products.length > 0 &&
                                                     (
                                                         <div className='cart'>
                                                             {
-                                                                this.state.products.map((product) => (
+                                                                this.props.products.map((product) => (
                                                                     <NavCartItem key={product._id} item={product} />
                                                                 ))
                                                             }
@@ -304,7 +255,7 @@ class Navbar extends React.Component {
                                 <nav className='site-navigation text-right text-md-center' role='navigation'>
                                     <ul className='site-menu js-clone-nav d-none d-lg-block'>
                                         {
-                                            this.state.categories.map((category) => (
+                                            this.props.categories.map((category) => (
                                                 <li className={'has-children'} key={category._id}>
                                                     <a href={`/shop?categoryId=${category._id}`}>{category.name}</a>
                                                     <ul className='dropdown'>
