@@ -105,18 +105,33 @@ class SiteWrap extends React.Component {
         if (cookies.get('token')) {
             axios.delete(`${process.env.REACT_APP_API_URL}/product/${productId}`).then(({ status, data }) => {
                 if (status === 200) {
-                    const newProducts = this.state.products.map((cartProduct) => (
-                        cartProduct._id === productId ? data : cartProduct
-                    ))
+                    if (data.quantity > 0) {
+                        const newProducts = this.state.products.map((cartProduct) => (
+                            cartProduct._id === productId ? data : cartProduct
+                        ))
 
-                    this.setState({ products: newProducts }, () => {
-                        VanillaToasts.create({
-                            title: `Ürünü sepetten çıkarıldı`,
-                            positionClass: 'topRight',
-                            type: 'success',
-                            timeout: 3 * 1000
+                        this.setState({ products: newProducts }, () => {
+                            VanillaToasts.create({
+                                title: `Ürünü sepetten çıkarıldı`,
+                                positionClass: 'topRight',
+                                type: 'success',
+                                timeout: 3 * 1000
+                            })
                         })
-                    })
+                    } else {
+                        const foundedProduct = this.state.products.find((cartProduct => cartProduct._id === productId))
+                        const indexOfFoundedProduct = this.state.products.indexOf(foundedProduct)
+                        this.state.products.splice(indexOfFoundedProduct, 1)
+
+                        this.setState({ products: this.state.products }, () => {
+                            VanillaToasts.create({
+                                title: `Ürünü sepetten çıkarıldı`,
+                                positionClass: 'topRight',
+                                type: 'success',
+                                timeout: 3 * 1000
+                            })
+                        })
+                    }
                 }
             }).catch((err) => {
                 VanillaToasts.create({
