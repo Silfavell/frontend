@@ -277,7 +277,7 @@ class Navbar extends React.Component {
                                                         <div className='cart'>
                                                             {
                                                                 this.state.products.map((product) => (
-                                                                    <NavCartItem item={product} />
+                                                                    <NavCartItem key={product._id} item={product} />
                                                                 ))
                                                             }
                                                         </div>

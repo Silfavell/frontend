@@ -137,7 +137,7 @@ class CartItem extends React.Component {
                         <input
                             type='text'
                             className='form-control text-center'
-                            value={quantity}
+                            defaultValue={quantity}
                             placeholder=''
                             aria-label='Example text with button addon'
                             aria-describedby='button-addon1'

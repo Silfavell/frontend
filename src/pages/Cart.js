@@ -15,9 +15,9 @@ class Cart extends React.Component {
         products: []
     }
 
-    fetchOfflineCartProducts = () => {
+    fetchOfflineCartProducts = (products) => {
         const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${
-            JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => cartProduct._id).join(',')
+            products.map((cartProduct) => cartProduct._id).join(',')
             }`
 
 
@@ -37,7 +37,7 @@ class Cart extends React.Component {
             if (cart) {
                 const cartAsArray = JSON.parse(window.localStorage.getItem('cart'))
                 if (cartAsArray.length > 0) {
-                    this.fetchOfflineCartProducts().then((products) => {
+                    this.fetchOfflineCartProducts(cartAsArray).then((products) => {
                         this.setState({
                             products: products.map((product, index) => Object.assign(product, { quantity: cartAsArray[index].quantity }))
                         })
@@ -60,7 +60,7 @@ class Cart extends React.Component {
                             <tbody>
                                 {
                                     this.state.products.map((product) => (
-                                        <CartItem item={product} />
+                                        <CartItem key={product._id} item={product} />
                                     ))
                                 }
                             </tbody>
@@ -145,7 +145,7 @@ class Cart extends React.Component {
                 title: 'Sepetim'
             }
         ]
-
+        console.log(this.state.products)
         return (
             <SiteWrap divider={divider}>
                 {
