@@ -94,16 +94,18 @@ class Cart extends React.Component {
 
             <div className='row'>
                 <div className='col-md-6'>
-                    <div className='row mb-5'>
-                        <div className='col-md-6 mb-3 mb-md-0'>
-                            <button className='btn btn-primary btn-sm btn-block'>Update Cart</button>
-                        </div>
-                        <div className='col-md-6'>
-                            <a href='/shop'>
-                                <button className='btn btn-outline-primary btn-sm btn-block'>Continue Shopping</button>
-                            </a>
-                        </div>
-                    </div>
+                    {
+                        //  <div className='row mb-5'>
+                        //      <div className='col-md-6 mb-3 mb-md-0'>
+                        //          <button className='btn btn-primary btn-sm btn-block'>Update Cart</button>
+                        //      </div>
+                        //      <div className='col-md-6'>
+                        //          <a href='/shop'>
+                        //              <button className='btn btn-outline-primary btn-sm btn-block'>Continue Shopping</button>
+                        //          </a>
+                        //      </div>
+                        //  </div>
+                    }
                     <div className='row'>
                         <div className='col-md-12'>
                             <label className='text-black h4' htmlFor='coupon'>Coupon</label>
