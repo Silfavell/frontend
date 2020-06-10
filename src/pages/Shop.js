@@ -23,7 +23,7 @@ class Shop extends React.Component {
     siteRef = React.createRef()
 
     fetchProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&quantity=18`
+        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&quantity=2`
 
         return axios.get(url).then(({ data }) => data)
     }
@@ -74,6 +74,59 @@ class Shop extends React.Component {
         } else {
             return `${location.pathname}${location.search}&${filter}=${filterValue}`
         }
+    }
+
+    getStartingIndex = () => {
+        const foundFilter = this.props.location.search.split('&').find((currentFilter, index) => {
+            currentFilter = currentFilter.split('%20').join(' ')
+            if (currentFilter.includes('start')) {
+                return true
+            }
+            return false
+        })
+
+        return foundFilter ? parseInt(foundFilter.split('=')[1]) : 0
+    }
+
+    onPageGtClick = () => {
+        const startingIndex = this.getStartingIndex()
+        const startingIndexOfPage = startingIndex - (startingIndex % (2 * 5))
+
+        if ((this.state.productsLength - startingIndexOfPage) > 2 * 5) {
+            this.props.history.push(this.onFilterLinkClick(this.props.location, 'start', startingIndex + (2 * 5) - ((startingIndex + 2 * 5) % (2 * 5))))
+        } else {
+            this.props.history.push(this.onFilterLinkClick(this.props.location, 'start', this.state.productsLength % 2 === 0 ? this.state.productsLength - 2 : this.state.productsLength - 1))
+        }
+    }
+
+    onPageLtClick = () => {
+        const startingIndex = this.getStartingIndex()
+        const startingIndexOfPage = startingIndex - (startingIndex % (2 * 5))
+
+        if ((this.state.productsLength - startingIndexOfPage) <= 2 * 5) {
+            this.props.history.push(this.onFilterLinkClick(this.props.location, 'start', startingIndex - (startingIndex % (2 * 5) + 2)))
+        } else {
+            this.props.history.push(this.onFilterLinkClick(this.props.location, 'start', 0))
+        }
+    }
+
+    getPageText = (index) => {
+        return (index + 1) + (Math.floor((this.getStartingIndex() + 1) / (2 * 5))) * 5
+    }
+
+    isPageActive = (index) => {
+        const startingIndex = this.getStartingIndex()
+
+        return (index + (Math.floor((startingIndex + 1) / (2 * 5))) * 5) === Math.floor((startingIndex - (startingIndex % 2)) / 2)
+    }
+
+    getPageList = () => {
+        const startingIndex = this.getStartingIndex()
+        const startingIndexOfPage = startingIndex - (startingIndex % (2 * 5))
+
+        return new Array(
+            (this.state.productsLength - startingIndexOfPage) > 4 ? 5 : (this.state.productsLength - startingIndexOfPage)
+        )
     }
 
     UNSAFE_componentWillMount() {
@@ -144,25 +197,25 @@ class Shop extends React.Component {
                             <div className='col-md-12 text-center'>
                                 <div className='site-block-27'>
                                     <ul>
-                                        <li style={{ marginLeft: 5, cursor: 'pointer' }}><span>&lt;</span></li>
+                                        <li style={{ marginLeft: 5, cursor: 'pointer' }} onClick={this.onPageLtClick}><span>&lt;</span></li>
                                         {
                                             // pages
-                                            Array.from(new Array(Math.ceil(this.state.productsLength / 18))).map((_, index) => (
+                                            Array.from(this.getPageList()).map((_, index) => (
                                                 <li
                                                     style={{ marginLeft: 5, cursor: 'pointer' }}
-                                                    className={index === this.state.page ? 'active' : ''}
+                                                    className={this.isPageActive(index) ? 'active' : ''}
                                                 >
                                                     <Link
                                                         className='text-black'
                                                         to={(location) => (
-                                                            this.onFilterLinkClick(location, 'start', index * 18)
+                                                            this.onFilterLinkClick(location, 'start', (this.getPageText(index) - 1) * 2)
                                                         )}>
-                                                        {index + 1}
+                                                        {this.getPageText(index)}
                                                     </Link>
                                                 </li>
                                             ))
                                         }
-                                        <li style={{ marginLeft: 5, cursor: 'pointer' }}><span>&gt;</span></li>
+                                        <li style={{ marginLeft: 5, cursor: 'pointer' }} onClick={this.onPageGtClick}><span>&gt;</span></li>
                                     </ul>
                                 </div>
                             </div>
