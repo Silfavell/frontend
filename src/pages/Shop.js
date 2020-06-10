@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 import SiteWrap from '../components/SiteWrap'
 import ShopProduct from '../components/ShopProduct'
@@ -9,7 +10,9 @@ import Loading from '../components/Loading'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
-import { Link } from 'react-router-dom'
+
+const maximumProductLengthInOnePage = 6 * 3
+const maximumPageCount = 5
 
 class Shop extends React.Component {
 
@@ -23,7 +26,7 @@ class Shop extends React.Component {
     siteRef = React.createRef()
 
     fetchProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&quantity=2`
+        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&quantity=${maximumProductLengthInOnePage}`
 
         return axios.get(url).then(({ data }) => data)
     }
@@ -90,42 +93,64 @@ class Shop extends React.Component {
 
     onPageGtClick = () => {
         const startingIndex = this.getStartingIndex()
-        const startingIndexOfPage = startingIndex - (startingIndex % (2 * 5))
+        const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
-        if ((this.state.productsLength - startingIndexOfPage) > 2 * 5) {
-            this.props.history.push(this.onFilterLinkClick(this.props.location, 'start', startingIndex + (2 * 5) - ((startingIndex + 2 * 5) % (2 * 5))))
+        if ((this.state.productsLength - startingIndexOfPage) > maximumProductLengthInOnePage * maximumPageCount) {
+            this.props.history.push(
+                this.onFilterLinkClick(
+                    this.props.location,
+                    'start',
+                    startingIndex +
+                    (maximumProductLengthInOnePage * maximumPageCount) -
+                    ((startingIndex + maximumProductLengthInOnePage * maximumPageCount) % (maximumProductLengthInOnePage * maximumPageCount)))
+            )
         } else {
-            this.props.history.push(this.onFilterLinkClick(this.props.location, 'start', this.state.productsLength % 2 === 0 ? this.state.productsLength - 2 : this.state.productsLength - 1))
+            this.props.history.push(
+                this.onFilterLinkClick(
+                    this.props.location,
+                    'start',
+                    this.state.productsLength % maximumProductLengthInOnePage === 0 ? this.state.productsLength - maximumProductLengthInOnePage : this.state.productsLength - 1)
+            )
         }
     }
 
     onPageLtClick = () => {
         const startingIndex = this.getStartingIndex()
-        const startingIndexOfPage = startingIndex - (startingIndex % (2 * 5))
+        const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
-        if ((this.state.productsLength - startingIndexOfPage) <= 2 * 5) {
-            this.props.history.push(this.onFilterLinkClick(this.props.location, 'start', startingIndex - (startingIndex % (2 * 5) + 2)))
+        if (startingIndexOfPage >= maximumProductLengthInOnePage * maximumPageCount) {
+            this.props.history.push(
+                this.onFilterLinkClick(
+                    this.props.location,
+                    'start',
+                    startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount) + maximumProductLengthInOnePage)))
         } else {
             this.props.history.push(this.onFilterLinkClick(this.props.location, 'start', 0))
         }
     }
 
     getPageText = (index) => {
-        return (index + 1) + (Math.floor((this.getStartingIndex() + 1) / (2 * 5))) * 5
+        return (index + 1) + (Math.floor((this.getStartingIndex() + 1) / (maximumProductLengthInOnePage * maximumPageCount))) * maximumPageCount
     }
 
     isPageActive = (index) => {
         const startingIndex = this.getStartingIndex()
 
-        return (index + (Math.floor((startingIndex + 1) / (2 * 5))) * 5) === Math.floor((startingIndex - (startingIndex % 2)) / 2)
+        return (
+            index + (Math.floor((startingIndex + 1) / (maximumProductLengthInOnePage * maximumPageCount))) * maximumPageCount
+            ===
+            Math.floor((startingIndex - (startingIndex % maximumProductLengthInOnePage)) / maximumProductLengthInOnePage)
+        )
     }
 
     getPageList = () => {
         const startingIndex = this.getStartingIndex()
-        const startingIndexOfPage = startingIndex - (startingIndex % (2 * 5))
+        const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
         return new Array(
-            (this.state.productsLength - startingIndexOfPage) > 4 ? 5 : (this.state.productsLength - startingIndexOfPage)
+            Math.ceil((this.state.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage) >= maximumPageCount ?
+                maximumPageCount :
+                Math.ceil((this.state.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage)
         )
     }
 
@@ -202,13 +227,14 @@ class Shop extends React.Component {
                                             // pages
                                             Array.from(this.getPageList()).map((_, index) => (
                                                 <li
+                                                    key={'page' + index}
                                                     style={{ marginLeft: 5, cursor: 'pointer' }}
                                                     className={this.isPageActive(index) ? 'active' : ''}
                                                 >
                                                     <Link
                                                         className='text-black'
                                                         to={(location) => (
-                                                            this.onFilterLinkClick(location, 'start', (this.getPageText(index) - 1) * 2)
+                                                            this.onFilterLinkClick(location, 'start', (this.getPageText(index) - 1) * maximumProductLengthInOnePage)
                                                         )}>
                                                         {this.getPageText(index)}
                                                     </Link>
@@ -229,7 +255,7 @@ class Shop extends React.Component {
                             <ul className='list-unstyled mb-0'>
                                 {
                                     currentCategory?.subCategories.map((category) => (
-                                        <li className='mb-1'>
+                                        <li className='mb-1' key={category._id}>
                                             <a className='d-flex text-primary'
                                                 href={`/shop?categoryId=${this.state.products[0]?.categoryId}&subCategoryId=${category._id}`}>{category.name}</a>
                                         </li>
@@ -243,7 +269,11 @@ class Shop extends React.Component {
                                 <h3 className='mb-3 h6 text-uppercase text-black d-block'>Brands</h3>
                                 {
                                     (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
-                                        <label htmlFor={brand._id} className='d-flex align-items-center justify-content-start' style={{ cursor: 'pointer' }}>
+                                        <label
+                                            key={brand._id}
+                                            htmlFor={brand._id}
+                                            className='d-flex align-items-center justify-content-start'
+                                            style={{ cursor: 'pointer' }}>
                                             <input
                                                 type='checkbox'
                                                 id={brand._id}
