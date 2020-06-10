@@ -18,7 +18,7 @@ class CardDeletePopup extends React.Component {
                     timeout: 3 * 1000
                 })
 
-                this.props.hideDeleteCardPopup()
+                this.props.hideDeleteCardPopup(this.props.deleteCardToken)
             }
         }).catch((error) => {
             this.props.hideDeleteCardPopup()

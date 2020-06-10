@@ -45,32 +45,39 @@ class Payment extends React.Component {
         this.setState({ showCardPopup: true })
     }
 
-    hideCreditCardPopup = () => {
-        this.setState({ showCardPopup: false })
+    hideCreditCardPopup = (creditCard) => {
+        if (creditCard) this.state.cards.push(creditCard)
+        this.setState({ showCardPopup: false, cards: this.state.cards })
     }
 
     showSaveAddressPopup = () => {
         this.setState({ showSaveAddressPopup: true })
     }
 
-    hideSaveAddressPopup = () => {
-        this.setState({ showSaveAddressPopup: false })
+    hideSaveAddressPopup = (addresses) => {
+        this.setState({ showSaveAddressPopup: false, addresses: addresses ?? [] })
     }
 
     showDeleteAddressPopup = (deleteAddressId) => {
         this.setState({ showDeleteAddressPopup: true, deleteAddressId })
     }
 
-    hideDeleteAddressPopup = () => {
-        this.setState({ showDeleteAddressPopup: false })
+    hideDeleteAddressPopup = (addresses) => {
+        this.setState({ showDeleteAddressPopup: false, addresses: addresses ?? [] })
     }
 
     showDeleteCardPopup = (deleteCardToken) => {
         this.setState({ showDeleteCardPopup: true, deleteCardToken })
     }
 
-    hideDeleteCardPopup = () => {
-        this.setState({ showDeleteCardPopup: false })
+    hideDeleteCardPopup = (cardToken) => {
+        if (cardToken) {
+            const selectedCard = this.state.cards.find((card) => card.cardToken === cardToken)
+            const selectedCardIndex = this.state.cards.indexOf(selectedCard)
+            this.state.cards.splice(selectedCardIndex, 1)
+        }
+
+        this.setState({ showDeleteCardPopup: false, cards: this.state.cards })
     }
 
     getCart = () => (
