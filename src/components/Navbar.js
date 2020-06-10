@@ -104,9 +104,8 @@ class Navbar extends React.Component {
                     </button>
                 </div>
             </div>
-            <div className={`background ${this.state.searchedProducts.length > 0 ? 'visible' : ''}`} onClick={this.onSearchBackgroundClick}>
 
-            </div>
+            <div className={`background ${this.state.searchedProducts.length > 0 ? 'visible' : ''}`} onClick={this.onSearchBackgroundClick} />
 
             <div className={`search-results ${this.state.searchedProducts.length > 0 ? 'active-search' : ''}`}>
                 <div style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
@@ -126,27 +125,43 @@ class Navbar extends React.Component {
 
     renderSearchBarBottom = () => (
         <div className='search-bottom'>
-            <div className='input-group' style={{ border: '1px solid #E83E8C' }}>
+            <div className='input-group' style={{ border: '1px solid #E83E8C', zIndex: 11 }}>
                 <input
                     type='text'
                     className='form-control border-0'
+                    style={{ backgroundColor: 'white', zIndex: 11 }}
                     placeholder='Search'
                     onChange={this.onSearchTextChange}
                     value={this.state.searchText} />
 
-                <div className='input-group-append'>
+                <div className={`background ${this.state.searchedProducts.length > 0 ? 'visible' : ''}`} onClick={this.onSearchBackgroundClick} />
+
+                <div className='input-group-append' style={{ backgroundColor: 'white', zIndex: 11 }}>
                     <button className='btn' type='button'>
                         {
                             (this.state.searchText.length > 0 && this.state.searchedProducts.length > 0) && (
                                 <IoMdClose color={'#8C92A0'} size={26} onClick={this.onSearchClearClick} />
                             )
                         }
-                        <IoIosSearch color={'#8C92A0'} size={26} onClick={this.search} />
+                        <IoIosSearch color={'#8C92A0'} size={26} onClick={this.onSearchClick} />
                     </button>
                 </div>
             </div>
-            <div className={`search-results ${this.state.searchedProducts.length > 0 ? 'active-search' : ''}`}>
 
+            <div className={`search-results ${this.state.searchedProducts.length > 0 ? 'active-search' : ''}`}>
+                <div style={{ backgroundColor: 'white', paddingTop: 10 }}>
+                    <div className='col-md-12'>
+                        <div className='row'>
+                            {
+                                this.state.searchedProducts.map((product) => (
+                                    <a href={`/${product._id}`} className='col-md-12 border-bottom p-3' style={{ cursor: 'pointer' }}>
+                                        {product.name}
+                                    </a>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
