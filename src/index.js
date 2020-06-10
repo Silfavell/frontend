@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
-if (process.env.REACT_APP_NODE_ENV.trim() === 'dev') {
+if (process.env.REACT_APP_NODE_ENV === 'dev') {
   dotenv.config({ path: path.join(__dirname, '../.env') })
 } else {
   dotenv.config({ path: path.join(__dirname, '../.production.env') })
