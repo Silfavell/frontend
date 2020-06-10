@@ -160,3 +160,9 @@
         display: block;
     }
 }
+
+/* VANILLA TOAST */
+
+#vanillatoasts-container{
+    z-index: 999999;
+}
