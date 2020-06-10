@@ -204,75 +204,77 @@ class Payment extends React.Component {
         } else {
             return (
                 <SiteWrap divider={divider}>
+                    <>
 
-                    {
-                        this.state.showSaveAddressPopup && <AddressPopup hideSaveAddressPopup={this.hideSaveAddressPopup} />
-                    }
+                        {
+                            this.state.showSaveAddressPopup && <AddressPopup hideSaveAddressPopup={this.hideSaveAddressPopup} />
+                        }
 
-                    {
-                        this.state.showDeleteAddressPopup && <AddressDeletePopup deleteAddressId={this.state.deleteAddressId} hideDeleteAddressPopup={this.hideDeleteAddressPopup} />
-                    }
+                        {
+                            this.state.showDeleteAddressPopup && <AddressDeletePopup deleteAddressId={this.state.deleteAddressId} hideDeleteAddressPopup={this.hideDeleteAddressPopup} />
+                        }
 
-                    {
-                        this.state.showCardPopup && <CreditCardPopup hideCreditCardPopup={this.hideCreditCardPopup} />
-                    }
+                        {
+                            this.state.showCardPopup && <CreditCardPopup hideCreditCardPopup={this.hideCreditCardPopup} />
+                        }
 
-                    {
-                        this.state.showDeleteCardPopup && <CardDeletePopup deleteCardToken={this.state.deleteCardToken} hideDeleteCardPopup={this.hideDeleteCardPopup} />
-                    }
+                        {
+                            this.state.showDeleteCardPopup && <CardDeletePopup deleteCardToken={this.state.deleteCardToken} hideDeleteCardPopup={this.hideDeleteCardPopup} />
+                        }
 
-                    <div className='container'>
-                        <div className='row'>
-                            <div className='col-md-9'>
-                                <div className='row mb-5'>
-                                    <div className='col-md-12'>
-                                        <div className='row border'>
-                                            <div className='col-md-6 border-right p-3' style={{ cursor: 'pointer' }} onClick={this.onAddressOptionsClick}>
-                                                <h3 className={'text-secondary'}>Adres Bilgileri</h3>
-                                                <p className={'text-primary h5'}>{this.state.addresses[this.state.selectedAddress]?.addressTitle}</p>
-                                                <p className={'text-black h6'}>{this.state.addresses[this.state.selectedAddress]?.openAddress}</p>
+                        <div className='container'>
+                            <div className='row'>
+                                <div className='col-md-9'>
+                                    <div className='row mb-5'>
+                                        <div className='col-md-12'>
+                                            <div className='row border'>
+                                                <div className='col-md-6 border-right p-3' style={{ cursor: 'pointer' }} onClick={this.onAddressOptionsClick}>
+                                                    <h3 className={'text-secondary'}>Adres Bilgileri</h3>
+                                                    <p className={'text-primary h5'}>{this.state.addresses[this.state.selectedAddress]?.addressTitle}</p>
+                                                    <p className={'text-black h6'}>{this.state.addresses[this.state.selectedAddress]?.openAddress}</p>
+                                                </div>
+                                                <div className='col-md-6 p-3' style={{ cursor: 'pointer' }} onClick={this.onPaymentOptionsClick}>
+                                                    <h3 className={'text-secondary'}>Ödeme Seçenekleri</h3>
+                                                    <p className={'text-primary h5'}>{this.state.cards[this.state.selectedCard]?.cardAlias}</p>
+                                                    <p className={'text-black h6'}>{this.state.cards[this.state.selectedCard] ? '**** **** **** ' + this.state.cards[this.state.selectedCard]?.lastFourDigits : ''}</p>
+                                                </div>
                                             </div>
-                                            <div className='col-md-6 p-3' style={{ cursor: 'pointer' }} onClick={this.onPaymentOptionsClick}>
-                                                <h3 className={'text-secondary'}>Ödeme Seçenekleri</h3>
-                                                <p className={'text-primary h5'}>{this.state.cards[this.state.selectedCard]?.cardAlias}</p>
-                                                <p className={'text-black h6'}>{this.state.cards[this.state.selectedCard] ? '**** **** **** ' + this.state.cards[this.state.selectedCard]?.lastFourDigits : ''}</p>
+                                        </div>
+                                    </div>
+
+                                    {
+                                        this.renderPaymentOptionsSection()
+                                    }
+                                    {
+                                        this.renderAddressesSection()
+                                    }
+                                </div>
+                                <div className='col-md-3'>
+                                    <div className='col-md-12 border p-4'>
+                                        <div className='row'>
+                                            <div className='col-md-12 text-left mb-5'>
+                                                <h3 className='text-black h4 text-uppercase'>Cart Totals</h3>
+                                            </div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col-md-6'>
+                                                <span className='text-black'>Total</span>
+                                            </div>
+                                            <div className='col-md-6 text-right'>
+                                                <strong className='text-black'>{`₺${totalPrice}`}</strong>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                {
-                                    this.renderPaymentOptionsSection()
-                                }
-                                {
-                                    this.renderAddressesSection()
-                                }
-                            </div>
-                            <div className='col-md-3'>
-                                <div className='col-md-12 border p-4'>
-                                    <div className='row'>
-                                        <div className='col-md-12 text-left mb-5'>
-                                            <h3 className='text-black h4 text-uppercase'>Cart Totals</h3>
+                                    <div className='row pt-3'>
+                                        <div className='col-md-12'>
+                                            <button className='btn btn-primary btn-lg btn-block' onClick={this.onCompletePaymentClick}>Ödemeye Geç</button>
                                         </div>
-                                    </div>
-                                    <div className='row'>
-                                        <div className='col-md-6'>
-                                            <span className='text-black'>Total</span>
-                                        </div>
-                                        <div className='col-md-6 text-right'>
-                                            <strong className='text-black'>{`₺${totalPrice}`}</strong>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className='row pt-3'>
-                                    <div className='col-md-12'>
-                                        <button className='btn btn-primary btn-lg btn-block' onClick={this.onCompletePaymentClick}>Ödemeye Geç</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </>
                 </SiteWrap>
             )
         }
