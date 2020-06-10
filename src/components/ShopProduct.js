@@ -1,48 +1,17 @@
 import React from 'react'
-import axios from 'axios'
-import Cookies from 'universal-cookie'
-import VanillaToasts from 'vanillatoasts'
 // import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io'
 
-import 'vanillatoasts/vanillatoasts.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Product.css'
 
-const cookies = new Cookies()
-
 class ShopProduct extends React.Component {
 
     addProductToCart = () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then(({ status, data }) => {
-            if (status === 200) {
-                if (!cookies.get('token')) {
-                    const cart = window.localStorage.getItem('cart')
-
-                    if (cart) {
-                        const cartAsArray = JSON.parse(cart)
-                        const foundProduct = cartAsArray.find((cartProduct) => cartProduct._id === data._id)
-                        if (foundProduct) {
-                            cartAsArray[cartAsArray.indexOf(foundProduct)].quantity++
-                        } else {
-                            cartAsArray.push({ _id: data._id, quantity: 1 })
-                        }
-                        window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
-                    } else {
-                        window.localStorage.setItem('cart', JSON.stringify([{ _id: data._id, quantity: 1 }]))
-                    }
-                }
-
-                VanillaToasts.create({
-                    title: `Ürünü sepete eklendi`,
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
-                })
-            }
-        })
+        this.props.onIncreaseClick(this.props.item._id)
     }
 
+    /*
     addToFavoriteProducts = () => {
         axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ status }) => {
             if (status === 200) {
@@ -55,6 +24,7 @@ class ShopProduct extends React.Component {
             }
         })
     }
+    
 
     removeFromFavoriteProdutcs = () => {
         axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ status }) => {
@@ -68,6 +38,7 @@ class ShopProduct extends React.Component {
             }
         })
     }
+    */
 
     onInspectClick = () => {
         window.location.replace(this.props.item._id)

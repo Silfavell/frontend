@@ -38,38 +38,50 @@ class Home extends React.Component {
         })
     }
 
+    renderHomeContent = ({ onIncreaseClick }) => {
+        return (
+            <div className='container'>
+                <div className='row'>
+
+                    <div className='col-md-12 p-4'>
+                        <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
+                            Best Seller
+                        </h2>
+                    </div>
+                    <div className='col-md-12 p-4' />
+
+                    <Carousel
+                        products={this.state.bestSeller}
+                        onIncreaseClick={onIncreaseClick}
+                    />
+
+                    {
+                        this.state.visitedProducts.length > 0 && (
+                            <>
+                                <div className='col-md-12 p-4' />
+                                <div className='col-md-12  p-4'>
+                                    <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
+                                        En Son Gezdiklerin
+                                        </h2>
+                                </div>
+                                <div className='col-md-12 p-4' />
+
+                                <Carousel
+                                    products={this.state.visitedProducts}
+                                    onIncreaseClick={onIncreaseClick}
+                                />
+                            </>
+                        )
+                    }
+                </div>
+            </div>
+        )
+    }
+
     render() {
         return (
             <SiteWrap firstImage>
-                <div className='container'>
-                    <div className='row'>
-
-                        <div className='col-md-12 p-4'>
-                            <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
-                                Best Seller
-                            </h2>
-                        </div>
-                        <div className='col-md-12 p-4' />
-
-                        <Carousel products={this.state.bestSeller} />
-
-                        {
-                            this.state.visitedProducts.length > 0 && (
-                                <>
-                                    <div className='col-md-12 p-4' />
-                                    <div className='col-md-12  p-4'>
-                                        <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
-                                            En Son Gezdiklerin
-                                        </h2>
-                                    </div>
-                                    <div className='col-md-12 p-4' />
-
-                                    <Carousel products={this.state.visitedProducts} />
-                                </>
-                            )
-                        }
-                    </div>
-                </div>
+                <this.renderHomeContent />
             </SiteWrap>
         )
     }

@@ -93,10 +93,132 @@ class Shop extends React.Component {
         }
     }
 
-    render() {
-
+    renderShopContent = ({ onIncreaseClick }) => {
         const currentCategory = this.state.categories.find(category => category._id === this.state.products[0]?.categoryId)
         const subCategory = this.props.location.search.includes('subCategoryId') ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products[0].subCategoryId) : null
+
+        return (
+            <div className='container'>
+                <div className='row mb-5'>
+                    <div className='col-md-9 order-1'>
+                        <div className='row align'>
+                            <div className='col-md-12 mb-5'>
+                                <div className='float-md-left'><h3 className='text-gray text-uppercase'>{subCategory?.name ?? currentCategory?.name}</h3></div>
+                                <div className='d-flex'>
+                                    <div className='btn-group mr-1 ml-md-auto'>
+                                        <button type='button' className='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuReference' data-toggle='dropdown'>Sırala</button>
+                                        <div className='dropdown-menu' aria-labelledby='dropdownMenuReference'>
+                                            {
+                                                /*
+                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(0)}>Akıllı Sıralama</span>
+                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(1)}>Çok Satanlar</span>
+                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(2)}>En Yeniler</span>
+                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(5)}>En Yüksek Puan</span>
+                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(6)}>En Çok Yorumlanan</span>
+                                                    <div className='dropdown-divider' />
+                                                */
+                                            }
+                                            <Link className='dropdown-item' style={{ cursor: 'pointer' }} to={(location) => (
+                                                this.onFilterLinkClick(location, 'sortType', 3)
+                                            )}>En Düşük Fiyat</Link>
+
+                                            <Link className='dropdown-item' style={{ cursor: 'pointer' }} to={(location) => (
+                                                this.onFilterLinkClick(location, 'sortType', 4)
+                                            )}>En Yüksek Fiyat</Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='row mb-5'>
+                            {
+                                this.state.products.map((product) => (
+                                    <ShopProduct
+                                        key={product._id}
+                                        item={product}
+                                        onIncreaseClick={onIncreaseClick} />
+                                ))
+                            }
+                        </div>
+                        <div className='row'>
+                            <div className='col-md-12 text-center'>
+                                <div className='site-block-27'>
+                                    <ul>
+                                        <li style={{ marginLeft: 5, cursor: 'pointer' }}><span>&lt;</span></li>
+                                        {
+                                            // pages
+                                            Array.from(new Array(Math.ceil(this.state.productsLength / 18))).map((_, index) => (
+                                                <li
+                                                    style={{ marginLeft: 5, cursor: 'pointer' }}
+                                                    className={index === this.state.page ? 'active' : ''}
+                                                >
+                                                    <Link
+                                                        className='text-black'
+                                                        to={(location) => (
+                                                            this.onFilterLinkClick(location, 'start', index * 18)
+                                                        )}>
+                                                        {index + 1}
+                                                    </Link>
+                                                </li>
+                                            ))
+                                        }
+                                        <li style={{ marginLeft: 5, cursor: 'pointer' }}><span>&gt;</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='col-md-3 order mb-5 mb-md-0'>
+
+                        <div className='border p-4 rounded mb-4'>
+                            <h3 className='mb-3 h6 text-uppercase text-black d-block'>Related Categories</h3>
+                            <ul className='list-unstyled mb-0'>
+                                {
+                                    currentCategory?.subCategories.map((category) => (
+                                        <li className='mb-1'>
+                                            <a className='d-flex text-primary'
+                                                href={`/shop?categoryId=${this.state.products[0]?.categoryId}&subCategoryId=${category._id}`}>{category.name}</a>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </div>
+
+                        <div className='border p-4 rounded mb-4'>
+                            <div className='mb-4'>
+                                <h3 className='mb-3 h6 text-uppercase text-black d-block'>Brands</h3>
+                                {
+                                    (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
+                                        <label htmlFor={brand._id} className='d-flex align-items-center justify-content-start' style={{ cursor: 'pointer' }}>
+                                            <input
+                                                type='checkbox'
+                                                id={brand._id}
+                                                brand={brand.name}
+                                                className='mr-2 mt-1'
+                                                style={{ cursor: 'pointer' }}
+                                                onChange={this.onBrandSelectionChange}
+                                                checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
+                                            <Link
+                                                className='text-black'
+                                                to={(location) => (
+                                                    this.onFilterLinkClick(location, 'brands', brand.name, true)
+                                                )}>
+                                                {`${brand.name} (${brand.productQuantity})`}
+                                            </Link>
+                                        </label>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    render() {
+        const currentCategory = this.state.categories.find(category => category._id === this.state.products[0]?.categoryId)
 
         const divider = [
             {
@@ -112,119 +234,7 @@ class Shop extends React.Component {
         } else {
             return (
                 <SiteWrap divider={divider} siteRef={this.siteRef}>
-                    <div className='container'>
-                        <div className='row mb-5'>
-                            <div className='col-md-9 order-1'>
-                                <div className='row align'>
-                                    <div className='col-md-12 mb-5'>
-                                        <div className='float-md-left'><h3 className='text-gray text-uppercase'>{subCategory?.name ?? currentCategory?.name}</h3></div>
-                                        <div className='d-flex'>
-                                            <div className='btn-group mr-1 ml-md-auto'>
-                                                <button type='button' className='btn btn-white btn-sm dropdown-toggle px-4' id='dropdownMenuReference' data-toggle='dropdown'>Sırala</button>
-                                                <div className='dropdown-menu' aria-labelledby='dropdownMenuReference'>
-                                                    {
-                                                        /*
-                                                            <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(0)}>Akıllı Sıralama</span>
-                                                            <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(1)}>Çok Satanlar</span>
-                                                            <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(2)}>En Yeniler</span>
-                                                            <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(5)}>En Yüksek Puan</span>
-                                                            <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(6)}>En Çok Yorumlanan</span>
-                                                            <div className='dropdown-divider' />
-                                                        */
-                                                    }
-                                                    <Link className='dropdown-item' style={{ cursor: 'pointer' }} to={(location) => (
-                                                        this.onFilterLinkClick(location, 'sortType', 3)
-                                                    )}>En Düşük Fiyat</Link>
-
-                                                    <Link className='dropdown-item' style={{ cursor: 'pointer' }} to={(location) => (
-                                                        this.onFilterLinkClick(location, 'sortType', 4)
-                                                    )}>En Yüksek Fiyat</Link>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='row mb-5'>
-                                    {
-                                        this.state.products.map((product) => (
-                                            <ShopProduct key={product._id} item={product} />
-                                        ))
-                                    }
-                                </div>
-                                <div className='row'>
-                                    <div className='col-md-12 text-center'>
-                                        <div className='site-block-27'>
-                                            <ul>
-                                                <li style={{ marginLeft: 5, cursor: 'pointer' }}><span>&lt;</span></li>
-                                                {
-                                                    // pages
-                                                    Array.from(new Array(Math.ceil(this.state.productsLength / 18))).map((_, index) => (
-                                                        <li
-                                                            style={{ marginLeft: 5, cursor: 'pointer' }}
-                                                            className={index === this.state.page ? 'active' : ''}
-                                                        >
-                                                            <Link
-                                                                className='text-black'
-                                                                to={(location) => (
-                                                                    this.onFilterLinkClick(location, 'start', index * 18)
-                                                                )}>
-                                                                {index + 1}
-                                                            </Link>
-                                                        </li>
-                                                    ))
-                                                }
-                                                <li style={{ marginLeft: 5, cursor: 'pointer' }}><span>&gt;</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className='col-md-3 order mb-5 mb-md-0'>
-
-                                <div className='border p-4 rounded mb-4'>
-                                    <h3 className='mb-3 h6 text-uppercase text-black d-block'>Related Categories</h3>
-                                    <ul className='list-unstyled mb-0'>
-                                        {
-                                            currentCategory?.subCategories.map((category) => (
-                                                <li className='mb-1'>
-                                                    <a className='d-flex text-primary'
-                                                        href={`/shop?categoryId=${this.state.products[0]?.categoryId}&subCategoryId=${category._id}`}>{category.name}</a>
-                                                </li>
-                                            ))
-                                        }
-                                    </ul>
-                                </div>
-
-                                <div className='border p-4 rounded mb-4'>
-                                    <div className='mb-4'>
-                                        <h3 className='mb-3 h6 text-uppercase text-black d-block'>Brands</h3>
-                                        {
-                                            (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
-                                                <label htmlFor={brand._id} className='d-flex align-items-center justify-content-start' style={{ cursor: 'pointer' }}>
-                                                    <input
-                                                        type='checkbox'
-                                                        id={brand._id}
-                                                        brand={brand.name}
-                                                        className='mr-2 mt-1'
-                                                        style={{ cursor: 'pointer' }}
-                                                        onChange={this.onBrandSelectionChange}
-                                                        checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
-                                                    <Link
-                                                        className='text-black'
-                                                        to={(location) => (
-                                                            this.onFilterLinkClick(location, 'brands', brand.name, true)
-                                                        )}>
-                                                        {`${brand.name} (${brand.productQuantity})`}
-                                                    </Link>
-                                                </label>
-                                            ))
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <this.renderShopContent />
                 </SiteWrap>
             )
         }

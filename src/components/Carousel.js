@@ -35,7 +35,10 @@ class CarouselComponent extends React.Component {
                 >
                     {
                         this.props.products.map((product) => (
-                            <Product key={product._id} item={product} />
+                            <Product
+                                key={product._id}
+                                item={product}
+                                onIncreaseClick={this.props.onIncreaseClick} />
                         ))
                     }
                 </Carousel>

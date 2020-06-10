@@ -10,6 +10,7 @@ import Divider from './Divider'
 import FirstImage from './FirstImage'
 
 import '../style/css/style.css'
+import 'vanillatoasts/vanillatoasts.css'
 
 const cookies = new Cookies()
 
@@ -54,19 +55,30 @@ class SiteWrap extends React.Component {
         if (cookies.get('token')) {
             axios.get(`${process.env.REACT_APP_API_URL}/product/${productId}`).then(({ status, data }) => {
                 if (status === 200) {
+                    if (data.quantity > 1) {
+                        const newProducts = this.state.products.map((cartProduct) => (
+                            cartProduct._id === productId ? data : cartProduct
+                        ))
 
-                    const newProducts = this.state.products.map((cartProduct) => (
-                        cartProduct._id === productId ? data : cartProduct
-                    ))
-
-                    this.setState({ products: newProducts }, () => {
-                        VanillaToasts.create({
-                            title: `Ürünü sepete eklendi`,
-                            positionClass: 'topRight',
-                            type: 'success',
-                            timeout: 3 * 1000
+                        this.setState({ products: newProducts }, () => {
+                            VanillaToasts.create({
+                                title: `Ürünü sepete eklendi`,
+                                positionClass: 'topRight',
+                                type: 'success',
+                                timeout: 3 * 1000
+                            })
                         })
-                    })
+                    } else {
+                        this.state.products.push(data)
+                        this.setState({ products: this.state.products }, () => {
+                            VanillaToasts.create({
+                                title: `Ürünü sepete eklendi`,
+                                positionClass: 'topRight',
+                                type: 'success',
+                                timeout: 3 * 1000
+                            })
+                        })
+                    }
                 }
             }).catch((err) => {
                 VanillaToasts.create({
