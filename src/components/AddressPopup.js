@@ -41,7 +41,7 @@ class AddressPopup extends React.Component {
         axios.post(url, this.state)
             .then(({ status, data }) => {
                 if (status === 200) {
-                    this.props.hideSaveAddressPopup()
+                    this.props.hideSaveAddressPopup(data.addresses)
                 }
             }).catch((err) => {
                 VanillaToasts.create({

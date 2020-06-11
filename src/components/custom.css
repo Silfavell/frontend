@@ -112,7 +112,8 @@
     z-index: 999999;
 }
 
-.search-top .background {
+.search-top .background,
+.search-bottom .background {
     position: fixed;
     background-color: rgba(50,50,50,.5);
     top: 0;
@@ -159,4 +160,10 @@
     .search-bottom {
         display: block;
     }
+}
+
+/* VANILLA TOAST */
+
+#vanillatoasts-container{
+    z-index: 999999;
 }

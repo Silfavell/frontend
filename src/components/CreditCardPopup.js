@@ -58,7 +58,7 @@ class NewCreditCardPopup extends React.Component {
                 expireYear,
                 // cvc2
             }
-        }).then(({ status }) => {
+        }).then(({ data, status }) => {
             if (status === 200) {
                 VanillaToasts.create({
                     title: 'Kredi kartı kayıt edildi.',
@@ -67,7 +67,7 @@ class NewCreditCardPopup extends React.Component {
                     timeout: 3 * 1000
                 })
 
-                this.props.hideCreditCardPopup()
+                this.props.hideCreditCardPopup(data)
             }
         }).catch((err) => {
             VanillaToasts.create({

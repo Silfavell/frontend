@@ -7,7 +7,7 @@ import PopupWrapper from './PopupWrapper'
 class AddressDeletePopup extends React.Component {
 
     onConfirm = () => {
-        axios.delete(`${process.env.REACT_APP_API_URL}/user/address/${this.props.deleteAddressId}`).then(({ status }) => {
+        axios.delete(`${process.env.REACT_APP_API_URL}/user/address/${this.props.deleteAddressId}`).then(({ data, status }) => {
             if (status === 200) {
                 VanillaToasts.create({
                     title: `Adresiniz silindi`,
@@ -17,7 +17,7 @@ class AddressDeletePopup extends React.Component {
                 })
             }
 
-            this.props.hideDeleteAddressPopup()
+            this.props.hideDeleteAddressPopup(data.addresses)
         }).catch((err) => {
             console.log(err)
 

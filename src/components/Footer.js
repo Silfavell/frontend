@@ -58,18 +58,22 @@ function Footer() {
                                 }
 
                                 <li className='d-flex align-items-center justify-content-start pl-0'>
-                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android'>
+                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android' target='_blank' rel='noopener noreferrer'>
                                         <IoLogoAndroid size={32} color={'#EE4266'} className='mr-2' />
                                         Google Play
                                     </a>
                                 </li>
 
-                                <li className='d-flex align-items-center justify-content-start pl-0'>
-                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android'>
-                                        <IoLogoApple size={32} color={'#EE4266'} className='mr-2' />
-                                        App Store
-                                    </a>
-                                </li>
+                                {
+                                    /*
+                                        <li className='d-flex align-items-center justify-content-start pl-0'>
+                                            <a href='https://play.google.com/store/apps/details?id=com.silfavell.android' target='_blank' rel='noopener noreferrer'>
+                                                <IoLogoApple size={32} color={'#EE4266'} className='mr-2' />
+                                                App Store
+                                            </a>
+                                        </li>
+                                    */
+                                }
                             </ul>
                             <h3 className='footer-heading my-4' style={{ letterSpacing: '.1em' }}>Bizi Takip Edin</h3>
                             <ul className='list-unstyled'>
@@ -81,21 +85,21 @@ function Footer() {
                                 }
 
                                 <li className='d-flex align-items-center justify-content-start pl-0'>
-                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android'>
+                                    <a href='https://www.facebook.com/Silfavell-110326400716229' target='_blank' rel='noopener noreferrer'>
                                         <IoLogoFacebook size={32} color={'#EE4266'} className='mr-2' />
                                         Facebook
                                     </a>
                                 </li>
 
                                 <li className='d-flex align-items-center justify-content-start pl-0'>
-                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android'>
+                                    <a href='http://instagram.com/silfavell' target='_blank' rel='noopener noreferrer'>
                                         <IoLogoInstagram size={32} color={'#EE4266'} className='mr-2' />
                                         Instagram
                                     </a>
                                 </li>
 
                                 <li className='d-flex align-items-center justify-content-start pl-0'>
-                                    <a href='https://play.google.com/store/apps/details?id=com.silfavell.android'>
+                                    <a href='https://twitter.com/silfavell' target='_blank' rel='noopener noreferrer'>
                                         <IoLogoTwitter size={32} color={'#EE4266'} className='mr-2' />
                                         Twitter
                                     </a>
@@ -119,7 +123,7 @@ function Footer() {
                     </div>
                 </div>
                 <div className='row pt-2 mt-2 text-center'>
-                    <div className="col-md-12">
+                    <div className='col-md-12'>
                         <p>Copyright &copy; {new Date().getFullYear()}, Silfavell Inc</p>
                     </div>
                 </div>

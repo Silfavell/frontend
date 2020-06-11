@@ -1,45 +1,14 @@
 import React from 'react'
-import axios from 'axios'
-import Cookies from 'universal-cookie'
-import VanillaToasts from 'vanillatoasts'
 // import { IoMdHeartEmpty } from 'react-icons/io'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Product.css'
 
-const cookies = new Cookies()
-
 class Product extends React.Component {
 
     addProductToCart = () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.item._id}`).then(({ status, data }) => {
-            if (status === 200) {
-                if (!cookies.get('token')) {
-                    const cart = window.localStorage.getItem('cart')
-
-                    if (cart) {
-                        const cartAsArray = JSON.parse(cart)
-                        const foundProduct = cartAsArray.find((cartProduct) => cartProduct._id === data._id)
-                        if (foundProduct) {
-                            cartAsArray[cartAsArray.indexOf(foundProduct)].quantity++
-                        } else {
-                            cartAsArray.push({ _id: data._id, quantity: 1 })
-                        }
-                        window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
-                    } else {
-                        window.localStorage.setItem('cart', JSON.stringify([{ _id: data._id, quantity: 1 }]))
-                    }
-                }
-
-                VanillaToasts.create({
-                    title: `Ürünü sepete eklendi`,
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
-                })
-            }
-        })
+        this.props.onIncreaseClick(this.props.item._id)
     }
 
     onInspectClick = () => {
@@ -53,7 +22,7 @@ class Product extends React.Component {
         } = this.props.item
 
         return (
-            <div className='col-md-12 ml-auto d-relative product'>
+            <div className='col-md-12 ml-auto d-relative product' >
                 <div className='position-relative interface-container'>
                     <img
                         src={process.env.PUBLIC_URL + '/product.jpg'}
