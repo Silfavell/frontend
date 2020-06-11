@@ -179,17 +179,27 @@ class SignUp extends React.Component {
                     </div>
                 </div>
 
-                <div className='form-group row'>
+                <div className='form-group row form-check'>
                     <div className='col-md-12'>
-                        <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' />
-                        <label htmlFor='dont-forget' className='form-check-label ml-2'>Üyelik Sözleşmesi şartlarını okudum ve kabul ediyorum.</label>
+                        <input
+                            type='checkbox'
+                            className='form-check-input' id='agreement' name='agreement' placeholder='' />
+                        <label
+                            style={{ cursor: 'pointer' }}
+                            htmlFor='agreement'
+                            className='form-check-label ml-2'>Üyelik Sözleşmesi şartlarını okudum ve kabul ediyorum.</label>
                     </div>
                 </div>
 
-                <div className='form-group row'>
-                    <div className='col-md-12 d-flex align-items-md-start justify-content-md-start'>
-                        <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' />
-                        <label htmlFor='dont-forget' className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
+                <div className='form-group row form-check'>
+                    <div className='col-md-12'>
+                        <input
+                            type='checkbox'
+                            className='form-check-input' id='dont-forget' name='dont-forget' placeholder='' />
+                        <label
+                            style={{ cursor: 'pointer' }}
+                            htmlFor='dont-forget'
+                            className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
                     </div>
                 </div>
 
