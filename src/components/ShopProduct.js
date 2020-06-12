@@ -41,7 +41,8 @@ class ShopProduct extends React.Component {
     */
 
     onInspectClick = () => {
-        window.location.replace(this.props.item._id)
+        window.history.pushState({}, null, this.props.item._id)
+        window.location.reload()
     }
 
     render() {
