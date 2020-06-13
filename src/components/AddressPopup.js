@@ -45,7 +45,7 @@ class AddressPopup extends React.Component {
                 }
             }).catch((err) => {
                 VanillaToasts.create({
-                    title: err.response.data.error,
+                    title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
                     positionClass: 'topRight',
                     type: 'error',
                     timeout: 3 * 1000
