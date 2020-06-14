@@ -53,7 +53,7 @@ class ShopProduct extends React.Component {
         } = this.props.item
 
         return (
-            <div className='col-lg-4 col-md-4 item-entry mb-4 product'>
+            <div className='col-lg-4 col-6 item-entry mb-4 product'>
                 <div className='position-relative interface-container'>
                     <img
                         src={process.env.PUBLIC_URL + '/product.jpg'}
@@ -78,12 +78,12 @@ class ShopProduct extends React.Component {
                 </div>
 
                 <div className='mb-3'>
-                    <div className='col-md-12 d-flex align-items-center justify-content-center'>
+                    <div className='col-lg-12 d-flex align-items-center justify-content-center'>
                         <div className='h5 p-3 text-black font-weight-normal'>
                             {'₺' + price.toFixed(2).toString().replace('.', ',')}
                         </div>
                     </div>
-                    <div className='col-md-12 d-flex flex-row justify-content-center align-items-center' style={{ textAlign: 'center' }}>
+                    <div className='col-lg-12 d-flex flex-row justify-content-center align-items-center' style={{ textAlign: 'center' }}>
                         <div className='h6 text-black font-weight-normal'>
                             {name}
                         </div>
