@@ -10,6 +10,7 @@ import Loading from '../components/Loading'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
+import './Shop.css'
 
 const maximumProductLengthInOnePage = 6 * 3
 const maximumPageCount = 5
@@ -250,7 +251,7 @@ class Shop extends React.Component {
 
                     <div className='col-md-3 order mb-5 mb-md-0'>
 
-                        <div className='border p-4 rounded mb-4'>
+                        <div className='border p-4 rounded mb-4 related-categories'>
                             <h3 className='mb-3 h6 text-uppercase text-black d-block'>Related Categories</h3>
                             <ul className='list-unstyled mb-0'>
                                 {
@@ -264,7 +265,7 @@ class Shop extends React.Component {
                             </ul>
                         </div>
 
-                        <div className='border p-4 rounded mb-4'>
+                        <div className='border p-4 rounded mb-4 brands'>
                             <div className='mb-4'>
                                 <h3 className='mb-3 h6 text-uppercase text-black d-block'>Brands</h3>
                                 {

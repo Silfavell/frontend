@@ -52,7 +52,7 @@ class Product extends React.Component {
                             {'₺' + price.toFixed(2).toString().replace('.', ',')}
                         </div>
                     </div>
-                    <div className='col-md-12 d-flex flex-row justify-content-center align-items-center' style={{ textAlign: 'center' }}>
+                    <div className='col-md-12 d-flex flex-row justify-content-center align-items-center p-0' style={{ textAlign: 'center' }}>
                         <div className='h6 text-black font-weight-normal'>
                             {name}
                         </div>
