@@ -1343,33 +1343,6 @@ a:hover {
     position: absolute;
 }
 
-.item-entry .product-item {
-    margin-bottom: 30px;
-}
-
-.item-entry .item-title {
-    font-size: 18px;
-    font-weight: normal;
-    margin-bottom: 0;
-}
-
-.item-entry .item-title a {
-    color: gray;
-}
-
-.item-entry .item-title a:hover {
-    color: #000;
-}
-
-.item-entry .item-price {
-    color: #000;
-    font-weight: bold;
-}
-
-.item-entry .item-price del {
-    color: #b3b3b3;
-}
-
 .custom-border-bottom {
     border-bottom: 1px solid #f9f9f9;
 }

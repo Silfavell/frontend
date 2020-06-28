@@ -86,7 +86,7 @@ class ShopSingle extends React.Component {
                     <div className='container'>
                         <div className='row'>
                             <div className='col-md-6'>
-                                <div className='item-entry' style={{ display: 'flex', height: '100%', justifyContent: 'center' }}>
+                                <div style={{ display: 'flex', height: '100%', justifyContent: 'center' }}>
                                     <img src={`${process.env.PUBLIC_URL}/product.jpg`} alt='Image' className='img-fluid' />
                                 </div>
 
@@ -94,8 +94,14 @@ class ShopSingle extends React.Component {
                             <div className='col-md-6'>
                                 <h2 className='text-black'>{name}</h2>
                                 <p className='text-primary h5'>{brand}</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt facere, natus soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga voluptas, distinctio, aperiam, ratione dolore.</p>
-                                <p className='mb-4'>Ex numquam veritatis debitis minima quo error quam eos dolorum quidem perferendis. Quos repellat dignissimos minus, eveniet nam voluptatibus molestias omnis reiciendis perspiciatis illum hic magni iste, velit aperiam quis.</p>
+                                <p className='mb-4'>
+                                    • Keçi sütlü formülü ve yoğun proteinli yapısı ile dudaklarıınız MATTE LIPS ile daha nemli bir görünüme kavuşacaktır. <br/>
+                                    • Dudaklarınızda uzun süreli ,doğal mat etki sağlar. Kremsi yapısı ile örtücülüğü mükemmeldir. <br/>
+                                    • Keçi sütü ve E Vitamini dudaklarınız gün boyu nemlendirilecektir. <br/>
+                                    • Paraben içermez. <br/>
+                                    • Dermatolojik olarak test edilmiştir. <br/>
+                                    • Gün boyu güzelliğinizle büyülerken cildiniz beslensin!
+                                </p>
                                 <p><strong className='text-primary h4'>{'₺' + price.toFixed(2).toString().replace('.', ',')}</strong></p>
                                 {
                                     /*
