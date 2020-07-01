@@ -5,15 +5,18 @@ class NavCartItem extends React.Component {
         const {
             name,
             price,
-            quantity
+            quantity,
+            image
         } = this.props.item
+
+        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
             <div className='item col-md-12 p-2'>
                 <div className='row'>
                     <div className='col-md-4'>
                         <img
-                            src={process.env.PUBLIC_URL + '/product.jpg'}
+                            src={url}
                             alt=''
                             className='w-100' />
                     </div>

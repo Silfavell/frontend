@@ -15,8 +15,12 @@ class Contact extends React.Component {
   }
 
   render() {
+    const divider = [
+      { path: null, title: 'İletişim' }
+    ]
+
     return (
-      <SiteWrap firstImage>
+      <SiteWrap divider={divider}>
         <div className='container'>
           <div className='row'>
             <div className='col-md-7'>

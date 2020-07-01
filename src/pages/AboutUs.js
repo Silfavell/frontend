@@ -6,8 +6,12 @@ import SiteWrap from '../components/SiteWrap'
 
 class AboutUs extends React.Component {
     render() {
+        const divider = [
+            { path: null, title: 'Hakkımızda' }
+        ]
+
         return (
-            <SiteWrap>
+            <SiteWrap divider={divider}>
                 <div className='container'>
                     <div className='row'>
                         <div className='col-md-12'>

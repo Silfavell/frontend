@@ -11,9 +11,7 @@ export default () => {
         //    cancel = c
         //})
 
-        if (config.headers.Authorization === 'DO_NOT_SET_AUTH') {
-            delete config.headers.Authorization
-        } else if (cookies.get('token')) {
+        if (cookies.get('token')) {
             config.headers.Authorization = cookies.get('token')
         }
 

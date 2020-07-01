@@ -53,7 +53,7 @@ class SiteWrap extends React.Component {
 
     onIncreaseClick = (productId) => {
         if (cookies.get('token')) {
-            axios.get(`${process.env.REACT_APP_API_URL}/product/${productId}`).then(({ status, data }) => {
+            axios.get(`${process.env.REACT_APP_API_URL}/add-product/${productId}`).then(({ status, data }) => {
                 if (status === 200) {
                     if (data.quantity > 1) {
                         const newProducts = this.state.products.map((cartProduct) => (
@@ -115,7 +115,7 @@ class SiteWrap extends React.Component {
 
     onDecreaseClick = (productId) => {
         if (cookies.get('token')) {
-            axios.delete(`${process.env.REACT_APP_API_URL}/product/${productId}`).then(({ status, data }) => {
+            axios.delete(`${process.env.REACT_APP_API_URL}/deduct-product/${productId}`).then(({ status, data }) => {
                 if (status === 200) {
                     if (data.quantity > 0) {
                         const newProducts = this.state.products.map((cartProduct) => (

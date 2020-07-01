@@ -15,16 +15,22 @@ class CartItem extends React.Component {
 
     render() {
         const {
-            img,
+            image,
             name,
             price,
             quantity
         } = this.props.item
 
+        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
+
         return (
             <tr>
                 <td className='product-thumbnail' style={{ minWidth: 200 }}>
-                    <img src={`${process.env.PUBLIC_URL}/product.jpg`} alt='Image' className='img-fluid' />
+                    <img
+                        style={{ paddingTop: 24, paddingBottom: 24 }}
+                        src={url}
+                        alt='Image'
+                        className='img-fluid' />
                 </td>
                 <td className='product-name'>
                     <h2 className='h5 text-black'>{name}</h2>

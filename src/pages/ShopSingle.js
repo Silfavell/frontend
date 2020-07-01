@@ -17,8 +17,7 @@ class ShopSingle extends React.Component {
     }
 
     componentWillMount() {
-        // axios.get(`http://178.62.245.193:3000/product/${'5ebd4417b6e6fb001239f439'}`).then((result) => {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`, { headers: { Authorization: 'DO_NOT_SET_AUTH' } }).then(({ data: product }) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`).then(({ data: product }) => {
             this.setState({ product }, () => {
                 const visitedProducts = window.localStorage.getItem('visitedProducts')
                 if (visitedProducts) {
@@ -38,7 +37,7 @@ class ShopSingle extends React.Component {
     }
 
     addProductToCart = () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`).then(({ status, data }) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/add-product/${this.props.match.params._id}`).then(({ status, data }) => {
             if (status === 200) {
                 if (!cookies.get('token')) {
                     const cart = window.localStorage.getItem('cart')
@@ -72,13 +71,16 @@ class ShopSingle extends React.Component {
             _id,
             name,
             price,
-            brand
+            brand,
+            image
         } = this.state.product
 
         const divider = [
             { path: '/shop', title: 'shop' },
             { path: null, title: name }
         ]
+
+        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         if (_id) {
             return (
@@ -87,7 +89,7 @@ class ShopSingle extends React.Component {
                         <div className='row'>
                             <div className='col-md-6'>
                                 <div style={{ display: 'flex', height: '100%', justifyContent: 'center' }}>
-                                    <img src={`${process.env.PUBLIC_URL}/product.jpg`} alt='Image' className='img-fluid' />
+                                    <img src={url} alt='Image' className='img-fluid' />
                                 </div>
 
                             </div>
@@ -95,11 +97,11 @@ class ShopSingle extends React.Component {
                                 <h2 className='text-black'>{name}</h2>
                                 <p className='text-primary h5'>{brand}</p>
                                 <p className='mb-4'>
-                                    • Keçi sütlü formülü ve yoğun proteinli yapısı ile dudaklarıınız MATTE LIPS ile daha nemli bir görünüme kavuşacaktır. <br/>
-                                    • Dudaklarınızda uzun süreli ,doğal mat etki sağlar. Kremsi yapısı ile örtücülüğü mükemmeldir. <br/>
-                                    • Keçi sütü ve E Vitamini dudaklarınız gün boyu nemlendirilecektir. <br/>
-                                    • Paraben içermez. <br/>
-                                    • Dermatolojik olarak test edilmiştir. <br/>
+                                    • Keçi sütlü formülü ve yoğun proteinli yapısı ile dudaklarıınız MATTE LIPS ile daha nemli bir görünüme kavuşacaktır. <br />
+                                    • Dudaklarınızda uzun süreli ,doğal mat etki sağlar. Kremsi yapısı ile örtücülüğü mükemmeldir. <br />
+                                    • Keçi sütü ve E Vitamini dudaklarınız gün boyu nemlendirilecektir. <br />
+                                    • Paraben içermez. <br />
+                                    • Dermatolojik olarak test edilmiştir. <br />
                                     • Gün boyu güzelliğinizle büyülerken cildiniz beslensin!
                                 </p>
                                 <p><strong className='text-primary h4'>{'₺' + price.toFixed(2).toString().replace('.', ',')}</strong></p>

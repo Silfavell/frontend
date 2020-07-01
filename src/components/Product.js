@@ -19,15 +19,18 @@ class Product extends React.Component {
     render() {
         const {
             name,
-            price
+            price,
+            image
         } = this.props.item
+
+        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
             <div className='col-md-12 ml-auto d-relative product' >
                 <div className='border product-border'>
                     <div className='position-relative interface-container'>
                         <img
-                            src={process.env.PUBLIC_URL + '/product.jpg'}
+                            src={url}
                             alt=''
                             className='w-100 py-5' />
 
