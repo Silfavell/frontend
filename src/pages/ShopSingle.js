@@ -89,7 +89,14 @@ class ShopSingle extends React.Component {
                         <div className='row'>
                             <div className='col-md-6'>
                                 <div style={{ display: 'flex', height: '100%', justifyContent: 'center' }}>
-                                    <img src={url} alt='Image' className='img-fluid' />
+                                    <img
+                                        src={url}
+                                        alt=''
+                                        onError={(e) => {
+                                            e.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
+                                        }}
+                                        className='img-fluid'
+                                    />
                                 </div>
 
                             </div>

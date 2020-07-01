@@ -6,8 +6,11 @@ class SearchProduct extends React.Component {
         const {
             _id,
             name,
-            price
+            price,
+            image
         } = this.props.item
+
+        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
             <a
@@ -17,8 +20,11 @@ class SearchProduct extends React.Component {
 
                 <div className='px-4 py-2 border h-100'>
                     <img
-                        src={process.env.PUBLIC_URL + '/product.jpg'}
+                        src={url}
                         alt=''
+                        onError={(e) => {
+                            e.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
+                        }}
                         className='w-100 mb-3' />
 
                     <div className='col-md-12 d-flex align-items-center justify-content-center'>

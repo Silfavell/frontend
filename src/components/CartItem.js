@@ -29,7 +29,10 @@ class CartItem extends React.Component {
                     <img
                         style={{ paddingTop: 24, paddingBottom: 24 }}
                         src={url}
-                        alt='Image'
+                        alt=''
+                        onError={(e) => {
+                            e.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
+                        }}
                         className='img-fluid' />
                 </td>
                 <td className='product-name'>

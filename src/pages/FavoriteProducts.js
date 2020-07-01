@@ -36,20 +36,18 @@ class FavoriteProducts extends React.Component {
     renderContent = ({ onIncreaseClick }) => (
         <div className='container'>
             <div className='row mb-5'>
-                <div className='row'>
-                    <ProfileColumn />
-                    <div className='col-md-9 order-1'>
-                        <div className='row'>
-                            {
-                                this.state.products.map((product) => (
-                                    <ShopProduct
-                                        onIncreaseClick={onIncreaseClick}
-                                        key={product._id}
-                                        item={product}
-                                        favorite />
-                                ))
-                            }
-                        </div>
+                <ProfileColumn />
+                <div className='col-md-9 order-1'>
+                    <div className='row'>
+                        {
+                            this.state.products.map((product) => (
+                                <ShopProduct
+                                    onIncreaseClick={onIncreaseClick}
+                                    key={product._id}
+                                    item={product}
+                                    favorite />
+                            ))
+                        }
                     </div>
                 </div>
             </div>
