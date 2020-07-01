@@ -88,7 +88,7 @@ class ShopProduct extends React.Component {
                             </div>
                         </div>
                         <div className='col-lg-12 d-flex flex-row justify-content-center align-items-center p-0' style={{ textAlign: 'center' }}>
-                            <div className='h6 text-black font-weight-normal'>
+                            <div className='h6 text-black font-weight-normal px-4'>
                                 {name}
                             </div>
                         </div>

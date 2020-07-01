@@ -55,7 +55,7 @@ class Payment extends React.Component {
     }
 
     hideSaveAddressPopup = (addresses) => {
-        this.setState({ showSaveAddressPopup: false, addresses: addresses ?? [] })
+        this.setState({ showSaveAddressPopup: false, addresses: addresses || this.state.addresses })
     }
 
     showDeleteAddressPopup = (deleteAddressId) => {
