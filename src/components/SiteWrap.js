@@ -51,6 +51,10 @@ class SiteWrap extends React.Component {
         axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => data)
     )
 
+    getFavoriteProducts = () => (
+        axios.get(`${process.env.REACT_APP_API_URL}/user/profile`).then(({ data }) => data.favoriteProducts)
+    )
+
     onIncreaseClick = (productId) => {
         if (cookies.get('token')) {
             axios.get(`${process.env.REACT_APP_API_URL}/add-product/${productId}`).then(({ status, data }) => {
@@ -193,8 +197,10 @@ class SiteWrap extends React.Component {
 
     UNSAFE_componentWillMount() {
         if (cookies.get('token')) {
-            Promise.all([this.getCategories(), this.getCartProducts()]).then((vals) => {
-                this.setState({ categories: vals[0], products: vals[1] })
+            Promise.all([this.getCategories(), this.getCartProducts(), this.getFavoriteProducts()]).then((vals) => {
+                this.setState({ categories: vals[0], products: vals[1] }, () => {
+                    localStorage.setItem('favoriteProducts', JSON.stringify(vals[2]))
+                })
             }).catch((err) => {
                 console.log(err.response)
             })
@@ -220,7 +226,7 @@ class SiteWrap extends React.Component {
         }
     }
 
-    componentDidUpdate() {
+    componentDidMount(x) {
         setTimeout(() => {
             window.scrollTo({ behavior: 'smooth', top: 0 })
         }, 100)

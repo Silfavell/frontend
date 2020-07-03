@@ -25,6 +25,8 @@ const responsive = {
 
 class CarouselComponent extends React.Component {
     render() {
+        const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
+
         return (
             <div className='col-md-12 carousel-container'>
                 <Carousel
@@ -37,6 +39,7 @@ class CarouselComponent extends React.Component {
                         this.props.products.map((product) => (
                             <Product
                                 key={product._id}
+                                favorite={favoriteProducts.includes(product._id)}
                                 item={product}
                                 onIncreaseClick={this.props.onIncreaseClick} />
                         ))

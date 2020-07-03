@@ -1,13 +1,17 @@
 import React from 'react'
 import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
-import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io'
+import { IoMdHeartEmpty, IoMdHeart, IoMdCart } from 'react-icons/io'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Product.css'
 
 class ShopProduct extends React.Component {
+
+    state = {
+        favorite: this.props.favorite
+    }
 
     addProductToCart = () => {
         this.props.onIncreaseClick(this.props.item._id)
@@ -16,11 +20,13 @@ class ShopProduct extends React.Component {
     addToFavoriteProducts = () => {
         axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ status }) => {
             if (status === 200) {
-                VanillaToasts.create({
-                    title: `Ürün favorilere eklendi`,
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
+                this.setState({ favorite: true }, () => {
+                    VanillaToasts.create({
+                        title: `Ürün favorilere eklendi`,
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
                 })
             }
         })
@@ -30,11 +36,13 @@ class ShopProduct extends React.Component {
     removeFromFavoriteProdutcs = () => {
         axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ status }) => {
             if (status === 200) {
-                VanillaToasts.create({
-                    title: `Ürün favorilerden çıkarıldı`,
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
+                this.setState({ favorite: false }, () => {
+                    VanillaToasts.create({
+                        title: `Ürün favorilerden çıkarıldı`,
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
                 })
             }
         })
@@ -70,7 +78,7 @@ class ShopProduct extends React.Component {
                             <div className='top col-md-12'>
                                 <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-favorite'>
                                     {
-                                        this.props.favorite ?
+                                        this.state.favorite ?
                                             <IoMdHeart size={28} color={'black'} onClick={this.removeFromFavoriteProdutcs} />
                                             : <IoMdHeartEmpty size={28} color={'black'} onClick={this.addToFavoriteProducts} />
                                     }
@@ -78,8 +86,9 @@ class ShopProduct extends React.Component {
                             </div>
 
                             <div className='bottom col-md-12'>
-                                <div className='col-md-6 d-flex align-items-center justify-content-center text-white inspect' onClick={this.onInspectClick}>Incele</div>
-                                <div className='col-md-6 d-flex align-items-center justify-content-center text-white add-to-cart' onClick={this.addProductToCart}>Sepete Ekle</div>
+                                <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-cart'>
+                                    <IoMdCart size={28} color={'black'} onClick={this.addProductToCart} />
+                                </div>
                             </div>
                         </div>
                     </div>

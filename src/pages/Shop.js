@@ -172,6 +172,8 @@ class Shop extends React.Component {
         const currentCategory = this.state.categories.find(category => category._id === this.state.products[0]?.categoryId)
         const subCategory = this.props.location.search.includes('subCategoryId') ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products[0].subCategoryId) : null
 
+        const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
+
         return (
             <div className='container'>
                 <div className='row mb-5'>
@@ -211,7 +213,9 @@ class Shop extends React.Component {
                                     <ShopProduct
                                         key={product._id}
                                         item={product}
-                                        onIncreaseClick={onIncreaseClick} />
+                                        onIncreaseClick={onIncreaseClick}
+                                        favorite={favoriteProducts.includes(product._id)}
+                                    />
                                 ))
                             }
                         </div>

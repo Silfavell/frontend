@@ -1,11 +1,17 @@
 import React from 'react'
-import { IoMdHeartEmpty } from 'react-icons/io'
+import axios from 'axios'
+import VanillaToasts from 'vanillatoasts'
+import { IoMdHeart, IoMdHeartEmpty, IoMdCart } from 'react-icons/io'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Product.css'
 
 class Product extends React.Component {
+
+    state = {
+        favorite: this.props.favorite
+    }
 
     addProductToCart = () => {
         this.props.onIncreaseClick(this.props.item._id)
@@ -14,6 +20,37 @@ class Product extends React.Component {
     onInspectClick = () => {
         window.history.pushState({}, null, '/product/' + this.props.item._id)
         window.location.reload()
+    }
+
+    addToFavoriteProducts = () => {
+        axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ status }) => {
+            if (status === 200) {
+                this.setState({ favorite: true }, () => {
+                    VanillaToasts.create({
+                        title: `Ürün favorilere eklendi`,
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
+                })
+            }
+        })
+    }
+
+
+    removeFromFavoriteProdutcs = () => {
+        axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ status }) => {
+            if (status === 200) {
+                this.setState({ favorite: false }, () => {
+                    VanillaToasts.create({
+                        title: `Ürün favorilerden çıkarıldı`,
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
+                })
+            }
+        })
     }
 
     render() {
@@ -26,7 +63,7 @@ class Product extends React.Component {
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
-            <div className='col-md-12 ml-auto d-relative product' >
+            <div className='col-md-12 ml-auto d-relative product'>
                 <div className='border product-border'>
                     <div className='position-relative interface-container'>
                         <img
@@ -39,14 +76,19 @@ class Product extends React.Component {
 
                         <div className='interface'>
                             <div className='top col-md-12'>
-                                <div className='col-md-6 d-flex align-items-center text-white add-to-favorite'>
-                                    <IoMdHeartEmpty size={24} />
+                                <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-favorite'>
+                                    {
+                                        this.state.favorite ?
+                                            <IoMdHeart size={28} color={'black'} onClick={this.removeFromFavoriteProdutcs} />
+                                            : <IoMdHeartEmpty size={28} color={'black'} onClick={this.addToFavoriteProducts} />
+                                    }
                                 </div>
                             </div>
 
                             <div className='bottom col-md-12'>
-                                <div className='col-md-6 d-flex align-items-center justify-content-center text-white inspect' onClick={this.onInspectClick}>Incele</div>
-                                <div className='col-md-6 d-flex align-items-center justify-content-center text-white add-to-cart' onClick={this.addProductToCart}>Sepete Ekle</div>
+                                <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-cart'>
+                                    <IoMdCart size={28} color={'black'} onClick={this.addProductToCart} />
+                                </div>
                             </div>
                         </div>
                     </div>

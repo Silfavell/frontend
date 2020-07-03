@@ -45,7 +45,8 @@ class FavoriteProducts extends React.Component {
                                     onIncreaseClick={onIncreaseClick}
                                     key={product._id}
                                     item={product}
-                                    favorite />
+                                    favorite
+                                />
                             ))
                         }
                     </div>
