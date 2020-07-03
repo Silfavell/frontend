@@ -220,11 +220,16 @@ class SiteWrap extends React.Component {
         }
     }
 
+    componentDidUpdate() {
+        setTimeout(() => {
+            window.scrollTo({ behavior: 'smooth', top: 0 })
+        }, 100)
+    }
+
     render() {
         return (
             <div
                 className={`site-wrap ${this.state.isMobileMenuOpen ? 'offcanvas-menu' : ''}`}
-                ref={this.props.siteRef}
                 onClick={this.onOutsideMenuClick}>
 
                 <Navbar

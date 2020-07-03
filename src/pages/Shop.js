@@ -24,15 +24,12 @@ class Shop extends React.Component {
         fetching: true
     }
 
-    siteRef = React.createRef()
 
     fetchProducts = () => {
         const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&quantity=${maximumProductLengthInOnePage}`
 
         return axios.get(url).then(({ data }) => data)
     }
-
-    scrollToTop = () => window.scrollTo({ behavior: 'smooth', top: this.siteRef?.current?.offsetTop })
 
     getProductsLength = () => {
         const url = `${process.env.REACT_APP_API_URL}/products-length${this.props.location.search}`
@@ -48,7 +45,6 @@ class Shop extends React.Component {
         this.setState({ fetching: true }, () => {
             Promise.all([this.fetchProducts(), this.getProductsLength()]).then((vals) => {
                 this.setState({ products: vals[0], productsLength: vals[1], fetching: false })
-                this.scrollToTop()
             })
         })
     }
@@ -317,7 +313,7 @@ class Shop extends React.Component {
             )
         } else {
             return (
-                <SiteWrap divider={divider} siteRef={this.siteRef}>
+                <SiteWrap divider={divider}>
                     <this.renderShopContent />
                 </SiteWrap>
             )

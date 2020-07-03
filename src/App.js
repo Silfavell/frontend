@@ -30,21 +30,21 @@ class App extends React.Component {
             <Router>
                 <Switch>
                     <Route exact path='/' component={Home} />
-                    <Route exact path='/contact' component={Contact} />
-                    <Route exact path='/about-us' component={AboutUs} />
-                    <Route exact path='/shop' component={Shop} />
-                    <Route exact path='/sign-in' component={SignIn} />
-                    <Route exact path='/sign-up' component={SignUp} />
-                    <Route exact path='/cart' component={Cart} />
-                    <Route exact path='/payment' component={Payment} />
-                    <Route exact path='/edit-profile' component={EditProfile} />
-                    <Route exact path='/favorite-products' component={FavoriteProducts} />
-                    <Route exact path='/previous-orders' component={PreviousOrders} />
-                    <Route exact path='/update-password' component={UpdatePassword} />
-                    <Route exact path='/forgot-password' component={ForgotPassword} />
-                    <Route exact path='/:_id' component={ShopSingle} />
+                    <Route path='/contact' component={Contact} />
+                    <Route path='/about-us' component={AboutUs} />
+                    <Route path='/shop' component={Shop} />
+                    <Route path='/sign-in' component={SignIn} />
+                    <Route path='/sign-up' component={SignUp} />
+                    <Route path='/cart' component={Cart} />
+                    <Route path='/payment' component={Payment} />
+                    <Route path='/edit-profile' component={EditProfile} />
+                    <Route path='/favorite-products' component={FavoriteProducts} />
+                    <Route path='/previous-orders' component={PreviousOrders} />
+                    <Route path='/update-password' component={UpdatePassword} />
+                    <Route path='/forgot-password' component={ForgotPassword} />
+                    <Route path='/:_id' component={ShopSingle} />
                 </Switch>
-            </Router >
+            </Router>
         )
     }
 }
