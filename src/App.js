@@ -22,6 +22,7 @@ import Payment from './pages/Payment'
 import FavoriteProducts from './pages/FavoriteProducts'
 import PreviousOrders from './pages/PreviousOrders'
 import NotFound from './pages/NotFound'
+import PaymentCompleted from './pages/PaymentCompleted'
 
 axios()
 
@@ -38,6 +39,7 @@ class App extends React.Component {
                     <Route path='/sign-up' component={SignUp} />
                     <Route path='/cart' component={Cart} />
                     <Route path='/payment' component={Payment} />
+                    <Route path='/payment-completed' component={PaymentCompleted} />
                     <Route path='/edit-profile' component={EditProfile} />
                     <Route path='/favorite-products' component={FavoriteProducts} />
                     <Route path='/previous-orders' component={PreviousOrders} />

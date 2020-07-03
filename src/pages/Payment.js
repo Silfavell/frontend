@@ -127,14 +127,9 @@ class Payment extends React.Component {
         axios.post(`${process.env.REACT_APP_API_URL}/user/order`, {
             address: this.state.addresses[this.state.selectedAddress]._id,
             card: this.state.cards[this.state.selectedCard].cardToken
-        }).then(({ status }) => {
+        }).then(({ status, data }) => {
             if (status === 200) {
-                VanillaToasts.create({
-                    title: `Siparişiniz alınmıştır.`,
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
-                })
+                this.props.history.push('payment-completed', { order: data.order })
             }
         }).catch((err) => {
             VanillaToasts.create({
