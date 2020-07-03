@@ -32,7 +32,7 @@ class ShopSingle extends React.Component {
                 }
             })
         }).catch((err) => {
-            console.log(err.response)
+            this.props.history.push('/not-found')
         })
     }
 
@@ -92,8 +92,8 @@ class ShopSingle extends React.Component {
                                     <img
                                         src={url}
                                         alt=''
-                                        onError={(e) => {
-                                            e.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
+                                        onError={(event) => {
+                                            event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
                                         }}
                                         className='img-fluid'
                                     />

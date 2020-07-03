@@ -133,15 +133,9 @@ class Cart extends React.Component {
     }
 
     cartWithoutProducts = () => (
-        <div className="container">
-            <div className="col-md-12">
-                <div className="row">
-                    <div className="col-md-12 d-flex align-items-center justify-content-center flex-column">
-                        <h3 className={'text-black'}>Sepetiniz Boş</h3>
-                        <p className={'text-black'} style={{ textAlign: 'center' }}>Favori ürünlerinize veya size özel önerilerimize göz atarak alışverişe başlayabilirsiniz.</p>
-                    </div>
-                </div>
-            </div>
+        <div className='container d-flex align-items-center justify-content-center flex-column' style={{ height: 300 }}>
+            <h2 className={'text-black'}>Sepetiniz Boş</h2>
+            <p className={'text-black'} style={{ fontSize: 18, marginTop: 32 }}>Favori ürünlerinize veya size özel önerilerimize göz atarak alışverişe başlayabilirsiniz.</p>
         </div>
     )
 
