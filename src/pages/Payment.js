@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import $ from 'jquery'
 import VanillaToasts from 'vanillatoasts'
+import Cookies from 'universal-cookie'
 
 import SiteWrap from '../components/SiteWrap'
 import Loading from '../components/Loading'
@@ -13,6 +14,8 @@ import AddressPopup from '../components/AddressPopup'
 import CreditCardPopup from '../components/CreditCardPopup'
 import CardDeletePopup from '../components/CardDeletePopup'
 import AddressDeletePopup from '../components/AddressDeletePopup'
+
+const cookies = new Cookies()
 
 class Payment extends React.Component {
 
@@ -106,7 +109,18 @@ class Payment extends React.Component {
     )
 
     UNSAFE_componentWillMount() {
-        this.setDatas()
+        if (cookies.get('token')) {
+            this.setDatas()
+        } else {
+            VanillaToasts.create({
+                title: `Devam etmeden önce giriş yapmalısınız.`,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 5 * 1000
+            })
+
+            this.props.history.push('/sign-in')
+        }
     }
 
     onCompletePaymentClick = () => {

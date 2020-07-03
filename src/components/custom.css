@@ -165,5 +165,7 @@
 /* VANILLA TOAST */
 
 #vanillatoasts-container{
-    z-index: 999999;
+    z-index: 10;
+    position: sticky;
+    top: 70px;
 }
