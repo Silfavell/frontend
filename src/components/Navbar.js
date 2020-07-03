@@ -24,15 +24,12 @@ class Navbar extends React.Component {
     }
 
     onSearchClick = () => {
-        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${[
-            '5ed559e1d464530b18e37405',
-            '5ed4ffae10bad04b78d3c758',
-            '5ed55ad5d464530b18e3741f',
-            '5ed55affd464530b18e37421',
-            '5ed55af0d464530b18e37420'
-        ].join(',')}&quantity=8`
-        axios.get(url).then(({ data }) => {
-            this.setState({ searchedProducts: data })
+        const url = `${process.env.REACT_APP_API_URL}/search-product?name=${this.state.searchText}`
+
+        axios.get(url).then(({ status, data }) => {
+            if (status === 200) {
+                this.setState({ searchedProducts: data.map((product) => product._source) })
+            }
         })
     }
 
@@ -109,7 +106,7 @@ class Navbar extends React.Component {
                     <div className='col-md-12'>
                         <div className='row'>
                             {
-                                this.state.searchedProducts.map((product) => (
+                                this.state.searchedProducts.slice(0, 6).map((product) => (
                                     <SearchProduct item={product} />
                                 ))
                             }
