@@ -45,7 +45,7 @@ class Home extends React.Component {
 
                     <div className='col-md-12 p-4'>
                         <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
-                            Best Seller
+                            En Çok Satanlar
                         </h2>
                     </div>
                     <div className='col-md-12 p-4' />

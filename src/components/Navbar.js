@@ -86,7 +86,7 @@ class Navbar extends React.Component {
                 <input
                     type='text'
                     className='form-control border-0'
-                    placeholder='Search'
+                    placeholder='Ara'
                     onChange={this.onSearchTextChange}
                     value={this.state.searchText} />
 
@@ -127,7 +127,7 @@ class Navbar extends React.Component {
                     type='text'
                     className='form-control border-0'
                     style={{ backgroundColor: 'white', zIndex: 11 }}
-                    placeholder='Search'
+                    placeholder='Ara'
                     onChange={this.onSearchTextChange}
                     value={this.state.searchText} />
 

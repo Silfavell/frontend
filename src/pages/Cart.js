@@ -79,12 +79,12 @@ class Cart extends React.Component {
                         <div className='col-md-12 border p-4'>
                             <div className='row'>
                                 <div className='col-md-12 text-left mb-5'>
-                                    <h3 className='text-black h4 text-uppercase'>Cart Totals</h3>
+                                    <h3 className='text-black h4 text-uppercase'>Sepet tutarı</h3>
                                 </div>
                             </div>
                             <div className='row'>
                                 <div className='col-md-6'>
-                                    <span className='text-black'>Total</span>
+                                    <span className='text-black'>Toplam</span>
                                 </div>
                                 <div className='col-md-6 text-right'>
                                     <strong className='text-black'>{`₺${totalPrice}`}</strong>
@@ -116,14 +116,14 @@ class Cart extends React.Component {
                         }
                         <div className='row'>
                             <div className='col-md-12'>
-                                <label className='text-black h4' htmlFor='coupon'>Coupon</label>
-                                <p>Enter your coupon code if you have one.</p>
+                                <label className='text-black h4' htmlFor='coupon'>Kupon</label>
+                                <p>Indirim kodunuz varsa giriniz</p>
                             </div>
                             <div className='col-md-8 mb-3 mb-md-0'>
-                                <input type='text' className='form-control py-3' id='coupon' placeholder='Coupon Code' />
+                                <input type='text' className='form-control py-3' id='coupon' placeholder='Indirim kuponu' />
                             </div>
                             <div className='col-md-4'>
-                                <button className='btn btn-primary btn-sm px-4'>Apply Coupon</button>
+                                <button className='btn btn-primary btn-sm px-4'>Kuponu kullan</button>
                             </div>
                         </div>
                     </div>

@@ -106,7 +106,7 @@ class SignUp extends React.Component {
 
                 <div className='form-group row'>
                     <div className='col-md-12'>
-                        <label htmlFor='nameSurname' className='text-black'>Name Surname <span className='text-danger'>*</span></label>
+                        <label htmlFor='nameSurname' className='text-black'>Adınız Soyadınız <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onNameSurnameChange}
                             type='name'
@@ -134,7 +134,7 @@ class SignUp extends React.Component {
 
                 <div className='form-group row'>
                     <div className='col-md-12'>
-                        <label htmlFor='password' className='text-black'>Password <span className='text-danger'>*</span></label>
+                        <label htmlFor='password' className='text-black'>Şifre <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onPasswordChange}
                             type='password'
@@ -150,7 +150,7 @@ class SignUp extends React.Component {
                     /*
                         <div className='form-group row'>
                             <div className='col-md-12'>
-                                <label htmlFor='repassword' className='text-black'>Password (repeat) <span className='text-danger'>*</span></label>
+                                <label htmlFor='repassword' className='text-black'>Şifre (repeat) <span className='text-danger'>*</span></label>
                                 <input
                                     onChange={this.onRePasswordChange}
 
@@ -167,7 +167,7 @@ class SignUp extends React.Component {
 
                 <div className='form-group row'>
                     <div className='col-md-12'>
-                        <label htmlFor='phone' className='text-black'>Phone Number <span className='text-danger'>*</span></label>
+                        <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onPhoneNumberChange}
                             type='phone'

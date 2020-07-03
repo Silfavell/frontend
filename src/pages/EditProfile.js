@@ -95,14 +95,14 @@ class EditProfile extends React.Component {
 
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='nameSurname' className='text-black'>Name Surname <span className='text-danger'>*</span></label>
+                                        <label htmlFor='nameSurname' className='text-black'>Adınız Soyadınız <span className='text-danger'>*</span></label>
                                         <input
                                             onChange={this.onNameSurnameChange}
                                             type='name'
                                             className='form-control'
                                             id='nameSurname'
                                             name='nameSurname'
-                                            placeholder='Adınız ve Soyadınızı giriniz'
+                                            placeholder='Adınızı ve Soyadınızı giriniz'
                                             value={nameSurname} />
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ class EditProfile extends React.Component {
 
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='phone' className='text-black'>Phone Number <span className='text-danger'>*</span></label>
+                                        <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
                                         <input
                                             onChange={this.onPhoneChange}
                                             type='phone'
@@ -136,13 +136,13 @@ class EditProfile extends React.Component {
                                 </div>
 
                                 {   /*
-                                            <div className='form-group row'>
-                                                <div className='col-md-12 d-flex align-items-md-start justify-content-md-start'>
-                                                    <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' checked />
-                                                    <label htmlFor='dont-forget' className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
-                                                </div>
+                                        <div className='form-group row'>
+                                            <div className='col-md-12 d-flex align-items-md-start justify-content-md-start'>
+                                                <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' checked />
+                                                <label htmlFor='dont-forget' className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
                                             </div>
-                                            */
+                                        </div>
+                                    */
                                 }
 
                                 <div className='form-group row'>

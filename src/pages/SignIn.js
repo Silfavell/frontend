@@ -74,7 +74,7 @@ class SignIn extends React.Component {
                             <div className='p-3 p-lg-5'>
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='phone_number' className='text-black'>Phone Number</label>
+                                        <label htmlFor='phone_number' className='text-black'>Telefon Numarası</label>
                                         <input
                                             value={this.state.phoneNumber}
                                             onChange={this.onPhoneChange}
@@ -87,7 +87,7 @@ class SignIn extends React.Component {
                                 </div>
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='password' className='text-black'>Password</label>
+                                        <label htmlFor='password' className='text-black'>Şifre</label>
                                         <input
                                             value={this.state.password}
                                             onChange={this.onPasswordChange}

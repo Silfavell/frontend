@@ -260,12 +260,12 @@ class Payment extends React.Component {
                                     <div className='col-md-12 border p-4'>
                                         <div className='row'>
                                             <div className='col-md-12 text-left mb-5'>
-                                                <h3 className='text-black h4 text-uppercase'>Cart Totals</h3>
+                                                <h3 className='text-black h4 text-uppercase'>Sepet tutarı</h3>
                                             </div>
                                         </div>
                                         <div className='row'>
                                             <div className='col-md-6'>
-                                                <span className='text-black'>Total</span>
+                                                <span className='text-black'>Toplam</span>
                                             </div>
                                             <div className='col-md-6 text-right'>
                                                 <strong className='text-black'>{`₺${totalPrice}`}</strong>

@@ -28,36 +28,36 @@ class Contact extends React.Component {
               <div className='p-3 p-lg-5 border'>
                 <div className='form-group row'>
                   <div className='col-md-6'>
-                    <label htmlFor='c_fname' className='text-black'>First Name <span className='text-danger'>*</span></label>
+                    <label htmlFor='c_fname' className='text-black'>Adınız <span className='text-danger'>*</span></label>
                     <input type='text' className='form-control' id='c_fname' name='c_fname' />
                   </div>
                   <div className='col-md-6'>
-                    <label htmlFor='c_lname' className='text-black'>Last Name <span className='text-danger'>*</span></label>
+                    <label htmlFor='c_lname' className='text-black'>Soyadınız <span className='text-danger'>*</span></label>
                     <input type='text' className='form-control' id='c_lname' name='c_lname' />
                   </div>
                 </div>
                 <div className='form-group row'>
                   <div className='col-md-12'>
-                    <label htmlFor='c_email' className='text-black'>Email <span className='text-danger'>*</span></label>
+                    <label htmlFor='c_email' className='text-black'>E-Mail <span className='text-danger'>*</span></label>
                     <input type='email' className='form-control' id='c_email' name='c_email' placeholder='' />
                   </div>
                 </div>
                 <div className='form-group row'>
                   <div className='col-md-12'>
-                    <label htmlFor='c_subject' className='text-black'>Subject </label>
+                    <label htmlFor='c_subject' className='text-black'>Konu <span className='text-danger'>*</span> </label>
                     <input type='text' className='form-control' id='c_subject' name='c_subject' />
                   </div>
                 </div>
 
                 <div className='form-group row'>
                   <div className='col-md-12'>
-                    <label htmlFor='c_message' className='text-black'>Message </label>
-                    <textarea name='c_message' id='c_message' cols='30' rows='7' className='form-control'></textarea>
+                    <label htmlFor='c_message' className='text-black'>Mesajınız <span className='text-danger'>*</span> </label>
+                    <textarea name='c_message' id='c_message' cols='30' rows='7' placeholder={'Mesajınızı giriniz..'} className='form-control'></textarea>
                   </div>
                 </div>
                 <div className='form-group row'>
                   <div className='col-lg-12'>
-                    <button className='btn btn-primary btn-lg btn-block' onClick={this.onSendMessageClick}>Send Message</button>
+                    <button className='btn btn-primary btn-lg btn-block' onClick={this.onSendMessageClick}>Mesajı Gönder</button>
                   </div>
                 </div>
               </div>

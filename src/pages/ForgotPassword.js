@@ -111,7 +111,7 @@ class UpdatePassword extends React.Component {
 
             <div className='form-group row'>
                 <div className='col-md-12'>
-                    <label htmlFor='phone' className='text-black'>Phone Number <span className='text-danger'>*</span></label>
+                    <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
                     <input
                         onChange={this.onPhoneNumberChange}
                         type='phone'

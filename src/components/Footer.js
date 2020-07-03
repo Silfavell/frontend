@@ -54,7 +54,7 @@ function Footer() {
 
                     <div className='col-md-6 col-lg-3'>
                         <div className='block-5 mb-5'>
-                            <h3 className='footer-heading mb-4' style={{ letterSpacing: '.1em' }}>Uygulamamızı İndirin</h3>
+                            <h3 className='footer-heading mb-4' style={{ letterSpacing: '.1em' }}>UYGULAMAMIZI INDIRIN</h3>
                             <ul className='list-unstyled'>
                                 {
                                     /*
