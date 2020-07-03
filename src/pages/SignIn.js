@@ -16,8 +16,8 @@ const cookies = new Cookies()
 class SignIn extends React.Component {
 
     state = {
-        phoneNumber: '905466666666',
-        password: '1234'
+        phoneNumber: '',
+        password: ''
     }
 
     onSignInClick = () => {
@@ -26,9 +26,10 @@ class SignIn extends React.Component {
         axios.post(url, this.state).then(({ status, data }) => {
             if (status === 200) {
                 cookies.set('token', data.token)
+                localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
 
                 if (window.localStorage.getItem('cart')) {
-                    axios.post(`${process.env.REACT_APP_API_URL}/user/cart`, JSON.parse(window.localStorage.getItem('cart'))).then(() => {
+                    axios.post(`${process.env.REACT_APP_API_URL}/user/cart`, JSON.stringify(window.localStorage.getItem('cart'))).then(() => {
                         window.localStorage.removeItem('cart')
                         this.props.history.push('/')
                     })

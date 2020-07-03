@@ -3,6 +3,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import Cookies from 'universal-cookie'
 
 import SiteWrap from '../components/SiteWrap'
 import ShopProduct from '../components/ShopProduct'
@@ -14,6 +15,8 @@ import './Shop.css'
 
 const maximumProductLengthInOnePage = 6 * 3
 const maximumPageCount = 5
+
+const cookies = new Cookies()
 
 class Shop extends React.Component {
 
@@ -173,6 +176,7 @@ class Shop extends React.Component {
         const subCategory = this.props.location.search.includes('subCategoryId') ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products[0].subCategoryId) : null
 
         const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
+        const loggedIn = cookies.get('token')
 
         return (
             <div className='container'>
@@ -214,6 +218,7 @@ class Shop extends React.Component {
                                         key={product._id}
                                         item={product}
                                         onIncreaseClick={onIncreaseClick}
+                                        loggedIn={loggedIn}
                                         favorite={favoriteProducts.includes(product._id)}
                                     />
                                 ))

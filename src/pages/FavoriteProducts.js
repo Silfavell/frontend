@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import axios from 'axios'
+import Cookies from 'universal-cookie'
 
 import SiteWrap from '../components/SiteWrap'
 import ShopProduct from '../components/ShopProduct'
@@ -10,6 +11,8 @@ import ProfileColumn from '../components/ProfileColumn'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
+
+const cookies = new Cookies()
 
 class FavoriteProducts extends React.Component {
 
@@ -25,12 +28,16 @@ class FavoriteProducts extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        this.fetchProducts().then((products) => {
-            this.setState({
-                products: products || [],
-                fetching: false
+        if (cookies.get('token')) {
+            this.fetchProducts().then((products) => {
+                this.setState({
+                    products: products || [],
+                    fetching: false
+                })
             })
-        })
+        } else {
+            this.props.history.push('/sign-in')
+        }
     }
 
     renderContent = ({ onIncreaseClick }) => (
@@ -45,6 +52,7 @@ class FavoriteProducts extends React.Component {
                                     onIncreaseClick={onIncreaseClick}
                                     key={product._id}
                                     item={product}
+                                    loggedIn
                                     favorite
                                 />
                             ))

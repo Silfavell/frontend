@@ -29,23 +29,23 @@ class Contact extends React.Component {
                 <div className='form-group row'>
                   <div className='col-md-6'>
                     <label htmlFor='c_fname' className='text-black'>Adınız <span className='text-danger'>*</span></label>
-                    <input type='text' className='form-control' id='c_fname' name='c_fname' />
+                    <input type='text' className='form-control' id='c_fname' name='c_fname' placeholder='Adınızı giriniz' />
                   </div>
                   <div className='col-md-6'>
                     <label htmlFor='c_lname' className='text-black'>Soyadınız <span className='text-danger'>*</span></label>
-                    <input type='text' className='form-control' id='c_lname' name='c_lname' />
+                    <input type='text' className='form-control' id='c_lname' name='c_lname' placeholder='Soyadınızı giriniz' />
                   </div>
                 </div>
                 <div className='form-group row'>
                   <div className='col-md-12'>
-                    <label htmlFor='c_email' className='text-black'>E-Mail <span className='text-danger'>*</span></label>
-                    <input type='email' className='form-control' id='c_email' name='c_email' placeholder='' />
+                    <label htmlFor='c_email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
+                    <input type='email' className='form-control' id='c_email' name='c_email' placeholder='E-Posta adresinizi giriniz' />
                   </div>
                 </div>
                 <div className='form-group row'>
                   <div className='col-md-12'>
                     <label htmlFor='c_subject' className='text-black'>Konu <span className='text-danger'>*</span> </label>
-                    <input type='text' className='form-control' id='c_subject' name='c_subject' />
+                    <input type='text' className='form-control' id='c_subject' name='c_subject' placeholder='Mesajınızın konusunu giriniz' />
                   </div>
                 </div>
 

@@ -1,9 +1,12 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React from 'react'
 import Carousel from 'react-multi-carousel'
+import Cookies from 'universal-cookie'
 import 'react-multi-carousel/lib/styles.css'
 
 import Product from './Product'
+
+const cookies = new Cookies()
 
 const responsive = {
     desktop: {
@@ -26,6 +29,7 @@ const responsive = {
 class CarouselComponent extends React.Component {
     render() {
         const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
+        const loggedIn = cookies.get('token')
 
         return (
             <div className='col-md-12 carousel-container'>
@@ -41,6 +45,7 @@ class CarouselComponent extends React.Component {
                                 key={product._id}
                                 favorite={favoriteProducts.includes(product._id)}
                                 item={product}
+                                loggedIn={loggedIn}
                                 onIncreaseClick={this.props.onIncreaseClick} />
                         ))
                     }

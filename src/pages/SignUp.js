@@ -120,7 +120,7 @@ class SignUp extends React.Component {
 
                 <div className='form-group row'>
                     <div className='col-md-12'>
-                        <label htmlFor='c_email' className='text-black'>E-Mail <span className='text-danger'>*</span></label>
+                        <label htmlFor='c_email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onEmailChange}
                             type='email'
