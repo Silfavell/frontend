@@ -169,3 +169,12 @@
     position: sticky;
     top: 70px;
 }
+
+.vanillatoasts-toast {
+    background-color: white !important;
+    border: 1px solid #EFEFEF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 !important;
+}

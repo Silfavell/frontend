@@ -62,7 +62,7 @@ class SiteWrap extends React.Component {
 
                         this.setState({ products: newProducts }, () => {
                             VanillaToasts.create({
-                                title: `Ürünü sepete eklendi`,
+                                title: `Ürün sepete eklendi`,
                                 positionClass: 'topRight',
                                 type: 'success',
                                 timeout: 3 * 1000
@@ -72,7 +72,7 @@ class SiteWrap extends React.Component {
                         this.state.products.push(data)
                         this.setState({ products: this.state.products }, () => {
                             VanillaToasts.create({
-                                title: `Ürünü sepete eklendi`,
+                                title: `Ürün sepete eklendi`,
                                 positionClass: 'topRight',
                                 type: 'success',
                                 timeout: 3 * 1000
@@ -105,7 +105,7 @@ class SiteWrap extends React.Component {
             }
 
             VanillaToasts.create({
-                title: `Ürünü sepete eklendi`,
+                title: `Ürün sepete eklendi`,
                 positionClass: 'topRight',
                 type: 'success',
                 timeout: 3 * 1000
@@ -124,7 +124,7 @@ class SiteWrap extends React.Component {
 
                         this.setState({ products: newProducts }, () => {
                             VanillaToasts.create({
-                                title: `Ürünü sepetten çıkarıldı`,
+                                title: `Ürün sepetten çıkarıldı`,
                                 positionClass: 'topRight',
                                 type: 'success',
                                 timeout: 3 * 1000
@@ -137,7 +137,7 @@ class SiteWrap extends React.Component {
 
                         this.setState({ products: this.state.products }, () => {
                             VanillaToasts.create({
-                                title: `Ürünü sepetten çıkarıldı`,
+                                title: `Ürün sepetten çıkarıldı`,
                                 positionClass: 'topRight',
                                 type: 'success',
                                 timeout: 3 * 1000
@@ -173,7 +173,7 @@ class SiteWrap extends React.Component {
                     })
                 } else {
                     VanillaToasts.create({
-                        title: `Ürünü sepette bulunamadı`,
+                        title: `Ürün sepette bulunamadı`,
                         positionClass: 'topRight',
                         type: 'error',
                         timeout: 3 * 1000
@@ -182,7 +182,7 @@ class SiteWrap extends React.Component {
                 window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
             } else {
                 VanillaToasts.create({
-                    title: `Ürünü sepette bulunamadı`,
+                    title: `Ürün sepette bulunamadı`,
                     positionClass: 'topRight',
                     type: 'error',
                     timeout: 3 * 1000

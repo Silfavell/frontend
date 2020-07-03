@@ -57,7 +57,7 @@ class ShopSingle extends React.Component {
                 }
 
                 VanillaToasts.create({
-                    title: `Ürünü sepete eklendi.`,
+                    title: `Ürün sepete eklendi.`,
                     positionClass: 'topRight',
                     type: 'success',
                     timeout: 3 * 1000
