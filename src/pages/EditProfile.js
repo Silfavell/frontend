@@ -35,7 +35,7 @@ class EditProfile extends React.Component {
                 this.props.history.push('/')
             })
         } else {
-            this.props.history.push('/')
+            this.props.history.push('/sign-in')
         }
     }
 

@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import axios from 'axios'
+import Cookies from 'universal-cookie'
 
 import SiteWrap from '../components/SiteWrap'
 import Loading from '../components/Loading'
@@ -11,6 +12,7 @@ import ProfileColumn from '../components/ProfileColumn'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
 
+const cookies = new Cookies()
 
 class PreviousOrders extends React.Component {
 
@@ -26,12 +28,16 @@ class PreviousOrders extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        this.fetchOrders().then((orders) => {
-            this.setState({
-                orders,
-                fetching: false
+        if (cookies.get('token')) {
+            this.fetchOrders().then((orders) => {
+                this.setState({
+                    orders,
+                    fetching: false
+                })
             })
-        })
+        } else {
+            this.props.history.push('/sign-in')
+        }
     }
 
     render() {
