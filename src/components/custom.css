@@ -61,6 +61,7 @@
 .column-dropdown li * {
     padding: 9px 20px;
     text-transform: none !important;
+    width: 100% !important;
 }
 
 .bag .cart .item {
