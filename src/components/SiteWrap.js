@@ -55,144 +55,149 @@ class SiteWrap extends React.Component {
         axios.get(`${process.env.REACT_APP_API_URL}/user/profile`).then(({ data }) => data.favoriteProducts)
     )
 
-    onIncreaseClick = (productId) => {
-        if (cookies.get('token')) {
-            axios.get(`${process.env.REACT_APP_API_URL}/add-product/${productId}`).then(({ status, data }) => {
-                if (status === 200) {
-                    if (data.quantity > 1) {
-                        const newProducts = this.state.products.map((cartProduct) => (
-                            cartProduct._id === productId ? data : cartProduct
-                        ))
+    setCartToStorageOnIncrease = (productId, quantity) => {
+        const cart = window.localStorage.getItem('cart')
 
-                        this.setState({ products: newProducts }, () => {
-                            VanillaToasts.create({
-                                title: `Ürün sepete eklendi`,
-                                positionClass: 'topRight',
-                                type: 'success',
-                                timeout: 3 * 1000
-                            })
-                        })
-                    } else {
-                        this.state.products.push(data)
-                        this.setState({ products: this.state.products }, () => {
-                            VanillaToasts.create({
-                                title: `Ürün sepete eklendi`,
-                                positionClass: 'topRight',
-                                type: 'success',
-                                timeout: 3 * 1000
-                            })
-                        })
-                    }
-                }
-            }).catch((err) => {
-                VanillaToasts.create({
-                    title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                    positionClass: 'topRight',
-                    type: 'error',
-                    timeout: 3 * 1000
-                })
-            })
-        } else {
-            const cart = window.localStorage.getItem('cart')
+        if (cart) {
+            const cartAsArray = JSON.parse(cart)
+            const foundProduct = cartAsArray.find((cartProduct) => cartProduct._id === productId)
 
-            if (cart) {
-                const cartAsArray = JSON.parse(cart)
-                const foundProduct = cartAsArray.find((cartProduct) => cartProduct._id === productId)
-                if (foundProduct) {
-                    cartAsArray[cartAsArray.indexOf(foundProduct)].quantity++
-                } else {
-                    cartAsArray.push({ _id: productId, quantity: 1 })
-                }
-                window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
+            if (foundProduct) {
+                cartAsArray[cartAsArray.indexOf(foundProduct)].quantity = quantity
             } else {
-                window.localStorage.setItem('cart', JSON.stringify([{ _id: productId, quantity: 1 }]))
+                cartAsArray.push({ _id: productId, quantity })
             }
 
-            VanillaToasts.create({
-                title: `Ürün sepete eklendi`,
-                positionClass: 'topRight',
-                type: 'success',
-                timeout: 3 * 1000
-            })
+            window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
+        } else {
+            window.localStorage.setItem('cart', JSON.stringify([{ _id: productId, quantity }]))
         }
     }
 
-    onDecreaseClick = (productId) => {
-        if (cookies.get('token')) {
-            axios.delete(`${process.env.REACT_APP_API_URL}/deduct-product/${productId}`).then(({ status, data }) => {
-                if (status === 200) {
-                    if (data.quantity > 0) {
-                        const newProducts = this.state.products.map((cartProduct) => (
-                            cartProduct._id === productId ? data : cartProduct
-                        ))
+    setCartToStorageOnDecrease = (productId, quantity) => {
+        const cart = window.localStorage.getItem('cart')
 
-                        this.setState({ products: newProducts }, () => {
-                            VanillaToasts.create({
-                                title: `Ürün sepetten çıkarıldı`,
-                                positionClass: 'topRight',
-                                type: 'success',
-                                timeout: 3 * 1000
-                            })
-                        })
-                    } else {
-                        const foundedProduct = this.state.products.find((cartProduct => cartProduct._id === productId))
-                        const indexOfFoundedProduct = this.state.products.indexOf(foundedProduct)
-                        this.state.products.splice(indexOfFoundedProduct, 1)
+        const cartAsArray = JSON.parse(cart)
+        const foundProduct = cartAsArray.find((cartProduct) => cartProduct._id === productId)
+        cartAsArray[cartAsArray.indexOf(foundProduct)].quantity -= quantity
 
-                        this.setState({ products: this.state.products }, () => {
-                            VanillaToasts.create({
-                                title: `Ürün sepetten çıkarıldı`,
-                                positionClass: 'topRight',
-                                type: 'success',
-                                timeout: 3 * 1000
-                            })
-                        })
+        if (cartAsArray[cartAsArray.indexOf(foundProduct)].quantity < 1) {
+            cartAsArray.splice(cartAsArray.indexOf(foundProduct), 1)
+        }
+
+        window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
+    }
+
+    onIncreaseClick = (productId, quantity = 1) => {
+        axios.put(`${process.env.REACT_APP_API_URL}/add-product/${productId}`, { quantity }).then(({ status, data }) => {
+            if (status === 200) {
+
+                const foundProduct = this.state.products.find(product => product._id === productId)
+                if (foundProduct) {
+                    const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
+                    // eslint-disable-next-line
+                    this.state.products[indexOfFoundProduct] = { ...data, quantity: foundProduct.quantity + quantity }
+
+                    this.setState({ products: this.state.products })
+
+                    if (!cookies.get('token')) {
+                        this.setCartToStorageOnIncrease(productId, foundProduct.quantity + quantity)
+                    }
+                } else {
+                    this.state.products.push({ ...data, quantity })
+                    this.setState({ products: this.state.products })
+
+                    if (!cookies.get('token')) {
+                        this.setCartToStorageOnIncrease(productId, quantity)
                     }
                 }
-            }).catch((err) => {
+
+
                 VanillaToasts.create({
-                    title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
+                    title: `Ürün sepete eklendi`,
                     positionClass: 'topRight',
-                    type: 'error',
-                    timeout: 3 * 1000
-                })
-            })
-        } else {
-            const cart = window.localStorage.getItem('cart')
-
-            if (cart) {
-                const cartAsArray = JSON.parse(cart)
-                const foundProduct = cartAsArray.find((cartProduct) => cartProduct._id === productId)
-                if (foundProduct) {
-                    cartAsArray[cartAsArray.indexOf(foundProduct)].quantity--
-
-                    if (cartAsArray[cartAsArray.indexOf(foundProduct)].quantity === 0)
-                        cartAsArray.splice(cartAsArray.indexOf(foundProduct), 1)
-
-                    VanillaToasts.create({
-                        title: `Ürün sepetten çıkarıldı`,
-                        positionClass: 'topRight',
-                        type: 'success',
-                        timeout: 3 * 1000
-                    })
-                } else {
-                    VanillaToasts.create({
-                        title: `Ürün sepette bulunamadı`,
-                        positionClass: 'topRight',
-                        type: 'error',
-                        timeout: 3 * 1000
-                    })
-                }
-                window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
-            } else {
-                VanillaToasts.create({
-                    title: `Ürün sepette bulunamadı`,
-                    positionClass: 'topRight',
-                    type: 'error',
+                    type: 'success',
                     timeout: 3 * 1000
                 })
             }
-        }
+        }).catch((err) => {
+            VanillaToasts.create({
+                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
+        })
+    }
+
+    onDecreaseClick = (productId, quantity = 1) => {
+
+        axios.put(`${process.env.REACT_APP_API_URL}/deduct-product/${productId}`, { quantity }).then(({ status, data }) => {
+            if (status === 200) {
+                const foundProduct = this.state.products.find(product => product._id === productId)
+
+                if (foundProduct.quantity - quantity > 0) {
+                    const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
+                    // eslint-disable-next-line
+                    this.state.products[indexOfFoundProduct] = { ...data, quantity: foundProduct.quantity - quantity }
+
+                    this.setState({ products: this.state.products }, () => {
+                        VanillaToasts.create({
+                            title: `Ürün sepetten çıkarıldı`,
+                            positionClass: 'topRight',
+                            type: 'success',
+                            timeout: 3 * 1000
+                        })
+                    })
+                } else {
+                    const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
+                    this.state.products.splice(indexOfFoundProduct, 1)
+
+                    this.setState({ products: this.state.products }, () => {
+                        VanillaToasts.create({
+                            title: `Ürün sepetten çıkarıldı`,
+                            positionClass: 'topRight',
+                            type: 'success',
+                            timeout: 3 * 1000
+                        })
+                    })
+                }
+
+                if (!cookies.get('token')) {
+                    this.setCartToStorageOnDecrease(productId, quantity)
+                }
+            }
+        }).catch((err) => {
+            VanillaToasts.create({
+                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
+        })
+    }
+
+    setProductQuantity = (productId, quantity = 1) => {
+        axios.put(`${process.env.REACT_APP_API_URL}/set-product/${productId}`, { quantity }).then(({ status, data }) => {
+            if (status === 200) {
+                const foundProduct = this.state.products.find(product => product._id === productId)
+                const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
+                // eslint-disable-next-line
+                this.state.products[indexOfFoundProduct] = { ...data, quantity }
+                this.setState({ products: this.state.products })
+
+                if (!cookies.get('token')) {
+                    this.setCartToStorageOnIncrease(productId, quantity)
+                }
+            }
+        }).catch((err) => {
+            VanillaToasts.create({
+                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
+        })
     }
 
     UNSAFE_componentWillMount() {
@@ -226,7 +231,7 @@ class SiteWrap extends React.Component {
         }
     }
 
-    componentDidMount(x) {
+    componentDidMount() {
         setTimeout(() => {
             window.scrollTo({ behavior: 'smooth', top: 0 })
         }, 100)
@@ -260,7 +265,8 @@ class SiteWrap extends React.Component {
                                 categories: this.state.categories,
                                 products: this.state.products,
                                 onIncreaseClick: this.onIncreaseClick,
-                                onDecreaseClick: this.onDecreaseClick
+                                onDecreaseClick: this.onDecreaseClick,
+                                setProductQuantity: this.setProductQuantity
                             })
                         ))
                     }

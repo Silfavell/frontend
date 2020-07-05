@@ -5,21 +5,36 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 class CartItem extends React.Component {
 
+    state = {
+        quantity: this.props.item.quantity
+    }
+
     onIncreaseClick = () => {
-        this.props.onIncreaseClick(this.props.item._id)
+        this.props.onIncreaseClick(this.props.item._id, 1)
     }
 
     onDecreaseClick = () => {
-        this.props.onDecreaseClick(this.props.item._id)
+        this.props.onDecreaseClick(this.props.item._id, 1)
+    }
+
+    onFocusOut = () => {
+        this.props.setProductQuantity(this.props.item._id, this.state.quantity)
+    }
+
+    onQuantityChange = (event) => {
+        this.setState({ quantity: parseInt(event.target.value) })
     }
 
     render() {
         const {
             image,
             name,
-            price,
-            quantity
+            price
         } = this.props.item
+
+        const {
+            quantity
+        } = this.state
 
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
@@ -52,8 +67,9 @@ class CartItem extends React.Component {
                             type='text'
                             className='form-control text-center'
                             value={quantity}
-                            onChange={() => { }}
-                            disabled
+                            onChange={this.onQuantityChange}
+                            disabled={this.props.order}
+                            onBlur={this.onFocusOut}
                             placeholder=''
                             aria-label='Example text with button addon'
                             aria-describedby='button-addon1'

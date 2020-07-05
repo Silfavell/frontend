@@ -51,7 +51,7 @@ class Cart extends React.Component {
         this.props.history.push('/payment')
     }
 
-    cartWithProducts = ({ products, onIncreaseClick, onDecreaseClick }) => {
+    cartWithProducts = ({ products, onIncreaseClick, onDecreaseClick, setProductQuantity }) => {
         const totalPrice = products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.price) * currentValue.quantity, 0).toFixed(2)
 
         return (
@@ -64,10 +64,11 @@ class Cart extends React.Component {
                                     {
                                         products.map((product) => (
                                             <CartItem
-                                                key={product._id}
+                                                key={product._id + ':' + product.quantity}
                                                 item={product}
                                                 onIncreaseClick={onIncreaseClick}
                                                 onDecreaseClick={onDecreaseClick}
+                                                setProductQuantity={setProductQuantity}
                                             />
                                         ))
                                     }

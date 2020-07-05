@@ -72,10 +72,6 @@
     text-transform: none !important;
 }
 
-.bag .cart .item:hover {
-    background-color: #F4F5F9;
-    color: #25262a;
-}
 
 .bag, .person-menu {
     z-index: 9999 !important;
