@@ -1,52 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
-import axios from 'axios'
-import Cookies from 'universal-cookie'
 
 import SiteWrap from '../components/SiteWrap'
 import CartItem from '../components/CartItem'
 
-const cookies = new Cookies()
-
 class Cart extends React.Component {
-
-    state = {
-        products: []
-    }
-
-    fetchOfflineCartProducts = (products) => {
-        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${
-            products.map((cartProduct) => cartProduct._id).join(',')
-            }`
-
-
-        return axios.get(url).then(({ data }) => data)
-    }
-
-    UNSAFE_componentWillMount() {
-        if (cookies.get('token')) {
-            axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => {
-                if (data && data.cart) {
-                    this.setState({ products: Object.values(data.cart) })
-                }
-            })
-        } else {
-            const cart = window.localStorage.getItem('cart')
-
-            if (cart) {
-                const cartAsArray = JSON.parse(cart)
-                if (cartAsArray.length > 0) {
-                    this.fetchOfflineCartProducts(cartAsArray).then((products) => {
-                        this.setState({
-                            products: products.map((product, index) => Object.assign(product, { quantity: cartAsArray[index].quantity }))
-                        })
-                    })
-                }
-            }
-        }
-    }
-
     onCheckoutClick = () => {
         this.props.history.push('/payment')
     }
@@ -140,6 +99,14 @@ class Cart extends React.Component {
         </div>
     )
 
+    renderContent = (props) => {
+        if (props.products.length > 0) {
+            return <this.cartWithProducts {...props} />
+        }
+
+        return <this.cartWithoutProducts />
+    }
+
     render() {
         const divider = [
             {
@@ -151,7 +118,7 @@ class Cart extends React.Component {
         return (
             <SiteWrap divider={divider}>
                 {
-                    this.state.products.length > 0 ? <this.cartWithProducts /> : <this.cartWithoutProducts />
+                    <this.renderContent />
                 }
             </SiteWrap>
         )

@@ -64,6 +64,10 @@ class SiteWrap extends React.Component {
 
             if (foundProduct) {
                 cartAsArray[cartAsArray.indexOf(foundProduct)].quantity = quantity
+
+                if (cartAsArray[cartAsArray.indexOf(foundProduct)].quantity < 1) {
+                    cartAsArray.splice(cartAsArray.indexOf(foundProduct), 1)
+                }
             } else {
                 cartAsArray.push({ _id: productId, quantity })
             }
@@ -182,9 +186,23 @@ class SiteWrap extends React.Component {
             if (status === 200) {
                 const foundProduct = this.state.products.find(product => product._id === productId)
                 const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
-                // eslint-disable-next-line
-                this.state.products[indexOfFoundProduct] = { ...data, quantity }
-                this.setState({ products: this.state.products })
+
+                if (data.quantity) {
+                    // eslint-disable-next-line
+                    this.state.products[indexOfFoundProduct] = { ...data, quantity }
+                    this.setState({ products: this.state.products })
+                } else {
+                    this.state.products.splice(indexOfFoundProduct, 1)
+
+                    this.setState({ products: this.state.products }, () => {
+                        VanillaToasts.create({
+                            title: `Ürün sepetten çıkarıldı`,
+                            positionClass: 'topRight',
+                            type: 'success',
+                            timeout: 3 * 1000
+                        })
+                    })
+                }
 
                 if (!cookies.get('token')) {
                     this.setCartToStorageOnIncrease(productId, quantity)
