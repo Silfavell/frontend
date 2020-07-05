@@ -29,7 +29,7 @@ class SignIn extends React.Component {
                 localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
 
                 if (window.localStorage.getItem('cart')) {
-                    axios.post(`${process.env.REACT_APP_API_URL}/user/cart`, JSON.stringify(window.localStorage.getItem('cart'))).then(() => {
+                    axios.post(`${process.env.REACT_APP_API_URL}/user/cart`, JSON.parse(window.localStorage.getItem('cart'))).then(() => {
                         window.localStorage.removeItem('cart')
                         this.props.history.push('/')
                     })
