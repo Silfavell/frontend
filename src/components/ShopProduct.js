@@ -13,7 +13,8 @@ class ShopProduct extends React.Component {
         favorite: this.props.favorite
     }
 
-    addProductToCart = () => {
+    addProductToCart = (event) => {
+        event.stopPropagation()
         this.props.onIncreaseClick(this.props.item._id)
     }
 
@@ -63,7 +64,7 @@ class ShopProduct extends React.Component {
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
-            <div className='col-lg-4 col-6 mb-4 product'>
+            <div className='col-lg-4 col-6 mb-4 product' onClick={this.onInspectClick}>
                 <div className='border product-border'>
                     <div className='position-relative interface-container'>
                         <img

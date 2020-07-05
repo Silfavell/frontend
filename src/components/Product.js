@@ -13,7 +13,8 @@ class Product extends React.Component {
         favorite: this.props.favorite
     }
 
-    addProductToCart = () => {
+    addProductToCart = (event) => {
+        event.stopPropagation()
         this.props.onIncreaseClick(this.props.item._id)
     }
 
