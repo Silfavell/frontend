@@ -15,6 +15,7 @@ class Product extends React.Component {
 
     addProductToCart = (event) => {
         event.stopPropagation()
+        
         this.props.onIncreaseClick(this.props.item._id)
     }
 
@@ -23,7 +24,9 @@ class Product extends React.Component {
         window.location.reload()
     }
 
-    addToFavoriteProducts = () => {
+    addToFavoriteProducts = (event) => {
+        event.stopPropagation()
+
         axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ status }) => {
             if (status === 200) {
                 this.setState({ favorite: true }, () => {
@@ -39,7 +42,9 @@ class Product extends React.Component {
     }
 
 
-    removeFromFavoriteProdutcs = () => {
+    removeFromFavoriteProdutcs = (event) => {
+        event.stopPropagation()
+
         axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ status }) => {
             if (status === 200) {
                 this.setState({ favorite: false }, () => {
