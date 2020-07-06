@@ -3,6 +3,7 @@ import React from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
 import VanillaToasts from 'vanillatoasts'
+import joi from '@hapi/joi'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -17,13 +18,24 @@ class SignIn extends React.Component {
 
     state = {
         phoneNumber: '',
-        password: ''
+        password: '',
+
+        isPhoneNumberInitialized: false,
+        isPasswordInitialized: false,
+
+        invalidPhoneNumber: false,
+        invalidPassword: false
     }
 
     onSignInClick = () => {
         const url = `${process.env.REACT_APP_API_URL}/login`
 
-        axios.post(url, this.state).then(({ status, data }) => {
+        const {
+            phoneNumber,
+            password
+        } = this.state
+
+        axios.post(url, { phoneNumber, password }).then(({ status, data }) => {
             if (status === 200) {
                 cookies.set('token', data.token)
                 localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
@@ -47,12 +59,41 @@ class SignIn extends React.Component {
         })
     }
 
+    onSignUpClick = () => {
+        this.props.history.push('/sign-up')
+    }
+
     onPhoneChange = (event) => {
-        this.setState({ phoneNumber: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .trim()
+            .strict()
+            .min(10)
+            .max(12)
+            .validateAsync(value).then(() => {
+                this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: false })
+            }).catch((err) => {
+                if (err.details[0].message.includes('12') && err.details[0].message.includes('equal')) {
+                    this.setState({ isPhoneNumberInitialized: true, invalidPhoneNumber: false })
+                } else {
+                    this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
+                }
+            })
+
     }
 
     onPasswordChange = (event) => {
-        this.setState({ password: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .alphanum()
+            .min(4)
+            .validateAsync(value).then(() => {
+                this.setState({ password: value, isPasswordInitialized: true, invalidPassword: false })
+            }).catch((err) => {
+                this.setState({ password: value, isPasswordInitialized: true, invalidPassword: !!err })
+            })
     }
 
     UNSAFE_componentWillMount() {
@@ -62,10 +103,18 @@ class SignIn extends React.Component {
     }
 
     render() {
-
         const divider = [
             { path: null, title: 'Giriş Yap' }
         ]
+
+        const {
+            phoneNumber,
+            password,
+            isPhoneNumberInitialized,
+            isPasswordInitialized,
+            invalidPhoneNumber,
+            invalidPassword
+        } = this.state
 
         return (
             <SiteWrap divider={divider}>
@@ -77,7 +126,7 @@ class SignIn extends React.Component {
                                     <div className='col-md-12'>
                                         <label htmlFor='phone_number' className='text-black'>Telefon Numarası</label>
                                         <input
-                                            value={this.state.phoneNumber}
+                                            value={phoneNumber}
                                             onChange={this.onPhoneChange}
                                             type='tel'
                                             className='form-control'
@@ -90,7 +139,7 @@ class SignIn extends React.Component {
                                     <div className='col-md-12'>
                                         <label htmlFor='password' className='text-black'>Şifre</label>
                                         <input
-                                            value={this.state.password}
+                                            value={password}
                                             onChange={this.onPasswordChange}
                                             type='password'
                                             className='form-control'
@@ -110,14 +159,23 @@ class SignIn extends React.Component {
                                 </div>
                                 <div className='form-group row'>
                                     <div className='col-lg-12'>
-                                        <button className='btn btn-primary btn-lg btn-block' onClick={this.onSignInClick}>Oturum Aç</button>
+                                        <button
+                                            className='btn btn-primary btn-lg btn-block'
+                                            onClick={this.onSignInClick}
+                                            disabled={
+                                                invalidPhoneNumber ||
+                                                !isPhoneNumberInitialized ||
+                                                invalidPassword ||
+                                                !isPasswordInitialized
+                                            }>Oturum Aç</button>
                                     </div>
                                 </div>
                                 <div className='row'>
                                     <div className='col-lg-12'>
-                                        <a href='/sign-up'>
-                                            <button className='btn btn-primary btn-lg btn-block'>Üye Ol</button>
-                                        </a>
+                                        <button
+                                            className='btn btn-primary btn-lg btn-block'
+                                            onClick={this.onSignUpClick}
+                                        >Üye Ol</button>
                                     </div>
                                 </div>
                             </div>
