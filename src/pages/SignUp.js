@@ -28,11 +28,13 @@ class SignUp extends React.Component {
         invalidPassword: false,
         invalidNameSurname: false,
         invalidEmail: false,
-
+        invalidActivationCode: false,
+        
         isPhoneNumberInitialized: false,
         isPasswordInitialized: false,
         isNameSurnameInitialized: false,
-        isEmailInitialized: false
+        isEmailInitialized: false,
+        isActivationCodeInitialized: false
     }
 
     onPhoneChange = (event) => {

@@ -3,6 +3,7 @@ import React from 'react'
 import axios from 'axios'
 import $ from 'jquery'
 import VanillaToasts from 'vanillatoasts'
+import joi from '@hapi/joi'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -15,10 +16,21 @@ class UpdatePassword extends React.Component {
 
     state = {
         isActivationCodeSended: false,
-        activationCode: '',
+
         phoneNumber: '',
         newPassword: '',
-        reNewPassword: ''
+        reNewPassword: '',
+        activationCode: '',
+
+        invalidPhoneNumber: false,
+        invalidNewPassword: false,
+        invalidReNewPassword: false,
+        invalidActivationCode: false,
+
+        isPhoneNumberInitialized: false,
+        isNewPasswordInitialized: false,
+        isReNewPasswordInitialized: false,
+        isActivationCodeInitialized: false
     }
 
     onUpdateClick = () => {
@@ -84,29 +96,75 @@ class UpdatePassword extends React.Component {
     }
 
     onNewPasswordChange = (event) => {
-        this.setState({ newPassword: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .min(4)
+            .validateAsync(value).then(() => {
+                this.setState({ newPassword: value, isNewPasswordInitialized: true, invalidNewPassword: false })
+            }).catch((err) => {
+                this.setState({ newPassword: value, isNewPasswordInitialized: true, invalidNewPassword: !!err })
+            })
     }
 
     onReNewPasswordChange = (event) => {
-        this.setState({ reNewPassword: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .min(4)
+            .validateAsync(value).then(() => {
+                this.setState({ reNewPassword: value, isReNewPasswordInitialized: true, invalidReNewPassword: false })
+            }).catch((err) => {
+                this.setState({ reNewPassword: value, isReNewPasswordInitialized: true, invalidReNewPassword: !!err })
+            })
     }
 
-    onPhoneNumberChange = (event) => {
-        this.setState({ phoneNumber: event.target.value })
+    onPhoneChange = (event) => {
+        const { value } = event.target
+
+        joi.string()
+            .trim()
+            .strict()
+            .min(10)
+            .max(12)
+            .validateAsync(value).then(() => {
+                this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: false })
+            }).catch((err) => {
+                if (err.details[0].message.includes('12') && err.details[0].message.includes('equal')) {
+                    this.setState({ isPhoneNumberInitialized: true, invalidPhoneNumber: false })
+                } else {
+                    this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
+                }
+            })
     }
 
     onActivationCodeChange = (event) => {
-        this.setState({ activationCode: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .trim()
+            .strict()
+            .min(4)
+            .max(4)
+            .validateAsync(value).then(() => {
+                this.setState({ activationCode: value, isActivationCodeInitialized: true, invalidActivationCode: false })
+            }).catch((err) => {
+                if (err.details[0].message.includes('4') && err.details[0].message.includes('equal')) {
+                    this.setState({ isActivationCodeInitialized: true, invalidActivationCode: false })
+                } else {
+                    this.setState({ activationCode: value, isActivationCodeInitialized: true, invalidActivationCode: !!err })
+                }
+            })
     }
 
     renderPhoneSection = () => (
-        <div id="phone-section" className='p-3 p-lg-5'>
+        <div id='phone-section' className='p-3 p-lg-5'>
 
             <div className='form-group row'>
                 <div className='col-md-12'>
                     <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
                     <input
-                        onChange={this.onPhoneNumberChange}
+                        onChange={this.onPhoneChange}
                         type='phone'
                         className='form-control'
                         id='phone'
@@ -118,7 +176,13 @@ class UpdatePassword extends React.Component {
 
             <div className='form-group row'>
                 <div className='col-lg-12'>
-                    <button onClick={this.onSendActivationCodeClick} className='btn btn-primary btn-lg btn-block'>Aktivasyon Kodu Gönder</button>
+                    <button
+                        onClick={this.onSendActivationCodeClick}
+                        className='btn btn-primary btn-lg btn-block'
+                        disabled={
+                            this.state.invalidPhoneNumber || !this.state.isPhoneNumberInitialized
+                        }
+                    >Aktivasyon kodu gönder</button>
                 </div>
             </div>
 
@@ -172,7 +236,15 @@ class UpdatePassword extends React.Component {
 
             <div className='form-group row'>
                 <div className='col-lg-12'>
-                    <button onClick={this.onUpdateClick} className='btn btn-primary btn-lg btn-block'>Şifremi Güncelle</button>
+                    <button
+                        onClick={this.onUpdateClick}
+                        className='btn btn-primary btn-lg btn-block'
+                        disabled={
+                            this.state.invalidPhoneNumber || !this.state.isPhoneNumberInitialized
+                            || this.state.invalidActivationCode || !this.state.isActivationCodeInitialized
+                            || this.state.invalidNewPassword || !this.state.isNewPasswordInitialized
+                        }
+                    >Şifremi Sıfırla</button>
                 </div>
             </div>
 
@@ -189,7 +261,7 @@ class UpdatePassword extends React.Component {
         return (
             <SiteWrap divider={divider}>
                 <div className='container'>
-                    <div className="col-md-12 d-flex align-items-center justify-content-center">
+                    <div className='col-md-12 d-flex align-items-center justify-content-center'>
                         <div className='col-md-6'>
                             {
                                 this.state.isActivationCodeSended ? this.renderPasswordSection() : this.renderPhoneSection()
