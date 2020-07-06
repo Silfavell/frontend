@@ -19,15 +19,6 @@ class AddressDeletePopup extends React.Component {
 
             this.props.hideDeleteAddressPopup(data.addresses)
         }).catch((err) => {
-            console.log(err)
-
-            VanillaToasts.create({
-                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
-
             this.props.hideDeleteAddressPopup()
         })
     }

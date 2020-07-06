@@ -124,13 +124,6 @@ class SiteWrap extends React.Component {
                     timeout: 3 * 1000
                 })
             }
-        }).catch((err) => {
-            VanillaToasts.create({
-                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
         })
     }
 
@@ -171,13 +164,6 @@ class SiteWrap extends React.Component {
                     this.setCartToStorageOnDecrease(productId, quantity)
                 }
             }
-        }).catch((err) => {
-            VanillaToasts.create({
-                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
         })
     }
 
@@ -208,13 +194,6 @@ class SiteWrap extends React.Component {
                     this.setCartToStorageOnIncrease(productId, quantity)
                 }
             }
-        }).catch((err) => {
-            VanillaToasts.create({
-                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
         })
     }
 
@@ -224,8 +203,6 @@ class SiteWrap extends React.Component {
                 this.setState({ categories: vals[0], products: vals[1] }, () => {
                     localStorage.setItem('favoriteProducts', JSON.stringify(vals[2]))
                 })
-            }).catch((err) => {
-                console.log(err.response)
             })
         } else {
             this.getCategories().then((categories) => {
@@ -243,8 +220,6 @@ class SiteWrap extends React.Component {
                 } else {
                     this.setState({ categories, products: [] })
                 }
-            }).catch((err) => {
-                console.log(err)
             })
         }
     }

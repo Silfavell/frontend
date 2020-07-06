@@ -38,19 +38,11 @@ class AddressPopup extends React.Component {
     onSaveAddressClick = () => {
         const url = `${process.env.REACT_APP_API_URL}/user/address`
 
-        axios.post(url, this.state)
-            .then(({ status, data }) => {
-                if (status === 200) {
-                    this.props.hideSaveAddressPopup(data.addresses)
-                }
-            }).catch((err) => {
-                VanillaToasts.create({
-                    title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                    positionClass: 'topRight',
-                    type: 'error',
-                    timeout: 3 * 1000
-                })
-            })
+        axios.post(url, this.state).then(({ status, data }) => {
+            if (status === 200) {
+                this.props.hideSaveAddressPopup(data.addresses)
+            }
+        })
     }
 
     onOutsideClick = (event) => {

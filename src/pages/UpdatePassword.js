@@ -63,13 +63,6 @@ class UpdatePassword extends React.Component {
                         timeout: 3 * 1000
                     })
                 }
-            }).catch((err) => {
-                VanillaToasts.create({
-                    title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                    positionClass: 'topRight',
-                    type: 'error',
-                    timeout: 3 * 1000
-                })
             })
         }
     }

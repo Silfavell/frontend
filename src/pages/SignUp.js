@@ -116,7 +116,11 @@ class SignUp extends React.Component {
             .validateAsync(value).then(() => {
                 this.setState({ activationCode: value, isActivationCodeInitialized: true, invalidActivationCode: false })
             }).catch((err) => {
-                this.setState({ activationCode: value, isActivationCodeInitialized: true, invalidActivationCode: !!err })
+                if (err.details[0].message.includes('4') && err.details[0].message.includes('equal')) {
+                    this.setState({ isActivationCodeInitialized: true, invalidActivationCode: false })
+                } else {
+                    this.setState({ activationCode: value, isActivationCodeInitialized: true, invalidActivationCode: !!err })
+                }
             })
     }
 
@@ -167,13 +171,6 @@ class SignUp extends React.Component {
                 $('#register').hide()
                 $('#activation').fadeIn('slow')
             }
-        }).catch((err) => {
-            VanillaToasts.create({
-                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
         })
         //}
     }

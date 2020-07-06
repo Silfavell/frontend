@@ -69,14 +69,7 @@ class NewCreditCardPopup extends React.Component {
 
                 this.props.hideCreditCardPopup(data)
             }
-        }).catch((err) => {
-            VanillaToasts.create({
-                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
-
+        }).catch(() => {
             this.props.hideCreditCardPopup()
         })
     }

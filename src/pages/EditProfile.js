@@ -25,13 +25,6 @@ class EditProfile extends React.Component {
                     this.setState(data)
                 }
             }).catch((err) => {
-                VanillaToasts.create({
-                    title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                    positionClass: 'topRight',
-                    type: 'error',
-                    timeout: 3 * 1000
-                })
-
                 this.props.history.push('/')
             })
         } else {
@@ -47,14 +40,7 @@ class EditProfile extends React.Component {
             if (status === 200) {
                 this.setState(data)
             }
-        }).catch((err) => {
-            VanillaToasts.create({
-                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
-
+        }).catch(() => {
             this.props.history.push('/')
         })
     }

@@ -103,8 +103,6 @@ class Payment extends React.Component {
                 addresses: results[2],
                 fetching: false
             })
-        }).catch((err) => {
-            console.log((err))
         })
     )
 
@@ -131,13 +129,6 @@ class Payment extends React.Component {
             if (status === 200) {
                 this.props.history.push('payment-completed', { order: data.order })
             }
-        }).catch((err) => {
-            VanillaToasts.create({
-                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
         })
     }
 

@@ -23,6 +23,15 @@ export default () => {
     axios.interceptors.response.use((response) => // Do something with response data
         response,
         (error) => { // Do something with response error
-            throw error
+            if (error.response) {
+                VanillaToasts.create({
+                    title: error?.response?.data?.error ?? 'Beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz',
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 5 * 1000
+                })
+
+                return Promise.reject(error)
+            }
         })
 }

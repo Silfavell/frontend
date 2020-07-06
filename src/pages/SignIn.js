@@ -49,13 +49,6 @@ class SignIn extends React.Component {
                     this.props.history.push('/')
                 }
             }
-        }).catch((err) => {
-            VanillaToasts.create({
-                title: err?.response?.data?.error ?? 'Beklenmedik Bir Hata oluştu',
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 3 * 1000
-            })
         })
     }
 
