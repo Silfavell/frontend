@@ -66,7 +66,7 @@ class Payment extends React.Component {
     }
 
     hideDeleteAddressPopup = (addresses) => {
-        this.setState({ showDeleteAddressPopup: false, addresses: addresses ?? [] })
+        this.setState({ showDeleteAddressPopup: false, addresses: addresses ?? this.state.addresses })
     }
 
     showDeleteCardPopup = (deleteCardToken) => {
