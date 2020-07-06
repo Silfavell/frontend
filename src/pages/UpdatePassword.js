@@ -2,6 +2,7 @@
 import React from 'react'
 import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
+import joi from '@hapi/joi'
 
 import SiteWrap from '../components/SiteWrap'
 import ProfileColumn from '../components/ProfileColumn'
@@ -16,7 +17,15 @@ class UpdatePassword extends React.Component {
     state = {
         oldPassword: '',
         newPassword: '',
-        reNewPassword: ''
+        reNewPassword: '',
+
+        invalidOldPassword: false,
+        invalidNewPassword: false,
+        invalidReNewPassword: false,
+
+        isOldPasswordInitialized: false,
+        isNewPasswordInitialized: false,
+        isReNewPasswordInitialized: false
     }
 
     onUpdateClick = () => {
@@ -68,15 +77,42 @@ class UpdatePassword extends React.Component {
     }
 
     onOldPasswordChange = (event) => {
-        this.setState({ oldPassword: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .alphanum()
+            .min(4)
+            .validateAsync(value).then(() => {
+                this.setState({ oldPassword: value, isOldPasswordInitialized: true, invalidOldPassword: false })
+            }).catch((err) => {
+                this.setState({ oldPassword: value, isOldPasswordInitialized: true, invalidOldPassword: !!err })
+            })
     }
 
     onNewPasswordChange = (event) => {
-        this.setState({ newPassword: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .alphanum()
+            .min(4)
+            .validateAsync(value).then(() => {
+                this.setState({ newPassword: value, isNewPasswordInitialized: true, invalidNewPassword: false })
+            }).catch((err) => {
+                this.setState({ newPassword: value, isNewPasswordInitialized: true, invalidNewPassword: !!err })
+            })
     }
 
     onReNewPasswordChange = (event) => {
-        this.setState({ reNewPassword: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .alphanum()
+            .min(4)
+            .validateAsync(value).then(() => {
+                this.setState({ reNewPassword: value, isReNewPasswordInitialized: true, invalidReNewPassword: false })
+            }).catch((err) => {
+                this.setState({ reNewPassword: value, isReNewPasswordInitialized: true, invalidReNewPassword: !!err })
+            })
     }
 
     render() {
@@ -146,7 +182,15 @@ class UpdatePassword extends React.Component {
 
                                 <div className='form-group row'>
                                     <div className='col-lg-12'>
-                                        <button onClick={this.onUpdateClick} className='btn btn-primary btn-lg btn-block'>Şifremi Güncelle</button>
+                                        <button
+                                            onClick={this.onUpdateClick}
+                                            className='btn btn-primary btn-lg btn-block'
+                                            disabled={
+                                                this.state.invalidOldPassword || !this.state.isOldPasswordInitialized
+                                                || this.state.invalidNewPassword || !this.state.isNewPasswordInitialized
+                                                || this.state.invalidReNewPassword || !this.state.isReNewPasswordInitialized
+                                            }
+                                        >Şifremi Güncelle</button>
                                     </div>
                                 </div>
 
