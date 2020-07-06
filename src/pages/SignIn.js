@@ -163,10 +163,10 @@ class SignIn extends React.Component {
                                             className='btn btn-primary btn-lg btn-block'
                                             onClick={this.onSignInClick}
                                             disabled={
-                                                invalidPhoneNumber ||
-                                                !isPhoneNumberInitialized ||
-                                                invalidPassword ||
-                                                !isPasswordInitialized
+                                                invalidPhoneNumber
+                                                || !isPhoneNumberInitialized
+                                                || invalidPassword
+                                                || !isPasswordInitialized
                                             }>Oturum Aç</button>
                                     </div>
                                 </div>

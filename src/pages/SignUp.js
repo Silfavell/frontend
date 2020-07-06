@@ -4,6 +4,7 @@ import axios from 'axios'
 import $ from 'jquery'
 import Cookies from 'universal-cookie'
 import VanillaToasts from 'vanillatoasts'
+import joi from '@hapi/joi'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -22,37 +23,123 @@ class SignUp extends React.Component {
         email: '',
         password: '',
         // rePassword: '',
-        activationCode: ''
+        activationCode: '',
+
+        invalidPhoneNumber: false,
+        invalidPassword: false,
+        invalidNameSurname: false,
+        invalidEmail: false,
+
+        isPhoneNumberInitialized: false,
+        isPasswordInitialized: false,
+        isNameSurnameInitialized: false,
+        isEmailInitialized: false
     }
 
-    onPhoneNumberChange = (event) => {
-        this.setState({ phoneNumber: event.target.value })
-    }
+    onPhoneChange = (event) => {
+        const { value } = event.target
 
-    onNameSurnameChange = (event) => {
-        this.setState({ nameSurname: event.target.value })
-    }
-
-    onEmailChange = (event) => {
-        this.setState({ email: event.target.value })
+        joi.string()
+            .trim()
+            .strict()
+            .min(10)
+            .max(12)
+            .validateAsync(value).then(() => {
+                this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: false })
+            }).catch((err) => {
+                if (err.details[0].message.includes('12') && err.details[0].message.includes('equal')) {
+                    this.setState({ isPhoneNumberInitialized: true, invalidPhoneNumber: false })
+                } else {
+                    this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
+                }
+            })
     }
 
     onPasswordChange = (event) => {
-        this.setState({ password: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .min(4)
+            .validateAsync(value).then(() => {
+                this.setState({ password: value, isPasswordInitialized: true, invalidPassword: false })
+            }).catch((err) => {
+                this.setState({ password: value, isPasswordInitialized: true, invalidPassword: !!err })
+            })
     }
 
     onRePasswordChange = (event) => {
-        this.setState({ rePassword: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .min(4)
+            .validateAsync(value).then(() => {
+                this.setState({ password: value, isPasswordInitialized: true, invalidPassword: false })
+            }).catch((err) => {
+                this.setState({ password: value, isPasswordInitialized: true, invalidPassword: !!err })
+            })
+    }
+
+    onNameSurnameChange = (event) => {
+        const { value } = event.target
+
+        joi.string()
+            .trim()
+            .validateAsync(value).then(() => {
+                this.setState({ nameSurname: value, isNameSurnameInitialized: true, invalidNameSurname: false })
+            }).catch((err) => {
+                this.setState({ nameSurname: value, isNameSurnameInitialized: true, invalidNameSurname: !!err })
+            })
+    }
+
+    onEmailChange = (event) => {
+        const { value } = event.target
+
+        joi.string()
+            .trim()
+            .strict()
+            .email({ tlds: { allow: false } })
+            .validateAsync(value).then(() => {
+                this.setState({ email: value, isEmailInitialized: true, invalidEmail: false })
+            }).catch((err) => {
+                this.setState({ email: value, isEmailInitialized: true, invalidEmail: !!err })
+            })
     }
 
     onActivationCodeChange = (event) => {
-        this.setState({ activationCode: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .trim()
+            .strict()
+            .min(4)
+            .max(4)
+            .validateAsync(value).then(() => {
+                this.setState({ activationCode: value, isActivationCodeInitialized: true, invalidActivationCode: false })
+            }).catch((err) => {
+                this.setState({ activationCode: value, isActivationCodeInitialized: true, invalidActivationCode: !!err })
+            })
     }
 
     onSignUpClick = () => {
         const url = `${process.env.REACT_APP_API_URL}/register`
 
-        axios.post(url, this.state).then(({ status, data }) => {
+        const {
+            phoneNumber,
+            nameSurname,
+            email,
+            password,
+            // rePassword,
+            activationCode
+        } = this.state
+
+        axios.post(url, {
+            phoneNumber,
+            nameSurname,
+            email,
+            password,
+            // rePassword,
+            activationCode
+        }).then(({ status, data }) => {
             if (status === 200) {
                 cookies.set('token', data.token)
                 this.props.history.push('/')
@@ -61,16 +148,15 @@ class SignUp extends React.Component {
     }
 
     sendActivationCode = () => {
-        /*
-        if (this.state.password !== this.state.rePassword) {
-                VanillaToasts.create({
-                    title: `Yeni şifreniz tekrarı ile eşleşmemektedir.`,
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
-                })
-        } else { 
-        */
+        //  if (this.state.password !== this.state.rePassword) {
+        //      VanillaToasts.create({
+        //          title: `Yeni şifreniz tekrarı ile eşleşmemektedir.`,
+        //          positionClass: 'topRight',
+        //          type: 'success',
+        //          timeout: 3 * 1000
+        //      })
+        //  } else
+
         const url = `${process.env.REACT_APP_API_URL}/send-activation-code`
 
         axios.post(url, {
@@ -169,7 +255,7 @@ class SignUp extends React.Component {
                     <div className='col-md-12'>
                         <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
                         <input
-                            onChange={this.onPhoneNumberChange}
+                            onChange={this.onPhoneChange}
                             type='phone'
                             className='form-control'
                             id='phone'
@@ -205,7 +291,16 @@ class SignUp extends React.Component {
 
                 <div className='form-group row'>
                     <div className='col-lg-12'>
-                        <button className='btn btn-primary btn-lg btn-block' onClick={this.sendActivationCode}>Üye Ol</button>
+                        <button
+                            className='btn btn-primary btn-lg btn-block'
+                            onClick={this.sendActivationCode}
+                            disabled={
+                                this.state.invalidEmail || !this.state.isEmailInitialized
+                                || this.state.invalidNameSurname || !this.state.isNameSurnameInitialized
+                                || this.state.invalidPassword || !this.state.isPasswordInitialized
+                                || this.state.invalidPhoneNumber || !this.state.isPhoneNumberInitialized
+                            }
+                        >Üye Ol</button>
                     </div>
                 </div>
 
@@ -238,7 +333,11 @@ class SignUp extends React.Component {
 
                 <div className='form-group row'>
                     <div className='col-lg-12'>
-                        <button className='btn btn-primary btn-lg btn-block' onClick={this.onSignUpClick}>Üye Ol</button>
+                        <button
+                            className='btn btn-primary btn-lg btn-block'
+                            onClick={this.onSignUpClick}
+                            disabled={this.state.invalidActivationCode || !this.state.isActivationCodeInitialized}
+                        >Üye Ol</button>
                     </div>
                 </div>
             </div>
