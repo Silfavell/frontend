@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import joi from '@hapi/joi'
 
 class CartItem extends React.Component {
 
@@ -22,7 +23,13 @@ class CartItem extends React.Component {
     }
 
     onQuantityChange = (event) => {
-        this.setState({ quantity: parseInt(event.target.value) })
+        const { value } = event.target
+
+        joi.number()
+            .min(1)
+            .validateAsync(value).then(() => {
+                this.setState({ quantity: parseInt(value) })
+            })
     }
 
     render() {

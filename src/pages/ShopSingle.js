@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from 'axios'
 import React from 'react'
+import joi from '@hapi/joi'
 
 import Loading from '../components/Loading'
 import SiteWrap from '../components/SiteWrap'
@@ -42,9 +43,19 @@ class ShopSingle extends React.Component {
         this.setState({ quantity: this.state.quantity > 1 ? this.state.quantity - 1 : 1 })
     }
 
+    onQuantityChange = (event) => {
+        const { value } = event.target
+
+        joi.number()
+            .min(1)
+            .validateAsync(value).then(() => {
+                this.setState({ quantity: parseInt(value) })
+            })
+    }
+
     onAddToCartClick = (onIncreaseClick) => {
         onIncreaseClick(this.state.product._id, this.state.quantity)
-        this.setState({ quantity: 1})
+        this.setState({ quantity: 1 })
     }
 
     renderContent = ({ onIncreaseClick }) => {
@@ -126,7 +137,7 @@ class ShopSingle extends React.Component {
                                     type='text'
                                     className='form-control text-center'
                                     value={this.state.quantity}
-                                    placeholder='' />
+                                    onChange={this.onQuantityChange} />
 
                                 <div className='input-group-append' onClick={this.increaseQuantity}>
                                     <button className='btn btn-outline-primary js-btn-plus' type='button'>&#43;</button>
