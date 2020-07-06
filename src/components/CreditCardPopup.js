@@ -1,42 +1,117 @@
 import React from 'react'
 import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
+import joi from '@hapi/joi'
 
 import PopupWrapper from './PopupWrapper'
 
 class NewCreditCardPopup extends React.Component {
 
     state = {
-        cardAlias: 'Alias',
-        cardHolderName: 'Holder',
-        cardNumber: '5526080000000006',
-        expireYear: '2023',
-        expireMonth: '09',
-        cvc2: '555'
+        cardAlias: '',
+        cardHolderName: '',
+        cardNumber: '', // 5526080000000006
+        expireYear: '',
+        expireMonth: '',
+        cvc2: '',
+
+        invalidCardAlias: false,
+        // invalidCardHolderName: false,
+        invalidCardNumber: false,
+        invalidExpireYear: false,
+        // invalidExpireYear: false,
+        invalidExpireMonth: false,
+        invalidCvc2: false,
+
+        isCardAliasInitialized: false,
+        // isCardHolderNameInitialized: true,
+        isCardNumberInitialized: false,
+        isExpireYearInitialized: false,
+        isExpireMonthInitialized: false,
+        isCvc2Initialized: false
     }
 
     onAliasChange = (event) => {
-        this.setState({ cardAlias: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .min(1)
+            .validateAsync(value).then(() => {
+                this.setState({ cardAlias: value, isCardAliasInitialized: true, invalidCardAlias: false })
+            }).catch((err) => {
+                this.setState({ cardAlias: value, isCardAliasInitialized: true, invalidCardAlias: !!err })
+            })
     }
 
     onCardHolderNameChange = (event) => {
         this.setState({ cardHolderName: event.target.value })
     }
 
-    onCardNoChange = (event) => {
-        this.setState({ cardNumber: event.target.value })
+    onCardNumberChange = (event) => {
+        const { value } = event.target
+
+        joi.string()
+            .min(16)
+            .max(16)
+            .creditCard()
+            .validateAsync(value).then(() => {
+                this.setState({ cardNumber: value, isCardNumberInitialized: true, invalidCardNumber: false })
+            }).catch((err) => {
+                this.setState({ cardNumber: value, isCardNumberInitialized: true, invalidCardNumber: !!err })
+            })
     }
 
     onExpireMonthChange = (event) => {
-        this.setState({ expireMonth: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .alphanum()
+            .min(2)
+            .max(2)
+            .validateAsync(value).then(() => {
+                this.setState({ expireMonth: value, isExpireMonthInitialized: true, invalidExpireMonth: false })
+            }).catch((err) => {
+                if (err.details[0].message.includes('2') && err.details[0].message.includes('equal')) {
+                    this.setState({ isExpireMonthInitialized: true, invalidExpireMonth: false })
+                } else {
+                    this.setState({ expireMonth: value, isExpireMonthInitialized: true, invalidExpireMonth: !!err })
+                }
+            })
     }
 
     onExpireYearChange = (event) => {
-        this.setState({ expireYear: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .alphanum()
+            .min(2)
+            .max(2)
+            .validateAsync(value).then(() => {
+                this.setState({ expireYear: value, isExpireYearInitialized: true, invalidExpireYear: false })
+            }).catch((err) => {
+                if (err.details[0].message.includes('2') && err.details[0].message.includes('equal')) {
+                    this.setState({ isExpireYearInitialized: true, invalidExpireYear: false })
+                } else {
+                    this.setState({ expireYear: value, isExpireYearInitialized: true, invalidExpireYear: !!err })
+                }
+            })
     }
 
     onCvcChange = (event) => {
-        this.setState({ cvc2: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .min(3)
+            .max(3)
+            .validateAsync(value).then(() => {
+                this.setState({ cvc2: value, isCvc2Initialized: true, invalidCvc2: false })
+            }).catch((err) => {
+                if (err.details[0].message.includes('3') && err.details[0].message.includes('equal')) {
+                    this.setState({ isCvc2Initialized: true, invalidCvc2: false })
+                } else {
+                    this.setState({ cvc2: value, isCvc2Initialized: true, invalidCvc2: !!err })
+                }
+            })
     }
 
     onSaveClick = () => {
@@ -55,13 +130,13 @@ class NewCreditCardPopup extends React.Component {
                 cardHolderName,
                 cardNumber,
                 expireMonth,
-                expireYear,
-                // cvc2
+                expireYear: '20' + expireYear,
+                // cvc2 // TODO
             }
         }).then(({ data, status }) => {
             if (status === 200) {
                 VanillaToasts.create({
-                    title: 'Kredi kartı kayıt edildi.',
+                    title: 'Kartınız kayıt edildi',
                     positionClass: 'topRight',
                     type: 'success',
                     timeout: 3 * 1000
@@ -104,12 +179,13 @@ class NewCreditCardPopup extends React.Component {
 
                         <div className='form-group row'>
                             <div className='col-md-12'>
-                                <label htmlFor='cardAlias' className='text-black'>Card Alias <span className='text-danger'>*</span></label>
+                                <label htmlFor='cardAlias' className='text-black'>Kart etiketi <span className='text-danger'>*</span></label>
                                 <input
                                     onChange={this.onAliasChange}
                                     type='text'
                                     className='form-control'
                                     id='cardAlias'
+                                    placeholder='Kart etiketi (Kişisel, İş vb.)'
                                     name='cardAlias'
                                     value={cardAlias}
                                 />
@@ -124,6 +200,7 @@ class NewCreditCardPopup extends React.Component {
                                     type='text'
                                     className='form-control'
                                     id='cardHolderName'
+                                    placeholder='Kart üzerindeki isim'
                                     name='cardHolderName'
                                     value={cardHolderName}
                                 />
@@ -134,10 +211,11 @@ class NewCreditCardPopup extends React.Component {
                             <div className='col-md-12'>
                                 <label htmlFor='cardNumber' className='text-black'>Kart No <span className='text-danger'>*</span></label>
                                 <input
-                                    onChange={this.onCardNoChange}
+                                    onChange={this.onCardNumberChange}
                                     type='text'
                                     className='form-control'
                                     id='cardNumber'
+                                    placeholder='Kart numarası'
                                     name='cardNumber'
                                     value={cardNumber}
                                 />
@@ -146,23 +224,25 @@ class NewCreditCardPopup extends React.Component {
 
                         <div className='form-group row'>
                             <div className='col-md-6'>
-                                <label htmlFor='expireMonth' className='text-black'>Expire Month <span className='text-danger'>*</span></label>
+                                <label htmlFor='expireMonth' className='text-black'>Ay <span className='text-danger'>*</span></label>
                                 <input
                                     onChange={this.onExpireMonthChange}
                                     type='text'
                                     className='form-control'
                                     id='expireMonth'
+                                    placeholder='Ay'
                                     name='expireMonth'
                                     value={expireMonth}
                                 />
                             </div>
                             <div className='col-md-6'>
-                                <label htmlFor='expireYear' className='text-black'>Expire Year <span className='text-danger'>*</span></label>
+                                <label htmlFor='expireYear' className='text-black'>Yıl <span className='text-danger'>*</span></label>
                                 <input
                                     onChange={this.onExpireYearChange}
                                     type='text'
                                     className='form-control'
                                     id='expireYear'
+                                    placeholder='Yıl'
                                     name='expireYear'
                                     value={expireYear}
                                 />
@@ -177,6 +257,7 @@ class NewCreditCardPopup extends React.Component {
                                     type='text'
                                     className='form-control'
                                     id='cvc2'
+                                    placeholder='CVC2'
                                     name='cvc2'
                                     value={cvc2}
                                 />
@@ -185,7 +266,17 @@ class NewCreditCardPopup extends React.Component {
 
                         <div className='form-group row'>
                             <div className='col-lg-12'>
-                                <button className='btn btn-primary btn-lg btn-block' onClick={this.onSaveClick}>Kartı Kaydet</button>
+                                <button
+                                    className='btn btn-primary btn-lg btn-block'
+                                    onClick={this.onSaveClick}
+                                    disabled={
+                                        this.state.invalidCardAlias || !this.state.isCardAliasInitialized
+                                        || this.state.invalidCardNumber || !this.state.isCardNumberInitialized
+                                        || this.state.invalidExpireYear || !this.state.isExpireYearInitialized
+                                        || this.state.invalidExpireMonth || !this.state.isExpireMonthInitialized
+                                        || this.state.invalidCvc2 || !this.state.isCvc2Initialized
+                                    }
+                                >Kartı Kaydet</button>
                             </div>
                         </div>
                     </div>

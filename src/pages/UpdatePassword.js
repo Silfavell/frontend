@@ -66,7 +66,7 @@ class UpdatePassword extends React.Component {
             }).then(({ status }) => {
                 if (status === 200) {
                     VanillaToasts.create({
-                        title: 'Şifreniz değiştirildi.',
+                        title: 'Şifreniz değiştirildi',
                         positionClass: 'topRight',
                         type: 'success',
                         timeout: 3 * 1000
