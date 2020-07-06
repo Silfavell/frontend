@@ -44,6 +44,7 @@ class ShopSingle extends React.Component {
 
     onAddToCartClick = (onIncreaseClick) => {
         onIncreaseClick(this.state.product._id, this.state.quantity)
+        this.setState({ quantity: 1})
     }
 
     renderContent = ({ onIncreaseClick }) => {
