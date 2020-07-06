@@ -2,6 +2,8 @@
 import React from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
+import joi from '@hapi/joi'
+import VanillaToasts from 'vanillatoasts'
 
 import SiteWrap from '../components/SiteWrap'
 import ProfileColumn from '../components/ProfileColumn'
@@ -15,7 +17,17 @@ const cookies = new Cookies()
 
 class EditProfile extends React.Component {
 
-    state = {}
+    state = {
+        nameSurname: '',
+        phoneNumber: '',
+        email: '',
+
+        invalidNameSurname: false,
+        invalidEmail: false,
+
+        isNameSurnameInitialized: true,
+        isEmailInitialized: true
+    }
 
     UNSAFE_componentWillMount() {
         if (cookies.get('token')) {
@@ -37,7 +49,14 @@ class EditProfile extends React.Component {
             email: this.state.email
         }).then(({ status, data }) => {
             if (status === 200) {
-                this.setState(data)
+                this.setState(data, () => {
+                    VanillaToasts.create({
+                        title: `Bilgileriniz güncellendi`,
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
+                })
             }
         }).catch(() => {
             this.props.history.push('/')
@@ -45,15 +64,29 @@ class EditProfile extends React.Component {
     }
 
     onNameSurnameChange = (event) => {
-        this.setState({ nameSurname: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .trim()
+            .validateAsync(value).then(() => {
+                this.setState({ nameSurname: value, isNameSurnameInitialized: true, invalidNameSurname: false })
+            }).catch((err) => {
+                this.setState({ nameSurname: value, isNameSurnameInitialized: true, invalidNameSurname: !!err })
+            })
     }
 
     onEmailChange = (event) => {
-        this.setState({ email: event.target.value })
-    }
+        const { value } = event.target
 
-    onPhoneChange = (event) => {
-        this.setState({ phoneNumber: event.target.value })
+        joi.string()
+            .trim()
+            .strict()
+            .email({ tlds: { allow: false } })
+            .validateAsync(value).then(() => {
+                this.setState({ email: value, isEmailInitialized: true, invalidEmail: false })
+            }).catch((err) => {
+                this.setState({ email: value, isEmailInitialized: true, invalidEmail: !!err })
+            })
     }
 
     render() {
@@ -109,7 +142,6 @@ class EditProfile extends React.Component {
                                     <div className='col-md-12'>
                                         <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
                                         <input
-                                            onChange={this.onPhoneChange}
                                             type='phone'
                                             className='form-control'
                                             id='phone'
@@ -139,7 +171,14 @@ class EditProfile extends React.Component {
 
                                 <div className='form-group row'>
                                     <div className='col-lg-12'>
-                                        <button className='btn btn-primary btn-lg btn-block' onClick={this.onSaveClick}>Kaydet</button>
+                                        <button
+                                            className='btn btn-primary btn-lg btn-block'
+                                            onClick={this.onSaveClick}
+                                            disabled={
+                                                this.state.invalidEmail || !this.state.isEmailInitialized
+                                                || this.state.invalidNameSurname || !this.state.isNameSurnameInitialized
+                                            }
+                                        >Kaydet</button>
                                     </div>
                                 </div>
 
