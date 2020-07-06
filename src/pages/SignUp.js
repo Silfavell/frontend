@@ -3,7 +3,6 @@ import React from 'react'
 import axios from 'axios'
 import $ from 'jquery'
 import Cookies from 'universal-cookie'
-import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
 
 import '../style/css/googleMukta.css'

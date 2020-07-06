@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import VanillaToasts from 'vanillatoasts'
 
 import PopupWrapper from './PopupWrapper'
 

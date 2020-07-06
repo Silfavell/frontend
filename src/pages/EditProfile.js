@@ -2,7 +2,6 @@
 import React from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
-import VanillaToasts from 'vanillatoasts'
 
 import SiteWrap from '../components/SiteWrap'
 import ProfileColumn from '../components/ProfileColumn'
