@@ -15,7 +15,7 @@ class Product extends React.Component {
 
     addProductToCart = (event) => {
         event.stopPropagation()
-        
+
         this.props.onIncreaseClick(this.props.item._id)
     }
 
@@ -63,6 +63,7 @@ class Product extends React.Component {
         const {
             name,
             price,
+            discountedPrice,
             image
         } = this.props.item
 
@@ -102,12 +103,21 @@ class Product extends React.Component {
                     </div>
 
                     <div className='mb-3'>
-                        <div className='col-md-12 d-flex align-items-center justify-content-center'>
-                            <div className='h5 p-3 text-black font-weight-normal'>
+                        <div className='col-md-12 d-flex justify-content-start align-items-center p-0' style={{ textAlign: 'left' }}>
+                            <div className='h5 pl-4 pr-2 py-2 text-black font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through' } : {}}>
                                 {'₺' + price.toFixed(2).toString().replace('.', ',')}
                             </div>
+
+                            {
+                                discountedPrice && (
+                                    <div className='h5 py-2 text-black font-weight-normal'>
+                                        {'₺' + discountedPrice.toFixed(2).toString().replace('.', ',')}
+                                    </div>
+                                )
+                            }
+
                         </div>
-                        <div className='col-md-12 d-flex flex-row justify-content-center align-items-center p-0' style={{ textAlign: 'center' }}>
+                        <div className='col-md-12 d-flex flex-row justify-content-center align-items-center p-0' style={{ textAlign: 'left' }}>
                             <div className='h6 text-black font-weight-normal px-4' style={{ wordWrap: 'break-word', height: 50 }}>
                                 {name.substr(0, 60)}
                             </div>

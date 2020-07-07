@@ -36,7 +36,8 @@ class CartItem extends React.Component {
         const {
             image,
             name,
-            price
+            price,
+            discountedPrice
         } = this.props.item
 
         const {
@@ -78,8 +79,6 @@ class CartItem extends React.Component {
                             disabled={this.props.order}
                             onBlur={this.onFocusOut}
                             placeholder=''
-                            aria-label='Example text with button addon'
-                            aria-describedby='button-addon1'
                         />
                         {
                             !this.props.order && (
@@ -91,7 +90,18 @@ class CartItem extends React.Component {
                     </div>
 
                 </td>
-                <td>{'₺' + price.toFixed(2).toString().replace('.', ',')}</td>
+                <td className='direction-row mx-3'>
+                    <div style={discountedPrice ? { textDecoration: 'line-through', fontSize: 18 } : {}}>
+                        {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
+                    </div>
+                    {
+                        discountedPrice && (
+                            <div style={{ fontSize: 18 }}>
+                                {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
+                            </div>
+                        )
+                    }
+                </td>
                 {
                     // <td><a href='#' className='btn btn-primary height-auto btn-sm'>X</a></td>
                 }

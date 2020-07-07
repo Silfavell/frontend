@@ -5,6 +5,7 @@ class NavCartItem extends React.Component {
         const {
             name,
             price,
+            discountedPrice,
             quantity,
             image
         } = this.props.item
@@ -22,18 +23,25 @@ class NavCartItem extends React.Component {
                     </div>
                     <div className='col-md-8 d-flex align-items-center justify-content-center'>
                         <div className='row'>
-                            <div className='col-md-12' style={{ textAlign: 'center' }}>
+                            <div className='col-md-12' style={{ textAlign: 'left' }}>
                                 <div className='h6 text-black font-weight-normal'>
                                     {name}
                                 </div>
                             </div>
-                            <div className='col-md-12'>
-                                <div className='h6 p-3 text-black font-weight-normal'>
+                            <div className='col-md-12 d-flex direction-row'>
+                                <div className='py-3 text-black font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through' } : {}}>
                                     {'₺' + price.toFixed(2).toString().replace('.', ',')}
                                 </div>
+                                {
+                                    discountedPrice && (
+                                        <div className='p-3 text-black font-weight-normal'>
+                                            {'₺' + discountedPrice.toFixed(2).toString().replace('.', ',')}
+                                        </div>
+                                    )
+                                }
                             </div>
                             <div className='col-md-12'>
-                                <div className='h6 text-black font-weight-normal'>
+                                <div className='text-black font-weight-normal' style={{ textAlign: 'left' }}>
                                     {'Adet: ' + quantity}
                                 </div>
                             </div>
