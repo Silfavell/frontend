@@ -19,10 +19,10 @@ class OrderItem extends React.Component {
         const {
             products,
             date,
-            status
+            status,
+            paidPrice
         } = this.props.item
 
-        const totalPrice = products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.price) * currentValue.quantity, 0).toFixed(2)
 
         return (
             <div className='container border mb-3'>
@@ -42,7 +42,7 @@ class OrderItem extends React.Component {
                     </div>
                     <div className='d-flex align-items-center justify-content-between p1'>
                         <p>Ödenen Tutar:</p>
-                        <strong className='text-black'>{`₺${totalPrice}`}</strong>
+                        <strong className='text-black'>{`₺${paidPrice.toFixed(2).replace('.', ',')}`}</strong>
                     </div>
                     <div className='d-flex align-items-center justify-content-between p1'>
                         <p>Sipariş Durumu:</p>
