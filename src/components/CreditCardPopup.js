@@ -57,7 +57,11 @@ class NewCreditCardPopup extends React.Component {
             .validateAsync(value).then(() => {
                 this.setState({ cardNumber: value, isCardNumberInitialized: true, invalidCardNumber: false })
             }).catch((err) => {
-                this.setState({ cardNumber: value, isCardNumberInitialized: true, invalidCardNumber: !!err })
+                if (err.details[0].message.includes('16') && err.details[0].message.includes('equal')) {
+                    this.setState({ isCardNumberInitialized: true, invalidCardNumber: false })
+                } else {
+                    this.setState({ cardNumber: value, isCardNumberInitialized: true, invalidCardNumber: !!err })
+                }
             })
     }
 
@@ -84,8 +88,8 @@ class NewCreditCardPopup extends React.Component {
 
         joi.string()
             .alphanum()
-            .min(2)
-            .max(2)
+            .min(4)
+            .max(4)
             .validateAsync(value).then(() => {
                 this.setState({ expireYear: value, isExpireYearInitialized: true, invalidExpireYear: false })
             }).catch((err) => {
@@ -130,7 +134,7 @@ class NewCreditCardPopup extends React.Component {
                 cardHolderName,
                 cardNumber,
                 expireMonth,
-                expireYear: '20' + expireYear,
+                expireYear,
                 // cvc2 // TODO
             }
         }).then(({ data, status }) => {
@@ -161,6 +165,19 @@ class NewCreditCardPopup extends React.Component {
         this.props.hideCreditCardPopup()
     }
 
+    getYearSelectorValues = () => {
+        const years = Array.from(new Array(20)).map((_, index) => {
+            return (
+                <option value={(new Date().getFullYear() + index).toString()}>
+                    {
+                        (new Date().getFullYear() + index).toString()
+                    }
+                </option>
+            )
+        })
+
+        return years
+    }
 
     render() {
         const {
@@ -174,7 +191,7 @@ class NewCreditCardPopup extends React.Component {
 
         return (
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
-                <div className='col-md-12'>
+                <div className='col-md-12' style={{ width: 2000 }}>
                     <div className='m-3 p-lg-5'>
 
                         <div className='form-group row'>
@@ -225,27 +242,42 @@ class NewCreditCardPopup extends React.Component {
                         <div className='form-group row'>
                             <div className='col-md-6'>
                                 <label htmlFor='expireMonth' className='text-black'>Ay <span className='text-danger'>*</span></label>
-                                <input
+                                <select
                                     onChange={this.onExpireMonthChange}
                                     type='text'
                                     className='form-control'
                                     id='expireMonth'
                                     placeholder='Ay'
                                     name='expireMonth'
-                                    value={expireMonth}
-                                />
+                                    value={expireMonth}>
+                                    <option value={'01'}>01</option>
+                                    <option value={'02'}>02</option>
+                                    <option value={'03'}>03</option>
+                                    <option value={'04'}>04</option>
+                                    <option value={'05'}>05</option>
+                                    <option value={'06'}>06</option>
+                                    <option value={'07'}>07</option>
+                                    <option value={'08'}>08</option>
+                                    <option value={'09'}>09</option>
+                                    <option value={'10'}>10</option>
+                                    <option value={'11'}>11</option>
+                                    <option value={'12'}>12</option>
+                                </select>
                             </div>
                             <div className='col-md-6'>
                                 <label htmlFor='expireYear' className='text-black'>Yıl <span className='text-danger'>*</span></label>
-                                <input
+                                <select
                                     onChange={this.onExpireYearChange}
                                     type='text'
                                     className='form-control'
                                     id='expireYear'
                                     placeholder='Yıl'
                                     name='expireYear'
-                                    value={expireYear}
-                                />
+                                    value={expireYear}>
+                                    {
+                                        this.getYearSelectorValues()
+                                    }
+                                </select>
                             </div>
                         </div>
 
