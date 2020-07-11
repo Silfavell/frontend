@@ -48,7 +48,7 @@ class SiteWrap extends React.Component {
     }
 
     getCategories = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => data)
+        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then((result) => result?.data || [])
     )
 
     getFavoriteProducts = () => (

@@ -21,7 +21,7 @@ class Home extends React.Component {
 
     fetchProducts = (productIds) => {
         const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${productIds}&quantity=32`
-        return axios.get(url).then(({ data }) => data)
+        return axios.get(url).then((result) => result?.data || [])
     }
 
     UNSAFE_componentWillMount() {
