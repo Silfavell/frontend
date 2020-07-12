@@ -4,6 +4,7 @@ import axios from 'axios'
 import $ from 'jquery'
 import Cookies from 'universal-cookie'
 import joi from '@hapi/joi'
+import InputMask from 'react-input-mask'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -29,7 +30,7 @@ class SignUp extends React.Component {
         invalidNameSurname: false,
         invalidEmail: false,
         invalidActivationCode: false,
-        
+
         isPhoneNumberInitialized: false,
         isPasswordInitialized: false,
         isNameSurnameInitialized: false,
@@ -43,16 +44,12 @@ class SignUp extends React.Component {
         joi.string()
             .trim()
             .strict()
-            .min(10)
-            .max(12)
+            .min(19)
+            .max(19)
             .validateAsync(value).then(() => {
                 this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: false })
             }).catch((err) => {
-                if (err.details[0].message.includes('12') && err.details[0].message.includes('equal')) {
-                    this.setState({ isPhoneNumberInitialized: true, invalidPhoneNumber: false })
-                } else {
-                    this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
-                }
+                this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
             })
     }
 
@@ -252,14 +249,17 @@ class SignUp extends React.Component {
                 <div className='form-group row'>
                     <div className='col-md-12'>
                         <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
-                        <input
-                            onChange={this.onPhoneChange}
-                            type='phone'
-                            className='form-control'
-                            id='phone'
-                            name='phone'
-                            placeholder='Telefon Numaranızı giriniz'
-                            value={phoneNumber} />
+                        <InputMask
+                            mask='\+\9\0 \(999\) 999 99 99'
+                            value={phoneNumber}
+                            onChange={this.onPhoneChange}>
+                            <input
+                                type='tel'
+                                className='form-control'
+                                id='phone_number'
+                                name='phone_number'
+                                placeholder='Telefon Numaranızı giriniz' />
+                        </InputMask>
                     </div>
                 </div>
 

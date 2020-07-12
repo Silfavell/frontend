@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
+import InputMask from 'react-input-mask'
 
 import PopupWrapper from './PopupWrapper'
 
@@ -16,15 +17,14 @@ class NewCreditCardPopup extends React.Component {
         cvc2: '',
 
         invalidCardAlias: false,
-        // invalidCardHolderName: false,
+        invalidCardHolderName: false,
         invalidCardNumber: false,
         invalidExpireYear: false,
-        // invalidExpireYear: false,
         invalidExpireMonth: false,
         invalidCvc2: false,
 
         isCardAliasInitialized: false,
-        // isCardHolderNameInitialized: true,
+        isCardHolderNameInitialized: false,
         isCardNumberInitialized: false,
         isExpireYearInitialized: false,
         isExpireMonthInitialized: false,
@@ -44,24 +44,28 @@ class NewCreditCardPopup extends React.Component {
     }
 
     onCardHolderNameChange = (event) => {
-        this.setState({ cardHolderName: event.target.value })
+        const { value } = event.target
+
+        joi.string()
+            .min(1)
+            .validateAsync(value).then(() => {
+                this.setState({ cardHolderName: value, isCardHolderNameInitialized: true, invalidCardHolderName: false })
+            }).catch((err) => {
+                this.setState({ cardHolderName: value, isCardHolderNameInitialized: true, invalidCardHolderName: !!err })
+            })
     }
 
     onCardNumberChange = (event) => {
         const { value } = event.target
 
         joi.string()
+            .creditCard()
             .min(16)
             .max(16)
-            .creditCard()
-            .validateAsync(value).then(() => {
+            .validateAsync(value.split(' ').join('')).then(() => {
                 this.setState({ cardNumber: value, isCardNumberInitialized: true, invalidCardNumber: false })
             }).catch((err) => {
-                if (err.details[0].message.includes('16') && err.details[0].message.includes('equal')) {
-                    this.setState({ isCardNumberInitialized: true, invalidCardNumber: false })
-                } else {
-                    this.setState({ cardNumber: value, isCardNumberInitialized: true, invalidCardNumber: !!err })
-                }
+                this.setState({ cardNumber: value, isCardNumberInitialized: true, invalidCardNumber: !!err })
             })
     }
 
@@ -132,7 +136,7 @@ class NewCreditCardPopup extends React.Component {
             card: {
                 cardAlias,
                 cardHolderName,
-                cardNumber,
+                cardNumber: cardNumber.split(' ').join(''),
                 expireMonth,
                 expireYear,
                 // cvc2 // TODO
@@ -227,15 +231,18 @@ class NewCreditCardPopup extends React.Component {
                         <div className='form-group row'>
                             <div className='col-md-12'>
                                 <label htmlFor='cardNumber' className='text-black'>Kart No <span className='text-danger'>*</span></label>
-                                <input
+                                <InputMask
+                                    mask={'9999 9999 9999 9999'}
                                     onChange={this.onCardNumberChange}
-                                    type='text'
-                                    className='form-control'
-                                    id='cardNumber'
-                                    placeholder='Kart numarası'
-                                    name='cardNumber'
-                                    value={cardNumber}
-                                />
+                                    value={cardNumber}>
+                                    <input
+                                        type='text'
+                                        className='form-control'
+                                        id='cardNumber'
+                                        placeholder='Kart numarası'
+                                        name='cardNumber'
+                                    />
+                                </InputMask>
                             </div>
                         </div>
 

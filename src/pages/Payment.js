@@ -21,6 +21,7 @@ class Payment extends React.Component {
 
     state = {
         fetching: true,
+        selected: 0,
         products: [],
         addresses: [],
         cards: [],
@@ -135,17 +136,19 @@ class Payment extends React.Component {
     onAddressOptionsClick = () => {
         $('#paymentOptions').hide()
         $('#addresses').fadeIn('slow')
+        this.setState({ selected: 0 })
     }
 
     onPaymentOptionsClick = () => {
         $('#addresses').hide()
         $('#paymentOptions').fadeIn('slow')
+        this.setState({ selected: 1 })
     }
 
     renderAddressesSection = () => (
         <div id={'addresses'} className='row mb-5 border'>
             <div className='col-md-12 p-4'>
-                <h3 className={'text-secondary'}>Adres Seçimi</h3>
+                <p className={'text-gray h5'}>Adres Seçimi</p>
             </div>
             <div className='col-md-12 p-4'>
                 <div className='row'>
@@ -158,9 +161,9 @@ class Payment extends React.Component {
                                 selected={this.state.selectedAddress === index} setSelectedAddress={this.setSelectedAddress} />
                         ))
                     }
-                    <EmptyAddressCard showSaveAddressPopup={this.showSaveAddressPopup} />
                 </div>
             </div>
+            <EmptyAddressCard showSaveAddressPopup={this.showSaveAddressPopup} />
         </div>
     )
 
@@ -189,7 +192,7 @@ class Payment extends React.Component {
 
                     <div className='form-group row'>
                         <div className='ml-auto'>
-                            <button className='btn btn-primary btn-lg btn-block' onClick={this.showCardPopup}>Yeni Bir Kredi Kartı Bilgisi Girerek Öde.</button>
+                            <button className='btn btn-primary btn-lg btn-block' onClick={this.showCardPopup}>Yeni bir kart ekle</button>
                         </div>
                     </div>
                 </div>
@@ -235,12 +238,12 @@ class Payment extends React.Component {
                                     <div className='row mb-5'>
                                         <div className='col-md-12'>
                                             <div className='row border'>
-                                                <div className='col-md-6 border-right p-3' style={{ cursor: 'pointer' }} onClick={this.onAddressOptionsClick}>
+                                                <div className='col-md-6 border-right p-3' style={{ cursor: 'pointer', borderBottom: this.state.selected === 0 ? '2px solid #EE4266' : '' }} onClick={this.onAddressOptionsClick}>
                                                     <h3 className={'text-secondary'}>Adres Bilgileri</h3>
                                                     <p className={'text-primary h5'}>{this.state.addresses[this.state.selectedAddress]?.addressTitle}</p>
                                                     <p className={'text-black h6'}>{this.state.addresses[this.state.selectedAddress]?.openAddress}</p>
                                                 </div>
-                                                <div className='col-md-6 p-3' style={{ cursor: 'pointer' }} onClick={this.onPaymentOptionsClick}>
+                                                <div className='col-md-6 p-3' style={{ cursor: 'pointer', borderBottom: this.state.selected === 1 ? '2px solid #EE4266' : '' }} onClick={this.onPaymentOptionsClick}>
                                                     <h3 className={'text-secondary'}>Ödeme Seçenekleri</h3>
                                                     <p className={'text-primary h5'}>{this.state.cards[this.state.selectedCard]?.cardAlias}</p>
                                                     <p className={'text-black h6'}>{this.state.cards[this.state.selectedCard] ? '**** **** **** ' + this.state.cards[this.state.selectedCard]?.lastFourDigits : ''}</p>

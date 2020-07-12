@@ -3,6 +3,7 @@ import React from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
 import joi from '@hapi/joi'
+import InputMask from 'react-input-mask'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -61,16 +62,12 @@ class SignIn extends React.Component {
         joi.string()
             .trim()
             .strict()
-            .min(10)
-            .max(12)
+            .min(19)
+            .max(19)
             .validateAsync(value).then(() => {
                 this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: false })
             }).catch((err) => {
-                if (err.details[0].message.includes('12') && err.details[0].message.includes('equal')) {
-                    this.setState({ isPhoneNumberInitialized: true, invalidPhoneNumber: false })
-                } else {
-                    this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
-                }
+                this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
             })
 
     }
@@ -117,14 +114,18 @@ class SignIn extends React.Component {
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
                                         <label htmlFor='phone_number' className='text-black'>Telefon Numarası</label>
-                                        <input
+                                        <InputMask
+                                            mask='\+\9\0 \(999\) 999 99 99'
                                             value={phoneNumber}
                                             onChange={this.onPhoneChange}
-                                            type='tel'
-                                            className='form-control'
-                                            id='phone_number'
-                                            name='phone_number'
-                                            placeholder='Telefon Numaranızı giriniz' />
+                                        >
+                                            <input
+                                                type='tel'
+                                                className='form-control'
+                                                id='phone_number'
+                                                name='phone_number'
+                                                placeholder='Telefon Numaranızı giriniz' />
+                                        </InputMask>
                                     </div>
                                 </div>
                                 <div className='form-group row'>

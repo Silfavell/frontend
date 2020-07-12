@@ -117,7 +117,7 @@ class ShopProduct extends React.Component {
                             }
 
                         </div>
-                        <div className='col-md-12 d-flex flex-row justify-content-center align-items-center p-0' style={{ textAlign: 'left' }}>
+                        <div className='col-md-12 d-flex flex-row justify-content-start align-items-center p-0' style={{ textAlign: 'left' }}>
                             <div className='h6 text-black font-weight-normal px-4' style={{ wordWrap: 'break-word', height: 50 }}>
                                 {name.substr(0, 60)}
                             </div>
