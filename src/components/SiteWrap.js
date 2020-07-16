@@ -267,7 +267,7 @@ class SiteWrap extends React.Component {
 
                 <Footer />
 
-            </div >
+            </div>
         )
     }
 }

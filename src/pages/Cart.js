@@ -101,10 +101,10 @@ class Cart extends React.Component {
 
     renderContent = (props) => {
         if (props.products.length > 0) {
-            return <this.cartWithProducts {...props} />
+            return this.cartWithProducts(props)
         }
 
-        return <this.cartWithoutProducts />
+        return this.cartWithoutProducts()
     }
 
     render() {
@@ -117,9 +117,7 @@ class Cart extends React.Component {
 
         return (
             <SiteWrap divider={divider}>
-                {
-                    <this.renderContent />
-                }
+                <this.renderContent />
             </SiteWrap>
         )
     }
