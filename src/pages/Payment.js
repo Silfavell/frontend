@@ -205,7 +205,7 @@ class Payment extends React.Component {
 
         const divider = [
             {
-                path: null, title: 'Payment'
+                path: null, title: 'Ödemeyi Tamamla'
             }
         ]
 

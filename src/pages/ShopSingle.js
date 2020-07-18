@@ -158,7 +158,7 @@ class ShopSingle extends React.Component {
 
     render() {
         const divider = [
-            { path: '/shop', title: 'shop' },
+            { path: '/shop', title: 'Ürünler' },
             { path: null, title: this.state.product.name }
         ]
 

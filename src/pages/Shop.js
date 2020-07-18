@@ -257,7 +257,7 @@ class Shop extends React.Component {
                     <div className='col-md-3 order mb-5 mb-md-0'>
 
                         <div className='border p-4 rounded mb-4 related-categories'>
-                            <h3 className='mb-3 h6 text-uppercase text-black d-block'>Related Categories</h3>
+                            <h3 className='mb-3 h6 text-capitalize text-black d-block'>İlgili Kategoriler</h3>
                             <ul className='list-unstyled mb-0'>
                                 {
                                     currentCategory?.subCategories.map((category) => (
@@ -272,7 +272,7 @@ class Shop extends React.Component {
 
                         <div className='border p-4 rounded mb-4 brands'>
                             <div className='mb-4'>
-                                <h3 className='mb-3 h6 text-uppercase text-black d-block'>Brands</h3>
+                                <h3 className='mb-3 h6 text-capitalize text-black d-block'>Markalar</h3>
                                 {
                                     (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
                                         <label
@@ -312,7 +312,7 @@ class Shop extends React.Component {
         const divider = [
             {
                 path: null,
-                title: 'Shop'
+                title: 'Ürünler'
             }
         ]
 

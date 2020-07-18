@@ -254,7 +254,7 @@ class UpdatePassword extends React.Component {
     render() {
         const divider = [
             {
-                path: null, title: 'Şiremi Unuttum'
+                path: null, title: 'Şifremi Unuttum'
             }
         ]
 
