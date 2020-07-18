@@ -163,7 +163,7 @@
 
 #vanillatoasts-container{
     z-index: 1001;
-    position: sticky;
+    position: fixed;
     top: 70px;
 }
 

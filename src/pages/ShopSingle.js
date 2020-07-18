@@ -96,7 +96,6 @@ class ShopSingle extends React.Component {
         const subCategory = category?.subCategories.find((subCategory) => subCategory._id === subCategoryId)
 
         if (this.state.categoryName.length === 0 && category && subCategory) {
-            console.log(category, subCategory)
             this.setState({ categoryName: category.name, subCategoryName: subCategory.name })
         }
 
