@@ -1,16 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import path from 'path'
-import dotenv from 'dotenv'
+import 'dotenv/config'
 
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
-if (process.env.REACT_APP_NODE_ENV === 'dev') {
-  dotenv.config({ path: path.join(__dirname, '../.env') })
-} else {
-  dotenv.config({ path: path.join(__dirname, '../.production.env') })
-}
 
 ReactDOM.render(
   <React.StrictMode>
