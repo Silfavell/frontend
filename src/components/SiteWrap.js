@@ -92,7 +92,7 @@ class SiteWrap extends React.Component {
         window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
     }
 
-    onIncreaseClick = (productId, quantity = 1) => {
+    onIncreaseClick = (productId, quantity = 1, dontShowToast) => {
         axios.put(`${process.env.REACT_APP_API_URL}/add-product/${productId}`, { quantity }).then(({ status, data }) => {
             if (status === 200) {
 
@@ -117,17 +117,19 @@ class SiteWrap extends React.Component {
                 }
 
 
-                VanillaToasts.create({
-                    title: `Ürün sepete eklendi`,
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
-                })
+                if (!dontShowToast) {
+                    VanillaToasts.create({
+                        title: `Ürün sepete eklendi`,
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
+                }
             }
         })
     }
 
-    onDecreaseClick = (productId, quantity = 1) => {
+    onDecreaseClick = (productId, quantity = 1, dontShowToast) => {
 
         axios.put(`${process.env.REACT_APP_API_URL}/deduct-product/${productId}`, { quantity }).then(({ status, data }) => {
             if (status === 200) {
@@ -139,24 +141,28 @@ class SiteWrap extends React.Component {
                     this.state.products[indexOfFoundProduct] = { ...data, quantity: foundProduct.quantity - quantity }
 
                     this.setState({ products: this.state.products }, () => {
-                        VanillaToasts.create({
-                            title: `Ürün sepetten çıkarıldı`,
-                            positionClass: 'topRight',
-                            type: 'success',
-                            timeout: 3 * 1000
-                        })
+                        if (!dontShowToast) {
+                            VanillaToasts.create({
+                                title: `Ürün sepetten çıkarıldı`,
+                                positionClass: 'topRight',
+                                type: 'success',
+                                timeout: 3 * 1000
+                            })
+                        }
                     })
                 } else {
                     const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
                     this.state.products.splice(indexOfFoundProduct, 1)
 
                     this.setState({ products: this.state.products }, () => {
-                        VanillaToasts.create({
-                            title: `Ürün sepetten çıkarıldı`,
-                            positionClass: 'topRight',
-                            type: 'success',
-                            timeout: 3 * 1000
-                        })
+                        if (!dontShowToast) {
+                            VanillaToasts.create({
+                                title: `Ürün sepetten çıkarıldı`,
+                                positionClass: 'topRight',
+                                type: 'success',
+                                timeout: 3 * 1000
+                            })
+                        }
                     })
                 }
 

@@ -11,11 +11,13 @@ class CartItem extends React.Component {
     }
 
     onIncreaseClick = () => {
-        this.props.onIncreaseClick(this.props.item._id, 1)
+        const dontShowToast = true
+        this.props.onIncreaseClick(this.props.item._id, 1, dontShowToast)
     }
 
     onDecreaseClick = () => {
-        this.props.onDecreaseClick(this.props.item._id, 1)
+        const dontShowToast = true
+        this.props.onDecreaseClick(this.props.item._id, 1, dontShowToast)
     }
 
     onFocusOut = () => {
@@ -61,7 +63,7 @@ class CartItem extends React.Component {
                 <td className='product-name'>
                     <h2 className='h5 text-black'>{name}</h2>
                 </td>
-                <td style={{ minWidth: 200 }}>
+                <td style={{ width: 200 }}>
                     <div className='input-group'>
                         {
                             !this.props.order && (
