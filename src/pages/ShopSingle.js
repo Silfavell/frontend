@@ -62,6 +62,7 @@ class ShopSingle extends React.Component {
         const {
             name,
             price,
+            discountedPrice,
             brand,
             image
         } = this.state.product
@@ -95,7 +96,16 @@ class ShopSingle extends React.Component {
                                     • Dermatolojik olarak test edilmiştir. <br />
                                     • Gün boyu güzelliğinizle büyülerken cildiniz beslensin!
                                 </p>
-                        <p><strong className='text-primary h4'>{'₺' + price.toFixed(2).toString().replace('.', ',')}</strong></p>
+                        <p className='my-4'>
+                            <strong className='h4' style={discountedPrice ? { textDecoration: 'line-through', color: 'grey' } : { color: '#007bff' }}>
+                                {'₺' + price.toFixed(2).toString().replace('.', ',')}
+                            </strong>
+                            {
+                                discountedPrice && (
+                                    <strong className='text-primary h4 ml-3'>{'₺' + price.toFixed(2).toString().replace('.', ',')}</strong>
+                                )
+                            }
+                        </p>
                         {
                             /*
                             <div className='mb-1 d-flex'>
