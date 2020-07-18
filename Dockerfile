@@ -1,26 +1,31 @@
-FROM node:10
+FROM node:10 as builder
 
-# Create app directory
 WORKDIR /usr/src/app
 
 ENV REACT_APP_NODE_ENV=prod
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+# copy the package.json to install dependencies
+COPY package.json yarn.lock ./
 
-RUN npm install serve -g
+# Install the dependencies and make the folder
+RUN npm install 
 
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
-
-# Bundle app source
 COPY . .
 
-EXPOSE 5000
-
+# Build the project and copy the files
 RUN npm run build
 
-CMD [ "npm", "start" ]
+FROM nginx
+
+COPY ./test/private /etc/nginx/certs
+#COPY ./test/default.conf /etc/nginx/conf.d
+
+COPY ./test/default.conf /etc/nginx/conf.d
+
+# Copy from the stahg 1
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+
+EXPOSE 443 
+EXPOSE 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
