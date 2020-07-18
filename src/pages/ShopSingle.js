@@ -6,6 +6,7 @@ import joi from '@hapi/joi'
 
 import Loading from '../components/Loading'
 import SiteWrap from '../components/SiteWrap'
+import ProductImages from '../components/ProductImages'
 
 
 class ShopSingle extends React.Component {
@@ -79,8 +80,15 @@ class ShopSingle extends React.Component {
         window.location.reload()
     }
 
+    getImages = (image, imageCount) => {
+        return Array.from(new Array(imageCount)).map((_, index) => (
+            `${process.env.REACT_APP_API_URL}/assets/products/${image}-${index}.webp`
+        ))
+    }
+
     renderContent = ({ categories, onIncreaseClick }) => {
         const {
+            imageCount,
             categoryId,
             subCategoryId,
             name,
@@ -99,22 +107,11 @@ class ShopSingle extends React.Component {
             this.setState({ categoryName: category.name, subCategoryName: subCategory.name })
         }
 
-        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
-
         return (
             <div className='container'>
                 <div className='row'>
                     <div className='col-md-6'>
-                        <div style={{ display: 'flex', height: '100%', justifyContent: 'center' }}>
-                            <img
-                                src={url}
-                                alt=''
-                                onError={(event) => {
-                                    event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
-                                }}
-                                className='img-fluid'
-                            />
-                        </div>
+                        <ProductImages images={this.getImages(image, imageCount)} />
 
                     </div>
                     <div className='col-md-6'>
