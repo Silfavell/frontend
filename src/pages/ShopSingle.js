@@ -12,7 +12,9 @@ class ShopSingle extends React.Component {
 
     state = {
         product: {},
-        quantity: 1
+        quantity: 1,
+        categoryName: '',
+        subCategoryName: ''
     }
 
     fetchAndSetProduct = (productId) => {
@@ -66,7 +68,26 @@ class ShopSingle extends React.Component {
         this.setState({ quantity: 1 })
     }
 
-    renderContent = ({ onIncreaseClick }) => {
+    onBrandClick = () => {
+        const {
+            categoryId,
+            subCategoryId,
+            brand
+        } = this.state.product
+
+        window.history.pushState({}, null, `/shop?categoryId=${categoryId}&subCategoryId=${subCategoryId}&brands=${brand}`)
+        window.location.reload()
+    }
+
+    renderContent = ({ categories, onIncreaseClick }) => {
+        const category = categories.find(category => category._id === '5f129b8bce6941398831622d')
+        const subCategory = category?.subCategories.find((subCategory) => subCategory._id === '5f129babce6941398831622e')
+
+        if (this.state.categoryName.length === 0 && category && subCategory) {
+            console.log(category, subCategory)
+            this.setState({ categoryName: category.name, subCategoryName: subCategory.name })
+        }
+
         const {
             name,
             price,
@@ -97,7 +118,7 @@ class ShopSingle extends React.Component {
                     </div>
                     <div className='col-md-6'>
                         <h2 className='text-black'>{name}</h2>
-                        <p className='text-primary h5'>{brand}</p>
+                        <p className='text-primary h5' onClick={this.onBrandClick} style={{ cursor: 'pointer' }}>{brand}</p>
                         {
                             /*
                             <p className='mb-4'>
@@ -202,12 +223,16 @@ class ShopSingle extends React.Component {
     }
 
     render() {
+        const {
+            categoryId,
+            subCategoryId
+        } = this.state.product
+
         const divider = [
-            { path: '/shop', title: 'Ürünler' },
+            { path: `/shop?categoryId=${categoryId}`, title: this.state.categoryName },
+            { path: `/shop?categoryId=${categoryId}&subCategoryId=${subCategoryId}`, title: this.state.subCategoryName },
             { path: null, title: this.state.product.name }
         ]
-
-        // console.log(this.state.product)
 
         if (this.state.product._id) {
             return (
