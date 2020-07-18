@@ -111,7 +111,7 @@ class ShopSingle extends React.Component {
                             */
                         }
                         {
-                            color && (
+                            (color && group.length > 1) && (
                                 <p className='my-4'>
                                     <p className='text-secondary h5 mb-4'>{`Renk: ${color.name}`}</p>
 
