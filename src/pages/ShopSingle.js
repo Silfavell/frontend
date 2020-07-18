@@ -15,8 +15,8 @@ class ShopSingle extends React.Component {
         quantity: 1
     }
 
-    componentWillMount() {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${this.props.match.params._id}`).then(({ data: product }) => {
+    fetchAndSetProduct = (productId) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${productId}`).then(({ data: product }) => {
             this.setState({ product }, () => {
                 const visitedProducts = window.localStorage.getItem('visitedProducts')
                 if (visitedProducts) {
@@ -33,6 +33,14 @@ class ShopSingle extends React.Component {
         }).catch((err) => {
             this.props.history.push('/not-found')
         })
+    }
+
+    componentWillMount() {
+        this.fetchAndSetProduct(this.props.match.params._id)
+    }
+
+    onColorClick = (productId) => {
+        this.fetchAndSetProduct(productId)
     }
 
     increaseQuantity = () => {
@@ -64,7 +72,9 @@ class ShopSingle extends React.Component {
             price,
             discountedPrice,
             brand,
-            image
+            image,
+            color,
+            group
         } = this.state.product
 
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
@@ -88,21 +98,45 @@ class ShopSingle extends React.Component {
                     <div className='col-md-6'>
                         <h2 className='text-black'>{name}</h2>
                         <p className='text-primary h5'>{brand}</p>
-                        <p className='mb-4'>
-                            • Keçi sütlü formülü ve yoğun proteinli yapısı ile dudaklarıınız MATTE LIPS ile daha nemli bir görünüme kavuşacaktır. <br />
-                                    • Dudaklarınızda uzun süreli ,doğal mat etki sağlar. Kremsi yapısı ile örtücülüğü mükemmeldir. <br />
-                                    • Keçi sütü ve E Vitamini dudaklarınız gün boyu nemlendirilecektir. <br />
-                                    • Paraben içermez. <br />
-                                    • Dermatolojik olarak test edilmiştir. <br />
-                                    • Gün boyu güzelliğinizle büyülerken cildiniz beslensin!
+                        {
+                            /*
+                            <p className='mb-4'>
+                                • Keçi sütlü formülü ve yoğun proteinli yapısı ile dudaklarıınız MATTE LIPS ile daha nemli bir görünüme kavuşacaktır. <br />
+                                • Dudaklarınızda uzun süreli ,doğal mat etki sağlar. Kremsi yapısı ile örtücülüğü mükemmeldir. <br />
+                                • Keçi sütü ve E Vitamini dudaklarınız gün boyu nemlendirilecektir. <br />
+                                • Paraben içermez. <br />
+                                • Dermatolojik olarak test edilmiştir. <br />
+                                • Gün boyu güzelliğinizle büyülerken cildiniz beslensin!
+                            </p>
+                            */
+                        }
+                        {
+                            color && (
+                                <p className='my-4'>
+                                    <p className='text-secondary h5 mb-4'>{`Renk: ${color.name}`}</p>
+
+                                    <div className='d-flex direction-row'>
+                                        {
+                                            group.map((groupColor) => (
+                                                <div
+                                                    onClick={() => { this.onColorClick(groupColor._id) }}
+                                                    className='border p-1 mr-2' style={{ height: 36, width: 36, borderRadius: '50%', cursor: 'pointer' }}>
+                                                    <div style={{ height: '100%', width: '100%', borderRadius: '50%', backgroundColor: groupColor.color.code }} />
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
                                 </p>
+                            )
+                        }
+
                         <p className='my-4'>
-                            <strong className='h4' style={discountedPrice ? { textDecoration: 'line-through', color: 'grey' } : { color: '#007bff' }}>
+                            <strong className='h4' style={discountedPrice ? { textDecoration: 'line-through', color: 'grey' } : { color: 'black' }}>
                                 {'₺' + price.toFixed(2).toString().replace('.', ',')}
                             </strong>
                             {
                                 discountedPrice && (
-                                    <strong className='text-primary h4 ml-3'>{'₺' + price.toFixed(2).toString().replace('.', ',')}</strong>
+                                    <strong className='h4 ml-3 text-black'>{'₺' + discountedPrice.toFixed(2).toString().replace('.', ',')}</strong>
                                 )
                             }
                         </p>
@@ -156,13 +190,14 @@ class ShopSingle extends React.Component {
                             </div>
 
                         </div>
-                        <p
+
+                        <button
                             onClick={() => this.onAddToCartClick(onIncreaseClick)}
-                            className='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Sepete Ekle</p>
+                            className='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Sepete Ekle</button>
 
                     </div>
                 </div>
-            </div>
+            </div >
         )
     }
 
@@ -171,6 +206,8 @@ class ShopSingle extends React.Component {
             { path: '/shop', title: 'Ürünler' },
             { path: null, title: this.state.product.name }
         ]
+
+        // console.log(this.state.product)
 
         if (this.state.product._id) {
             return (
