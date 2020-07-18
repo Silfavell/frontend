@@ -80,15 +80,9 @@ class ShopSingle extends React.Component {
     }
 
     renderContent = ({ categories, onIncreaseClick }) => {
-        const category = categories.find(category => category._id === '5f129b8bce6941398831622d')
-        const subCategory = category?.subCategories.find((subCategory) => subCategory._id === '5f129babce6941398831622e')
-
-        if (this.state.categoryName.length === 0 && category && subCategory) {
-            console.log(category, subCategory)
-            this.setState({ categoryName: category.name, subCategoryName: subCategory.name })
-        }
-
         const {
+            categoryId,
+            subCategoryId,
             name,
             price,
             discountedPrice,
@@ -97,6 +91,14 @@ class ShopSingle extends React.Component {
             color,
             group
         } = this.state.product
+
+        const category = categories.find(category => category._id === categoryId)
+        const subCategory = category?.subCategories.find((subCategory) => subCategory._id === subCategoryId)
+
+        if (this.state.categoryName.length === 0 && category && subCategory) {
+            console.log(category, subCategory)
+            this.setState({ categoryName: category.name, subCategoryName: subCategory.name })
+        }
 
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
