@@ -19,7 +19,7 @@ function ProductImages({ images }) {
     return (
         <Carousel
             activeIndex={index}
-            controls={true}
+            controls={images.length > 1}
             interval={null}
             prevIcon={<IoIosArrowBack size={24} color='black' />}
             nextIcon={<IoIosArrowForward size={24} color='black' />}
