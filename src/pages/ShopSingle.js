@@ -92,6 +92,7 @@ class ShopSingle extends React.Component {
             categoryId,
             subCategoryId,
             name,
+            details,
             price,
             discountedPrice,
             brand,
@@ -209,15 +210,7 @@ class ShopSingle extends React.Component {
                         <p className='text-secondary h5 mb-2'>Ürün Özellikleri</p>
 
                         <span style={{ whiteSpace: 'pre' }}>
-{`
-• Keçi sütlü formülü ve yoğun proteinli yapısı ile dudaklarıınız MATTE LIPS ile daha nemli bir görünüme kavuşacaktır.
-• Dudaklarınızda uzun süreli ,doğal mat etki sağlar. Kremsi yapısı ile örtücülüğü mükemmeldir.
-• Keçi sütü ve E Vitamini dudaklarınız gün boyu nemlendirilecektir.
-• Paraben içermez.
-• Dermatolojik olarak test edilmiştir.
-• Gün boyu güzelliğinizle büyülerken cildiniz beslensin!
-`}
-
+                            {details}
                         </span>
                     </div>
                 </div>
