@@ -210,7 +210,7 @@ class ShopSingle extends React.Component {
                         <p className='text-secondary h5 mb-2'>Ürün Özellikleri</p>
 
                         <span style={{ whiteSpace: 'pre' }}>
-                            {details}
+                            {details ?? 'Ürün detayı bulunmamaktadır'}
                         </span>
                     </div>
                 </div>
