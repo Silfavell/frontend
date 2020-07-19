@@ -109,7 +109,7 @@ class ShopSingle extends React.Component {
 
         return (
             <div className='container'>
-                <div className='row'>
+                <div className='row border-bottom'>
                     <div className='col-md-6'>
                         <ProductImages images={this.getImages(image, imageCount)} />
 
@@ -117,18 +117,6 @@ class ShopSingle extends React.Component {
                     <div className='col-md-6'>
                         <h2 className='text-black'>{name}</h2>
                         <p className='text-primary h5' onClick={this.onBrandClick} style={{ cursor: 'pointer' }}>{brand}</p>
-                        {
-                            /*
-                            <p className='mb-4'>
-                                • Keçi sütlü formülü ve yoğun proteinli yapısı ile dudaklarıınız MATTE LIPS ile daha nemli bir görünüme kavuşacaktır. <br />
-                                • Dudaklarınızda uzun süreli ,doğal mat etki sağlar. Kremsi yapısı ile örtücülüğü mükemmeldir. <br />
-                                • Keçi sütü ve E Vitamini dudaklarınız gün boyu nemlendirilecektir. <br />
-                                • Paraben içermez. <br />
-                                • Dermatolojik olarak test edilmiştir. <br />
-                                • Gün boyu güzelliğinizle büyülerken cildiniz beslensin!
-                            </p>
-                            */
-                        }
                         {
                             (color && group.length > 1) && (
                                 <p className='my-4'>
@@ -216,7 +204,24 @@ class ShopSingle extends React.Component {
 
                     </div>
                 </div>
-            </div >
+                <div className='row mt-5'>
+                    <div className='col-md-12'>
+                        <p className='text-secondary h5 mb-2'>Ürün Özellikleri</p>
+
+                        <span style={{ whiteSpace: 'pre' }}>
+{`
+• Keçi sütlü formülü ve yoğun proteinli yapısı ile dudaklarıınız MATTE LIPS ile daha nemli bir görünüme kavuşacaktır.
+• Dudaklarınızda uzun süreli ,doğal mat etki sağlar. Kremsi yapısı ile örtücülüğü mükemmeldir.
+• Keçi sütü ve E Vitamini dudaklarınız gün boyu nemlendirilecektir.
+• Paraben içermez.
+• Dermatolojik olarak test edilmiştir.
+• Gün boyu güzelliğinizle büyülerken cildiniz beslensin!
+`}
+
+                        </span>
+                    </div>
+                </div>
+            </div>
         )
     }
 
