@@ -88,6 +88,7 @@ class ShopSingle extends React.Component {
 
     renderContent = ({ categories, onIncreaseClick }) => {
         const {
+            _id,
             imageCount,
             categoryId,
             subCategoryId,
@@ -128,7 +129,7 @@ class ShopSingle extends React.Component {
                                             group.map((groupColor) => (
                                                 <div
                                                     onClick={() => { this.onColorClick(groupColor._id) }}
-                                                    className='border p-1 mr-2' style={{ height: 36, width: 36, borderRadius: '50%', cursor: 'pointer' }}>
+                                                    className={`p-1 mr-2 ${groupColor._id === _id ? 'border' : ''}`} style={{ height: 36, width: 36, borderRadius: '50%', cursor: 'pointer' }}>
                                                     <div style={{ height: '100%', width: '100%', borderRadius: '50%', backgroundColor: groupColor.color.code }} />
                                                 </div>
                                             ))

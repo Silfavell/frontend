@@ -27,7 +27,7 @@ export default () => {
                 VanillaToasts.create({
                     title: error?.response?.data?.error ?? 'Beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz',
                     positionClass: 'topRight',
-                    type: 'success',
+                    type: 'error',
                     timeout: 5 * 1000
                 })
 
