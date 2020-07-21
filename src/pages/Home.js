@@ -44,7 +44,7 @@ class Home extends React.Component {
                 <div className='row'>
 
                     <div className='col-md-12 p-4'>
-                        <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
+                        <h2 className='h2 mb-3 text-black d-flex align-items-center justify-content-center'>
                             En Çok Satanlar
                         </h2>
                     </div>
@@ -60,7 +60,7 @@ class Home extends React.Component {
                             <>
                                 <div className='col-md-12 p-4' />
                                 <div className='col-md-12  p-4'>
-                                    <h2 className='h1 mb-3 text-black d-flex align-items-center justify-content-center'>
+                                    <h2 className='h2 mb-3 text-black d-flex align-items-center justify-content-center'>
                                         En Son Gezdiklerin
                                         </h2>
                                 </div>
