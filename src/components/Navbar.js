@@ -151,7 +151,7 @@ class Navbar extends React.Component {
                         <div className='row'>
                             {
                                 this.state.searchedProducts.map((product) => (
-                                    <a href={`/${product._id}`} className='col-md-12 border-bottom p-3' style={{ cursor: 'pointer' }}>
+                                    <a href={`/product/${product.id}`} className='col-md-12 border-bottom p-3' style={{ cursor: 'pointer' }}>
                                         {product.name}
                                     </a>
                                 ))
