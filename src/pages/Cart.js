@@ -74,18 +74,20 @@ class Cart extends React.Component {
                             //      </div>
                             //  </div>
                         }
-                        <div className='row'>
-                            <div className='col-md-12'>
-                                <label className='text-black h4' htmlFor='coupon'>Kupon</label>
-                                <p>Indirim kodunuz varsa giriniz</p>
-                            </div>
-                            <div className='col-md-8 mb-3 mb-md-0'>
-                                <input type='text' className='form-control py-3' id='coupon' placeholder='Indirim kuponu' />
-                            </div>
-                            <div className='col-md-4'>
-                                <button className='btn btn-primary btn-sm px-4'>Kuponu kullan</button>
-                            </div>
-                        </div>
+                        {
+                            //  <div className='row'>
+                            //      <div className='col-md-12'>
+                            //          <label className='text-black h4' htmlFor='coupon'>Kupon</label>
+                            //          <p>Indirim kodunuz varsa giriniz</p>
+                            //      </div>
+                            //      <div className='col-md-8 mb-3 mb-md-0'>
+                            //          <input type='text' className='form-control py-3' id='coupon' placeholder='Indirim kuponu' />
+                            //      </div>
+                            //      <div className='col-md-4'>
+                            //          <button className='btn btn-primary btn-sm px-4'>Kuponu kullan</button>
+                            //      </div>
+                            //  </div>
+                        }
                     </div>
                 </div>
             </div>
