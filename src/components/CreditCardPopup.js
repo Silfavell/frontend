@@ -132,29 +132,38 @@ class NewCreditCardPopup extends React.Component {
             // cvc2
         } = this.state
 
-        axios.post(`${process.env.REACT_APP_API_URL}/user/payment-card`, {
-            card: {
-                cardAlias,
-                cardHolderName,
-                cardNumber: cardNumber.split(' ').join(''),
-                expireMonth,
-                expireYear,
-                // cvc2 // TODO
-            }
-        }).then(({ data, status }) => {
-            if (status === 200) {
-                VanillaToasts.create({
-                    title: 'Kartınız kayıt edildi',
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
-                })
+        if (new Date().getFullYear().toString() === expireYear && new Date().getMonth() + 1 > parseInt(expireMonth)) {
+            VanillaToasts.create({
+                title: 'Lütfen ileri bir tarih seçiniz',
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 5 * 1000
+            })
+        } else {
+            axios.post(`${process.env.REACT_APP_API_URL}/user/payment-card`, {
+                card: {
+                    cardAlias,
+                    cardHolderName,
+                    cardNumber: cardNumber.split(' ').join(''),
+                    expireMonth,
+                    expireYear,
+                    // cvc2 // TODO
+                }
+            }).then(({ data, status }) => {
+                if (status === 200) {
+                    VanillaToasts.create({
+                        title: 'Kartınız kayıt edildi',
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
 
-                this.props.hideCreditCardPopup(data)
-            }
-        }).catch(() => {
-            this.props.hideCreditCardPopup()
-        })
+                    this.props.hideCreditCardPopup(data)
+                }
+            }).catch(() => {
+                this.props.hideCreditCardPopup()
+            })
+        }
     }
 
     onOutsideClick = (event) => {
@@ -257,6 +266,7 @@ class NewCreditCardPopup extends React.Component {
                                     placeholder='Ay'
                                     name='expireMonth'
                                     value={expireMonth}>
+                                    <option disabled unselectable value={''}>Lütfen Ay Seçiniz</option>
                                     <option value={'01'}>01</option>
                                     <option value={'02'}>02</option>
                                     <option value={'03'}>03</option>
@@ -281,6 +291,7 @@ class NewCreditCardPopup extends React.Component {
                                     placeholder='Yıl'
                                     name='expireYear'
                                     value={expireYear}>
+                                    <option disabled unselectable value={''}>Lütfen Yıl Seçiniz</option>
                                     {
                                         this.getYearSelectorValues()
                                     }
