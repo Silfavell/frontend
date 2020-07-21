@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
+import { IoIosArrowForward } from 'react-icons/io'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import CartItem from './CartItem'
@@ -61,6 +62,14 @@ class OrderItem extends React.Component {
                             </tbody>
                         </table>
                     </div>
+                </div>
+
+                <div className='col-md-12'>
+                    <a href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${this.props.item.trackingNumber}`}
+                        className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
+                        <span className='font-weight-bold' style={{ color: '#EE4266' }}>Kargo Takip</span>
+                        <IoIosArrowForward size={24} />
+                    </a>
                 </div>
             </div>
         )
