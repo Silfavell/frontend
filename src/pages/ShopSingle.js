@@ -210,7 +210,7 @@ class ShopSingle extends React.Component {
                     <div className='col-md-12'>
                         <p className='text-secondary h5 mb-2'>Ürün Özellikleri</p>
 
-                        <span style={{ whiteSpace: 'pre' }}>
+                        <span style={{ whiteSpace: 'break-spaces'}}>
                             {details ?? 'Ürün detayı bulunmamaktadır'}
                         </span>
                     </div>
