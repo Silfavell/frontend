@@ -99,9 +99,9 @@ class Payment extends React.Component {
     setDatas = () => (
         Promise.all([this.getCart(), this.getPaymentCards(), this.getAddresses()]).then((results) => {
             this.setState({
-                products: Object.values(results[0].cart),
-                cards: results[1],
-                addresses: results[2],
+                products: Object.values(results[0]?.cart ?? {}),
+                cards: results[1] ?? [],
+                addresses: results[2] ?? [],
                 fetching: false
             })
         })
