@@ -17,10 +17,10 @@ RUN npm run build
 
 FROM nginx
 
-COPY ./test/private /etc/nginx/certs
+COPY ./private /etc/nginx/certs
 #COPY ./test/default.conf /etc/nginx/conf.d
 
-COPY ./test/default.conf /etc/nginx/conf.d
+COPY ./private/silfavell_swarm/default.conf /etc/nginx/conf.d
 
 # Copy from the stahg 1
 COPY --from=builder /usr/src/app/build /usr/share/nginx/html
