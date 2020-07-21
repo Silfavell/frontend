@@ -3,7 +3,7 @@
 import React from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
-import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose } from 'react-icons/io'
+import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose, IoIosArrowDown } from 'react-icons/io'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -189,7 +189,7 @@ class Navbar extends React.Component {
                                     <li className={'has-children'} key={category._id}>
                                         {
                                             category.subCategories.length > 0 &&
-                                            <span className='arrow-collapse collapsed' data-toggle='collapse' data-target={`#collapseItem${category._id}`} />
+                                            <IoIosArrowDown size={18} className='arrow-collapse collapsed' data-toggle='collapse' data-target={`#collapseItem${category._id}`} />
                                         }
                                         <a href={`/shop?categoryId=${category._id}`}>{category.name}</a>
                                         <ul className='collapse' id={`collapseItem${category._id}`}>
