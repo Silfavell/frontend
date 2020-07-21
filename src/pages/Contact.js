@@ -74,7 +74,7 @@ class Contact extends React.Component {
     return (
       <SiteWrap divider={divider}>
         <div className='container'>
-          <div className='row'>
+          <div className='row d-flex align-items-center justify-content-center'>
             <div className='col-md-7'>
 
               <div className='p-3 p-lg-5 border'>
@@ -124,20 +124,24 @@ class Contact extends React.Component {
                 </div>
               </div>
             </div>
-            <div className='col-md-5 ml-auto'>
-              <div className='p-4 border mb-3'>
-                <span className='d-block text-primary h6 text-uppercase'>New York</span>
-                <p className='mb-0'>203 Fake St. Mountain View, San Francisco, California, USA</p>
-              </div>
-              <div className='p-4 border mb-3'>
-                <span className='d-block text-primary h6 text-uppercase'>London</span>
-                <p className='mb-0'>203 Fake St. Mountain View, San Francisco, California, USA</p>
-              </div>
-              <div className='p-4 border mb-3'>
-                <span className='d-block text-primary h6 text-uppercase'>Canada</span>
-                <p className='mb-0'>203 Fake St. Mountain View, San Francisco, California, USA</p>
-              </div>
-            </div>
+
+            {
+              //  <div className='col-md-5 ml-auto'>
+              //    <div className='p-4 border mb-3'>
+              //      <span className='d-block text-primary h6 text-uppercase'>New York</span>
+              //      <p className='mb-0'>203 Fake St. Mountain View, San Francisco, California, USA</p>
+              //    </div>
+              //    <div className='p-4 border mb-3'>
+              //      <span className='d-block text-primary h6 text-uppercase'>London</span>
+              //      <p className='mb-0'>203 Fake St. Mountain View, San Francisco, California, USA</p>
+              //    </div>
+              //    <div className='p-4 border mb-3'>
+              //      <span className='d-block text-primary h6 text-uppercase'>Canada</span>
+              //      <p className='mb-0'>203 Fake St. Mountain View, San Francisco, California, USA</p>
+              //    </div>
+              //  </div>
+            }
+
           </div>
         </div>
       </SiteWrap>
