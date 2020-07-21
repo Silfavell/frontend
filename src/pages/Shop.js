@@ -171,10 +171,7 @@ class Shop extends React.Component {
         }
     }
 
-    renderShopContent = ({ onIncreaseClick }) => {
-        const currentCategory = this.state.categories.find(category => category._id === this.state.products[0]?.categoryId)
-        const subCategory = this.props.location.search.includes('subCategoryId') ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products[0].subCategoryId) : null
-
+    renderShopContent = ({ onIncreaseClick, currentCategory, subCategory }) => {
         const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
         const loggedIn = cookies.get('token')
 
@@ -308,13 +305,30 @@ class Shop extends React.Component {
 
     render() {
         const currentCategory = this.state.categories.find(category => category._id === this.state.products[0]?.categoryId)
+        const subCategory = this.props.location.search.includes('subCategoryId') ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products[0].subCategoryId) : null
 
-        const divider = [
-            {
-                path: null,
-                title: 'Ürünler'
-            }
-        ]
+        let divider = []
+
+        if (subCategory) {
+            divider = [
+                {
+                    path: `shop?categoryId=${currentCategory?._id}`,
+                    title: currentCategory?.name
+                },
+                {
+                    path: null,
+                    title: subCategory.name
+                }
+            ]
+        } else {
+            divider = [
+                {
+                    path: null,
+                    title: currentCategory?.name
+                }
+            ]
+        }
+
 
         if (this.state.fetching || !currentCategory) {
             return (
@@ -323,7 +337,7 @@ class Shop extends React.Component {
         } else {
             return (
                 <SiteWrap divider={divider}>
-                    <this.renderShopContent />
+                    <this.renderShopContent currentCategory={currentCategory} subCategory={subCategory} />
                 </SiteWrap>
             )
         }
