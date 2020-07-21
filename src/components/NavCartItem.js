@@ -15,7 +15,7 @@ class NavCartItem extends React.Component {
         return (
             <div className='item col-md-12 p-2'>
                 <div className='row'>
-                    <div className='col-md-4'>
+                    <div className='col-md-4 d-flex align-items-center justify-content-center'>
                         <img
                             src={url}
                             alt=''
