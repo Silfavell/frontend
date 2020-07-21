@@ -269,7 +269,7 @@ class SignUp extends React.Component {
                             type='checkbox'
                             className='form-check-input' id='agreement' name='agreement' placeholder='' />
                         <label
-                            style={{ cursor: 'pointer' }}
+                            style={{ cursor: 'pointer', display: 'unset' }}
                             htmlFor='agreement'
                             className='form-check-label ml-2'>Üyelik Sözleşmesi şartlarını okudum ve kabul ediyorum.</label>
                     </div>
@@ -281,7 +281,7 @@ class SignUp extends React.Component {
                             type='checkbox'
                             className='form-check-input' id='dont-forget' name='dont-forget' placeholder='' />
                         <label
-                            style={{ cursor: 'pointer' }}
+                            style={{ cursor: 'pointer', display: 'unset' }}
                             htmlFor='dont-forget'
                             className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
                     </div>
