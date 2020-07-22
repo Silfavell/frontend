@@ -70,7 +70,7 @@ class ShopProduct extends React.Component {
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
-            <div className='col-lg-4 col-6 mb-4 product' onClick={this.onInspectClick}>
+            <div className='col-lg-4 col-sm-6 col-12 mb-4 product' onClick={this.onInspectClick}>
                 <div className='border product-border'>
                     <div className='position-relative interface-container'>
                         <img

@@ -1,0 +1,35 @@
+.site-blocks-table .product-thumbnail {
+    width: 150px;
+}
+
+.img {
+    padding: 24px 0;
+}
+
+@media (min-width: 768px) {
+    .site-blocks-table .product-thumbnail {
+        width: 220px;
+    }
+}
+
+.quantity-container {
+    max-width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-td {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-td > * {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

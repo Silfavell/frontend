@@ -4,6 +4,8 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import joi from '@hapi/joi'
 
+import './CartItem.css'
+
 class CartItem extends React.Component {
 
     state = {
@@ -50,21 +52,22 @@ class CartItem extends React.Component {
 
         return (
             <tr>
-                <td className='product-thumbnail' style={{ minWidth: 200 }}>
+                <td className='product-thumbnail img-container'>
                     <img
-                        style={{ paddingTop: 24, paddingBottom: 24 }}
                         src={url}
                         alt=''
                         onError={(event) => {
                             event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
                         }}
-                        className='img-fluid' />
+                        className='img-fluid img' />
                 </td>
-                <td className='product-name'>
-                    <h2 className='h5 text-black'>{name}</h2>
-                </td>
-                <td style={{ width: 200 }}>
-                    <div className='input-group'>
+                <td className='right-td'>
+                    <div className="product-name">
+                        <h6 className='text-black'>{name}</h6>
+
+                    </div>
+
+                    <div className='input-group quantity-container'>
                         {
                             !this.props.order && (
                                 <div className='input-group-prepend'>
@@ -91,18 +94,18 @@ class CartItem extends React.Component {
                         }
                     </div>
 
-                </td>
-                <td className='direction-row mx-3'>
-                    <div style={discountedPrice ? { textDecoration: 'line-through', fontSize: 18 } : {}}>
-                        {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
+                    <div className='direction-row mx-3'>
+                        <div style={discountedPrice ? { textDecoration: 'line-through', fontSize: 18 } : {}}>
+                            {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
+                        </div>
+                        {
+                            discountedPrice && (
+                                <div style={{ fontSize: 18 }}>
+                                    {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
+                                </div>
+                            )
+                        }
                     </div>
-                    {
-                        discountedPrice && (
-                            <div style={{ fontSize: 18 }}>
-                                {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
-                            </div>
-                        )
-                    }
                 </td>
                 {
                     // <td><a href='#' className='btn btn-primary height-auto btn-sm'>X</a></td>
