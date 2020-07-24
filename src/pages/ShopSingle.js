@@ -71,17 +71,6 @@ class ShopSingle extends React.Component {
         this.setState({ quantity: 1 })
     }
 
-    onBrandClick = () => {
-        const {
-            categoryId,
-            subCategoryId,
-            brand
-        } = this.state.product
-
-        window.history.pushState({}, null, `/shop?categoryId=${categoryId}&subCategoryId=${subCategoryId}&brands=${brand}`)
-        window.location.reload()
-    }
-
     getImages = (image, imageCount) => {
         return Array.from(new Array(imageCount)).map((_, index) => (
             `${process.env.REACT_APP_API_URL}/assets/products/${image}-${index}.webp`
@@ -125,7 +114,10 @@ class ShopSingle extends React.Component {
                     </div>
                     <div className='col-md-6 pb-4'>
                         <h2 className='text-black'>{name}</h2>
-                        <p className='text-primary h5' onClick={this.onBrandClick} style={{ cursor: 'pointer' }}>{brand}</p>
+                        <a
+                            href={`/shop/${this.state.categorySlug}/${this.state.subCategorySlug}?brands=${this.state.product.brand}`}
+                            className='text-primary h5'
+                            style={{ cursor: 'pointer' }}>{brand}</a>
                         {
                             (color && group.length > 1) && (
                                 <p className='my-4'>

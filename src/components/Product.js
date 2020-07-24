@@ -19,11 +19,6 @@ class Product extends React.Component {
         this.props.onIncreaseClick(this.props.item._id)
     }
 
-    onInspectClick = () => {
-        window.history.pushState({}, null, '/product/' + this.props.item.slug)
-        window.location.reload()
-    }
-
     addToFavoriteProducts = (event) => {
         event.stopPropagation()
 
@@ -70,7 +65,7 @@ class Product extends React.Component {
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
-            <div className='col-md-12 ml-auto d-relative product' onClick={this.onInspectClick}>
+            <a href={`/product/${this.props.item.slug}`} className='col-md-12 ml-auto d-relative product'>
                 <div className='border product-border'>
                     <div className='position-relative interface-container'>
                         <img
@@ -125,7 +120,7 @@ class Product extends React.Component {
                     </div>
 
                 </div>
-            </div>
+            </a>
         )
     }
 }
