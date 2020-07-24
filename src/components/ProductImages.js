@@ -28,7 +28,7 @@ function ProductImages({ images }) {
             {
                 images.map((image) => (
                     <Carousel.Item key={image}>
-                        <div style={{ display: 'flex', height: '100%', justifyContent: 'center' }}>
+                        <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
                             <img
                                 src={image}
                                 alt=''
