@@ -20,8 +20,8 @@ class ShopSingle extends React.Component {
         subCategorySlug: ''
     }
 
-    fetchAndSetProduct = (productId) => {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${productId}`).then(({ data: product }) => {
+    fetchAndSetProduct = (productSlug) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/product/${productSlug}`).then(({ data: product }) => {
             this.setState({ product }, () => {
                 const visitedProducts = window.localStorage.getItem('visitedProducts')
                 if (visitedProducts) {
@@ -44,8 +44,8 @@ class ShopSingle extends React.Component {
         this.fetchAndSetProduct(this.props.match.params._id)
     }
 
-    onColorClick = (productId) => {
-        this.fetchAndSetProduct(productId)
+    onColorClick = (productSlug) => {
+        this.fetchAndSetProduct(productSlug)
     }
 
     increaseQuantity = () => {
@@ -127,7 +127,7 @@ class ShopSingle extends React.Component {
                                         {
                                             group.map((groupColor) => (
                                                 <div
-                                                    onClick={() => { this.onColorClick(groupColor._id) }}
+                                                    onClick={() => { this.onColorClick(groupColor.slug) }}
                                                     className={`p-1 mr-2 ${groupColor._id === _id ? 'border' : ''}`} style={{ height: 36, width: 36, borderRadius: '50%', cursor: 'pointer' }}>
                                                     <div style={{ height: '100%', width: '100%', borderRadius: '50%', backgroundColor: groupColor.color.code }} />
                                                 </div>
