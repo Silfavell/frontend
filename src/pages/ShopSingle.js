@@ -116,7 +116,7 @@ class ShopSingle extends React.Component {
                         <ProductImages images={this.getImages(image, imageCount)} />
 
                     </div>
-                    <div className='col-md-6'>
+                    <div className='col-md-6 pb-4'>
                         <h2 className='text-black'>{name}</h2>
                         <p className='text-primary h5' onClick={this.onBrandClick} style={{ cursor: 'pointer' }}>{brand}</p>
                         {

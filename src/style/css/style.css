@@ -350,7 +350,7 @@ a:hover {
 .site-navbar .site-navigation .site-menu>li {
     display: inline-block;
     padding: 10px 5px;
-    z-index: 9998;
+    z-index: 999;
 }
 
 .site-navbar .site-navigation .site-menu>li>a {
@@ -1006,7 +1006,7 @@ a:hover {
 }
 
 .site-blocks-table .product-thumbnail {
-    width: 200px;
+    width: 150px;
 }
 
 .site-blocks-table thead th {
@@ -1019,10 +1019,14 @@ a:hover {
 }
 
 .site-blocks-table td {
-    padding: 20px;
     text-align: center;
     vertical-align: middle;
     color: #212529;
+}
+
+.site-blocks-table tbody tr {
+    display: flex;
+    flex-direction: row;
 }
 
 .site-blocks-table tbody tr:first-child td {

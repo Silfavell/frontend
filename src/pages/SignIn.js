@@ -142,11 +142,11 @@ class SignIn extends React.Component {
                                     </div>
                                 </div>
                                 <div className='form-group row'>
-                                    <div className='col-md-6 d-flex align-items-center justify-content-start'>
+                                    <div className='col-6 d-flex align-items-center justify-content-start'>
                                         <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' />
                                         <label style={{ display: 'unset' }} htmlFor='dont-forget' className='form-check-label ml-2'>Beni Unutma</label>
                                     </div>
-                                    <div className='col-md-6 d-flex align-items-flex-end justify-content-end'>
+                                    <div className='col-6 d-flex align-items-flex-end justify-content-end'>
                                         <a href='forgot-password'>Şifremi Unuttum</a>
                                     </div>
                                 </div>
