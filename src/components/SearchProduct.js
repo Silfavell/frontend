@@ -4,17 +4,17 @@ class SearchProduct extends React.Component {
     render() {
 
         const {
-            id,
             name,
             price,
-            image
+            image,
+            slug
         } = this.props.item
 
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
             <a
-                href={`/product/${id}`}
+                href={`/product/${slug}`}
                 className='col-md-4 p-2'
                 style={{ cursor: 'pointer' }}>
 

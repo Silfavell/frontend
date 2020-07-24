@@ -29,7 +29,12 @@ class Shop extends React.Component {
 
 
     fetchProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/products-filter${this.props.location.search}&quantity=${maximumProductLengthInOnePage}`
+        const url = `${
+            process.env.REACT_APP_API_URL}/products-filter${
+                this.props.location.pathname.replace('/shop', '')}${
+                    this.props.location.search}${
+                        this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${
+                            maximumProductLengthInOnePage}`
 
         return axios.get(url).then(({ data }) => data)
     }
@@ -257,10 +262,10 @@ class Shop extends React.Component {
                             <h3 className='mb-3 h6 text-capitalize text-black d-block'>İlgili Kategoriler</h3>
                             <ul className='list-unstyled mb-0'>
                                 {
-                                    currentCategory?.subCategories.map((category) => (
-                                        <li className='mb-1' key={category._id}>
+                                    currentCategory?.subCategories.map((subCategory) => (
+                                        <li className='mb-1' key={subCategory._id}>
                                             <a className='d-flex text-primary'
-                                                href={`/shop?categoryId=${this.state.products[0]?.categoryId}&subCategoryId=${category._id}`}>{category.name}</a>
+                                                href={`/shop/${currentCategory.slug}/${subCategory.slug}`}>{subCategory.name}</a>
                                         </li>
                                     ))
                                 }
@@ -312,7 +317,7 @@ class Shop extends React.Component {
         if (subCategory) {
             divider = [
                 {
-                    path: `shop?categoryId=${currentCategory?._id}`,
+                    path: `shop/${currentCategory?.slug}`,
                     title: currentCategory?.name
                 },
                 {

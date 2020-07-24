@@ -1,6 +1,7 @@
 /* eslint-disable */
 import axios from 'axios'
 import Cookies from 'universal-cookie'
+import VanillaToasts from 'vanillatoasts'
 
 const cookies = new Cookies()
 

@@ -151,7 +151,7 @@ class Navbar extends React.Component {
                         <div className='row'>
                             {
                                 this.state.searchedProducts.map((product) => (
-                                    <a href={`/product/${product.id}`} className='col-md-12 border-bottom p-3' style={{ cursor: 'pointer' }}>
+                                    <a href={`/product/${product.slug}`} className='col-md-12 border-bottom p-3' style={{ cursor: 'pointer' }}>
                                         {product.name}
                                     </a>
                                 ))
@@ -191,12 +191,12 @@ class Navbar extends React.Component {
                                             category.subCategories.length > 0 &&
                                             <IoIosArrowDown size={18} className='arrow-collapse collapsed' data-toggle='collapse' data-target={`#collapseItem${category._id}`} />
                                         }
-                                        <a href={`/shop?categoryId=${category._id}`}>{category.name}</a>
+                                        <a href={`/shop/${category.slug}`}>{category.name}</a>
                                         <ul className='collapse' id={`collapseItem${category._id}`}>
                                             {
                                                 category.subCategories.map((subCategory) => (
                                                     <li key={subCategory._id}>
-                                                        <a href={`/shop?categoryId=${category._id}&subCategoryId=${subCategory._id}`}>{subCategory.name}</a>
+                                                        <a href={`/shop/${category.slug}/${subCategory.slug}`}>{subCategory.name}</a>
                                                     </li>
                                                 ))
                                             }
@@ -269,12 +269,12 @@ class Navbar extends React.Component {
                                         {
                                             this.props.categories.map((category) => (
                                                 <li className={'has-children'} key={category._id}>
-                                                    <a href={`/shop?categoryId=${category._id}`}>{category.name}</a>
+                                                    <a href={`/shop/${category.slug}`}>{category.name}</a>
                                                     <ul className='dropdown'>
                                                         {
                                                             category.subCategories.map((subCategory) => (
                                                                 <li key={subCategory._id}>
-                                                                    <a href={`/shop?categoryId=${category._id}&subCategoryId=${subCategory._id}`}>{subCategory.name}</a>
+                                                                    <a href={`/shop/${category.slug}/${subCategory.slug}`}>{subCategory.name}</a>
                                                                 </li>
                                                             ))
                                                         }
