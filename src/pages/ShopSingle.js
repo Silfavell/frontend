@@ -15,7 +15,9 @@ class ShopSingle extends React.Component {
         product: {},
         quantity: 1,
         categoryName: '',
-        subCategoryName: ''
+        subCategoryName: '',
+        categorySlug: '',
+        subCategorySlug: ''
     }
 
     fetchAndSetProduct = (productId) => {
@@ -106,7 +108,12 @@ class ShopSingle extends React.Component {
         const subCategory = category?.subCategories.find((subCategory) => subCategory._id === subCategoryId)
 
         if (this.state.categoryName.length === 0 && category && subCategory) {
-            this.setState({ categoryName: category.name, subCategoryName: subCategory.name })
+            this.setState({
+                categoryName: category.name,
+                subCategoryName: subCategory.name,
+                categorySlug: category.slug,
+                subCategorySlug: subCategory.slug
+            })
         }
 
         return (
@@ -210,7 +217,7 @@ class ShopSingle extends React.Component {
                     <div className='col-md-12'>
                         <p className='text-secondary h5 mb-2'>Ürün Özellikleri</p>
 
-                        <span style={{ whiteSpace: 'break-spaces'}}>
+                        <span style={{ whiteSpace: 'break-spaces' }}>
                             {details ?? 'Ürün detayı bulunmamaktadır'}
                         </span>
                     </div>
@@ -221,13 +228,15 @@ class ShopSingle extends React.Component {
 
     render() {
         const {
-            categoryId,
-            subCategoryId
-        } = this.state.product
+            categoryName,
+            subCategoryName,
+            categorySlug,
+            subCategorySlug
+        } = this.state
 
         const divider = [
-            { path: `/shop?categoryId=${categoryId}`, title: this.state.categoryName },
-            { path: `/shop?categoryId=${categoryId}&subCategoryId=${subCategoryId}`, title: this.state.subCategoryName },
+            { path: `/shop/${categorySlug}`, title: categoryName },
+            { path: `/shop/${categorySlug}/${subCategorySlug}`, title: subCategoryName },
             { path: null, title: this.state.product.name }
         ]
 
