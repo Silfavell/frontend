@@ -95,7 +95,7 @@ class CartItem extends React.Component {
                     </div>
 
                     <div className='direction-row mx-3'>
-                        <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : {}}>
+                        <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
                             {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
                         </strong>
                         {

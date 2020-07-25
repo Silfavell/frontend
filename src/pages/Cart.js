@@ -12,6 +12,7 @@ class Cart extends React.Component {
 
     cartWithProducts = ({ products, onIncreaseClick, onDecreaseClick, setProductQuantity }) => {
         const totalPrice = products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0).toFixed(2)
+        const cargoPrice = (15).toFixed(2)
 
         return (
             <div className='container'>
@@ -44,10 +45,26 @@ class Cart extends React.Component {
                             </div>
                             <div className='row'>
                                 <div className='col-md-6'>
-                                    <span className='text-black'>Toplam</span>
+                                    <span className='text-black'>Tutar</span>
                                 </div>
                                 <div className='col-md-6 text-right'>
                                     <strong className='text-black'>{`₺${totalPrice}`}</strong>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col-md-6'>
+                                    <span className='text-black'>Kargo Ücreti</span>
+                                </div>
+                                <div className='col-md-6 text-right'>
+                                    <strong className='text-black'>{`₺${cargoPrice}`}</strong>
+                                </div>
+                            </div>
+                            <div className='row pt-4'>
+                                <div className='col-md-6'>
+                                    <span className='text-black'>Toplam</span>
+                                </div>
+                                <div className='col-md-6 text-right'>
+                                    <strong className='text-black'>{`₺${(parseFloat(totalPrice) + parseFloat(cargoPrice)).toFixed(2)}`}</strong>
                                 </div>
                             </div>
                         </div>
