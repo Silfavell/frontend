@@ -15,12 +15,14 @@ class ShopProduct extends React.Component {
 
     addProductToCart = (event) => {
         event.stopPropagation()
+        event.preventDefault()
 
         this.props.onIncreaseClick(this.props.item._id)
     }
 
     addToFavoriteProducts = (event) => {
         event.stopPropagation()
+        event.preventDefault()
 
         axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ status }) => {
             if (status === 200) {
@@ -39,6 +41,7 @@ class ShopProduct extends React.Component {
 
     removeFromFavoriteProdutcs = (event) => {
         event.stopPropagation()
+        event.preventDefault()
 
         axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ status }) => {
             if (status === 200) {
@@ -79,19 +82,23 @@ class ShopProduct extends React.Component {
                         <div className='interface'>
                             <div className='top col-md-12'>
                                 <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-favorite'>
-                                    {
-                                        this.props.loggedIn && (
-                                            this.state.favorite ?
-                                                <IoMdHeart size={28} color={'black'} onClick={this.removeFromFavoriteProdutcs} />
-                                                : <IoMdHeartEmpty size={28} color={'black'} onClick={this.addToFavoriteProducts} />
-                                        )
-                                    }
+                                    <div onClick={this.props.loggedIn && (this.state.favorite ? this.removeFromFavoriteProdutcs : this.addToFavoriteProducts)}>
+                                        {
+                                            this.props.loggedIn && (
+                                                this.state.favorite ?
+                                                    <IoMdHeart size={28} color={'black'} />
+                                                    : <IoMdHeartEmpty size={28} color={'black'} />
+                                            )
+                                        }
+                                    </div>
                                 </div>
                             </div>
 
                             <div className='bottom col-md-12'>
                                 <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-cart'>
-                                    <IoMdCart size={28} color={'black'} onClick={this.addProductToCart} />
+                                    <div onClick={this.addProductToCart}>
+                                        <IoMdCart size={28} color={'black'} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
