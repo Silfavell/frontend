@@ -21,7 +21,7 @@ class ProductSpecifications extends React.Component {
             feature,
             form,
             kind
-        } = this.props.specifications
+        } = this.props.specifications || {}
 
         return (
             <div className='my-3'>
