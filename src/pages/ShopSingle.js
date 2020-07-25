@@ -107,8 +107,8 @@ class ShopSingle extends React.Component {
 
         return (
             <div className='container'>
-                <div className='row border-bottom pb-5'>
-                    <div className='col-md-6'>
+                <div className='row border-bottom'>
+                    <div className='col-md-6 pb-5'>
                         <ProductImages images={this.getImages(image, imageCount)} />
 
                     </div>

@@ -29,7 +29,7 @@ class NavCartItem extends React.Component {
                                 </div>
                             </div>
                             <div className='col-md-12 d-flex direction-row'>
-                                <div className='py-3 text-black font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through' } : {}}>
+                                <div className='py-3 font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through', color: 'grey' } : {}}>
                                     {'₺' + price.toFixed(2).toString().replace('.', ',')}
                                 </div>
                                 {

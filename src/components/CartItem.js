@@ -63,7 +63,7 @@ class CartItem extends React.Component {
                 </td>
                 <td className='right-td'>
                     <div className="product-name">
-                        <h6 className='text-black'>{name}</h6>
+                        <h5 className='text-black'>{name}</h5>
 
                     </div>
 
@@ -95,14 +95,14 @@ class CartItem extends React.Component {
                     </div>
 
                     <div className='direction-row mx-3'>
-                        <div style={discountedPrice ? { textDecoration: 'line-through', fontSize: 18 } : {}}>
+                        <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : {}}>
                             {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
-                        </div>
+                        </strong>
                         {
                             discountedPrice && (
-                                <div style={{ fontSize: 18 }}>
+                                <strong className='ml-3' style={{ fontSize: 20 }}>
                                     {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
-                                </div>
+                                </strong>
                             )
                         }
                     </div>
