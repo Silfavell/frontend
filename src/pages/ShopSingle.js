@@ -7,6 +7,7 @@ import joi from '@hapi/joi'
 import Loading from '../components/Loading'
 import SiteWrap from '../components/SiteWrap'
 import ProductImages from '../components/ProductImages'
+import Tabs from '../components/ShopSingle/Tabs'
 
 
 class ShopSingle extends React.Component {
@@ -118,7 +119,7 @@ class ShopSingle extends React.Component {
 
         return (
             <div className='container'>
-                <div className='row border-bottom'>
+                <div className='row'>
                     <div className='col-md-6 pb-5'>
                         <ProductImages images={this.getImages(image, imageCount)} />
                     </div>
@@ -216,33 +217,7 @@ class ShopSingle extends React.Component {
                     </div>
                 </div>
                 <div className='row mt-5'>
-                    <div className='col-md-12'>
-                        <p className='text-secondary h5 mb-2'>Ürün Özellikleri</p>
-
-                        <span style={{ whiteSpace: 'break-spaces' }}>
-                            {details ?? 'Ürün detayı bulunmamaktadır'}
-                        </span>
-                    </div>
-
-                    <div className='col-md-12'>
-                        <div className='border mt-5'>
-                            {
-                                this.renderDetailRow({ title: 'Ürün Kodu', value: '10011395', first: true })
-                            }
-                            {
-                                this.renderDetailRow({ title: 'Renk Tonu', value: 'Yeşil' })
-                            }
-                            {
-                                this.renderDetailRow({ title: 'Fayda/İhtiyaç', value: 'Sıkılaştırıcı' })
-                            }
-                            {
-                                this.renderDetailRow({ title: 'Bitiş', value: 'Mat' })
-                            }
-                            {
-                                this.renderDetailRow({ title: 'Çeşit', value: 'Tekli' })
-                            }
-                        </div>
-                    </div>
+                    <Tabs details={details} />
                 </div>
             </div>
         )
