@@ -1,6 +1,6 @@
 import React from 'react'
 import { Nav, Tab } from 'react-bootstrap'
-import ProductDetails from './ProductDetails'
+import ProductSpecifications from './ProductSpecifications'
 
 class Tabs extends React.Component {
     render() {
@@ -17,7 +17,7 @@ class Tabs extends React.Component {
 
                 <Tab.Content className={'w-100'}>
                     <Tab.Pane eventKey='details'>
-                        <ProductDetails />
+                        <ProductSpecifications specifications={this.props.specifications}/>
                     </Tab.Pane>
                     <Tab.Pane eventKey='comments'>
                     </Tab.Pane>

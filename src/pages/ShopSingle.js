@@ -97,6 +97,7 @@ class ShopSingle extends React.Component {
             subCategoryId,
             name,
             details,
+            specifications,
             price,
             discountedPrice,
             brand,
@@ -217,7 +218,10 @@ class ShopSingle extends React.Component {
                     </div>
                 </div>
                 <div className='row mt-5'>
-                    <Tabs details={details} />
+                    <Tabs
+                        details={details}
+                        specifications={specifications}
+                    />
                 </div>
             </div>
         )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-class ProductDetails extends React.Component {
+class ProductSpecifications extends React.Component {
 
     renderDetailRow = ({ title, value, first }) => (
         <div className={`col-md-12 ${!first ? 'border-top' : ''}`}>
@@ -14,6 +14,15 @@ class ProductDetails extends React.Component {
     )
 
     render() {
+        const {
+            benefit,
+            brushThickness,
+            colorDetail,
+            feature,
+            form,
+            kind
+        } = this.props.specifications
+
         return (
             <div className='my-3'>
                 <div className='col-md-12'>
@@ -25,19 +34,22 @@ class ProductDetails extends React.Component {
                 <div className='col-md-12'>
                     <div className='border mt-5'>
                         {
-                            this.renderDetailRow({ title: 'Ürün Kodu', value: '10011395', first: true })
+                            feature && this.renderDetailRow({ title: 'Özellik', value: feature, first: true })
                         }
                         {
-                            this.renderDetailRow({ title: 'Renk Tonu', value: 'Yeşil' })
+                            benefit && this.renderDetailRow({ title: 'Fayda/İhtiyaç', value: benefit })
                         }
                         {
-                            this.renderDetailRow({ title: 'Fayda/İhtiyaç', value: 'Sıkılaştırıcı' })
+                            colorDetail && this.renderDetailRow({ title: 'Bitiş', value: colorDetail })
                         }
                         {
-                            this.renderDetailRow({ title: 'Bitiş', value: 'Mat' })
+                            brushThickness && this.renderDetailRow({ title: 'Fırça Kalınlığı', value: brushThickness })
                         }
                         {
-                            this.renderDetailRow({ title: 'Çeşit', value: 'Tekli' })
+                            form && this.renderDetailRow({ title: 'Form', value: form })
+                        }
+                        {
+                            kind && this.renderDetailRow({ title: 'Çeşit', value: kind })
                         }
                     </div>
                 </div>
@@ -46,4 +58,4 @@ class ProductDetails extends React.Component {
     }
 }
 
-export default ProductDetails
+export default ProductSpecifications
