@@ -247,6 +247,7 @@ class SiteWrap extends React.Component {
                     products={this.state.products}
                     firstImage={this.props.firstImage}
                     changeMobileMenuStatus={this.changeMobileMenuStatus}
+                    setProductQuantity={this.setProductQuantity}
                 />
 
                 {

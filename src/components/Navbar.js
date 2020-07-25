@@ -240,7 +240,10 @@ class Navbar extends React.Component {
                                                         <div className='cart'>
                                                             {
                                                                 this.props.products.map((product) => (
-                                                                    <NavCartItem key={product._id} item={product} />
+                                                                    <NavCartItem
+                                                                        setProductQuantity={this.props.setProductQuantity}
+                                                                        key={product._id}
+                                                                        item={product} />
                                                                 ))
                                                             }
                                                         </div>
