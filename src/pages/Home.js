@@ -11,6 +11,7 @@ import '../style/css/googleMukta.css'
 
 import SiteWrap from '../components/SiteWrap'
 import Carousel from '../components/Carousel'
+import Tabs from '../components/Home/Tabs'
 
 class Home extends React.Component {
 
@@ -44,14 +45,12 @@ class Home extends React.Component {
                 <div className='row'>
 
                     <div className='col-md-12 p-4'>
-                        <h2 className='h2 mb-3 text-black d-flex align-items-center justify-content-center'>
-                            En Çok Satanlar
-                        </h2>
+                        <h2 className='h3 mb-3 text-black d-flex align-items-center justify-content-start'>En Çok Satanlar</h2>
                     </div>
-                    <div className='col-md-12 p-4' />
 
-                    <Carousel
-                        products={this.state.bestSeller}
+                    <Tabs
+                        // products={this.state.bestSeller}
+                        products={this.state.visitedProducts}
                         onIncreaseClick={onIncreaseClick}
                     />
 
@@ -59,12 +58,9 @@ class Home extends React.Component {
                         this.state.visitedProducts.length > 0 && (
                             <>
                                 <div className='col-md-12 p-4' />
-                                <div className='col-md-12  p-4'>
-                                    <h2 className='h2 mb-3 text-black d-flex align-items-center justify-content-center'>
-                                        En Son Gezdiklerin
-                                        </h2>
+                                <div className='col-md-12 p-4'>
+                                    <h2 className='h3 mb-3 text-black d-flex align-items-center justify-content-start'>En Son Gezdiklerin</h2>
                                 </div>
-                                <div className='col-md-12 p-4' />
 
                                 <Carousel
                                     products={this.state.visitedProducts}
