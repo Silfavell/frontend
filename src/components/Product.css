@@ -26,8 +26,8 @@
 
 .product .interface-container .interface .bottom .add-to-cart,
 .product .interface-container .interface .top .add-to-favorite {
-    padding: 8px;
-    margin: 2px;
+    padding: 8px 0;
+    margin: 2px 0;
 }
 
 .product .interface-container .interface .bottom .add-to-cart svg,

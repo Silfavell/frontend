@@ -68,61 +68,59 @@ class ShopProduct extends React.Component {
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
-            <a href={`/product/${this.props.item.slug}`} className='col-lg-4 col-sm-6 col-12 mb-4 product'>
-                <div className='border product-border'>
-                    <div className='position-relative interface-container'>
-                        <img
-                            src={url}
-                            alt=''
-                            onError={(e) => {
-                                e.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
-                            }}
-                            className='w-100 py-5' />
+            <a href={`/product/${this.props.item.slug}`} className='col-lg-4 col-sm-6 col-6 mb-4 product border product-border'>
+                <div className='position-relative interface-container'>
+                    <img
+                        src={url}
+                        alt=''
+                        onError={(e) => {
+                            e.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
+                        }}
+                        className='w-100 py-5' />
 
-                        <div className='interface'>
-                            <div className='top col-md-12'>
-                                <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-favorite'>
-                                    <div onClick={this.props.loggedIn && (this.state.favorite ? this.removeFromFavoriteProdutcs : this.addToFavoriteProducts)}>
-                                        {
-                                            this.props.loggedIn && (
-                                                this.state.favorite ?
-                                                    <IoMdHeart size={28} color={'black'} />
-                                                    : <IoMdHeartEmpty size={28} color={'black'} />
-                                            )
-                                        }
-                                    </div>
+                    <div className='interface'>
+                        <div className='top w-100'>
+                            <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-favorite'>
+                                <div onClick={this.props.loggedIn && (this.state.favorite ? this.removeFromFavoriteProdutcs : this.addToFavoriteProducts)}>
+                                    {
+                                        this.props.loggedIn && (
+                                            this.state.favorite ?
+                                                <IoMdHeart size={28} color={'black'} />
+                                                : <IoMdHeartEmpty size={28} color={'black'} />
+                                        )
+                                    }
                                 </div>
                             </div>
+                        </div>
 
-                            <div className='bottom col-md-12'>
-                                <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-cart'>
-                                    <div onClick={this.addProductToCart}>
-                                        <IoMdCart size={28} color={'black'} />
-                                    </div>
+                        <div className='bottom w-100'>
+                            <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-cart'>
+                                <div onClick={this.addProductToCart}>
+                                    <IoMdCart size={28} color={'black'} />
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div className='mb-3'>
-                        <div className='col-md-12 d-flex justify-content-start align-items-center p-0' style={{ textAlign: 'left' }}>
-                            <div className='h5 pl-4 pr-2 py-2 font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through', color: 'grey' } : { color: 'black' }}>
-                                {'₺' + price.toFixed(2).toString().replace('.', ',')}
-                            </div>
-
-                            {
-                                discountedPrice && (
-                                    <div className='h5 py-2 text-black font-weight-normal'>
-                                        {'₺' + discountedPrice.toFixed(2).toString().replace('.', ',')}
-                                    </div>
-                                )
-                            }
-
+                <div className='mb-3'>
+                    <div className='col-md-12 d-flex justify-content-start align-items-center p-0' style={{ textAlign: 'left' }}>
+                        <div className='h5 pr-2 py-2 font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through', color: 'grey' } : { color: 'black' }}>
+                            {'₺' + price.toFixed(2).toString().replace('.', ',')}
                         </div>
-                        <div className='col-md-12 d-flex flex-row justify-content-start align-items-center p-0' style={{ textAlign: 'left' }}>
-                            <div className='h6 text-black font-weight-normal px-4' style={{ wordWrap: 'break-word', height: 50 }}>
-                                {name.substr(0, 60)}
-                            </div>
+
+                        {
+                            discountedPrice && (
+                                <div className='h5 py-2 text-black font-weight-normal'>
+                                    {'₺' + discountedPrice.toFixed(2).toString().replace('.', ',')}
+                                </div>
+                            )
+                        }
+
+                    </div>
+                    <div className='col-md-12 d-flex flex-row justify-content-start align-items-center p-0' style={{ textAlign: 'left' }}>
+                        <div className='h6 text-black font-weight-normal' style={{ wordWrap: 'break-word', height: 60 }}>
+                            {'name name name name name name name name name name name name name name name name name name name '.substr(0, 60)}
                         </div>
                     </div>
                 </div>
