@@ -16,8 +16,7 @@ import Tabs from '../components/Home/Tabs'
 class Home extends React.Component {
 
     state = {
-        visitedProducts: [],
-        bestSeller: []
+        visitedProducts: []
     }
 
     fetchProducts = (productIds) => {
@@ -33,10 +32,6 @@ class Home extends React.Component {
                 this.setState({ visitedProducts })
             })
         }
-
-        this.fetchProducts(['5ef83a07e51aac1928871074', '5ef83a0ee51aac1928871075'].join(',')).then((bestSeller) => { // TODO
-            this.setState({ bestSeller })
-        })
     }
 
     renderHomeContent = ({ onIncreaseClick }) => {
@@ -49,8 +44,6 @@ class Home extends React.Component {
                     </div>
 
                     <Tabs
-                        // products={this.state.bestSeller}
-                        products={this.state.visitedProducts}
                         onIncreaseClick={onIncreaseClick}
                     />
 
