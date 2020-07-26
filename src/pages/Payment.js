@@ -268,26 +268,26 @@ class Payment extends React.Component {
                                             </div>
                                         </div>
                                         <div className='row'>
-                                            <div className='col-md-6'>
+                                            <div className='col-6'>
                                                 <span className='text-black'>Tutar</span>
                                             </div>
-                                            <div className='col-md-6 text-right'>
+                                            <div className='col-6 text-right'>
                                                 <strong className='text-black'>{`₺${totalPrice}`}</strong>
                                             </div>
                                         </div>
                                         <div className='row'>
-                                            <div className='col-md-6'>
+                                            <div className='col-6'>
                                                 <span className='text-black'>Kargo Ücreti</span>
                                             </div>
-                                            <div className='col-md-6 text-right'>
+                                            <div className='col-6 text-right'>
                                                 <strong className='text-black'>{`₺${cargoPrice}`}</strong>
                                             </div>
                                         </div>
                                         <div className='row pt-4'>
-                                            <div className='col-md-6'>
+                                            <div className='col-6'>
                                                 <span className='text-black'>Toplam</span>
                                             </div>
-                                            <div className='col-md-6 text-right'>
+                                            <div className='col-6 text-right'>
                                                 <strong className='text-black'>{`₺${(parseFloat(totalPrice) + parseFloat(cargoPrice)).toFixed(2)}`}</strong>
                                             </div>
                                         </div>
