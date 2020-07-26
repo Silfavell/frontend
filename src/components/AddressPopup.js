@@ -85,7 +85,7 @@ class AddressPopup extends React.Component {
                         </div>
                         <div className='form-group row'>
                             <div className='col-md-4'>
-                                <label htmlFor='buildingNo' className='text-black'>Building No <span className='text-danger'>*</span></label>
+                                <label htmlFor='buildingNo' className='text-black'>Bina Numarası <span className='text-danger'>*</span></label>
                                 <input
                                     onChange={this.onBuildingNoChange}
                                     type='text'
@@ -96,7 +96,7 @@ class AddressPopup extends React.Component {
                                 />
                             </div>
                             <div className='col-md-4'>
-                                <label htmlFor='floor' className='text-black'>Floor <span className='text-danger'>*</span></label>
+                                <label htmlFor='floor' className='text-black'>Kat <span className='text-danger'>*</span></label>
                                 <input
                                     onChange={this.onFloorChange}
                                     type='text'
@@ -107,7 +107,7 @@ class AddressPopup extends React.Component {
                                 />
                             </div>
                             <div className='col-md-4'>
-                                <label htmlFor='aptNo' className='text-black'>Apt. No <span className='text-danger'>*</span></label>
+                                <label htmlFor='aptNo' className='text-black'>Apt. Numarası <span className='text-danger'>*</span></label>
                                 <input
                                     onChange={this.onAptNoChange}
                                     type='text'
