@@ -1,6 +1,5 @@
-.product-border {
-    border-bottom: 1px solid red !important;
-    margin: 5px;
+.product-border-bottom {
+    border-bottom: 1px solid #EE4266 !important;
 }
 
 .product .interface-container .interface {

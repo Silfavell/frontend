@@ -31,10 +31,10 @@ class Shop extends React.Component {
     fetchProducts = () => {
         const url = `${
             process.env.REACT_APP_API_URL}/products-filter${
-                this.props.location.pathname.replace('/shop', '')}${
-                    this.props.location.search}${
-                        this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${
-                            maximumProductLengthInOnePage}`
+            this.props.location.pathname.replace('/shop', '')}${
+            this.props.location.search}${
+            this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${
+            maximumProductLengthInOnePage}`
 
         return axios.get(url).then(({ data }) => data)
     }
@@ -310,7 +310,7 @@ class Shop extends React.Component {
 
     render() {
         const currentCategory = this.state.categories.find(category => category._id === this.state.products[0]?.categoryId)
-        const subCategory = this.props.location.search.includes('subCategoryId') ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products[0].subCategoryId) : null
+        const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products[0].subCategoryId) : null
 
         let divider = []
 
