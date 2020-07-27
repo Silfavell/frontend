@@ -151,7 +151,7 @@ class Navbar extends React.Component {
                         <div className='row'>
                             {
                                 this.state.searchedProducts.map((product) => (
-                                    <a href={`/product/${product.slug}`} className='col-md-12 border-bottom p-3' style={{ cursor: 'pointer' }}>
+                                    <a href={`/${product.slug}/p`} className='col-md-12 border-bottom p-3' style={{ cursor: 'pointer' }}>
                                         {product.name}
                                     </a>
                                 ))
@@ -280,10 +280,10 @@ class Navbar extends React.Component {
                                                                     <a href={`/shop/${category.slug}/${subCategory.slug}`}>{subCategory.name}</a>
                                                                     {
                                                                         subCategory.types.length > 0 && (
-                                                                            <ul class='dropdown'>
+                                                                            <ul className='dropdown'>
                                                                                 {
                                                                                     subCategory.types.map((type) => (
-                                                                                        <a href={`/shop/${category.slug}/${subCategory.slug}?type=${type.name}`}>{type.name}</a>
+                                                                                        <a key={type._id} href={`/shop/${category.slug}/${subCategory.slug}?type=${type.name}`}>{type.name}</a>
                                                                                     ))
                                                                                 }
                                                                             </ul>

@@ -68,7 +68,7 @@ class ShopProduct extends React.Component {
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
-            <a href={`/product/${this.props.item.slug}`} className='col-lg-4 col-sm-6 col-6 m-0 p-2 mb-4 product'>
+            <a href={`/${this.props.item.slug}/p`} className='col-lg-4 col-sm-6 col-6 m-0 p-2 mb-4 product'>
                 <div className='border product-border-bottom'>
 
                     <div className='position-relative interface-container'>

@@ -27,32 +27,36 @@ class ProductSpecifications extends React.Component {
             <div className='my-3'>
                 <div className='col-md-12'>
                     <span style={{ whiteSpace: 'break-spaces' }}>
-                        {this.props.details ?? 'Ürün detayı bulunmamaktadır'}
+                        {this.props.details ?? 'Ürün detayı bulunmamaktadır.'}
                     </span>
                 </div>
 
-                <div className='col-md-12'>
-                    <div className='border mt-5'>
-                        {
-                            feature && this.renderDetailRow({ title: 'Özellik', value: feature, first: true })
-                        }
-                        {
-                            benefit && this.renderDetailRow({ title: 'Fayda/İhtiyaç', value: benefit })
-                        }
-                        {
-                            colorDetail && this.renderDetailRow({ title: 'Bitiş', value: colorDetail })
-                        }
-                        {
-                            brushThickness && this.renderDetailRow({ title: 'Fırça Kalınlığı', value: brushThickness })
-                        }
-                        {
-                            form && this.renderDetailRow({ title: 'Form', value: form })
-                        }
-                        {
-                            kind && this.renderDetailRow({ title: 'Çeşit', value: kind })
-                        }
-                    </div>
-                </div>
+                {
+                    Object.keys(this.props.specifications || {}).length > 0 && (
+                        <div className='col-md-12'>
+                            <div className='border mt-5'>
+                                {
+                                    feature && this.renderDetailRow({ title: 'Özellik', value: feature, first: true })
+                                }
+                                {
+                                    benefit && this.renderDetailRow({ title: 'Fayda/İhtiyaç', value: benefit })
+                                }
+                                {
+                                    colorDetail && this.renderDetailRow({ title: 'Bitiş', value: colorDetail })
+                                }
+                                {
+                                    brushThickness && this.renderDetailRow({ title: 'Fırça Kalınlığı', value: brushThickness })
+                                }
+                                {
+                                    form && this.renderDetailRow({ title: 'Form', value: form })
+                                }
+                                {
+                                    kind && this.renderDetailRow({ title: 'Çeşit', value: kind })
+                                }
+                            </div>
+                        </div>
+                    )
+                }
             </div>
         )
     }
