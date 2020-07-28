@@ -258,105 +258,121 @@ class Shop extends React.Component {
 
                     <div className='col-md-3 order mb-5 mb-md-0'>
 
-                        <div className='border p-4 rounded mb-4 related-categories'>
-                            <h3 className='h6 text-capitalize text-black d-block'>İlgili Kategoriler</h3>
-                            <ul className='list-unstyled mb-0'>
-                                {
-                                    currentCategory?.subCategories.map((subCategory) => (
-                                        <li className='mb-1' key={subCategory._id}>
-                                            <a className='d-flex text-primary'
-                                                href={`/shop/${currentCategory.slug}/${subCategory.slug}`}>{subCategory.name}</a>
-                                        </li>
-                                    ))
-                                }
-                            </ul>
-                        </div>
+                        {
+                            /*
+                                <div className='border p-4 rounded mb-4 related-categories'>
+                                    <h3 className='h6 text-capitalize text-black d-block'>İlgili Kategoriler</h3>
+                                    <ul className='list-unstyled mb-0'>
+                                        {
+                                            currentCategory?.subCategories.map((subCategory) => (
+                                                <li className='mb-1' key={subCategory._id}>
+                                                    <a className='d-flex text-primary'
+                                                        href={`/shop/${currentCategory.slug}/${subCategory.slug}`}>{subCategory.name}</a>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                            */
+                        }
 
-                        <div className='border p-4 rounded mb-4 brands'>
-                            <div>
-                                <h3 className='mb-3 h6 text-capitalize text-black d-block'>Markalar</h3>
-                                {
-                                    (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
-                                        <label
-                                            key={brand._id}
-                                            htmlFor={brand._id}
-                                            className='d-flex align-items-center justify-content-start'
-                                            style={{ cursor: 'pointer' }}>
-                                            <input
-                                                type='checkbox'
-                                                id={brand._id}
-                                                brand={brand.name}
-                                                className='mr-2 mt-1'
-                                                style={{ cursor: 'pointer' }}
-                                                onChange={this.onBrandSelectionChange}
-                                                checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
-                                            <Link
-                                                className='text-black'
-                                                to={(location) => (
-                                                    this.onFilterLinkClick(location, 'brands', brand.name, true)
-                                                )}>
-                                                {`${brand.name} (${brand.productQuantity})`}
-                                            </Link>
-                                        </label>
-                                    ))
-                                }
+                        <div className='card mb-3'>
+                            <div className='card-header p-0 bg-white' id={`heading${'brands'}`}>
+                                <h5 className='mb-0'>
+                                    <button
+                                        className='btn btn-link w-100 mx-3'
+                                        style={{ textAlign: 'left', color: 'black', textDecoration: 'none' }}
+                                        data-toggle='collapse'
+                                        data-target={`#collapse${'brands'}`}
+                                        aria-expanded='true'
+                                        aria-controls={`collapse${'brands'}`}>
+                                        {'Markalar'}
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id={`collapse${'brands'}`} className='collapse' aria-labelledby={`heading${'brands'}`}>
+                                <div className='card-body'>
+                                    {
+                                        (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
+                                            <label
+                                                key={brand._id}
+                                                htmlFor={brand._id}
+                                                className='d-flex align-items-center justify-content-start'
+                                                style={{ cursor: 'pointer' }}>
+                                                <input
+                                                    type='checkbox'
+                                                    id={brand._id}
+                                                    brand={brand.name}
+                                                    className='mr-2 mt-1'
+                                                    style={{ cursor: 'pointer' }}
+                                                    onChange={this.onBrandSelectionChange}
+                                                    checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
+                                                <Link
+                                                    className='text-black'
+                                                    to={(location) => (
+                                                        this.onFilterLinkClick(location, 'brands', brand.name, true)
+                                                    )}>
+                                                    {`${brand.name} (${brand.productQuantity})`}
+                                                </Link>
+                                            </label>
+                                        ))
+                                    }
+                                </div>
                             </div>
                         </div>
 
-                        <div id='accordion'>
-                            {
-                                this.state.products.specifications.map((specification, index) => (
-                                    <div className='card mb-3'>
-                                        <div className='card-header p-0 bg-white' id={`heading${index}`}>
-                                            <h5 className='mb-0'>
-                                                <button
-                                                    className='btn btn-link w-100 mx-3'
-                                                    style={{ textAlign: 'left', color: 'black', textDecoration: 'none' }}
-                                                    data-toggle='collapse'
-                                                    data-target={`#collapse${index}`}
-                                                    aria-expanded='true'
-                                                    aria-controls={`collapse${index}`}>
-                                                    {specification.name}
-                                                </button>
-                                            </h5>
-                                        </div>
+                        {
+                            this.state.products.specifications.map((specification, index) => (
+                                <div className='card mb-3'>
+                                    <div className='card-header p-0 bg-white' id={`heading${index}`}>
+                                        <h5 className='mb-0'>
+                                            <button
+                                                className='btn btn-link w-100 mx-3'
+                                                style={{ textAlign: 'left', color: 'black', textDecoration: 'none' }}
+                                                data-toggle='collapse'
+                                                data-target={`#collapse${index}`}
+                                                aria-expanded='false'
+                                                aria-controls={`collapse${index}`}>
+                                                {specification.name}
+                                            </button>
+                                        </h5>
+                                    </div>
 
-                                        <div id={`collapse${index}`} className='collapse show' aria-labelledby={`heading${index}`} data-parent='#accordion'>
-                                            <div className='card-body'>
-                                                {
-                                                    specification.values.map((specificationValue, index) => (
-                                                        <label
-                                                            key={specificationValue.name}
-                                                            htmlFor={specificationValue.name}
-                                                            className='d-flex align-items-center justify-content-start'
-                                                            style={{ cursor: 'pointer' }}>
-                                                            <input
-                                                                type='checkbox'
-                                                                id={specificationValue.value}
-                                                                // brand={brand.name}
-                                                                className='mr-2 mt-1'
-                                                                style={{ cursor: 'pointer' }}
-                                                            // onChange={this.onBrandSelectionChange}
-                                                            // checked={this.props.location.search.split('%20').join(' ').includes(brand.name)}
-                                                            />
-                                                            <Link
-                                                                className='text-black'
-                                                            //  to={(location) => (
-                                                            //      this.onFilterLinkClick(location, 'brands', brand.name, true)
-                                                            //  )}
-                                                            >
-                                                                {`${specificationValue.value} (${specificationValue.count})`}
-                                                            </Link>
-                                                        </label>
-                                                    ))
-                                                }
-                                            </div>
+                                    <div id={`collapse${index}`} className='collapse' aria-labelledby={`heading${index}`}>
+                                        <div className='card-body'>
+                                            {
+                                                specification.values.map((specificationValue, index) => (
+                                                    <label
+                                                        key={specificationValue.name}
+                                                        htmlFor={specificationValue.name}
+                                                        className='d-flex align-items-center justify-content-start'
+                                                        style={{ cursor: 'pointer' }}>
+                                                        <input
+                                                            type='checkbox'
+                                                            id={specificationValue.value}
+                                                            // brand={brand.name}
+                                                            className='mr-2 mt-1'
+                                                            style={{ cursor: 'pointer' }}
+                                                        // onChange={this.onBrandSelectionChange}
+                                                        // checked={this.props.location.search.split('%20').join(' ').includes(brand.name)}
+                                                        />
+                                                        <Link
+                                                            className='text-black'
+                                                        //  to={(location) => (
+                                                        //      this.onFilterLinkClick(location, 'brands', brand.name, true)
+                                                        //  )}
+                                                        >
+                                                            {`${specificationValue.value} (${specificationValue.count})`}
+                                                        </Link>
+                                                    </label>
+                                                ))
+                                            }
                                         </div>
                                     </div>
-                                ))
-                            }
-                        </div>
-
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
             </div>
