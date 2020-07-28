@@ -44,7 +44,7 @@ class SiteWrap extends React.Component {
             }`
 
 
-        return axios.get(url).then(({ data }) => data)
+        return axios.get(url).then(({ data }) => data?.products ?? [])
     }
 
     getCategories = () => (

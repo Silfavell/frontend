@@ -215,7 +215,7 @@ class Shop extends React.Component {
                         </div>
                         <div className='row mb-5'>
                             {
-                                this.state.products.map((product) => (
+                                this.state.products.products.map((product) => (
                                     <ShopProduct
                                         key={product._id}
                                         item={product}
@@ -259,7 +259,7 @@ class Shop extends React.Component {
                     <div className='col-md-3 order mb-5 mb-md-0'>
 
                         <div className='border p-4 rounded mb-4 related-categories'>
-                            <h3 className='mb-3 h6 text-capitalize text-black d-block'>İlgili Kategoriler</h3>
+                            <h3 className='h6 text-capitalize text-black d-block'>İlgili Kategoriler</h3>
                             <ul className='list-unstyled mb-0'>
                                 {
                                     currentCategory?.subCategories.map((subCategory) => (
@@ -273,7 +273,7 @@ class Shop extends React.Component {
                         </div>
 
                         <div className='border p-4 rounded mb-4 brands'>
-                            <div className='mb-4'>
+                            <div>
                                 <h3 className='mb-3 h6 text-capitalize text-black d-block'>Markalar</h3>
                                 {
                                     (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
@@ -302,6 +302,61 @@ class Shop extends React.Component {
                                 }
                             </div>
                         </div>
+
+                        <div id='accordion'>
+                            {
+                                this.state.products.specifications.map((specification, index) => (
+                                    <div className='card mb-3'>
+                                        <div className='card-header p-0 bg-white' id={`heading${index}`}>
+                                            <h5 className='mb-0'>
+                                                <button
+                                                    className='btn btn-link w-100 mx-3'
+                                                    style={{ textAlign: 'left', color: 'black', textDecoration: 'none' }}
+                                                    data-toggle='collapse'
+                                                    data-target={`#collapse${index}`}
+                                                    aria-expanded='true'
+                                                    aria-controls={`collapse${index}`}>
+                                                    {specification.name}
+                                                </button>
+                                            </h5>
+                                        </div>
+
+                                        <div id={`collapse${index}`} className='collapse show' aria-labelledby={`heading${index}`} data-parent='#accordion'>
+                                            <div className='card-body'>
+                                                {
+                                                    specification.values.map((specificationValue, index) => (
+                                                        <label
+                                                            key={specificationValue.name}
+                                                            htmlFor={specificationValue.name}
+                                                            className='d-flex align-items-center justify-content-start'
+                                                            style={{ cursor: 'pointer' }}>
+                                                            <input
+                                                                type='checkbox'
+                                                                id={specificationValue.value}
+                                                                // brand={brand.name}
+                                                                className='mr-2 mt-1'
+                                                                style={{ cursor: 'pointer' }}
+                                                            // onChange={this.onBrandSelectionChange}
+                                                            // checked={this.props.location.search.split('%20').join(' ').includes(brand.name)}
+                                                            />
+                                                            <Link
+                                                                className='text-black'
+                                                            //  to={(location) => (
+                                                            //      this.onFilterLinkClick(location, 'brands', brand.name, true)
+                                                            //  )}
+                                                            >
+                                                                {`${specificationValue.value} (${specificationValue.count})`}
+                                                            </Link>
+                                                        </label>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -309,8 +364,8 @@ class Shop extends React.Component {
     }
 
     render() {
-        const currentCategory = this.state.categories.find(category => category._id === this.state.products[0]?.categoryId)
-        const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products[0].subCategoryId) : null
+        const currentCategory = this.state.categories.find(category => category._id === this.state.products.products[0]?.categoryId)
+        const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products.products[0].subCategoryId) : null
 
         let divider = []
 
