@@ -22,7 +22,7 @@ class NavCartItem extends React.Component {
 
         return (
             <div className='item col-md-12 p-2'>
-                <div style={{ position: 'absolute', bottom: 0, right: 0, padding: 6, cursor: 'pointer', zIndex: 2 }} onClick={this.removeProduct}>
+                <div style={{ position: 'absolute', bottom: 0, right: 0, padding: 6, zIndex: 2 }} onClick={this.removeProduct}>
                     <IoIosClose size={24} color={'black'} />
                 </div>
                 <div className='row'>

@@ -3,7 +3,7 @@
 import React from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
-import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose, IoIosArrowDown } from 'react-icons/io'
+import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose, IoIosArrowDown, IoIosArrowForward } from 'react-icons/io'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -231,7 +231,7 @@ class Navbar extends React.Component {
                                             }
                                         </li>
                                         <li>
-                                            <a href='/cart' className='icons-btn d-inline-block bag'>
+                                            <span style={{ padding: 10 }} className='icons-btn d-inline-block bag'>
                                                 <IoIosBasket color={'#8C92A0'} size={26} />
                                                 <span className='number'>{this.props.products.length}</span>
                                                 {
@@ -246,10 +246,14 @@ class Navbar extends React.Component {
                                                                         item={product} />
                                                                 ))
                                                             }
+
+                                                            <a className='w-100 p-2 px-4' href='/cart' style={{ fontSize: '1.1rem', fontWeight: '400' }}>
+                                                                Sepete Git
+                                                            </a>
                                                         </div>
                                                     )
                                                 }
-                                            </a>
+                                            </span>
                                         </li>
                                         <li>
                                             <a href='#' className='site-menu-toggle js-menu-toggle d-inline-block d-lg-none'>
@@ -283,7 +287,9 @@ class Navbar extends React.Component {
                                                                             <ul className='dropdown'>
                                                                                 {
                                                                                     subCategory.types.map((type) => (
-                                                                                        <a key={type._id} href={`/shop/${category.slug}/${subCategory.slug}?type=${type.name}`}>{type.name}</a>
+                                                                                        <li>
+                                                                                            <a key={type._id} href={`/shop/${category.slug}/${subCategory.slug}?type=${type.name}`}>{type.name}</a>
+                                                                                        </li>
                                                                                     ))
                                                                                 }
                                                                             </ul>
