@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 import Cookies from 'universal-cookie'
 
 import SiteWrap from '../components/SiteWrap'
@@ -57,12 +57,14 @@ class Shop extends React.Component {
         })
     }
 
-    onFilterLinkClick = (location, filter, filterValue, isBrand) => {
+    onFilterLinkClick = (filter, filterValue, multiple) => {
+        const { location } = this.props
+
         if (location.search.includes(filter)) {
             const search = location.search.split('&').map((currentFilter, index) => {
                 currentFilter = currentFilter.split('%20').join(' ')
                 if (currentFilter.includes(filter)) {
-                    if (isBrand) {
+                    if (multiple) {
                         if (currentFilter.includes(filterValue)) {
                             return currentFilter.split(`,${filterValue}`).join('').split(`${filterValue}`).join('')
                         } else {
@@ -76,11 +78,15 @@ class Shop extends React.Component {
             }).join('&')
 
             if (search.endsWith('brands=') || search.includes('brands=&')) {
-                return `${location.pathname}${search.replace('&brands=', '')}`
+                return `${location.pathname}${search.replace('&brands=', '').replace('?brands=', '')}`
             }
             return `${location.pathname}${search}`
         } else {
-            return `${location.pathname}${location.search}&${filter}=${filterValue}`
+            if (location.search.startsWith('?')) {
+                return `${location.pathname}${location.search}&${filter}=${filterValue}`
+            } else {
+                return `${location.pathname}${location.search}?${filter}=${filterValue}`
+            }
         }
     }
 
@@ -101,21 +107,15 @@ class Shop extends React.Component {
         const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
         if ((this.state.productsLength - startingIndexOfPage) > maximumProductLengthInOnePage * maximumPageCount) {
-            this.props.history.push(
-                this.onFilterLinkClick(
-                    this.props.location,
-                    'start',
-                    startingIndex +
-                    (maximumProductLengthInOnePage * maximumPageCount) -
-                    ((startingIndex + maximumProductLengthInOnePage * maximumPageCount) % (maximumProductLengthInOnePage * maximumPageCount)))
-            )
+            return this.onFilterLinkClick(
+                'start',
+                startingIndex +
+                (maximumProductLengthInOnePage * maximumPageCount) -
+                ((startingIndex + maximumProductLengthInOnePage * maximumPageCount) % (maximumProductLengthInOnePage * maximumPageCount)))
         } else {
-            this.props.history.push(
-                this.onFilterLinkClick(
-                    this.props.location,
-                    'start',
-                    this.state.productsLength % maximumProductLengthInOnePage === 0 ? this.state.productsLength - maximumProductLengthInOnePage : this.state.productsLength - 1)
-            )
+            return this.onFilterLinkClick(
+                'start',
+                this.state.productsLength % maximumProductLengthInOnePage === 0 ? this.state.productsLength - maximumProductLengthInOnePage : this.state.productsLength - 1)
         }
     }
 
@@ -124,13 +124,11 @@ class Shop extends React.Component {
         const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
         if (startingIndexOfPage >= maximumProductLengthInOnePage * maximumPageCount) {
-            this.props.history.push(
-                this.onFilterLinkClick(
-                    this.props.location,
-                    'start',
-                    startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount) + maximumProductLengthInOnePage)))
+            return this.onFilterLinkClick(
+                'start',
+                startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount) + maximumProductLengthInOnePage))
         } else {
-            this.props.history.push(this.onFilterLinkClick(this.props.location, 'start', 0))
+            return this.onFilterLinkClick('start', 0)
         }
     }
 
@@ -185,7 +183,7 @@ class Shop extends React.Component {
                 <div className='row mb-5'>
                     <div className='col-md-9 order-1'>
                         <div className='row align'>
-                            <div className='col-md-12 mb-5'>
+                            <div className='col-md-12 mb-4'>
                                 <div className='float-md-left'><h3 className='text-gray text-uppercase'>{subCategory?.name ?? currentCategory?.name}</h3></div>
                                 <div className='d-flex'>
                                     <div className='btn-group mr-1 ml-md-auto'>
@@ -201,13 +199,9 @@ class Shop extends React.Component {
                                                     <div className='dropdown-divider' />
                                                 */
                                             }
-                                            <Link className='dropdown-item' style={{ cursor: 'pointer' }} to={(location) => (
-                                                this.onFilterLinkClick(location, 'sortType', 3)
-                                            )}>En Düşük Fiyat</Link>
+                                            <a className='dropdown-item' style={{ cursor: 'pointer' }} href={this.onFilterLinkClick('sortType', 3)}>En Düşük Fiyat</a>
 
-                                            <Link className='dropdown-item' style={{ cursor: 'pointer' }} to={(location) => (
-                                                this.onFilterLinkClick(location, 'sortType', 4)
-                                            )}>En Yüksek Fiyat</Link>
+                                            <a className='dropdown-item' style={{ cursor: 'pointer' }} href={this.onFilterLinkClick('sortType', 4)}>En Yüksek Fiyat</a>
                                         </div>
                                     </div>
                                 </div>
@@ -230,7 +224,11 @@ class Shop extends React.Component {
                             <div className='col-md-12 text-center'>
                                 <div className='site-block-27'>
                                     <ul>
-                                        <li style={{ marginLeft: 5, cursor: 'pointer' }} onClick={this.onPageLtClick}><span>&lt;</span></li>
+                                        <li>
+                                            <a href={this.onPageLtClick()} style={{ marginLeft: 5, cursor: 'pointer', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <IoIosArrowBack color={'#707070'} />
+                                            </a>
+                                        </li>
                                         {
                                             // pages
                                             Array.from(this.getPageList()).map((_, index) => (
@@ -239,17 +237,19 @@ class Shop extends React.Component {
                                                     style={{ marginLeft: 5, cursor: 'pointer' }}
                                                     className={this.isPageActive(index) ? 'active' : ''}
                                                 >
-                                                    <Link
+                                                    <a
                                                         className='text-black'
-                                                        to={(location) => (
-                                                            this.onFilterLinkClick(location, 'start', (this.getPageText(index) - 1) * maximumProductLengthInOnePage)
-                                                        )}>
+                                                        href={this.onFilterLinkClick('start', (this.getPageText(index) - 1) * maximumProductLengthInOnePage)}>
                                                         {this.getPageText(index)}
-                                                    </Link>
+                                                    </a>
                                                 </li>
                                             ))
                                         }
-                                        <li style={{ marginLeft: 5, cursor: 'pointer' }} onClick={this.onPageGtClick}><span>&gt;</span></li>
+                                        <li>
+                                            <a href={this.onPageGtClick()} style={{ marginLeft: 5, cursor: 'pointer', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <IoIosArrowForward color={'#707070'} />
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -305,16 +305,13 @@ class Shop extends React.Component {
                                                     id={brand._id}
                                                     brand={brand.name}
                                                     className='mr-2 mt-1'
-                                                    style={{ cursor: 'pointer' }}
-                                                    onChange={this.onBrandSelectionChange}
+                                                    style={{ cursor: 'pointer', width: 18, height: 18 }}
                                                     checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
-                                                <Link
+                                                <a
                                                     className='text-black'
-                                                    to={(location) => (
-                                                        this.onFilterLinkClick(location, 'brands', brand.name, true)
-                                                    )}>
+                                                    href={this.onFilterLinkClick('brands', brand.name, true)}>
                                                     {`${brand.name} (${brand.productQuantity})`}
-                                                </Link>
+                                                </a>
                                             </label>
                                         ))
                                     }
@@ -350,21 +347,17 @@ class Shop extends React.Component {
                                                         style={{ cursor: 'pointer' }}>
                                                         <input
                                                             type='checkbox'
-                                                            id={specificationValue.value}
-                                                            // brand={brand.name}
+                                                            id={specificationValue.name}
                                                             className='mr-2 mt-1'
                                                             style={{ cursor: 'pointer' }}
-                                                        // onChange={this.onBrandSelectionChange}
-                                                        // checked={this.props.location.search.split('%20').join(' ').includes(brand.name)}
+                                                            checked={this.props.location.search.split('%20').join(' ').includes(specificationValue.slug)}
                                                         />
-                                                        <Link
+                                                        <a
                                                             className='text-black'
-                                                        //  to={(location) => (
-                                                        //      this.onFilterLinkClick(location, 'brands', brand.name, true)
-                                                        //  )}
+                                                            href={this.onFilterLinkClick(specification.name, specificationValue.value, true)}
                                                         >
                                                             {`${specificationValue.value} (${specificationValue.count})`}
-                                                        </Link>
+                                                        </a>
                                                     </label>
                                                 ))
                                             }
