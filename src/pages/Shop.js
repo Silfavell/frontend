@@ -77,9 +77,12 @@ class Shop extends React.Component {
                 }
             }).join('&')
 
-            if (search.endsWith('brands=') || search.includes('brands=&')) {
-                return `${location.pathname}${search.replace('&brands=', '').replace('?brands=', '')}`
+            if (multiple) {
+                if (search.endsWith(`${filter}=`) || search.includes(`${filter}&`)) {
+                    return `${location.pathname}${search.replace(`&${filter}=`, '').replace(`?${filter}=`, '')}`
+                }
             }
+
             return `${location.pathname}${search}`
         } else {
             if (location.search.startsWith('?')) {
@@ -291,7 +294,7 @@ class Shop extends React.Component {
                                 </h5>
                             </div>
 
-                            <div id={`collapse${'brands'}`} className='collapse' aria-labelledby={`heading${'brands'}`}>
+                            <div id={`collapse${'brands'}`} className={'collapse show'} aria-labelledby={`heading${'brands'}`}>
                                 <div className='card-body'>
                                     {
                                         (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
@@ -336,7 +339,10 @@ class Shop extends React.Component {
                                         </h5>
                                     </div>
 
-                                    <div id={`collapse${index}`} className='collapse' aria-labelledby={`heading${index}`}>
+                                    <div
+                                        id={`collapse${index}`}
+                                        className={`collapse ${this.props.location.search.includes(specification.name) ? 'show' : ''}`}
+                                        aria-labelledby={`heading${index}`}>
                                         <div className='card-body'>
                                             {
                                                 specification.values.map((specificationValue, index) => (
@@ -350,7 +356,7 @@ class Shop extends React.Component {
                                                             id={specificationValue.name}
                                                             className='mr-2 mt-1'
                                                             style={{ cursor: 'pointer' }}
-                                                            checked={this.props.location.search.split('%20').join(' ').includes(specificationValue.slug)}
+                                                            checked={this.props.location.search.split('%20').join(' ').includes(specificationValue.value)}
                                                         />
                                                         <a
                                                             className='text-black'
