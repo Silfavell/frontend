@@ -3,7 +3,7 @@
 import React from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
-import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose, IoIosArrowDown, IoIosArrowForward } from 'react-icons/io'
+import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose, IoIosArrowDown } from 'react-icons/io'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
