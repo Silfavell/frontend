@@ -311,8 +311,7 @@ class Shop extends React.Component {
                                                     className='mr-2 mt-1'
                                                     style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
                                                     checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
-                                                <span
-                                                    className='text-black'>
+                                                <span className='text-black'>
                                                     {`${brand.name} (${brand.productQuantity})`}
                                                 </span>
                                             </a>
@@ -341,27 +340,25 @@ class Shop extends React.Component {
 
                                     <div
                                         id={`collapse${index}`}
-                                        className={`collapse ${this.props.location.search.includes(specification.name) ? 'show' : ''}`}
+                                        className={`collapse ${this.props.location.search.includes(specification.slug) ? 'show' : ''}`}
                                         aria-labelledby={`heading${index}`}>
                                         <div className='card-body'>
                                             {
                                                 specification.values.map((specificationValue, index) => (
                                                     <a
                                                         className='d-flex align-items-center justify-content-start'
-                                                        href={this.onFilterLinkClick(specification.name, specificationValue.value, true)}
-                                                        key={specificationValue.name}
-                                                        htmlFor={specificationValue.name}
+                                                        href={this.onFilterLinkClick(specification.slug, specificationValue.value, true)}
+                                                        key={specificationValue.slug}
+                                                        htmlFor={specificationValue.slug}
                                                         style={{ cursor: 'pointer' }}>
                                                         <input
                                                             type='checkbox'
-                                                            id={specificationValue.name}
+                                                            id={specificationValue.slug}
                                                             className='mr-2 mt-1'
                                                             style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
                                                             checked={this.props.location.search.split('%20').join(' ').includes(specificationValue.value)}
                                                         />
-                                                        <span
-                                                            className='text-black'
-                                                        >
+                                                        <span className='text-black'>
                                                             {`${specificationValue.value} (${specificationValue.count})`}
                                                         </span>
                                                     </a>
