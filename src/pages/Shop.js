@@ -22,15 +22,15 @@ class Shop extends React.Component {
 
     state = {
         categories: [],
-        products: [],
+        shop: {},
         productsLength: 0,
         fetching: true
     }
 
 
-    fetchProducts = () => {
+    filterShop = () => {
         const url = `${
-            process.env.REACT_APP_API_URL}/products-filter${
+            process.env.REACT_APP_API_URL}/filter-shop${
             this.props.location.pathname.replace('/shop', '')}${
             this.props.location.search}${
             this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${
@@ -51,8 +51,8 @@ class Shop extends React.Component {
 
     refresh = () => {
         this.setState({ fetching: true }, () => {
-            Promise.all([this.fetchProducts(), this.getProductsLength()]).then((vals) => {
-                this.setState({ products: vals[0], productsLength: vals[1], fetching: false })
+            Promise.all([this.filterShop(), this.getProductsLength()]).then((vals) => {
+                this.setState({ shop: vals[0], productsLength: vals[1], fetching: false })
             })
         })
     }
@@ -109,7 +109,7 @@ class Shop extends React.Component {
         const startingIndex = this.getStartingIndex()
         const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
-        if ((this.state.productsLength - startingIndexOfPage) > maximumProductLengthInOnePage * maximumPageCount) {
+        if ((this.state.shop.productsLength - startingIndexOfPage) > maximumProductLengthInOnePage * maximumPageCount) {
             return this.onFilterLinkClick(
                 'start',
                 startingIndex +
@@ -118,7 +118,7 @@ class Shop extends React.Component {
         } else {
             return this.onFilterLinkClick(
                 'start',
-                this.state.productsLength % maximumProductLengthInOnePage === 0 ? this.state.productsLength - maximumProductLengthInOnePage : this.state.productsLength - 1)
+                this.state.shop.productsLength % maximumProductLengthInOnePage === 0 ? this.state.shop.productsLength - maximumProductLengthInOnePage : this.state.shop.productsLength - 1)
         }
     }
 
@@ -154,18 +154,18 @@ class Shop extends React.Component {
         const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
         return new Array(
-            Math.ceil((this.state.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage) >= maximumPageCount ?
+            Math.ceil((this.state.shop.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage) >= maximumPageCount ?
                 maximumPageCount :
-                Math.ceil((this.state.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage)
+                Math.ceil((this.state.shop.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage)
         )
     }
 
     UNSAFE_componentWillMount() {
-        Promise.all([this.getCategories(), this.getProductsLength(), this.fetchProducts()]).then((vals) => {
+        Promise.all([this.getCategories(), this.getProductsLength(), this.filterShop()]).then((vals) => {
             this.setState({
                 categories: vals[0],
                 productsLength: vals[1],
-                products: vals[2],
+                shop: vals[2],
                 fetching: false
             })
         })
@@ -212,7 +212,7 @@ class Shop extends React.Component {
                         </div>
                         <div className='row mb-5'>
                             {
-                                this.state.products.products.map((product) => (
+                                this.state.shop.products.map((product) => (
                                     <ShopProduct
                                         key={product._id}
                                         item={product}
@@ -323,7 +323,7 @@ class Shop extends React.Component {
                         </div>
 
                         {
-                            this.state.products.specifications.map((specification, index) => (
+                            this.state.shop.specifications.map((specification, index) => (
                                 <div className='card mb-3'>
                                     <div className='card-header p-0 bg-white' id={`heading${index}`}>
                                         <h5 className='mb-0'>
@@ -379,8 +379,8 @@ class Shop extends React.Component {
     }
 
     render() {
-        const currentCategory = this.state.categories.find(category => category._id === this.state.products.products[0]?.categoryId)
-        const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products.products[0].subCategoryId) : null
+        const currentCategory = this.state.categories.find(category => category._id === this.state.shop.products[0]?.categoryId)
+        const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.shop.products[0].subCategoryId) : null
 
         let divider = []
 

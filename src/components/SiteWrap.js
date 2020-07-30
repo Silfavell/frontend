@@ -39,7 +39,7 @@ class SiteWrap extends React.Component {
     )
 
     fetchOfflineCartProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${
+        const url = `${process.env.REACT_APP_API_URL}/filter-shop?productIds=${
             JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => cartProduct._id).join(',')
             }`
 
