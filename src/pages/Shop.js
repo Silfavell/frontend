@@ -298,24 +298,24 @@ class Shop extends React.Component {
                                 <div className='card-body'>
                                     {
                                         (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
-                                            <label
+                                            <a
+                                                className='d-flex align-items-center justify-content-start'
+                                                href={this.onFilterLinkClick('brands', brand.name, true)}
                                                 key={brand._id}
                                                 htmlFor={brand._id}
-                                                className='d-flex align-items-center justify-content-start'
                                                 style={{ cursor: 'pointer' }}>
                                                 <input
                                                     type='checkbox'
                                                     id={brand._id}
                                                     brand={brand.name}
                                                     className='mr-2 mt-1'
-                                                    style={{ cursor: 'pointer', width: 18, height: 18 }}
+                                                    style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
                                                     checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
-                                                <a
-                                                    className='text-black'
-                                                    href={this.onFilterLinkClick('brands', brand.name, true)}>
+                                                <span
+                                                    className='text-black'>
                                                     {`${brand.name} (${brand.productQuantity})`}
-                                                </a>
-                                            </label>
+                                                </span>
+                                            </a>
                                         ))
                                     }
                                 </div>
@@ -346,25 +346,25 @@ class Shop extends React.Component {
                                         <div className='card-body'>
                                             {
                                                 specification.values.map((specificationValue, index) => (
-                                                    <label
+                                                    <a
+                                                        className='d-flex align-items-center justify-content-start'
+                                                        href={this.onFilterLinkClick(specification.name, specificationValue.value, true)}
                                                         key={specificationValue.name}
                                                         htmlFor={specificationValue.name}
-                                                        className='d-flex align-items-center justify-content-start'
                                                         style={{ cursor: 'pointer' }}>
                                                         <input
                                                             type='checkbox'
                                                             id={specificationValue.name}
                                                             className='mr-2 mt-1'
-                                                            style={{ cursor: 'pointer' }}
+                                                            style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
                                                             checked={this.props.location.search.split('%20').join(' ').includes(specificationValue.value)}
                                                         />
-                                                        <a
+                                                        <span
                                                             className='text-black'
-                                                            href={this.onFilterLinkClick(specification.name, specificationValue.value, true)}
                                                         >
                                                             {`${specificationValue.value} (${specificationValue.count})`}
-                                                        </a>
-                                                    </label>
+                                                        </span>
+                                                    </a>
                                                 ))
                                             }
                                         </div>
