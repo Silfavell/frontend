@@ -23,7 +23,6 @@ class Shop extends React.Component {
     state = {
         categories: [],
         shop: {},
-        productsLength: 0,
         fetching: true
     }
 
@@ -39,20 +38,14 @@ class Shop extends React.Component {
         return axios.get(url).then(({ data }) => data)
     }
 
-    getProductsLength = () => {
-        const url = `${process.env.REACT_APP_API_URL}/products-length${this.props.location.search}`
-
-        return axios.get(url).then(({ data: productsLength }) => productsLength)
-    }
-
     getCategories = () => (
         axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => data)
     )
 
     refresh = () => {
         this.setState({ fetching: true }, () => {
-            Promise.all([this.filterShop(), this.getProductsLength()]).then((vals) => {
-                this.setState({ shop: vals[0], productsLength: vals[1], fetching: false })
+            Promise.all([this.filterShop()]).then((vals) => {
+                this.setState({ shop: vals[0], fetching: false })
             })
         })
     }
@@ -161,11 +154,10 @@ class Shop extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        Promise.all([this.getCategories(), this.getProductsLength(), this.filterShop()]).then((vals) => {
+        Promise.all([this.getCategories(), this.filterShop()]).then((vals) => {
             this.setState({
                 categories: vals[0],
-                productsLength: vals[1],
-                shop: vals[2],
+                shop: vals[1],
                 fetching: false
             })
         })
