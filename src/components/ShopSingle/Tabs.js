@@ -17,7 +17,7 @@ class Tabs extends React.Component {
 
                 <Tab.Content className={'w-100'}>
                     <Tab.Pane eventKey='details'>
-                        <ProductSpecifications specifications={this.props.specifications}/>
+                        <ProductSpecifications details={this.props.details} specifications={this.props.specifications}/>
                     </Tab.Pane>
                     <Tab.Pane eventKey='comments'>
                     </Tab.Pane>

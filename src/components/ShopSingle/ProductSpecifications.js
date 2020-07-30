@@ -14,15 +14,6 @@ class ProductSpecifications extends React.Component {
     )
 
     render() {
-        const {
-            benefit,
-            brushThickness,
-            colorDetail,
-            feature,
-            form,
-            kind
-        } = this.props.specifications || {}
-
         return (
             <div className='my-3'>
                 <div className='col-md-12'>
@@ -32,26 +23,13 @@ class ProductSpecifications extends React.Component {
                 </div>
 
                 {
-                    Object.keys(this.props.specifications || {}).length > 0 && (
+                    this.props.specifications.length > 0 && (
                         <div className='col-md-12'>
                             <div className='border mt-5'>
                                 {
-                                    feature && this.renderDetailRow({ title: 'Özellik', value: feature, first: true })
-                                }
-                                {
-                                    benefit && this.renderDetailRow({ title: 'Fayda/İhtiyaç', value: benefit })
-                                }
-                                {
-                                    colorDetail && this.renderDetailRow({ title: 'Bitiş', value: colorDetail })
-                                }
-                                {
-                                    brushThickness && this.renderDetailRow({ title: 'Fırça Kalınlığı', value: brushThickness })
-                                }
-                                {
-                                    form && this.renderDetailRow({ title: 'Form', value: form })
-                                }
-                                {
-                                    kind && this.renderDetailRow({ title: 'Çeşit', value: kind })
+                                    this.props.specifications.map((specification, index) => (
+                                        this.renderDetailRow({ title: specification.name, value: specification.value, first: index === 0 })
+                                    ))
                                 }
                             </div>
                         </div>
