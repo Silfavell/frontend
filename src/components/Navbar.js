@@ -288,7 +288,7 @@ class Navbar extends React.Component {
                                                                                 {
                                                                                     subCategory.types.map((type) => (
                                                                                         <li>
-                                                                                            <a key={type._id} href={`/shop/${category.slug}/${subCategory.slug}?type=${type.name}`}>{type.name}</a>
+                                                                                            <a key={type._id} href={`/shop/${category.slug}/${subCategory.slug}?type=${type.slug}`}>{type.name}</a>
                                                                                         </li>
                                                                                     ))
                                                                                 }
