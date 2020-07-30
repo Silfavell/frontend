@@ -289,7 +289,7 @@ class Shop extends React.Component {
                             <div id={`collapse${'brands'}`} className={'collapse show'} aria-labelledby={`heading${'brands'}`}>
                                 <div className='card-body'>
                                     {
-                                        (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
+                                        this.state.shop.brands.map((brand, index) => (
                                             <a
                                                 className='d-flex align-items-center justify-content-start'
                                                 href={this.onFilterLinkClick('brands', brand.name, true)}
@@ -304,7 +304,7 @@ class Shop extends React.Component {
                                                     style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
                                                     checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
                                                 <span className='text-black'>
-                                                    {`${brand.name} (${brand.productQuantity})`}
+                                                    {`${brand.name} (${brand.count})`}
                                                 </span>
                                             </a>
                                         ))
@@ -401,7 +401,7 @@ class Shop extends React.Component {
         } else {
             return (
                 <SiteWrap divider={divider}>
-                    <this.renderShopContent currentCategory={currentCategory} subCategory={subCategory} />
+                    <this.renderShopContent />
                 </SiteWrap>
             )
         }
