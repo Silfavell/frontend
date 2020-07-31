@@ -4,10 +4,27 @@ import MultiSlider from 'multi-slider'
 import { IoIosArrowForward } from 'react-icons/io'
 
 class Slider extends React.Component {
-    state = {
-        values: [0, this.props.max, 0],
-        max: this.props.max,
-        min: 0
+
+    constructor(props) {
+        super(props)
+
+        let min = 0, max = this.props.max
+
+        this.props.location.search.split('&').map((q) => {
+            if (q.includes('price')) {
+                min = parseInt(q.substring(q.indexOf('=') + 1).split('-')[0])
+                max = parseInt(q.substring(q.indexOf('=') + 1).split('-')[1])
+            }
+        })
+
+        if (min < 0 || Number.isNaN(min)) min = 0
+        if (max > this.props.max || Number.isNaN(max)) max = this.props.max
+
+        this.state = {
+            values: [min, this.props.max - (min + (this.props.max - max)), this.props.max - max],
+            max,
+            min
+        }
     }
 
     onSliderChange = (values) => {
@@ -80,7 +97,7 @@ class Slider extends React.Component {
                     </h5>
                 </div>
 
-                <div id={`collapse${'price'}`} className={'collapse show'} aria-labelledby={`heading${'price'}`}>
+                <div id={`collapse${'price'}`} className={`collapse ${this.props.location.search.includes('price') ? 'show' : ''}`} aria-labelledby={`heading${'price'}`}>
                     <div className='card-body'>
                         <div className='form-group pb-2 d-flex align-items-center justify-content-center'>
                             <div className='col-5 px-1'>
@@ -106,9 +123,9 @@ class Slider extends React.Component {
                                     placeholder='En Çok' />
                             </div>
                             <div className='col-3 px-1'>
-                                <button className='form-control'>
+                                <a className='form-control' href={this.props.onFilterLinkClick('price', `${this.state.min}-${this.state.max}`)}>
                                     <IoIosArrowForward />
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <MultiSlider

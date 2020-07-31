@@ -363,7 +363,11 @@ class Shop extends React.Component {
                             ))
                         }
 
-                        <Slider max={1000} />
+                        <Slider
+                            max={1000}
+                            onFilterLinkClick={this.onFilterLinkClick}
+                            location={this.props.location}
+                        />
                     </div>
                 </div>
             </div>
