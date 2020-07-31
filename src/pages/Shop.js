@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie'
 import SiteWrap from '../components/SiteWrap'
 import ShopProduct from '../components/ShopProduct'
 import Loading from '../components/Loading'
+import Slider from '../components/Shop/Slider'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
@@ -361,6 +362,8 @@ class Shop extends React.Component {
                                 </div>
                             ))
                         }
+
+                        <Slider max={1000} />
                     </div>
                 </div>
             </div>
