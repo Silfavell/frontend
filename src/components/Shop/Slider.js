@@ -10,6 +10,7 @@ class Slider extends React.Component {
 
         let min = 0, max = this.props.max
 
+        // eslint-disable-next-line
         this.props.location.search.split('&').map((q) => {
             if (q.includes('price')) {
                 min = parseInt(q.substring(q.indexOf('=') + 1).split('-')[0])
