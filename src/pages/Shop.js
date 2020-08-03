@@ -45,8 +45,8 @@ class Shop extends React.Component {
 
     refresh = () => {
         this.setState({ fetching: true }, () => {
-            Promise.all([this.filterShop()]).then((vals) => {
-                this.setState({ shop: vals[0], fetching: false })
+            this.filterShop().then((shop) => {
+                this.setState({ shop, fetching: false })
             })
         })
     }
