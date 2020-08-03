@@ -8,7 +8,7 @@ class Slider extends React.Component {
     constructor(props) {
         super(props)
 
-        let min = 0, max = this.props.max
+        let min = this.props.min, max = this.props.max
 
         // eslint-disable-next-line
         this.props.location.search.split('&').map((q) => {
@@ -18,7 +18,7 @@ class Slider extends React.Component {
             }
         })
 
-        if (min < 0 || Number.isNaN(min)) min = 0
+        if (min < this.props.min || Number.isNaN(min)) min = this.props.min
         if (max > this.props.max || Number.isNaN(max)) max = this.props.max
 
         this.state = {
@@ -65,7 +65,7 @@ class Slider extends React.Component {
         const { values, min } = this.state
 
         let minOnSlider = min > (this.props.max - values[2]) ? values[2] : min
-        minOnSlider = minOnSlider < 0 ? 0 : minOnSlider
+        minOnSlider = minOnSlider < this.props.min ? this.props.min : minOnSlider
         minOnSlider = minOnSlider + values[2] > this.props.max ? this.props.max - values[2] : minOnSlider
 
         this.setState({

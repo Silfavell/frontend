@@ -188,7 +188,6 @@ class Shop extends React.Component {
                                         <div className='dropdown-menu' aria-labelledby='dropdownMenuReference'>
                                             {
                                                 /*
-                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(0)}>Akıllı Sıralama</span>
                                                     <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(1)}>Çok Satanlar</span>
                                                     <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(2)}>En Yeniler</span>
                                                     <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(5)}>En Yüksek Puan</span>
@@ -196,6 +195,8 @@ class Shop extends React.Component {
                                                     <div className='dropdown-divider' />
                                                 */
                                             }
+                                            <a className='dropdown-item' style={{ cursor: 'pointer' }} href={this.onFilterLinkClick('sortType', 0)}>Akıllı Sıralama</a>
+
                                             <a className='dropdown-item' style={{ cursor: 'pointer' }} href={this.onFilterLinkClick('sortType', 3)}>En Düşük Fiyat</a>
 
                                             <a className='dropdown-item' style={{ cursor: 'pointer' }} href={this.onFilterLinkClick('sortType', 4)}>En Yüksek Fiyat</a>
@@ -365,7 +366,8 @@ class Shop extends React.Component {
                         }
 
                         <Slider
-                            max={1000}
+                            max={this.state.shop.maxPrice}
+                            min={this.state.shop.minPrice}
                             onFilterLinkClick={this.onFilterLinkClick}
                             location={this.props.location}
                         />
@@ -376,8 +378,8 @@ class Shop extends React.Component {
     }
 
     render() {
-        const currentCategory = this.state.categories.find(category => category._id === this.state.shop.products[0]?.categoryId)
-        const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.shop.products[0].subCategoryId) : null
+        const currentCategory = this.state.categories.find(category => category._id === this.state.shop._id)
+        const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.shop.subCategoryId) : null
 
         let divider = []
 
