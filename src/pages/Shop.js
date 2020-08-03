@@ -173,6 +173,7 @@ class Shop extends React.Component {
     renderShopContent = ({ onIncreaseClick, currentCategory, subCategory }) => {
         const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
         const loggedIn = cookies.get('token')
+        this.props.location.search = decodeURIComponent(this.props.location.search)
 
         return (
             <div className='container'>
@@ -303,7 +304,7 @@ class Shop extends React.Component {
                                                     brand={brand.name}
                                                     className='mr-2 mt-1'
                                                     style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
-                                                    checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
+                                                    checked={this.props.location.search.includes(brand.name)} />
                                                 <span className='text-black'>
                                                     {`${brand.name} (${brand.count})`}
                                                 </span>
@@ -349,7 +350,7 @@ class Shop extends React.Component {
                                                             id={specificationValue.slug}
                                                             className='mr-2 mt-1'
                                                             style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
-                                                            checked={this.props.location.search.split('%20').join(' ').includes(specificationValue.value)}
+                                                            checked={this.props.location.search.includes(specificationValue.value)}
                                                         />
                                                         <span className='text-black'>
                                                             {`${specificationValue.value} (${specificationValue.count})`}
