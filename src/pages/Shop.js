@@ -188,18 +188,20 @@ class Shop extends React.Component {
                                         <div className='dropdown-menu' aria-labelledby='dropdownMenuReference'>
                                             {
                                                 /*
-                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(1)}>Çok Satanlar</span>
-                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(2)}>En Yeniler</span>
                                                     <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(5)}>En Yüksek Puan</span>
                                                     <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(6)}>En Çok Yorumlanan</span>
                                                     <div className='dropdown-divider' />
                                                 */
                                             }
-                                            <a className='dropdown-item' style={{ cursor: 'pointer' }} href={this.onFilterLinkClick('sortType', 0)}>Akıllı Sıralama</a>
+                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 0)}>Akıllı Sıralama</a>
 
-                                            <a className='dropdown-item' style={{ cursor: 'pointer' }} href={this.onFilterLinkClick('sortType', 3)}>En Düşük Fiyat</a>
+                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 1)}>Çok Satanlar</a>
 
-                                            <a className='dropdown-item' style={{ cursor: 'pointer' }} href={this.onFilterLinkClick('sortType', 4)}>En Yüksek Fiyat</a>
+                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 2)}>En Yeniler</a>
+
+                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 3)}>En Düşük Fiyat</a>
+
+                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 4)}>En Yüksek Fiyat</a>
                                         </div>
                                     </div>
                                 </div>
