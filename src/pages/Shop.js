@@ -65,7 +65,12 @@ class Shop extends React.Component {
                             return `${currentFilter},${filterValue}`
                         }
                     }
-                    return `${filter}=${filterValue}`
+
+                    if (location.search.startsWith(`?${filter}`)) {
+                        return `?${filter}=${filterValue}`
+                    } else {
+                        return `${filter}=${filterValue}`
+                    }
                 } else {
                     return currentFilter
                 }
