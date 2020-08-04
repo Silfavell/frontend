@@ -16,20 +16,21 @@ import Tabs from '../components/Home/Tabs'
 class Home extends React.Component {
 
     state = {
-        visitedProducts: []
+        shop: {}
     }
 
-    fetchProducts = (productIds) => {
-        const url = `${process.env.REACT_APP_API_URL}/products-filter?productIds=${productIds}&quantity=32`
-        return axios.get(url).then((result) => result?.data || [])
+    fetchShop = (productIds) => {
+        const url = `${process.env.REACT_APP_API_URL}/filter-shop?productIds=${productIds}&quantity=32`
+
+        return axios.get(url).then(({ data }) => data || {})
     }
 
     UNSAFE_componentWillMount() {
         if (window.localStorage.visitedProducts) {
             const visitedProductIds = JSON.parse(window.localStorage.getItem('visitedProducts')).join(',')
 
-            this.fetchProducts(visitedProductIds).then((visitedProducts) => {
-                this.setState({ visitedProducts })
+            this.fetchShop(visitedProductIds).then((shop) => {
+                this.setState({ shop })
             })
         }
     }
@@ -48,7 +49,7 @@ class Home extends React.Component {
                     />
 
                     {
-                        this.state.visitedProducts.length > 0 && (
+                        (this.state.shop.products && this.state.shop.products.length > 0) && (
                             <>
                                 <div className='col-md-12 p-4' />
                                 <div className='col-md-12 p-4'>
@@ -56,7 +57,7 @@ class Home extends React.Component {
                                 </div>
 
                                 <Carousel
-                                    products={this.state.visitedProducts}
+                                    products={this.state.shop.products}
                                     onIncreaseClick={onIncreaseClick}
                                 />
                             </>

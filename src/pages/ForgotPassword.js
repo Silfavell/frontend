@@ -73,8 +73,6 @@ class UpdatePassword extends React.Component {
 
                     this.props.history.push('/sign-in')
                 }
-            }).catch((err) => {
-                console.log(err.response.data)
             })
         }
     }

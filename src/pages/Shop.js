@@ -2,12 +2,13 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 import Cookies from 'universal-cookie'
 
 import SiteWrap from '../components/SiteWrap'
 import ShopProduct from '../components/ShopProduct'
 import Loading from '../components/Loading'
+import Slider from '../components/Shop/Slider'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
@@ -22,27 +23,20 @@ class Shop extends React.Component {
 
     state = {
         categories: [],
-        products: [],
-        productsLength: 0,
+        shop: {},
         fetching: true
     }
 
 
-    fetchProducts = () => {
+    filterShop = () => {
         const url = `${
-            process.env.REACT_APP_API_URL}/products-filter${
-                this.props.location.pathname.replace('/shop', '')}${
-                    this.props.location.search}${
-                        this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${
-                            maximumProductLengthInOnePage}`
+            process.env.REACT_APP_API_URL}/filter-shop${
+            this.props.location.pathname.replace('/shop', '')}${
+            this.props.location.search}${
+            this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${
+            maximumProductLengthInOnePage}`
 
         return axios.get(url).then(({ data }) => data)
-    }
-
-    getProductsLength = () => {
-        const url = `${process.env.REACT_APP_API_URL}/products-length${this.props.location.search}`
-
-        return axios.get(url).then(({ data: productsLength }) => productsLength)
     }
 
     getCategories = () => (
@@ -51,36 +45,50 @@ class Shop extends React.Component {
 
     refresh = () => {
         this.setState({ fetching: true }, () => {
-            Promise.all([this.fetchProducts(), this.getProductsLength()]).then((vals) => {
-                this.setState({ products: vals[0], productsLength: vals[1], fetching: false })
+            this.filterShop().then((shop) => {
+                this.setState({ shop, fetching: false })
             })
         })
     }
 
-    onFilterLinkClick = (location, filter, filterValue, isBrand) => {
+    onFilterLinkClick = (filter, filterValue, multiple) => {
+        const { location } = this.props
+
         if (location.search.includes(filter)) {
             const search = location.search.split('&').map((currentFilter, index) => {
                 currentFilter = currentFilter.split('%20').join(' ')
                 if (currentFilter.includes(filter)) {
-                    if (isBrand) {
+                    if (multiple) {
                         if (currentFilter.includes(filterValue)) {
                             return currentFilter.split(`,${filterValue}`).join('').split(`${filterValue}`).join('')
                         } else {
                             return `${currentFilter},${filterValue}`
                         }
                     }
-                    return `${filter}=${filterValue}`
+
+                    if (location.search.startsWith(`?${filter}`)) {
+                        return `?${filter}=${filterValue}`
+                    } else {
+                        return `${filter}=${filterValue}`
+                    }
                 } else {
                     return currentFilter
                 }
             }).join('&')
 
-            if (search.endsWith('brands=') || search.includes('brands=&')) {
-                return `${location.pathname}${search.replace('&brands=', '')}`
+            if (multiple) {
+                if (search.endsWith(`${filter}=`) || search.includes(`${filter}&`)) {
+                    return `${location.pathname}${search.replace(`&${filter}=`, '').replace(`?${filter}=`, '')}`
+                }
             }
+
             return `${location.pathname}${search}`
         } else {
-            return `${location.pathname}${location.search}&${filter}=${filterValue}`
+            if (location.search.startsWith('?')) {
+                return `${location.pathname}${location.search}&${filter}=${filterValue}`
+            } else {
+                return `${location.pathname}${location.search}?${filter}=${filterValue}`
+            }
         }
     }
 
@@ -100,22 +108,16 @@ class Shop extends React.Component {
         const startingIndex = this.getStartingIndex()
         const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
-        if ((this.state.productsLength - startingIndexOfPage) > maximumProductLengthInOnePage * maximumPageCount) {
-            this.props.history.push(
-                this.onFilterLinkClick(
-                    this.props.location,
-                    'start',
-                    startingIndex +
-                    (maximumProductLengthInOnePage * maximumPageCount) -
-                    ((startingIndex + maximumProductLengthInOnePage * maximumPageCount) % (maximumProductLengthInOnePage * maximumPageCount)))
-            )
+        if ((this.state.shop.productsLength - startingIndexOfPage) > maximumProductLengthInOnePage * maximumPageCount) {
+            return this.onFilterLinkClick(
+                'start',
+                startingIndex +
+                (maximumProductLengthInOnePage * maximumPageCount) -
+                ((startingIndex + maximumProductLengthInOnePage * maximumPageCount) % (maximumProductLengthInOnePage * maximumPageCount)))
         } else {
-            this.props.history.push(
-                this.onFilterLinkClick(
-                    this.props.location,
-                    'start',
-                    this.state.productsLength % maximumProductLengthInOnePage === 0 ? this.state.productsLength - maximumProductLengthInOnePage : this.state.productsLength - 1)
-            )
+            return this.onFilterLinkClick(
+                'start',
+                this.state.shop.productsLength % maximumProductLengthInOnePage === 0 ? this.state.shop.productsLength - maximumProductLengthInOnePage : this.state.shop.productsLength - 1)
         }
     }
 
@@ -124,13 +126,11 @@ class Shop extends React.Component {
         const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
         if (startingIndexOfPage >= maximumProductLengthInOnePage * maximumPageCount) {
-            this.props.history.push(
-                this.onFilterLinkClick(
-                    this.props.location,
-                    'start',
-                    startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount) + maximumProductLengthInOnePage)))
+            return this.onFilterLinkClick(
+                'start',
+                startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount) + maximumProductLengthInOnePage))
         } else {
-            this.props.history.push(this.onFilterLinkClick(this.props.location, 'start', 0))
+            return this.onFilterLinkClick('start', 0)
         }
     }
 
@@ -153,18 +153,17 @@ class Shop extends React.Component {
         const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
         return new Array(
-            Math.ceil((this.state.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage) >= maximumPageCount ?
+            Math.ceil((this.state.shop.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage) >= maximumPageCount ?
                 maximumPageCount :
-                Math.ceil((this.state.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage)
+                Math.ceil((this.state.shop.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage)
         )
     }
 
     UNSAFE_componentWillMount() {
-        Promise.all([this.getCategories(), this.getProductsLength(), this.fetchProducts()]).then((vals) => {
+        Promise.all([this.getCategories(), this.filterShop()]).then((vals) => {
             this.setState({
                 categories: vals[0],
-                productsLength: vals[1],
-                products: vals[2],
+                shop: vals[1],
                 fetching: false
             })
         })
@@ -179,13 +178,14 @@ class Shop extends React.Component {
     renderShopContent = ({ onIncreaseClick, currentCategory, subCategory }) => {
         const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
         const loggedIn = cookies.get('token')
+        this.props.location.search = decodeURIComponent(this.props.location.search)
 
         return (
             <div className='container'>
                 <div className='row mb-5'>
                     <div className='col-md-9 order-1'>
                         <div className='row align'>
-                            <div className='col-md-12 mb-5'>
+                            <div className='col-md-12 mb-4'>
                                 <div className='float-md-left'><h3 className='text-gray text-uppercase'>{subCategory?.name ?? currentCategory?.name}</h3></div>
                                 <div className='d-flex'>
                                     <div className='btn-group mr-1 ml-md-auto'>
@@ -193,21 +193,20 @@ class Shop extends React.Component {
                                         <div className='dropdown-menu' aria-labelledby='dropdownMenuReference'>
                                             {
                                                 /*
-                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(0)}>Akıllı Sıralama</span>
-                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(1)}>Çok Satanlar</span>
-                                                    <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(2)}>En Yeniler</span>
                                                     <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(5)}>En Yüksek Puan</span>
                                                     <span className='dropdown-item' style={{ cursor: 'pointer' }} onClick={() => this.onSortTypeClick(6)}>En Çok Yorumlanan</span>
                                                     <div className='dropdown-divider' />
                                                 */
                                             }
-                                            <Link className='dropdown-item' style={{ cursor: 'pointer' }} to={(location) => (
-                                                this.onFilterLinkClick(location, 'sortType', 3)
-                                            )}>En Düşük Fiyat</Link>
+                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 0)}>Akıllı Sıralama</a>
 
-                                            <Link className='dropdown-item' style={{ cursor: 'pointer' }} to={(location) => (
-                                                this.onFilterLinkClick(location, 'sortType', 4)
-                                            )}>En Yüksek Fiyat</Link>
+                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 1)}>Çok Satanlar</a>
+
+                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 2)}>En Yeniler</a>
+
+                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 3)}>En Düşük Fiyat</a>
+
+                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 4)}>En Yüksek Fiyat</a>
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +214,7 @@ class Shop extends React.Component {
                         </div>
                         <div className='row mb-5'>
                             {
-                                this.state.products.map((product) => (
+                                this.state.shop.products.map((product) => (
                                     <ShopProduct
                                         key={product._id}
                                         item={product}
@@ -230,7 +229,11 @@ class Shop extends React.Component {
                             <div className='col-md-12 text-center'>
                                 <div className='site-block-27'>
                                     <ul>
-                                        <li style={{ marginLeft: 5, cursor: 'pointer' }} onClick={this.onPageLtClick}><span>&lt;</span></li>
+                                        <li>
+                                            <a href={this.onPageLtClick()} style={{ marginLeft: 5, cursor: 'pointer', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <IoIosArrowBack color={'#707070'} />
+                                            </a>
+                                        </li>
                                         {
                                             // pages
                                             Array.from(this.getPageList()).map((_, index) => (
@@ -239,17 +242,19 @@ class Shop extends React.Component {
                                                     style={{ marginLeft: 5, cursor: 'pointer' }}
                                                     className={this.isPageActive(index) ? 'active' : ''}
                                                 >
-                                                    <Link
+                                                    <a
                                                         className='text-black'
-                                                        to={(location) => (
-                                                            this.onFilterLinkClick(location, 'start', (this.getPageText(index) - 1) * maximumProductLengthInOnePage)
-                                                        )}>
+                                                        href={this.onFilterLinkClick('start', (this.getPageText(index) - 1) * maximumProductLengthInOnePage)}>
                                                         {this.getPageText(index)}
-                                                    </Link>
+                                                    </a>
                                                 </li>
                                             ))
                                         }
-                                        <li style={{ marginLeft: 5, cursor: 'pointer' }} onClick={this.onPageGtClick}><span>&gt;</span></li>
+                                        <li>
+                                            <a href={this.onPageGtClick()} style={{ marginLeft: 5, cursor: 'pointer', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <IoIosArrowForward color={'#707070'} />
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -258,50 +263,121 @@ class Shop extends React.Component {
 
                     <div className='col-md-3 order mb-5 mb-md-0'>
 
-                        <div className='border p-4 rounded mb-4 related-categories'>
-                            <h3 className='mb-3 h6 text-capitalize text-black d-block'>İlgili Kategoriler</h3>
-                            <ul className='list-unstyled mb-0'>
-                                {
-                                    currentCategory?.subCategories.map((subCategory) => (
-                                        <li className='mb-1' key={subCategory._id}>
-                                            <a className='d-flex text-primary'
-                                                href={`/shop/${currentCategory.slug}/${subCategory.slug}`}>{subCategory.name}</a>
-                                        </li>
-                                    ))
-                                }
-                            </ul>
-                        </div>
+                        {
+                            /*
+                                <div className='border p-4 rounded mb-4 related-categories'>
+                                    <h3 className='h6 text-capitalize text-black d-block'>İlgili Kategoriler</h3>
+                                    <ul className='list-unstyled mb-0'>
+                                        {
+                                            currentCategory?.subCategories.map((subCategory) => (
+                                                <li className='mb-1' key={subCategory._id}>
+                                                    <a className='d-flex text-primary'
+                                                        href={`/shop/${currentCategory.slug}/${subCategory.slug}`}>{subCategory.name}</a>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                            */
+                        }
 
-                        <div className='border p-4 rounded mb-4 brands'>
-                            <div className='mb-4'>
-                                <h3 className='mb-3 h6 text-capitalize text-black d-block'>Markalar</h3>
-                                {
-                                    (subCategory?.brands ?? currentCategory?.brands).map((brand, index) => (
-                                        <label
-                                            key={brand._id}
-                                            htmlFor={brand._id}
-                                            className='d-flex align-items-center justify-content-start'
-                                            style={{ cursor: 'pointer' }}>
-                                            <input
-                                                type='checkbox'
-                                                id={brand._id}
-                                                brand={brand.name}
-                                                className='mr-2 mt-1'
-                                                style={{ cursor: 'pointer' }}
-                                                onChange={this.onBrandSelectionChange}
-                                                checked={this.props.location.search.split('%20').join(' ').includes(brand.name)} />
-                                            <Link
-                                                className='text-black'
-                                                to={(location) => (
-                                                    this.onFilterLinkClick(location, 'brands', brand.name, true)
-                                                )}>
-                                                {`${brand.name} (${brand.productQuantity})`}
-                                            </Link>
-                                        </label>
-                                    ))
-                                }
+                        <div className='card mb-3'>
+                            <div className='card-header p-0 bg-white' id={`heading${'brands'}`}>
+                                <h5 className='mb-0'>
+                                    <button
+                                        className='btn btn-link w-100 mx-3'
+                                        style={{ textAlign: 'left', color: 'black', textDecoration: 'none' }}
+                                        data-toggle='collapse'
+                                        data-target={`#collapse${'brands'}`}
+                                        aria-expanded='true'
+                                        aria-controls={`collapse${'brands'}`}>
+                                        {'Markalar'}
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id={`collapse${'brands'}`} className={'collapse show'} aria-labelledby={`heading${'brands'}`}>
+                                <div className='card-body'>
+                                    {
+                                        this.state.shop.brands.map((brand, index) => (
+                                            <a
+                                                className='d-flex align-items-center justify-content-start'
+                                                href={this.onFilterLinkClick('brands', brand.name, true)}
+                                                key={brand._id}
+                                                htmlFor={brand._id}
+                                                style={{ cursor: 'pointer' }}>
+                                                <input
+                                                    type='checkbox'
+                                                    id={brand._id}
+                                                    brand={brand.name}
+                                                    className='mr-2 mt-1'
+                                                    style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
+                                                    checked={this.props.location.search.includes(brand.name)} />
+                                                <span className='text-black'>
+                                                    {`${brand.name} (${brand.count})`}
+                                                </span>
+                                            </a>
+                                        ))
+                                    }
+                                </div>
                             </div>
                         </div>
+
+                        {
+                            this.state.shop.specifications.map((specification, index) => (
+                                <div className='card mb-3'>
+                                    <div className='card-header p-0 bg-white' id={`heading${index}`}>
+                                        <h5 className='mb-0'>
+                                            <button
+                                                className='btn btn-link w-100 mx-3'
+                                                style={{ textAlign: 'left', color: 'black', textDecoration: 'none' }}
+                                                data-toggle='collapse'
+                                                data-target={`#collapse${index}`}
+                                                aria-expanded='false'
+                                                aria-controls={`collapse${index}`}>
+                                                {specification.name}
+                                            </button>
+                                        </h5>
+                                    </div>
+
+                                    <div
+                                        id={`collapse${index}`}
+                                        className={`collapse ${this.props.location.search.includes(specification.slug) ? 'show' : ''}`}
+                                        aria-labelledby={`heading${index}`}>
+                                        <div className='card-body'>
+                                            {
+                                                specification.values.map((specificationValue, index) => (
+                                                    <a
+                                                        className='d-flex align-items-center justify-content-start'
+                                                        href={this.onFilterLinkClick(specification.slug, specificationValue.value, true)}
+                                                        key={specificationValue.slug}
+                                                        htmlFor={specificationValue.slug}
+                                                        style={{ cursor: 'pointer' }}>
+                                                        <input
+                                                            type='checkbox'
+                                                            id={specificationValue.slug}
+                                                            className='mr-2 mt-1'
+                                                            style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
+                                                            checked={this.props.location.search.includes(specificationValue.value)}
+                                                        />
+                                                        <span className='text-black'>
+                                                            {`${specificationValue.value} (${specificationValue.count})`}
+                                                        </span>
+                                                    </a>
+                                                ))
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+
+                        <Slider
+                            max={this.state.shop.maxPrice}
+                            min={this.state.shop.minPrice}
+                            onFilterLinkClick={this.onFilterLinkClick}
+                            location={this.props.location}
+                        />
                     </div>
                 </div>
             </div>
@@ -309,8 +385,8 @@ class Shop extends React.Component {
     }
 
     render() {
-        const currentCategory = this.state.categories.find(category => category._id === this.state.products[0]?.categoryId)
-        const subCategory = this.props.location.search.includes('subCategoryId') ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.products[0].subCategoryId) : null
+        const currentCategory = this.state.categories.find(category => category._id === this.state.shop._id)
+        const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.shop.subCategoryId) : null
 
         let divider = []
 
@@ -342,7 +418,7 @@ class Shop extends React.Component {
         } else {
             return (
                 <SiteWrap divider={divider}>
-                    <this.renderShopContent currentCategory={currentCategory} subCategory={subCategory} />
+                    <this.renderShopContent />
                 </SiteWrap>
             )
         }

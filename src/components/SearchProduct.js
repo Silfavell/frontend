@@ -14,7 +14,7 @@ class SearchProduct extends React.Component {
 
         return (
             <a
-                href={`/product/${slug}`}
+                href={`/${slug}/p`}
                 className='col-md-4 p-2'
                 style={{ cursor: 'pointer' }}>
 

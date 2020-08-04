@@ -45,7 +45,7 @@ class App extends React.Component {
                     <Route path='/previous-orders' component={PreviousOrders} />
                     <Route path='/update-password' component={UpdatePassword} />
                     <Route path='/forgot-password' component={ForgotPassword} />
-                    <Route path='/product/:_id' component={ShopSingle} />
+                    <Route path='/:_id/p' component={ShopSingle} />
                     <Route exact path='*' component={NotFound} />
                 </Switch>
             </Router>

@@ -151,7 +151,7 @@ class Navbar extends React.Component {
                         <div className='row'>
                             {
                                 this.state.searchedProducts.map((product) => (
-                                    <a href={`/product/${product.slug}`} className='col-md-12 border-bottom p-3' style={{ cursor: 'pointer' }}>
+                                    <a href={`/${product.slug}/p`} className='col-md-12 border-bottom p-3' style={{ cursor: 'pointer' }}>
                                         {product.name}
                                     </a>
                                 ))
@@ -231,7 +231,7 @@ class Navbar extends React.Component {
                                             }
                                         </li>
                                         <li>
-                                            <a href='/cart' className='icons-btn d-inline-block bag'>
+                                            <span className='icons-btn d-inline-block bag'>
                                                 <IoIosBasket color={'#8C92A0'} size={26} />
                                                 <span className='number'>{this.props.products.length}</span>
                                                 {
@@ -246,10 +246,14 @@ class Navbar extends React.Component {
                                                                         item={product} />
                                                                 ))
                                                             }
+
+                                                            <a className='w-100 p-2 px-4' href='/cart' style={{ fontSize: '1.1rem', fontWeight: '400' }}>
+                                                                Sepete Git
+                                                            </a>
                                                         </div>
                                                     )
                                                 }
-                                            </a>
+                                            </span>
                                         </li>
                                         <li>
                                             <a href='#' className='site-menu-toggle js-menu-toggle d-inline-block d-lg-none'>
@@ -276,8 +280,21 @@ class Navbar extends React.Component {
                                                     <ul className='dropdown'>
                                                         {
                                                             category.subCategories.map((subCategory) => (
-                                                                <li key={subCategory._id}>
+                                                                <li className={subCategory.types.length > 0 ? 'has-children' : ''} key={subCategory._id}>
                                                                     <a href={`/shop/${category.slug}/${subCategory.slug}`}>{subCategory.name}</a>
+                                                                    {
+                                                                        subCategory.types.length > 0 && (
+                                                                            <ul className='dropdown'>
+                                                                                {
+                                                                                    subCategory.types.map((type) => (
+                                                                                        <li>
+                                                                                            <a key={type._id} href={`/shop/${category.slug}/${subCategory.slug}?type=${type.slug}`}>{type.name}</a>
+                                                                                        </li>
+                                                                                    ))
+                                                                                }
+                                                                            </ul>
+                                                                        )
+                                                                    }
                                                                 </li>
                                                             ))
                                                         }
