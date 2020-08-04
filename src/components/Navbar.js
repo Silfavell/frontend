@@ -231,7 +231,7 @@ class Navbar extends React.Component {
                                             }
                                         </li>
                                         <li>
-                                            <span style={{ padding: 10 }} className='icons-btn d-inline-block bag'>
+                                            <span className='icons-btn d-inline-block bag'>
                                                 <IoIosBasket color={'#8C92A0'} size={26} />
                                                 <span className='number'>{this.props.products.length}</span>
                                                 {

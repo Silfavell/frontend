@@ -362,13 +362,17 @@ a:hover {
     text-decoration: none !important;
 }
 
+.site-navbar .site-navigation .site-menu>li>span {
+    padding: 10px;
+}
+
 @media (max-width: 426px) {
     .site-navbar .site-navigation .site-menu>li {
         padding: 4px 2px;
     }
     
-    .site-navbar .site-navigation .site-menu>li>a {
-        padding: 4px 4px;
+    .site-navbar .site-navigation .site-menu>li>span {
+        padding: 4px 3px;
     }
 }
 
