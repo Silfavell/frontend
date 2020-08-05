@@ -7,11 +7,7 @@ class AddressPopup extends React.Component {
 
     state = {
         openAddress: '',
-        addressTitle: '',
-        buildingNo: '',
-        floor: '',
-        aptNo: '',
-        // directions: ''
+        addressTitle: ''
     }
 
     onAddressChange = (event) => {
@@ -20,18 +16,6 @@ class AddressPopup extends React.Component {
 
     onTitleChange = (event) => {
         this.setState({ addressTitle: event.target.value })
-    }
-
-    onBuildingNoChange = (event) => {
-        this.setState({ buildingNo: event.target.value })
-    }
-
-    onFloorChange = (event) => {
-        this.setState({ floor: event.target.value })
-    }
-
-    onAptNoChange = (event) => {
-        this.setState({ aptNo: event.target.value })
     }
 
     onSaveAddressClick = () => {
@@ -60,10 +44,7 @@ class AddressPopup extends React.Component {
     render() {
         const {
             openAddress,
-            addressTitle,
-            buildingNo,
-            floor,
-            aptNo
+            addressTitle
         } = this.state
 
         return (
@@ -83,51 +64,17 @@ class AddressPopup extends React.Component {
                                 />
                             </div>
                         </div>
-                        <div className='form-group row'>
-                            <div className='col-md-4'>
-                                <label htmlFor='buildingNo' className='text-black'>Bina Numarası <span className='text-danger'>*</span></label>
-                                <input
-                                    onChange={this.onBuildingNoChange}
-                                    type='text'
-                                    className='form-control'
-                                    id='buildingNo'
-                                    name='buildingNo'
-                                    value={buildingNo}
-                                />
-                            </div>
-                            <div className='col-md-4'>
-                                <label htmlFor='floor' className='text-black'>Kat <span className='text-danger'>*</span></label>
-                                <input
-                                    onChange={this.onFloorChange}
-                                    type='text'
-                                    className='form-control'
-                                    id='floor'
-                                    name='floor'
-                                    value={floor}
-                                />
-                            </div>
-                            <div className='col-md-4'>
-                                <label htmlFor='aptNo' className='text-black'>Apt. Numarası <span className='text-danger'>*</span></label>
-                                <input
-                                    onChange={this.onAptNoChange}
-                                    type='text'
-                                    className='form-control'
-                                    id='aptNo'
-                                    name='aptNo'
-                                    value={aptNo}
-                                />
-                            </div>
-                        </div>
 
                         <div className='form-group row'>
                             <div className='col-md-12'>
                                 <label htmlFor='openAddress' className='text-black'>Adres <span className='text-danger'>*</span></label>
                                 <textarea
                                     onChange={this.onAddressChange}
+                                    style={{ resize: 'none' }}
                                     name='openAddress'
                                     id='openAddress'
                                     cols='30'
-                                    rows='4'
+                                    rows='7'
                                     className='form-control'
                                     value={openAddress}
                                 ></textarea>

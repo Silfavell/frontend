@@ -19,6 +19,8 @@ class PopupWrapper extends React.Component {
                 <div style={{
                     backgroundColor: 'white',
                     maxWidth: '50%',
+                    maxHeight: '90%',
+                    width: '100%',
                     position: 'relative'
                 }}>
                     <IoIosClose
