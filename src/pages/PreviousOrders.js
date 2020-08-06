@@ -58,7 +58,7 @@ class PreviousOrders extends React.Component {
                     <div className='container'>
                         <div className='row mb-5'>
                             <ProfileColumn />
-                            <div className='col-md-9 order-1'>
+                            <div className={`col-md-9 order-1 ${!(this.state.orders.length > 0) ? 'border' : ''}`}>
                                 {
                                     this.state.orders.length > 0 ? (
                                         <>
@@ -69,7 +69,7 @@ class PreviousOrders extends React.Component {
                                             }
                                         </>
                                     ) : (
-                                            <div className='border h-100 w-100 d-flex align-items-center justify-content-center'>
+                                            <div className='h-100 w-100 d-flex align-items-center justify-content-center'>
                                                 Siparişiniz bulunmamaktadır.
                                             </div>
                                         )
