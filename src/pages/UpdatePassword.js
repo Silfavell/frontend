@@ -135,7 +135,7 @@ class UpdatePassword extends React.Component {
                 <div className='container'>
                     <div className='row'>
                         <ProfileColumn />
-                        <div className="col-md-9 d-flex align-items-center justify-content-center">
+                        <div className='col-md-9 d-flex align-items-center justify-content-center border py-4'>
                             <div className='col-md-6'>
 
                                 <div className='form-group row'>

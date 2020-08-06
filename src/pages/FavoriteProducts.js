@@ -45,19 +45,27 @@ class FavoriteProducts extends React.Component {
             <div className='row mb-5'>
                 <ProfileColumn />
                 <div className='col-md-9 order-1'>
-                    <div className='row'>
-                        {
-                            this.state.products.map((product) => (
-                                <ShopProduct
-                                    onIncreaseClick={onIncreaseClick}
-                                    key={product._id}
-                                    item={product}
-                                    loggedIn
-                                    favorite
-                                />
-                            ))
-                        }
-                    </div>
+                    {
+                        this.state.products.length > 0 ? (
+                            <div className='row'>
+                                {
+                                    this.state.products.map((product) => (
+                                        <ShopProduct
+                                            onIncreaseClick={onIncreaseClick}
+                                            key={product._id}
+                                            item={product}
+                                            loggedIn
+                                            favorite
+                                        />
+                                    ))
+                                }
+                            </div>
+                        ) : (
+                                <div className='border h-100 w-100 d-flex align-items-center justify-content-center'>
+                                    Favori ürününüz bulunmamaktadır.
+                                </div>
+                            )
+                    }
                 </div>
             </div>
         </div>

@@ -60,9 +60,19 @@ class PreviousOrders extends React.Component {
                             <ProfileColumn />
                             <div className='col-md-9 order-1'>
                                 {
-                                    this.state.orders.map((order) => (
-                                        <OrderItem key={order._id} item={order} />
-                                    ))
+                                    this.state.orders.length > 0 ? (
+                                        <>
+                                            {
+                                                this.state.orders.map((order) => (
+                                                    <OrderItem key={order._id} item={order} />
+                                                ))
+                                            }
+                                        </>
+                                    ) : (
+                                            <div className='border h-100 w-100 d-flex align-items-center justify-content-center'>
+                                                Siparişiniz bulunmamaktadır.
+                                            </div>
+                                        )
                                 }
                             </div>
                         </div>
