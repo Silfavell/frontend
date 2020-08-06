@@ -8,12 +8,14 @@ import Loading from '../components/Loading'
 import SiteWrap from '../components/SiteWrap'
 import ProductImages from '../components/ProductImages'
 import Tabs from '../components/ShopSingle/Tabs'
+import Carousel from '../components/Carousel'
 
 
 class ShopSingle extends React.Component {
 
     state = {
         product: {},
+        relatedProducts: [],
         quantity: 1,
         categoryName: '',
         subCategoryName: '',
@@ -22,27 +24,32 @@ class ShopSingle extends React.Component {
     }
 
     fetchAndSetProduct = (productSlug) => {
-        axios.get(`${process.env.REACT_APP_API_URL}/product/${productSlug}`).then(({ data: product }) => {
-            this.setState({ product }, () => {
-                const visitedProducts = window.localStorage.getItem('visitedProducts')
-                if (visitedProducts) {
-                    const visitedProductsAsArray = JSON.parse(visitedProducts)
-                    if (visitedProductsAsArray.indexOf(product._id) !== -1) {
-                        visitedProductsAsArray.splice(visitedProductsAsArray.indexOf(product._id), 1)
-                    }
-                    visitedProductsAsArray.push(product._id)
-                    window.localStorage.setItem('visitedProducts', JSON.stringify(visitedProductsAsArray))
-                } else {
-                    window.localStorage.setItem('visitedProducts', JSON.stringify([product._id]))
-                }
-            })
-        }).catch((err) => {
-            this.props.history.push('/not-found')
-        })
+        return axios.get(`${process.env.REACT_APP_API_URL}/product/${productSlug}`).then(({ data }) => data)
+    }
+
+    fetchRelatedProducts = (productSlug) => {
+        return axios.get(`${process.env.REACT_APP_API_URL}/related-products/${productSlug}`).then(({ data }) => data)
     }
 
     componentWillMount() {
-        this.fetchAndSetProduct(this.props.match.params._id)
+        Promise.all([this.fetchAndSetProduct(this.props.match.params._id), this.fetchRelatedProducts(this.props.match.params._id)]).then((vals) => {
+            this.setState({ product: vals[0], relatedProducts: vals[1] }, () => {
+                const visitedProducts = window.localStorage.getItem('visitedProducts')
+                if (visitedProducts) {
+                    const visitedProductsAsArray = JSON.parse(visitedProducts)
+                    if (visitedProductsAsArray.indexOf(vals[0]._id) !== -1) {
+                        visitedProductsAsArray.splice(visitedProductsAsArray.indexOf(vals[0]._id), 1)
+                    }
+                    visitedProductsAsArray.push(vals[0]._id)
+                    window.localStorage.setItem('visitedProducts', JSON.stringify(visitedProductsAsArray))
+                } else {
+                    window.localStorage.setItem('visitedProducts', JSON.stringify([vals[0]._id]))
+                }
+            })
+        }).catch((err) => {
+            console.log(err)
+            this.props.history.push('/not-found')
+        })
     }
 
     onColorClick = (productSlug) => {
@@ -223,6 +230,23 @@ class ShopSingle extends React.Component {
                         specifications={specifications}
                     />
                 </div>
+
+                {
+                    (this.state.relatedProducts && this.state.relatedProducts.length > 0) && (
+                        <>
+                            <div className='col-md-12 p-4' />
+                            <div className='col-md-12 p-1'>
+                                <h2 className='h4 mb-3 text-black d-flex align-items-center justify-content-start'>İlgizi Çekebilecek Diğer Ürünler</h2>
+                            </div>
+
+                            <Carousel
+                                shopSingle
+                                products={this.state.relatedProducts}
+                                onIncreaseClick={onIncreaseClick}
+                            />
+                        </>
+                    )
+                }
             </div>
         )
     }
