@@ -120,7 +120,7 @@ class SignIn extends React.Component {
                                             onChange={this.onPhoneChange}
                                         >
                                             <input
-                                                type='tel'
+                                                type='search'
                                                 className='form-control'
                                                 id='phone_number'
                                                 name='phone_number'
@@ -134,7 +134,7 @@ class SignIn extends React.Component {
                                         <input
                                             value={password}
                                             onChange={this.onPasswordChange}
-                                            type='password'
+                                            type='search'
                                             className='form-control'
                                             id='password'
                                             name='password'

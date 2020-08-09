@@ -190,7 +190,7 @@ class SignUp extends React.Component {
                         <label htmlFor='nameSurname' className='text-black'>Adınız Soyadınız <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onNameSurnameChange}
-                            type='name'
+                            type='search'
                             className='form-control'
                             id='nameSurname'
                             name='nameSurname'
@@ -204,7 +204,7 @@ class SignUp extends React.Component {
                         <label htmlFor='c_email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onEmailChange}
-                            type='email'
+                            type='search'
                             className='form-control'
                             id='c_email'
                             name='c_email'
@@ -218,7 +218,7 @@ class SignUp extends React.Component {
                         <label htmlFor='password' className='text-black'>Şifre <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onPasswordChange}
-                            type='password'
+                            type='search'
                             className='form-control'
                             id='password'
                             name='password'
@@ -254,7 +254,7 @@ class SignUp extends React.Component {
                             value={phoneNumber}
                             onChange={this.onPhoneChange}>
                             <input
-                                type='tel'
+                                type='search'
                                 className='form-control'
                                 id='phone_number'
                                 name='phone_number'
