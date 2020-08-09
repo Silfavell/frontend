@@ -135,9 +135,8 @@ class UpdatePassword extends React.Component {
                 <div className='container'>
                     <div className='row'>
                         <ProfileColumn />
-                        <div className='col-md-9 d-flex align-items-center justify-content-center border py-4'>
+                        <form className='col-md-9 d-flex align-items-center justify-content-center border py-4'>
                             <div className='col-md-6'>
-
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
                                         <label htmlFor='old_password' className='text-black'>Eski Şifre <span className='text-danger'>*</span></label>
@@ -195,7 +194,7 @@ class UpdatePassword extends React.Component {
                                 </div>
 
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </SiteWrap>
