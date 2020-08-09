@@ -384,6 +384,13 @@ class Shop extends React.Component {
         )
     }
 
+    nonProducts = () => (
+        <div className='container d-flex align-items-center justify-content-center flex-column' style={{ height: 300 }}>
+            <h2 className={'text-black'}>Ürün bulunmamaktadır</h2>
+            <p className={'text-black'} style={{ fontSize: 18, marginTop: 32, textAlign: 'center' }}>Seçtiğiniz filtreler dahilinde herhangi bir ürün bulunmamaktadır.</p>
+        </div>
+    )
+
     render() {
         const currentCategory = this.state.categories.find(category => category._id === this.state.shop._id)
         const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.shop.subCategoryId) : null
@@ -411,9 +418,15 @@ class Shop extends React.Component {
         }
 
 
-        if (this.state.fetching || !currentCategory) {
+        if (this.state.fetching) {
             return (
                 <Loading />
+            )
+        } else if (!this.state.fetching && !currentCategory) {
+            return (
+                <SiteWrap>
+                    <this.nonProducts />
+                </SiteWrap>
             )
         } else {
             return (
