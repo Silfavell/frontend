@@ -65,6 +65,7 @@ class Shop extends React.Component {
         } else {
             if (multiple) {
                 searchParams.append(filter, filterValue)
+                searchParams.set('start', 0)
             } else {
                 searchParams.set(filter, filterValue)
             }
