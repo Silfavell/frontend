@@ -298,7 +298,7 @@ class Shop extends React.Component {
                                                     brand={brand.name}
                                                     className='mr-2 mt-1'
                                                     style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
-                                                    checked={this.props.location.search.includes(brand.name.replace(' ', '+'))} />
+                                                    checked={this.props.location.search.includes(`brands=${brand.name.replace(' ', '+')}`)} />
                                                 <span className='text-black'>
                                                     {`${brand.name} (${brand.count})`}
                                                 </span>
@@ -344,7 +344,7 @@ class Shop extends React.Component {
                                                             id={specificationValue.slug}
                                                             className='mr-2 mt-1'
                                                             style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
-                                                            checked={this.props.location.search.includes(specificationValue.value)}
+                                                            checked={this.props.location.search.includes(`${specification.slug}=${specificationValue.value}`)}
                                                         />
                                                         <span className='text-black'>
                                                             {`${specificationValue.value} (${specificationValue.count})`}
