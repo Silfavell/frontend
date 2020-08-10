@@ -1,3 +1,11 @@
+.product:nth-child(odd).product-padding {
+    padding-right: 4px !important;
+}
+
+.product:nth-child(even).product-padding {
+    padding-left: 4px !important;
+}
+
 .product-border-bottom {
     border-bottom: 1px solid #EE4266 !important;
 }
