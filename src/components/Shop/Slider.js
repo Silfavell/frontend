@@ -21,15 +21,17 @@ class Slider extends React.Component {
         if (min < this.props.min || Number.isNaN(min)) min = this.props.min
         if (max > this.props.max || Number.isNaN(max)) max = this.props.max
 
+        const distance = (this.props.max - this.props.min)
+
         this.state = {
-            values: [min, this.props.max - (min + (this.props.max - max)), this.props.max - max],
+            values: [distance - (this.props.max - min), this.props.max - this.props.min, this.props.max - max],
             max,
             min
         }
     }
 
     onSliderChange = (values) => {
-        this.setState({ values, min: values[0], max: this.props.max - values[2] })
+        this.setState({ values, min: this.props.min + values[0], max: this.props.max - values[2] })
     }
 
     onChange = (event) => {
@@ -41,41 +43,50 @@ class Slider extends React.Component {
     }
 
     onMaxChange = (event) => {
-        let { values, max } = this.state
+        let { values, max, min } = this.state
+        const distance = (this.props.max - this.props.min)
 
-        max = this.props.max - max
+        if (max < min) {
+            max = min
+        }
 
-        let maxOnSlider = max < values[0] ? values[0] : max
-        maxOnSlider = maxOnSlider > this.props.max ? this.props.max : maxOnSlider
-        maxOnSlider = maxOnSlider + values[0] > this.props.max ? this.props.max - values[0] : maxOnSlider
-        maxOnSlider = max < 0 ? 0 : maxOnSlider
+        if (max > this.props.max) {
+            max = this.props.max
+        }
+        const maxOnSlider = this.props.max - max
 
         this.setState({
             values: [
                 values[0],
-                this.props.max - (maxOnSlider + values[0]),
+                distance - (maxOnSlider + values[0]),
                 maxOnSlider
             ],
-            max: this.props.max - maxOnSlider,
-            min: values[0]
+            max
         })
     }
 
     onMinChange = (event) => {
-        const { values, min } = this.state
+        let { values, max, min } = this.state
 
-        let minOnSlider = min > (this.props.max - values[2]) ? values[2] : min
-        minOnSlider = minOnSlider < this.props.min ? this.props.min : minOnSlider
-        minOnSlider = minOnSlider + values[2] > this.props.max ? this.props.max - values[2] : minOnSlider
+        const distance = (this.props.max - this.props.min)
+
+        if (min > max) {
+            min = max
+        }
+
+        if (min < this.props.min) {
+            min = this.props.min
+        }
+
+        const minOnSlider = min - this.props.min
 
         this.setState({
             values: [
                 minOnSlider,
-                this.props.max - (minOnSlider + values[2]),
+                distance - (minOnSlider + values[2]),
                 values[2]
             ],
-            min: minOnSlider,
-            max: this.props.max - values[2]
+            min
         })
     }
 
