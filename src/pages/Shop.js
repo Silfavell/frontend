@@ -56,7 +56,7 @@ class Shop extends React.Component {
 
         var searchParams = new URLSearchParams(location.search)
 
-        if (searchParams.toString().includes(filterValue.toString().replace(' ', '+'))) {
+        if (searchParams.toString().includes(`${filter}=${filterValue.toString().replace(' ', '+')}`)) {
             if (searchParams.toString().startsWith(`?${filter}=${filterValue.toString().replace(' ', '+')}`)) {
                 return '?' + searchParams.toString().replace(`?${filter}=${filterValue.toString().replace(' ', '+')}`, '')
             }
