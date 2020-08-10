@@ -54,54 +54,39 @@ class Shop extends React.Component {
     onFilterLinkClick = (filter, filterValue, multiple) => {
         const { location } = this.props
 
-        if (location.search.includes(filter)) {
-            const search = location.search.split('&').map((currentFilter, index) => {
-                currentFilter = currentFilter.split('%20').join(' ')
-                if (currentFilter.includes(filter)) {
-                    if (multiple) {
-                        if (currentFilter.includes(filterValue)) {
-                            return currentFilter.split(`,${filterValue}`).join('').split(`${filterValue}`).join('')
-                        } else {
-                            return `${currentFilter},${filterValue}`
-                        }
-                    }
+        var searchParams = new URLSearchParams(location.search)
 
-                    if (location.search.startsWith(`?${filter}`)) {
-                        return `?${filter}=${filterValue}`
-                    } else {
-                        return `${filter}=${filterValue}`
-                    }
-                } else {
-                    return currentFilter
-                }
-            }).join('&')
-
-            if (multiple) {
-                if (search.endsWith(`${filter}=`) || search.includes(`${filter}&`)) {
-                    return `${location.pathname}${search.replace(`&${filter}=`, '').replace(`?${filter}=`, '')}`
-                }
+        if (searchParams.toString().includes(filterValue.toString().replace(' ', '+'))) {
+            if (searchParams.toString().startsWith(`?${filter}=${filterValue.toString().replace(' ', '+')}`)) {
+                return '?' + searchParams.toString().replace(`?${filter}=${filterValue.toString().replace(' ', '+')}`, '')
             }
 
-            return `${location.pathname}${search}`
+            return '?' + searchParams.toString().replace(`&${filter}=${filterValue.toString().replace(' ', '+')}`, '')
         } else {
-            if (location.search.startsWith('?')) {
-                return `${location.pathname}${location.search}&${filter}=${filterValue}`
+            if (multiple) {
+                searchParams.append(filter, filterValue)
             } else {
-                return `${location.pathname}${location.search}?${filter}=${filterValue}`
+                searchParams.set(filter, filterValue)
             }
         }
+
+        return '?' + searchParams.toString()
     }
 
     getStartingIndex = () => {
-        const foundFilter = this.props.location.search.split('&').find((currentFilter, index) => {
-            currentFilter = currentFilter.split('%20').join(' ')
-            if (currentFilter.includes('start')) {
-                return true
-            }
-            return false
-        })
+        const { location } = this.props
 
-        return foundFilter ? parseInt(foundFilter.split('=')[1]) : 0
+        var searchParams = new URLSearchParams(location.search)
+
+        let start = 0
+
+        for (let param of searchParams) {
+            if (param[0] === 'start') {
+                start = Number.isNaN(parseInt(param[1])) ? 0 : parseInt(param[1])
+            }
+        }
+
+        return start
     }
 
     onPageGtClick = () => {
@@ -312,7 +297,7 @@ class Shop extends React.Component {
                                                     brand={brand.name}
                                                     className='mr-2 mt-1'
                                                     style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
-                                                    checked={this.props.location.search.includes(brand.name)} />
+                                                    checked={this.props.location.search.includes(brand.name.replace(' ', '+'))} />
                                                 <span className='text-black'>
                                                     {`${brand.name} (${brand.count})`}
                                                 </span>
@@ -416,7 +401,6 @@ class Shop extends React.Component {
                 }
             ]
         }
-
 
         if (this.state.fetching) {
             return (
