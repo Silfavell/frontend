@@ -20,14 +20,14 @@ class Home extends React.Component {
     }
 
     fetchShop = (productIds) => {
-        const url = `${process.env.REACT_APP_API_URL}/filter-shop?productIds=${productIds}&quantity=32`
+        const url = `${process.env.REACT_APP_API_URL}/filter-shop?${productIds}&quantity=32`
 
         return axios.get(url).then(({ data }) => data || {})
     }
 
     UNSAFE_componentWillMount() {
         if (window.localStorage.visitedProducts) {
-            const visitedProductIds = JSON.parse(window.localStorage.getItem('visitedProducts')).join(',')
+            const visitedProductIds = JSON.parse(window.localStorage.getItem('visitedProducts')).map((id) => `productIds=${id}`).join('&')
 
             this.fetchShop(visitedProductIds).then((shop) => {
                 this.setState({ shop })

@@ -39,10 +39,9 @@ class SiteWrap extends React.Component {
     )
 
     fetchOfflineCartProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/filter-shop?productIds=${
-            JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => cartProduct._id).join(',')
+        const url = `${process.env.REACT_APP_API_URL}/filter-shop?${
+            JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => `productIds=${cartProduct._id}`).join('&')
             }`
-
 
         return axios.get(url).then(({ data }) => data?.products ?? [])
     }
