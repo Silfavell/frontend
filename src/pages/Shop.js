@@ -51,7 +51,7 @@ class Shop extends React.Component {
         })
     }
 
-    onFilterLinkClick = (filter, filterValue, multiple) => {
+    onFilterLinkClick = (filter, filterValue, multiple, price) => {
         const { location } = this.props
 
         var searchParams = new URLSearchParams(location.search)
@@ -65,7 +65,10 @@ class Shop extends React.Component {
         } else {
             if (multiple) {
                 searchParams.append(filter, filterValue)
-                searchParams.set('start', 0)
+                searchParams.delete('start')
+            } else if (price) {
+                searchParams.set('minPrice', price.min)
+                searchParams.set('maxPrice', price.max)
             } else {
                 searchParams.set(filter, filterValue)
             }

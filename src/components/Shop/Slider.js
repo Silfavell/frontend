@@ -12,9 +12,10 @@ class Slider extends React.Component {
 
         // eslint-disable-next-line
         this.props.location.search.split('&').map((q) => {
-            if (q.includes('price')) {
-                min = parseInt(q.substring(q.indexOf('=') + 1).split('-')[0])
-                max = parseInt(q.substring(q.indexOf('=') + 1).split('-')[1])
+            if (q.includes('minPrice')) {
+                min = parseInt(q.substring(q.indexOf('=') + 1))
+            } else if (q.includes('maxPrice')) {
+                max = parseInt(q.substring(q.indexOf('=') + 1))
             }
         })
 
@@ -135,7 +136,7 @@ class Slider extends React.Component {
                                     placeholder='En Çok' />
                             </div>
                             <div className='col-3 px-1'>
-                                <a className='form-control' href={this.props.onFilterLinkClick('price', `${this.state.min}-${this.state.max}`)}>
+                                <a className='form-control' href={this.props.onFilterLinkClick('price', '', '', { min: this.state.min, max: this.state.max })}>
                                     <IoIosArrowForward />
                                 </a>
                             </div>
