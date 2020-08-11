@@ -169,6 +169,23 @@ class Shop extends React.Component {
         const loggedIn = cookies.get('token')
         this.props.location.search = decodeURIComponent(this.props.location.search)
 
+        const s = new URLSearchParams(this.props.location.search)
+        let type = s.get('type')
+        let isFilterExists = false
+        let clearFilterUrl
+
+        if (type) {
+            if (s.toString().includes('&')) {
+                isFilterExists = true
+                clearFilterUrl = `${this.props.location.pathname}?type=${type}`
+            }
+        } else {
+            if (s.toString().includes('=')) {
+                isFilterExists = true
+                clearFilterUrl = this.props.location.pathname
+            }
+        }
+
         return (
             <div className='container'>
                 <div className='row mb-5'>
@@ -268,6 +285,14 @@ class Shop extends React.Component {
                                     </ul>
                                 </div>
                             */
+                        }
+
+                        {
+                            isFilterExists && (
+                                <a href={clearFilterUrl} className='mb-3 d-flex align-items-end justify-content-end p-2 border' style={{ borderRadius: 'calc(.25rem - 1px) calc(.25rem - 1px) 0 0' }}>
+                                    Filtreleri Temizle
+                                </a>
+                            )
                         }
 
                         <div className='card mb-3'>
@@ -389,7 +414,7 @@ class Shop extends React.Component {
         if (subCategory) {
             divider = [
                 {
-                    path: `shop/${currentCategory?.slug}`,
+                    path: `/shop/${currentCategory?.slug}`,
                     title: currentCategory?.name
                 },
                 {
