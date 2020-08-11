@@ -282,17 +282,21 @@ class SignUp extends React.Component {
                     </div>
                 </div>
 
-                <div className='form-group row form-check'>
-                    <div className='col-md-12'>
-                        <input
-                            type='checkbox'
-                            className='form-check-input' id='dont-forget' name='dont-forget' placeholder='' />
-                        <label
-                            style={{ cursor: 'pointer', display: 'unset' }}
-                            htmlFor='dont-forget'
-                            className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
-                    </div>
-                </div>
+                {
+                    /*
+                        <div className='form-group row form-check'>
+                            <div className='col-md-12'>
+                                <input
+                                    type='checkbox'
+                                    className='form-check-input' id='dont-forget' name='dont-forget' placeholder='' />
+                                <label
+                                    style={{ cursor: 'pointer', display: 'unset' }}
+                                    htmlFor='dont-forget'
+                                    className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
+                            </div>
+                        </div>
+                    */
+                }
 
                 <div className='form-group row'>
                     <div className='col-lg-12'>
