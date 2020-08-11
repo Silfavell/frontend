@@ -24,6 +24,7 @@ class SignUp extends React.Component {
         password: '',
         // rePassword: '',
         activationCode: '',
+        membershipAgreement: false,
 
         invalidPhoneNumber: false,
         invalidPassword: false,
@@ -36,6 +37,10 @@ class SignUp extends React.Component {
         isNameSurnameInitialized: false,
         isEmailInitialized: false,
         isActivationCodeInitialized: false
+    }
+
+    onMembershipAgreementChange = (event) => {
+        this.setState({ membershipAgreement: event.target.checked })
     }
 
     onPhoneChange = (event) => {
@@ -267,6 +272,8 @@ class SignUp extends React.Component {
                     <div className='col-md-12'>
                         <input
                             type='checkbox'
+                            checked={this.state.membershipAgreement}
+                            onChange={this.onMembershipAgreementChange}
                             className='form-check-input' id='agreement' name='agreement' placeholder='' />
                         <label
                             style={{ cursor: 'pointer', display: 'unset' }}
@@ -297,6 +304,7 @@ class SignUp extends React.Component {
                                 || this.state.invalidNameSurname || !this.state.isNameSurnameInitialized
                                 || this.state.invalidPassword || !this.state.isPasswordInitialized
                                 || this.state.invalidPhoneNumber || !this.state.isPhoneNumberInitialized
+                                || !this.state.membershipAgreement
                             }
                         >Üye Ol</button>
                     </div>
