@@ -4,6 +4,7 @@ import axios from 'axios'
 import $ from 'jquery'
 import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
+import InputMask from 'react-input-mask'
 
 import '../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -97,6 +98,7 @@ class UpdatePassword extends React.Component {
         const { value } = event.target
 
         joi.string()
+            .alphanum()
             .min(4)
             .validateAsync(value).then(() => {
                 this.setState({ newPassword: value, isNewPasswordInitialized: true, invalidNewPassword: false })
@@ -109,6 +111,7 @@ class UpdatePassword extends React.Component {
         const { value } = event.target
 
         joi.string()
+            .alphanum()
             .min(4)
             .validateAsync(value).then(() => {
                 this.setState({ reNewPassword: value, isReNewPasswordInitialized: true, invalidReNewPassword: false })
@@ -123,23 +126,21 @@ class UpdatePassword extends React.Component {
         joi.string()
             .trim()
             .strict()
-            .min(10)
-            .max(12)
+            .min(19)
+            .max(19)
             .validateAsync(value).then(() => {
                 this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: false })
             }).catch((err) => {
-                if (err.details[0].message.includes('12') && err.details[0].message.includes('equal')) {
-                    this.setState({ isPhoneNumberInitialized: true, invalidPhoneNumber: false })
-                } else {
-                    this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
-                }
+                this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
             })
+
     }
 
     onActivationCodeChange = (event) => {
         const { value } = event.target
 
         joi.string()
+            .alphanum()
             .trim()
             .strict()
             .min(4)
@@ -156,39 +157,43 @@ class UpdatePassword extends React.Component {
     }
 
     renderPhoneSection = () => (
-        <div id='phone-section' className='p-3 p-lg-5'>
+        <form id='phone-section' className='p-3 p-lg-5'>
 
             <div className='form-group row'>
                 <div className='col-md-12'>
                     <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
-                    <input
+                    <InputMask
+                        mask='\+\9\0 \(999\) 999 99 99'
+                        value={this.state.phoneNumber}
                         onChange={this.onPhoneChange}
-                        type='phone'
-                        className='form-control'
-                        id='phone'
-                        name='phone'
-                        placeholder='Telefon Numaranızı giriniz'
-                        value={this.state.phoneNumber} />
+                    >
+                        <input
+                            type='search'
+                            className='form-control'
+                            id='phone_number'
+                            name='phone_number'
+                            placeholder='Telefon Numaranızı giriniz' />
+                    </InputMask>
                 </div>
             </div>
 
             <div className='form-group row'>
                 <div className='col-lg-12'>
-                    <button
+                    <div
                         onClick={this.onSendActivationCodeClick}
                         className='btn btn-primary btn-lg btn-block'
                         disabled={
                             this.state.invalidPhoneNumber || !this.state.isPhoneNumberInitialized
                         }
-                    >Aktivasyon kodu gönder</button>
+                    >Aktivasyon kodu gönder</div>
                 </div>
             </div>
 
-        </div>
+        </form>
     )
 
     renderPasswordSection = () => (
-        <div className='p-3 p-lg-5'>
+        <form className='p-3 p-lg-5'>
 
             <div className='form-group row'>
                 <div className='col-md-12'>
@@ -234,7 +239,7 @@ class UpdatePassword extends React.Component {
 
             <div className='form-group row'>
                 <div className='col-lg-12'>
-                    <button
+                    <div
                         onClick={this.onUpdateClick}
                         className='btn btn-primary btn-lg btn-block'
                         disabled={
@@ -242,11 +247,11 @@ class UpdatePassword extends React.Component {
                             || this.state.invalidActivationCode || !this.state.isActivationCodeInitialized
                             || this.state.invalidNewPassword || !this.state.isNewPasswordInitialized
                         }
-                    >Şifremi Sıfırla</button>
+                    >Şifremi Sıfırla</div>
                 </div>
             </div>
 
-        </div>
+        </form>
     )
 
     render() {
