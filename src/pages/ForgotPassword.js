@@ -171,7 +171,7 @@ class UpdatePassword extends React.Component {
                             type='search'
                             className='form-control'
                             id='phone_number'
-                            name='phone_number'
+                            name='phone'
                             placeholder='Telefon Numaranızı giriniz' />
                     </InputMask>
                 </div>

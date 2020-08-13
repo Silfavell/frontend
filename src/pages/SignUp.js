@@ -198,7 +198,7 @@ class SignUp extends React.Component {
                             type='search'
                             className='form-control'
                             id='nameSurname'
-                            name='nameSurname'
+                            name='name'
                             placeholder='Adınız ve Soyadınızı giriniz'
                             value={nameSurname} />
                     </div>
@@ -212,7 +212,7 @@ class SignUp extends React.Component {
                             type='search'
                             className='form-control'
                             id='c_email'
-                            name='c_email'
+                            name='email'
                             placeholder='E-Posta adresinizi giriniz'
                             value={email} />
                     </div>
@@ -262,7 +262,7 @@ class SignUp extends React.Component {
                                 type='search'
                                 className='form-control'
                                 id='phone_number'
-                                name='phone_number'
+                                name='phone'
                                 placeholder='Telefon Numaranızı giriniz' />
                         </InputMask>
                     </div>
