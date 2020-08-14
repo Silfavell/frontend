@@ -386,12 +386,16 @@ class Shop extends React.Component {
                             ))
                         }
 
-                        <Slider
-                            max={this.state.shop.maxPrice}
-                            min={this.state.shop.minPrice}
-                            onFilterLinkClick={this.onFilterLinkClick}
-                            location={this.props.location}
-                        />
+                        {
+                            this.state.shop.maxPrice !== this.state.shop.minPrice && (
+                                <Slider
+                                    max={this.state.shop.maxPrice}
+                                    min={this.state.shop.minPrice}
+                                    onFilterLinkClick={this.onFilterLinkClick}
+                                    location={this.props.location}
+                                />
+                            )
+                        }
                     </div>
                 </div>
             </div>
