@@ -405,7 +405,7 @@ class Shop extends React.Component {
     nonProducts = () => (
         <div className='container d-flex align-items-center justify-content-center flex-column' style={{ height: 300 }}>
             <h2 className={'text-black'}>Ürün bulunmamaktadır</h2>
-            <p className={'text-black'} style={{ fontSize: 18, marginTop: 32, textAlign: 'center' }}>Seçtiğiniz filtreler dahilinde herhangi bir ürün bulunmamaktadır.</p>
+            <p className={'text-black'} style={{ fontSize: 18, marginTop: 32, textAlign: 'center' }}>Seçtiğiniz filtrelere uygun ürün bulunmamaktadır</p>
         </div>
     )
 
