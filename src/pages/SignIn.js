@@ -147,7 +147,7 @@ class SignIn extends React.Component {
                                         <label style={{ display: 'unset' }} htmlFor='dont-forget' className='form-check-label ml-2'>Beni Unutma</label>
                                     </div>
                                     <div className='col-6 d-flex align-items-flex-end justify-content-end'>
-                                        <a href='forgot-password'>Şifremi Unuttum</a>
+                                        <a href='/forgot-password'>Şifremi Unuttum</a>
                                     </div>
                                 </div>
                                 <div className='form-group row'>
