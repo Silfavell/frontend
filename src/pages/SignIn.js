@@ -111,7 +111,7 @@ class SignIn extends React.Component {
                     <div className='col-md-12 d-flex align-items-center justify-content-center'>
                         <div className='col-md-6'>
                             <div className='p-3 p-lg-5'>
-                                <div className='form-group row'>
+                                <form className='form-group row'>
                                     <div className='col-md-12'>
                                         <label htmlFor='phone_number' className='text-black'>Telefon Numarası</label>
                                         <InputMask
@@ -127,20 +127,20 @@ class SignIn extends React.Component {
                                                 placeholder='Telefon Numaranızı giriniz' />
                                         </InputMask>
                                     </div>
-                                </div>
-                                <div className='form-group row'>
+                                </form>
+                                <form className='form-group row'>
                                     <div className='col-md-12'>
                                         <label htmlFor='password' className='text-black'>Şifre</label>
                                         <input
                                             value={password}
                                             onChange={this.onPasswordChange}
-                                            type='search'
+                                            type='password'
                                             className='form-control'
                                             id='password'
                                             name='password'
                                             placeholder='Şifrenizi giriniz' />
                                     </div>
-                                </div>
+                                </form>
                                 <div className='form-group row'>
                                     <div className='col-6 d-flex align-items-center justify-content-start'>
                                         <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' />

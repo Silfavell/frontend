@@ -168,7 +168,7 @@ class UpdatePassword extends React.Component {
                         onChange={this.onPhoneChange}
                     >
                         <input
-                            type='search'
+                            type='text'
                             className='form-control'
                             id='phone_number'
                             name='phone'

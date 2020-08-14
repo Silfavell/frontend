@@ -195,7 +195,7 @@ class SignUp extends React.Component {
                         <label htmlFor='nameSurname' className='text-black'>Adınız Soyadınız <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onNameSurnameChange}
-                            type='search'
+                            type='text'
                             className='form-control'
                             id='nameSurname'
                             name='name'
@@ -209,7 +209,7 @@ class SignUp extends React.Component {
                         <label htmlFor='c_email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onEmailChange}
-                            type='search'
+                            type='text'
                             className='form-control'
                             id='c_email'
                             name='email'
@@ -218,19 +218,36 @@ class SignUp extends React.Component {
                     </div>
                 </div>
 
-                <div className='form-group row'>
+                <form className='form-group row'>
+                    <div className='col-md-12'>
+                        <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
+                        <InputMask
+                            mask='\+\9\0 \(999\) 999 99 99'
+                            value={phoneNumber}
+                            onChange={this.onPhoneChange}>
+                            <input
+                                type='text'
+                                className='form-control'
+                                id='phone_number'
+                                name='phone'
+                                placeholder='Telefon Numaranızı giriniz' />
+                        </InputMask>
+                    </div>
+                </form>
+
+                <form className='form-group row'>
                     <div className='col-md-12'>
                         <label htmlFor='password' className='text-black'>Şifre <span className='text-danger'>*</span></label>
                         <input
                             onChange={this.onPasswordChange}
-                            type='search'
+                            type='password'
                             className='form-control'
                             id='password'
                             name='password'
                             placeholder='Şifrenizi giriniz'
                             value={password} />
                     </div>
-                </div>
+                </form>
 
                 {
                     /*
@@ -250,23 +267,6 @@ class SignUp extends React.Component {
                         </div>
                     */
                 }
-
-                <div className='form-group row'>
-                    <div className='col-md-12'>
-                        <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
-                        <InputMask
-                            mask='\+\9\0 \(999\) 999 99 99'
-                            value={phoneNumber}
-                            onChange={this.onPhoneChange}>
-                            <input
-                                type='search'
-                                className='form-control'
-                                id='phone_number'
-                                name='phone'
-                                placeholder='Telefon Numaranızı giriniz' />
-                        </InputMask>
-                    </div>
-                </div>
 
                 <div className='form-group row form-check'>
                     <div className='col-md-12'>

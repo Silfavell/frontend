@@ -181,7 +181,7 @@ class UpdatePassword extends React.Component {
 
                                 <div className='form-group row'>
                                     <div className='col-lg-12'>
-                                        <button
+                                        <div
                                             onClick={this.onUpdateClick}
                                             className='btn btn-primary btn-lg btn-block'
                                             disabled={
@@ -189,7 +189,7 @@ class UpdatePassword extends React.Component {
                                                 || this.state.invalidNewPassword || !this.state.isNewPasswordInitialized
                                                 || this.state.invalidReNewPassword || !this.state.isReNewPasswordInitialized
                                             }
-                                        >Şifremi Güncelle</button>
+                                        >Şifremi Güncelle</div>
                                     </div>
                                 </div>
 
