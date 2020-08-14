@@ -53,7 +53,9 @@ class ShopSingle extends React.Component {
     }
 
     onColorClick = (productSlug) => {
-        this.fetchAndSetProduct(productSlug)
+        this.fetchAndSetProduct(productSlug).then((product) => {
+            this.setState({ product })
+        })
     }
 
     increaseQuantity = () => {
