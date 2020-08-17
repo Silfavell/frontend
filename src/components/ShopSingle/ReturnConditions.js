@@ -11,7 +11,7 @@ class ReturnConditions extends React.Component {
                     </p>
                     <br/>
                     <b>İade Koşulları:</b>
-                    <p style={{ whiteSpace: 'break-spaces' }}>İade talebinizin olumlu sonuçlanması durumunda Müşteri Hizmetlerimizin sağlayacağı Kargo İade kodunu kullanarak MNG Kargo ile satın almış olduğunuz ürünleri iade edebilirsiniz. İade talebiniz olumlu karşılansa da kullanılmış, ambalajı açılmış ya da bozulmuş ürünlerin iadesi yapılamamaktadır. Şampuan, duş jeli, cilt ve saç bakım ürünleri gibi iadesi sağlık ve hijyen açısından uygun olmayan ürünler için iade yapılamamaktadır. Koruma ambalajı bulunan makyaj, cilt bakım ürünlerinde de koruma bandı açıldığı takdirde iade işlemi yapılamamaktadır. İade etmek istediğiniz ürünlerin bu koşulları karşılamaması durumunda iade onayı iptal edilerek Yurtiçi Kargo ile ürünleriniz Alıcı Ödemeli olarak tarafınıza gönderilecektir.</p>
+                    <p style={{ whiteSpace: 'break-spaces' }}>İade talebinizin olumlu sonuçlanması durumunda Müşteri Hizmetlerimizin sağlayacağı Kargo İade kodunu kullanarak MNG Kargo ile satın almış olduğunuz ürünleri iade edebilirsiniz. İade talebiniz olumlu karşılansa da kullanılmış, ambalajı açılmış ya da bozulmuş ürünlerin iadesi yapılamamaktadır. Şampuan, duş jeli, cilt ve saç bakım ürünleri gibi iadesi sağlık ve hijyen açısından uygun olmayan ürünler için iade yapılamamaktadır. Koruma ambalajı bulunan makyaj, cilt bakım ürünlerinde de koruma bandı açıldığı takdirde iade işlemi yapılamamaktadır. İade etmek istediğiniz ürünlerin bu koşulları karşılamaması durumunda iade onayı iptal edilerek MNG Kargo ile ürünleriniz Alıcı Ödemeli olarak tarafınıza gönderilecektir.</p>
                 </div>
             </div>
         )
