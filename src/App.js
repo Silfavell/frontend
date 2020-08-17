@@ -19,8 +19,11 @@ import EditProfile from './pages/EditProfile'
 import UpdatePassword from './pages/UpdatePassword'
 import ForgotPassword from './pages/ForgotPassword'
 import Payment from './pages/Payment'
+
 import FavoriteProducts from './pages/FavoriteProducts'
 import PreviousOrders from './pages/PreviousOrders'
+import ReturnItems from './pages/ReturnItems'
+
 import NotFound from './pages/NotFound'
 import PaymentCompleted from './pages/PaymentCompleted'
 
@@ -41,8 +44,11 @@ class App extends React.Component {
                     <Route path='/payment' component={Payment} />
                     <Route path='/payment-completed' component={PaymentCompleted} />
                     <Route path='/edit-profile' component={EditProfile} />
+
                     <Route path='/favorite-products' component={FavoriteProducts} />
                     <Route path='/previous-orders' component={PreviousOrders} />
+                    <Route path='/return-items' component={ReturnItems} />
+
                     <Route path='/update-password' component={UpdatePassword} />
                     <Route path='/forgot-password' component={ForgotPassword} />
                     <Route path='/:_id/p' component={ShopSingle} />
