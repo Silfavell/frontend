@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-import PopupWrapper from './PopupWrapper'
+import PopupWrapper from '../PopupWrapper'
 
 class AddressPopup extends React.Component {
 

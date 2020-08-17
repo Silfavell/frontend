@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
 
-import PopupWrapper from './PopupWrapper'
+import PopupWrapper from '../PopupWrapper'
 
 class CardDeletePopup extends React.Component {
 

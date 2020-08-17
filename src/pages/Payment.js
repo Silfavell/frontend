@@ -6,14 +6,16 @@ import Cookies from 'universal-cookie'
 
 import SiteWrap from '../components/SiteWrap'
 import Loading from '../components/Loading'
-import EmptyAddressCard from '../components/EmptyAddressCard'
-import AddressCard from '../components/AddressCard'
-import PaymentCard from '../components/PaymentCard'
+import EmptyAddressCard from '../components/Payment/EmptyAddressCard'
+import AddressCard from '../components/Payment/AddressCard'
+import PaymentCard from '../components/Payment/PaymentCard'
 
-import AddressPopup from '../components/AddressPopup'
-import CreditCardPopup from '../components/CreditCardPopup'
-import CardDeletePopup from '../components/CardDeletePopup'
-import AddressDeletePopup from '../components/AddressDeletePopup'
+import AddressPopup from '../components/Payment/AddressPopup'
+import CreditCardPopup from '../components/Payment/CreditCardPopup'
+import CardDeletePopup from '../components/Payment/CardDeletePopup'
+import AddressDeletePopup from '../components/Payment/AddressDeletePopup'
+import SalesContract from '../components/Payment/SalesContract'
+import PreInfo from '../components/Payment/PreInfo'
 
 const cookies = new Cookies()
 
@@ -33,6 +35,9 @@ class Payment extends React.Component {
         showDeleteAddressPopup: false,
         showDeleteCardPopup: false,
         showCardPopup: false,
+        showSalesContractPopup: false,
+        showPreInfoPopup: false,
+
         deleteCardToken: null,
         deleteAddressId: null
     }
@@ -95,6 +100,22 @@ class Payment extends React.Component {
     getAddresses = () => (
         axios.get(`${process.env.REACT_APP_API_URL}/user/profile`).then(({ status, data: { addresses } }) => addresses)
     )
+
+    showSalesContractPopup = () => {
+        this.setState({ showSalesContractPopup: true })
+    }
+
+    hideSalesContractPopup = (addresses) => {
+        this.setState({ showSalesContractPopup: false })
+    }
+
+    showPreInfoPopup = () => {
+        this.setState({ showPreInfoPopup: true })
+    }
+
+    hidePreInfoPopup = () => {
+        this.setState({ showPreInfoPopup: false })
+    }
 
     setDatas = () => (
         Promise.all([this.getCart(), this.getPaymentCards(), this.getAddresses()]).then((results) => {
@@ -233,9 +254,17 @@ class Payment extends React.Component {
                             this.state.showDeleteCardPopup && <CardDeletePopup deleteCardToken={this.state.deleteCardToken} hideDeleteCardPopup={this.hideDeleteCardPopup} />
                         }
 
+                        {
+                            this.state.showSalesContractPopup && <SalesContract hideSalesContractPopup={this.hideSalesContractPopup} />
+                        }
+
+                        {
+                            this.state.showPreInfoPopup && <PreInfo hidePreInfoPopup={this.hidePreInfoPopup} />
+                        }
+
                         <div className='container'>
                             <div className='row'>
-                                <div className='col-md-9'>
+                                <div className='col-md-8' style={{ paddingRight: '2.2rem', paddingLeft: '2.2rem' }}>
                                     <div className='row mb-5'>
                                         <div className='col-md-12'>
                                             <div className='row border'>
@@ -260,7 +289,7 @@ class Payment extends React.Component {
                                         this.renderAddressesSection()
                                     }
                                 </div>
-                                <div className='col-md-3'>
+                                <div>
                                     <div className='col-md-12 border p-4'>
                                         <div className='row'>
                                             <div className='col-md-12 text-left mb-5'>
@@ -292,9 +321,28 @@ class Payment extends React.Component {
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div className='border border-top-0 px-3 py-2'>
+                                        <div className='form-check form-check-inline'>
+                                            <input className='form-check-input' type='checkbox' value='' style={{ width: 20, height: 20, cursor: 'pointer' }} />
+                                            <label className='form-check-label  ml-2'>
+                                                <span onClick={this.showPreInfoPopup} className='text-primary' style={{ cursor: 'pointer' }}>Ön Bilgilendirme Formu</span>'nu kabul ediyorum.
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div className='border border-top-0 px-3 py-2'>
+                                        <div className='form-check form-check-inline'>
+                                            <input className='form-check-input' type='checkbox' value='' style={{ width: 20, height: 20, cursor: 'pointer' }} />
+                                            <label className='form-check-label  ml-2'>
+                                                <span onClick={this.showSalesContractPopup} className='text-primary' style={{ cursor: 'pointer' }}>Mesafeli Satış Sözleşmesi</span>'ni kabul ediyorum.
+                                             </label>
+                                        </div>
+                                    </div>
+
                                     <div className='row pt-3'>
                                         <div className='col-md-12'>
-                                            <button className='btn btn-primary btn-lg btn-block' onClick={this.onCompletePaymentClick}>Ödemeye Geç</button>
+                                            <button className='btn btn-primary btn-lg btn-block' onClick={this.onCompletePaymentClick}>Ödemeyi Tamamla</button>
                                         </div>
                                     </div>
                                 </div>

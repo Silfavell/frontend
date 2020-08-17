@@ -4,7 +4,7 @@ import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
 
-import PopupWrapper from './PopupWrapper'
+import PopupWrapper from '../PopupWrapper'
 
 class NewCreditCardPopup extends React.Component {
 
