@@ -21,7 +21,8 @@ class PopupWrapper extends React.Component {
                     maxWidth: '50%',
                     maxHeight: '90%',
                     width: '100%',
-                    position: 'relative'
+                    position: 'relative',
+                    overflow: 'auto'
                 }}>
                     <IoIosClose
                         onClick={this.props.onCloseClick}

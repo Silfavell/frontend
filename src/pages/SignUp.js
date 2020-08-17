@@ -12,6 +12,7 @@ import '../style/css/owl.theme.default.min.css'
 import '../style/css/style.css'
 
 import SiteWrap from '../components/SiteWrap'
+import MembershipAgreement from '../components/SignUp/MembershipAgreement'
 
 const cookies = new Cookies()
 
@@ -24,7 +25,8 @@ class SignUp extends React.Component {
         password: '',
         // rePassword: '',
         activationCode: '',
-        membershipAgreement: false,
+        membershipAgreement: true,
+        showAgreementPopup: false,
 
         invalidPhoneNumber: false,
         invalidPassword: false,
@@ -37,10 +39,6 @@ class SignUp extends React.Component {
         isNameSurnameInitialized: false,
         isEmailInitialized: false,
         isActivationCodeInitialized: false
-    }
-
-    onMembershipAgreementChange = (event) => {
-        this.setState({ membershipAgreement: event.target.checked })
     }
 
     onPhoneChange = (event) => {
@@ -178,6 +176,14 @@ class SignUp extends React.Component {
         //}
     }
 
+    showAgreementPopup = () => {
+        this.setState({ showAgreementPopup: true })
+    }
+
+    hideAgreementPopup = () => {
+        this.setState({ showAgreementPopup: false })
+    }
+
     renderSignUpScreen = () => {
         const {
             phoneNumber,
@@ -189,6 +195,9 @@ class SignUp extends React.Component {
 
         return (
             <div id={'register'} className='p-3 p-lg-5'>
+                {
+                    this.state.showAgreementPopup && <MembershipAgreement hideAgreementPopup={this.hideAgreementPopup} />
+                }
 
                 <div className='form-group row'>
                     <div className='col-md-12'>
@@ -269,17 +278,9 @@ class SignUp extends React.Component {
                 }
 
                 <div className='form-group row form-check'>
-                    <div className='col-md-12'>
-                        <input
-                            type='checkbox'
-                            checked={this.state.membershipAgreement}
-                            onChange={this.onMembershipAgreementChange}
-                            className='form-check-input' id='agreement' name='agreement' placeholder='' />
-                        <label
-                            style={{ cursor: 'pointer', display: 'unset' }}
-                            htmlFor='agreement'
-                            className='form-check-label ml-2'>Üyelik Sözleşmesi şartlarını okudum ve kabul ediyorum.</label>
-                    </div>
+                    <label
+                        htmlFor='agreement'
+                        className='form-check-label'>Hesap oluşturarak <span style={{ cursor: 'pointer' }} className='text-primary' onClick={this.showAgreementPopup}>üyelik sözleşmesini</span> okuduğunuzu ve kabul ettiğinizi onaylıyorsunuz.</label>
                 </div>
 
                 {
