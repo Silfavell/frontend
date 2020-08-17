@@ -184,6 +184,10 @@ class SignUp extends React.Component {
         this.setState({ showAgreementPopup: false })
     }
 
+    onSubmitForm = (event) => {
+        event.preventDefault()
+    }
+
     renderSignUpScreen = () => {
         const {
             phoneNumber,
@@ -227,7 +231,7 @@ class SignUp extends React.Component {
                     </div>
                 </div>
 
-                <form className='form-group row'>
+                <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
                     <div className='col-md-12'>
                         <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
                         <InputMask
@@ -244,7 +248,7 @@ class SignUp extends React.Component {
                     </div>
                 </form>
 
-                <form className='form-group row'>
+                <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
                     <div className='col-md-12'>
                         <label htmlFor='password' className='text-black'>Şifre <span className='text-danger'>*</span></label>
                         <input

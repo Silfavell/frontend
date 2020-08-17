@@ -91,6 +91,10 @@ class SignIn extends React.Component {
         }
     }
 
+    onSubmitForm = (event) => {
+        event.preventDefault()
+    }
+
     render() {
         const divider = [
             { path: null, title: 'Giriş Yap' }
@@ -111,7 +115,7 @@ class SignIn extends React.Component {
                     <div className='col-md-12 d-flex align-items-center justify-content-center'>
                         <div className='col-md-6'>
                             <div className='p-3 p-lg-5'>
-                                <form className='form-group row'>
+                                <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
                                     <div className='col-md-12'>
                                         <label htmlFor='phone_number' className='text-black'>Telefon Numarası</label>
                                         <InputMask
@@ -120,7 +124,7 @@ class SignIn extends React.Component {
                                             onChange={this.onPhoneChange}
                                         >
                                             <input
-                                                type='search'
+                                                type='text'
                                                 className='form-control'
                                                 id='phone_number'
                                                 name='phone'
@@ -128,7 +132,7 @@ class SignIn extends React.Component {
                                         </InputMask>
                                     </div>
                                 </form>
-                                <form className='form-group row'>
+                                <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
                                     <div className='col-md-12'>
                                         <label htmlFor='password' className='text-black'>Şifre</label>
                                         <input

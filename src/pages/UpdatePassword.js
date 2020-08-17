@@ -115,6 +115,10 @@ class UpdatePassword extends React.Component {
             })
     }
 
+    onSubmitForm = (event) => {
+        event.preventDefault()
+    }
+
     render() {
         const {
             oldPassword,
@@ -135,7 +139,7 @@ class UpdatePassword extends React.Component {
                 <div className='container'>
                     <div className='row'>
                         <ProfileColumn />
-                        <form className='col-md-9 d-flex align-items-center justify-content-center border py-4'>
+                        <form className='col-md-9 d-flex align-items-center justify-content-center border py-4' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
                             <div className='col-md-6'>
                                 <div className='form-group row'>
                                     <div className='col-md-12'>

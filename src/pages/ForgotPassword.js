@@ -156,9 +156,12 @@ class UpdatePassword extends React.Component {
             })
     }
 
-    renderPhoneSection = () => (
-        <form id='phone-section' className='p-3 p-lg-5'>
+    onSubmitForm = (event) => {
+        event.preventDefault()
+    }
 
+    renderPhoneSection = () => (
+        <form id='phone-section' className='p-3 p-lg-5' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
             <div className='form-group row'>
                 <div className='col-md-12'>
                     <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
@@ -188,12 +191,11 @@ class UpdatePassword extends React.Component {
                     >Aktivasyon kodu gönder</div>
                 </div>
             </div>
-
         </form>
     )
 
     renderPasswordSection = () => (
-        <form className='p-3 p-lg-5'>
+        <form className='p-3 p-lg-5' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
 
             <div className='form-group row'>
                 <div className='col-md-12'>
