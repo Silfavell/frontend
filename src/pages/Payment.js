@@ -38,6 +38,9 @@ class Payment extends React.Component {
         showSalesContractPopup: false,
         showPreInfoPopup: false,
 
+        isPreInfoChecked: false,
+        isSalesContractChecked: false,
+
         deleteCardToken: null,
         deleteAddressId: null
     }
@@ -221,6 +224,14 @@ class Payment extends React.Component {
         )
     }
 
+    onSalesContractChange = (event) => {
+        this.setState({ isSalesContractChecked: event.target.checked })
+    }
+
+    onPreInfoChange = (event) => {
+        this.setState({ isPreInfoChecked: event.target.checked })
+    }
+
     render() {
         const totalPrice = this.state.products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0).toFixed(2)
         const cargoPrice = (15).toFixed(2)
@@ -324,7 +335,7 @@ class Payment extends React.Component {
 
                                     <div className='border border-top-0 px-3 py-2'>
                                         <div className='form-check form-check-inline'>
-                                            <input className='form-check-input' type='checkbox' value='' style={{ width: 20, height: 20, cursor: 'pointer' }} />
+                                            <input className='form-check-input' type='checkbox' checked={this.state.isPreInfoChecked} onChange={this.onPreInfoChange} style={{ width: 20, height: 20, cursor: 'pointer' }} />
                                             <label className='form-check-label  ml-2'>
                                                 <span onClick={this.showPreInfoPopup} className='text-primary' style={{ cursor: 'pointer' }}>Ön Bilgilendirme Formu</span>'nu kabul ediyorum.
                                             </label>
@@ -333,7 +344,7 @@ class Payment extends React.Component {
 
                                     <div className='border border-top-0 px-3 py-2'>
                                         <div className='form-check form-check-inline'>
-                                            <input className='form-check-input' type='checkbox' value='' style={{ width: 20, height: 20, cursor: 'pointer' }} />
+                                            <input className='form-check-input' type='checkbox' checked={this.state.isSalesContractChecked} onChange={this.onSalesContractChange} style={{ width: 20, height: 20, cursor: 'pointer' }} />
                                             <label className='form-check-label  ml-2'>
                                                 <span onClick={this.showSalesContractPopup} className='text-primary' style={{ cursor: 'pointer' }}>Mesafeli Satış Sözleşmesi</span>'ni kabul ediyorum.
                                              </label>
@@ -342,7 +353,12 @@ class Payment extends React.Component {
 
                                     <div className='row pt-3'>
                                         <div className='col-md-12'>
-                                            <button className='btn btn-primary btn-lg btn-block' onClick={this.onCompletePaymentClick}>Ödemeyi Tamamla</button>
+                                            <button
+                                                disabled={
+                                                    !this.state.isPreInfoChecked || !this.state.isSalesContractChecked
+                                                }
+                                                className='btn btn-primary btn-lg btn-block'
+                                                onClick={this.onCompletePaymentClick}>Ödemeyi Tamamla</button>
                                         </div>
                                     </div>
                                 </div>
