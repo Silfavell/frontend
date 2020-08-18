@@ -256,7 +256,7 @@ Konutta Ödeme
                         </div>
                     </div>
                 </div>
-            </PopupWrapper >
+            </PopupWrapper>
         )
     }
 }

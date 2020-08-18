@@ -22,113 +22,276 @@ class MembershipAgreement extends React.Component {
                     <div className='row'>
                         <div className='col-md-12'>
                             <p className='p-lg-5' style={{ whiteSpace: 'break-spaces' }}>
-                            <h2 className='text-black text-center mb-5'>Silfavell Elektronik Ticaret Sitesi Üyelik Sözleşmesi</h2>
-                            <p><b className='text-black'>A -</b> Taraflar ve Konu</p>
-                            
-                            <p>
-                                <b className='text-black'>1 -</b> Bu sözleşme silfavell.com sitesine üye olmak isteyen internet kullanıcısı (sözleşmenin devam eden hükümlerinde üye olarak anılacaktır) ile Silfavell şirketi (sözleşmenin devam eden hükümlerinde Silfavell olarak anılacaktır) arasında akdedilmiştir.
-                            </p>
+                                <h2 className='text-black text-center mb-5'>Mesafeli Satış Sözleşmesi</h2>
 
-                            <p>
-                                <b className='text-black'>2 -</b>  Bu sözleşme Silfavell’e ait internet sitesinden üyenin faydalanmasına ilişkin şartları ve üyelik ilişkisine ilişkin hak ve borçları düzenler
+                                <h5 className='text-black mb-5'>A - Taraflar ve Tanımlar</h5>
+
+                                <p>
+                                    <b className='text-black'>1 - Satıcı: </b>
+                                    Bu satış sözleşmesi ( sözleşme) Levent Mahallesi, Yapı Kredi Plaza C Blok Cömert Sokak, 1 C Kat:1 34430 Beşiktaş/İstanbul adresinde yer alan 0411035618802101 Mersis No lu GRATİS İÇ VE DIŞ TİCARET ANONİM ŞİRKETİ ile ( sözleşmenin devam eden metinlerinde satıcı olarak anılacaktır) aşağıda kimlik bilgileri ve adresine yer verilen Alıcı arasında kurulmuştur.
+                                </p>
+
+                                <p><b className='text-black'>Alıcı: </b></p>
+
+                                <p style={{ whiteSpace: 'break-spaces' }}>
+                                    {`Adı/Soyadı/Ünvanı: Muhammet İpek
+Adresi: Fatih/Istanbul
+Telefon: 5468133198
+E-Posta: muhammetipek57@hotmail.com
+`
+                                    }
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>2 - </b>
+                                    Bu sözleşme 6502 sayılı Tüketicinin Korunması Hakkında Kanun’un ( Kanun) ve Mesafeli Sözleşmeler Yönetmeliği ( Yönetmelik) ‘nin emredici hükümlerine riayet ederek taraflar arasındaki satış sözleşmesinden doğan hakları ve borçları belirlemeyi konu edinir. Alıcının tüketici olmadığı ilişkilerde bu sözleşme hükümleri alıcıya satış sözleşmesinin tabi olduğu TBK, TTK hükümlerinde yer almayan ek imkanlar sağlandığı şeklinde yorumlanamaz.
+                                </p>
+
+                                <p>Bu sözleşmede geçen terimlerin anlamları aşağıdaki gibidir.</p>
+
+                                <p>
+                                    <b className='text-black'>Alıcı: </b>
+                                    Bu sözleşmede, bir malı veya hizmeti mesleki olmayan amaçlarla edinen gerçek veya tüzel kişiyi ifade eder.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>Kanun: </b>
+                                    6502 Sayılı Tüketicinin Korunması Hakkında Kanunu ifade eder.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>Yönetmelik: </b>
+                                    Mesafeli Sözleşmeler Yönetmeliğini ifade eder.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>Ürün: </b>
+                                    Alıcı ile Satıcı arasında Satıcıya ait Gratis.com.tr internet adresi kullanılarak kurulan bu mesafeli satış sözleşmesine konu, Satıcı tarafından müşterilere arz edilmiş emtiayı, satış konusunu ifade eder.
+                                </p>
+
+                                <h5 className='text-black my-5'>B - Satış Sözleşmesine Konu Olan Ürün, Ödeme</h5>
+
+                                <p>
+                                    <b className='text-black'>3 - Ürün Bilgileri</b>
+                                </p>
+
+                                <table class='table table-bordered'>
+                                    <thead>
+                                        <tr>
+                                            <th scope='col'>Ürün Adı</th>
+                                            <th scope='col'>Ürün Adeti</th>
+                                            <th scope='col'>Toplam Tutar (KDV dahil)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan='2'>Kargo Tutarı</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan='2'>Toplam</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <p className='mt-5'><b className='text-black'>4 - Ödeme Yöntemi ve Ödeme Yöntemlerine İlişkin Bilgiler</b></p>
+
+                                <p style={{ whiteSpace: 'break-spaces' }}>
+                                    {`Ödeme Yöntemi : Kredi kartı
+Kargo ücreti : 7.99 TL
+Toplam Sipariş Bedeli : 56.74 TL
+Konutta Ödeme
+                                `
+                                    }
+                                </p>
+
+                                <p><b className='text-black'>Ödeme Yöntemleri Hakkında Bilgilendirme</b></p>
+
+                                <p>
+                                    Kredi kartı ile yapılan alışverişlerde kullanılan kredi kartının maliki olan Banka’nın taksit uygulamaları, taksit adetleri değişiklik gösterebilir. Alıcı’nın kullandığı kredi kartının maliki olan Banka’nın Alıcıya ek taksit veya ödeme geciktirme gibi uygulamaları Satıcı’nın sorumluluğunda değildir. Bu tür uygulamalar tamamen Banka’nın insiyatifindedir ve Banka ile Alıcı arasındaki Kredi Kartı verilmesine ilişkin sözleşmenin konusudur. Kredi kartı, Banka kartı gibi ödeme vasıtalarının yetkisiz kişilerce kullanımı 5464 Sayılı ve 23.02.2006 tarihli Banka Kartları ve Kredi Kartları Kanunu’na ve 26458 RG. 10.03.2007 tarihli Banka Kartları ve Kredi Kartları Hakkında Kanun’a tabidir.
+                                </p>
+
+                                <p>
+                                    Alışverişte kredi kartının Alıcının izni ve bilgisi dışında yetkisiz kullanımı söz konusu olmuş ise taşıyıcıya teslim edilmemiş ürün için sipariş iptal edilir ve teslimat yapılmaz.
+                                </p>
+
+                                <p>
+                                    Eğer ürün telim edilmiş ve Banka bedeli Satıcı dan iade almışsa Alıcı 3 gün içinde nakliye masrafları kendisine ait olmak üzere ürünü Satıcı’ya göndermekle yükümlüdür.
+                                </p>
+
+                                <p>
+                                    Alıcının cayma hakkını kullanması da dahil kanunun veya sözleşmenin taraflara tanıdığı haklar çerçevesinde bedel iadesi yapılacak olması halinde bu iade Alıcının seçtiği ödeme aracına ve Satıcı’nın yaptığı tahsilata uygun olarak gerçekleştirilir.
+                                </p>
+
+                                <h5 className='text-black my-5'>C - Teslimata İlişkin Kurallar</h5>
+
+                                <p>
+                                    <b className='text-black'>5 - </b>
+                                    Teslimat Alıcının siparişi oluştururken belirlediği ve yukarıda da ayrıca ifade edilen adrese gerçekleştirilir. Ön bilgilendirme formunda da belirtildiği gibi Alıcının veya Alıcı adına teslime yetkili kişinin Alıcının belirttiği adreste bulunmaması veya Alıcının teslimat adresi olarak satıcı mağazasını belirlediği durumlarda kendisine teslimat için bildirim yapılmasına rağmen süresinde gelmemesi hallerinde Satıcı edimini eksiksiz ve tam yerine getirmiş sayılır.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>6 - </b>
+                                    Alıcı tarafından sipariş tamamlandığı andan itibaren Satıcı, siparişe konu ürünü/ürünleri 30 gün içinde sağlam, eksiksiz, eğer varsa garanti belgeleri ve kullanma kılavuzları ile beraber Alıcının siparişi oluştururken teslim yeri olarak belirttiği adrese teslimini sağlar. Teslim anına kadar hasar satıcıya aittir.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>7 - </b>
+                                    Alıcı teslim adresi olarak satıcı mağazasını tercih etmişse satıcı 30 gün içinde ürünü ilgili adrese ulaştırır ve alıcının siparişi oluştururken belirttiği mobil telefondan çağrı veya SMS yoluyla ya da bildirdiği elektronik posta aracılığı ile alıcıyı bilgilendirerek ürünü teslime hazır hale getirir. Alıcının sipariş sırasında belirlediği teslim adresinin değiştirilmesi talebi satıcıyı bağlamaz.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>8 - </b>
+                                    Alıcının belirttiği adrese zamanında ve usulüne uygun bir şekilde ürünün teslimi için gerekenler yapıldığı halde, adresin yanlış verilmesi, adreste Alıcının veya Alıcı adına ürünü kabul edebilecek kimsenin bulunmaması gibi Alıcı kaynaklı nedenlerden ötürü ürün teslim alınamadığı takdirde Alıcı durumla ilgili bilgilendirilir ve ürünün teslim edilebileceği imkanlar kendisine açıklanır. Alıcı buna rağmen ürünü teslim almaz ise satıcı sözleşmeden döner ve Alıcıya tahsil edilmiş satış bedelini tahsil yöntemine uygun bir biçimde derhal iade eder.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>9 - </b>
+                                    Alıcı teslim adresi olarak satıcı mağazasını tercih etmiş ve siparişi oluştururken belirttiği mobil telefondan çağrı, belirttiği elektronik postasına ileti veya SMS yoluyla bilgilendirilmesine rağmen ürünü teslim almamışsa satıcı sözleşmeden döner ve alıcıya tahsil edilmiş satış bedelini tahsil yöntemine uygun bir biçimde derhal iade eder.
+                                </p>
+
+                                <h5 className='text-black my-5'>D - Müşteri Hizmetleri</h5>
+
+                                <p>
+                                    <b className='text-black'>10 - </b>
+                                    Alıcı bütün kanuni ve sözleşmesel haklarının yanı sıra satıcının elektronik sitesindeki müşteri hizmetleri bölümü ile iletişime geçerek şikayetlerini, eleştirilerini, önerilerini iletebilir.
+                                </p>
+
+                                <h5 className='text-black my-5'>E - Cayma Hakkı ve Cayma Hakkının Kullanılmasına İlişkin Hükümler</h5>
+
+                                <p>
+                                    <b className='text-black'>11 - </b>
+                                    Alıcı ürünün kendisine veya kendisi adına ürünü teslim almaya yetkili kimseye tesliminden itibaren on dört (14) gün içinde herhangi bir neden göstermeksizin sözleşmeden cayabilir. Alıcının tek bir siparişine ilişkin birden fazla teslimat yapılmış ise süre en son malın tesliminden başlar.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>12 - </b>
+                                    Alıcının cayma hakkını kullanırken cayma hakkına ilişkin bildirimini aşağıdaki yöntemlerin herhangi biri ile satıcıya iletebilir.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>a - </b>
+                                    Cayma hakkı kullanılırken alıcı, ürünlerin tesliminde kendisine iletilen formu doldurarak kendisine ürünü teslim eden taşıyıcıya ya da Orhanlı Mahallesi, Kazlıçeşme Cd. No:51, 34956 Deri OSB/Tuzla/İstanbul adresine posta ile ya da 0 212 284 22 78 no’lu faks numarasına formu faks göndererek başvurabilir.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>b - </b>
+                                    Satıcının internet sitesi üyeliği hesabı ile satıcıya ait elektronik ticaret sitesinde mesafeli sözleşme kuran alıcı, internet sitesinde kendi hesabından erişebileceği iade kodunu kullanarak kendisine ürünü teslim eden taşıyıcıya veya satıcının herhangi bir mağazasına başvurabilir.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>c - </b>
+                                    Alıcı, satıcının elektronik ticaret sitesinde mesafeli sözleşme kurarken herhangi bir üyelik olmadan ziyaretçi olarak alışveriş yapmış ise müşteri hizmetleri hattına ulaşarak cayma bildirimini iletir ve müşteri hizmetleri tarafından siparişte kullanılan elektronik posta hesabına gönderilecek iade kodu birlikte ürünü kendisine teslim eden taşıcıya veya satıcının herhangi bir mağazasına bırakabilir.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>13 - </b>
+                                    Alıcının yukarıda belirtilen şekilde yukarıda belirtildiği şekilde cayma hakkını kullandığı tarihten itibaren on gün içinde ürünleri kendisine ürünü teslim eden taşıyıcıya veya satıcının herhangi bir mağazasına teslim etmesi zorunludur. Bu süre Alıcının herhangi bir mağazasından başvurularda iade formu doldurup mağazaya teslim etmesinden veya kendisine iade kodu verilmesinden itibaren işlemeye başlar.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>14 - </b>
+                                    Satıcı cayma hakkına ilişkin bildirimin kendisine ulaştığı tarihten itibaren 14 gün içinde alıcıya varsa malın alıcıya teslim masrafları da dahil olmak üzere tahsil edilen tüm ödemeleri iade eder. Cayma hakkının kullanılamayacağı hallere ilişkin düzenlemeler saklıdır.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>15 - </b>
+                                    Alıcının bir siparişte birden fazla ürün satın aldığı ve bu ürünlerden biri veya birkaçı için cayma hakkını kullandığı biri veya birkaçı için cayma hakkını kullanmadığı durumlarda alıcıya cayma hakkına konu olan ürünlere yönelik teslim masrafları iade edilir.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>16 - </b>
+                                    Satıcının düzenli bir uygulaması veya dönemlik bir kampanyası çerçevesinde belli sayıda veya belli bedel üzeri siparişlerde teslim masrafını alıcıya yansıtmadığı bir siparişte alıcı siparişte yer alan bazı ürünler için cayma hakkını kullanır ve ilgili siparişin alıcının cayma hakkına konu edilen ürünler bakımından uygulama veya kampanya dışına çıkması söz konusu olursa alıcıdan cayma hakkına konu olmayan ürünlerin nakliye bedeli cayma hakkı nedeniyle iade edilecek bedelden düşülür. “3 Al 2 Öde”, “1 alana 1 bedava” benzeri kampanyalardan yararlanılarak yapılan siparişlerde Alıcı cayma hakkını kullanmak istediği takdirde bütün ürünlerin iade edilmesi zorunludur. Kampanyalı ürünlerden en az birinin iade edilmemesi durumunda iade edilmeyen ürün veya ürünlerin satış fiyatı toplam alışveriş tutarından mahsup edilir.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>17 - </b>
+                                    Cayma hakkına konu olan ürünler yukarıda anlatılan yöntemler çerçevesinde kullanılmak şartı ile alıcı ürünleri bizzat satıcının herhangi bir mağazasına teslim ettiği ya da PTT Kargo şubeleri aracılığı ile ürünlerin satıcıya gönderimini sağladığı ihtimallerde alıcıdan ürünlerin satıcıya iadesine ilişkin nakliye masrafı talep edilmez. Burada belirtilen haller ve taşıyıcılar dışında ürün iadelerine ilişkin nakliye masrafından satıcı sorumlu olmaz.
+                                </p>
+
+                                <h5 className='text-black my-5'>F - Cayma Hakkının Kullanılamayacağı Haller</h5>
+
+                                <p>
+                                    <b className='text-black'>18 - </b>
+                                    Alıcı aşağıdaki hallerde cayma hakkını kullanamaz:
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>- </b>
+                                    Fiyatı finansal piyasalardaki dalgalanmalara bağlı olarak değişen ve satıcı veya sağlayıcının kontrolünde olmayan mal veya hizmetlere ilişkin sözleşmeler.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>- </b>
+                                    Alıcının istekleri veya kişisel ihtiyaçları doğrultusunda hazırlanan mallara ilişkin sözleşmeler.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>- </b>
+                                    Çabuk bozulabilen veya son kullanma tarihi geçebilecek malların teslimine ilişkin sözleşmeler.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>- </b>
+                                    Tesliminden sonra ambalaj, bant, mühür, paket gibi koruyucu unsurları açılmış olan mallardan; iadesi sağlık ve hijyen açısından uygun olmayanların teslimine ilişkin sözleşmeler.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>- </b>
+                                    Tesliminden sonra başka ürünlerle karışan ve doğası gereği ayrıştırılması mümkün olmayan mallara ilişkin sözleşmeler.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>- </b>
+                                    Malın tesliminden sonra ambalaj, bant, mühür, paket gibi koruyucu unsurları açılmış olması halinde maddi ortamda sunulan kitap, dijital içerik ve bilgisayar sarf malzemelerine ilişkin sözleşmeler.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>- </b>
+                                    Abonelik sözleşmesi kapsamında sağlananlar dışında, gazete ve dergi gibi süreli yayınların teslimine ilişkin sözleşmeler.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>- </b>
+                                    Belirli bir tarihte veya dönemde yapılması gereken, konaklama, eşya taşıma, araba kiralama, yiyecek-içecek tedariki ve eğlence veya dinlenme amacıyla yapılan boş zamanın değerlendirilmesine ilişkin sözleşmeler.
+                                </p>
+
+
+                                <p>
+                                    <b className='text-black'>- </b>
+                                    Elektronik ortamda anında ifa edilen hizmetler veya alıcıya anında teslim edilen gayrimaddi mallara ilişkin sözleşmeler.
+                                </p>
+
+                                <p>
+                                    <b className='text-black'>- </b>
+                                    Cayma hakkı süresi sona ermeden önce, alıcının onayı ile ifasına başlanan hizmetlere ilişkin sözleşmeler.
+                                </p>
+
+                                <h5 className='text-black my-5'>G – Mücbir Sebepler</h5>
+
+                                <p>
+                                    <b className='text-black'>19 - </b>
+                                    Satıcı mücbir sebeplerin, beklenmeyen hallerin varlığı nedeniyle satış konusunun teslimini gerçekleştiremeyecek ise durumu derhal Alıcı’ya bildirir. Bu durumda sipariş iptal edilmiş sayılı ve eğer var ise teslimat masrafları ile birlikte Alıcı’nın ödediği bedel kendisine iade edilir.
+                                </p>
+
+                                <h5 className='text-black my-5'>H - Uyuşmazlıkların Çözümü</h5>
+
+                                <p>
+                                    <b className='text-black'>20 - </b>
+                                    Bu mesafeli satış sözleşmesinden kaynaklanan uyuşmazlıklarda sözleşmenin kurulduğu tarihte yürürlükte olan güncel parasal sınırlara göre alıcının ikamet ettiği ya da alıcının işlem yaptığı il/ilçe hakem heyetleri ile satıcının yerleşim yeri veya tüketicinin yerleşim yeri Tüketici Mahkemeleri görevli ve yetkilidirler.
+                                </p>
                             </p>
-                            
-                            <p>
-                                <b className='text-black'>B -</b> Hak ve Yükümlülükler
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>3 -</b> Üye, internet sitesine üye olurken kendisinden talep edilen bilgileri güncel ve doğru bir şekilde beyan etmekle yükümlüdür. Silfavell, Üye tarafından bilgilerin eksik, yanlış veya güncel olmamasından kaynaklı uğrayacağı bütün zararları Üye’den talep edebilir. Üye eksik, yanlış veya güncel olmayan bilgi vermekten ötürü Silfavell’in uğrayacağı bütün zararları tazmin edeceğini kabul ve beyan eder.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>4 -</b> Üye, internet sitesine giriş için belirlenen şifreyi başka kişi veya kuruluşlara açıklayamaz, veremez. Şifre bizzat üye tarafından kullanılabilir. Aksi gibi bir davranış nedeniyle doğabilecek bütün sorumluluk Üye’ye aittir. Üye’nin şifreyi başka kişi veya kuruluşlara açıklaması nedeniyle üçüncü kişilerin ve kamu kurumlarının Silfavell’e karşı herhangi bir iddia ileri sürmeleri halinde Silfavell her türlü tazminat ve sair talepleri için Üye’nin sorumluluğuna gidebilir.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>5 -</b> Üye, internet sitesini kullanırken en geniş anlamda bütün hukuk kurallarına uyacağını, bunları ihlal etmemeyi kabul ve taahhüt eder. Aksi gibi bir davranışta bütün sorumluluk Üye’ye aittir.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>6 -</b> Üye, internet sitesini kullanırken kamu düzenini bozucu, suç teşkil eden, Silfavell’in ve başka kimselerin kişilik hakkını ihlal eden, fikri ve sınai haklarını ihlal eden, kişileri rahatsız eden, taciz eden, yaş, ırk, cinsiyet ve sair şekillerde ayrımcılık yaratan, kişilerin sağlıklı bir çevrede yaşama hakkını ve hayvan haklarını ihlal eden veya başka kimseleri bu türde fiillere teşvik eden davranışlarda bulunamaz. Üye, internet sitesinden veya Silfavell’in sunduğu diğer hizmetlerden başka kimselerin yararlanmasını önlemeye zorlaştırmaya yönelik (truva atı, virüs, spam vb.) kullanımlar yapamaz. Üye, internet sitesi üzerinden veya internet sitesinde kendisine sağlanan hizmetleri kullanarak başka kişi ve kuruluşların koruma altında olan bilgilerine verilerine erişmeye yönelik faaliyetlerde bulunmayacaktır. Aksine bir davranıştan dolayı Silfavell sorumlu tutulamaz.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>7 -</b> Üye, internet sitesini kullanırken herhangi bir ürün veya hizmete ilişkin tanıtım yapamaz. Üye internet sitesini oluştururken kendi kişisel görüşlerini açıklar. Üye, internet sitesinde yer alan ürün ve hizmetlerle ilgisi olmayan, ifade özgürlüğünün sınırlarının dışında paylaşımlarda bulunamaz. Üye’nin fikirleri ve açıklamaları Silfavell’i bağlamaz.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>8 -</b> Üyelik sözleşmesinde belirtilen yükümlülüklerin herhangi birine aykırı davranıştan doğan hukuki ve cezai sorumluluk yalnızca üyeye aittir. Üye, üyelik ilişkisine aykırı davranışları neticesinde üçüncü kişiler ve kamu kurumları nezdinde Silfavell’e karşı yöneltilecek iddialardan ve sorumluluk taleplerinden Silfavell’i ari kılacaktır.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>9 -</b> İnternet sitesinin tasarımı, Silfavell markası ve Silfavell’e ait ürünlerde yer alan, marka, logo ve tasarımlar ve internet sitesi üzerinden Üye’ye sunulan hizmetler Fikri ve Sınai Mülkiyet Hukuku çerçevesinde koruma altındadır. İnternet sitesinde yer alan ve başka kişi ve kuruluşlara ait ürünlerde yer alan marka, logo ve tasarımlar ve hizmetler üzerinde de bunların sahibi kişi ve kuruluşların Fikri ve Sınai Mülkiyet Hukukundan doğan hakları bulunmaktadır.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>10 -</b> Taraflar arasındaki üyelik ilişkisinin akdedilmiş olması, bu sözleşmede tanınan hakların dışında üye’nin Silfavell’in müşteri kart programına dahil olduğu anlamına gelmez. Üyelik ilişkisinden sonra Üye, Silfavell müşteri kart programına site üzerinden başvurabilir. Üyelik ilişkisinden önce üyenin Silfavell müşteri kart programında bir üyeliği varsa üyenin hesabı ile kart üyeliği, Silfavell tarafından ilişkilendirilir. Üye, sonradan başvuru veya mevcut kart üyeliğinin ilişkilendirilmesi neticesinde kart üyeliğine ilişkin bilgileri internet sitesi üzerinden de görüntüleyebilir. İlişkilendirilmenin yapılmaması nedeniyle Üye, Silfavellden herhangi bir hak talebinde bulunamaz.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>11 -</b> İnternet sitesi üzerinden sunulan hizmetlerin iyileştirilmesi, Üye’nin siteden yararlanmasının kolaylaştırılması ve kanun hükümleri gereği siteye erişmek için kullanılan İnternet Servis Sağlayıcısının adı ve İnternet Protokol/IP adresi, erişim tarih ve saatleri, internet sitesinde erişilen sayfalar ve internet sitesine bağlanılmasını sağlayan internet sitesinin adresi gibi bilgiler toplanmaktadır.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>12 -</b> Silfavell, Üye’nin bu üyelik sözleşmesi ile birlikte belirttiği Kişisel Veri İşleme Aydınlatma Bildirimi çerçevesinde sitenin kullanımı, üyelik ilişkisinden kaynaklı hak ve borçların yerine getirilmesi, Üye’nin ilgi alanlarının belirlenerek internet sitesi üzerinde üye’ye önerilerde bulunulması için üyenin kişisel verilerini işlemektedir.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>13 -</b> Silfavell, üyelik ilişkisinden kaynaklı hakların kullanımında güvenliği sağlama, üyenin kişisel verilerinin güvenliğini sağlama amaçları ile üyelerle SMS veya elektronik posta iletileri yoluyla doğrulama işlemi için iletişime geçebilir veya bu iletişimin sağlanması amacıyla üye verilerini bağlı bulunduğu iştirakleri veya üçüncü kişi çözüm ortaklarına aktarabilir.
-                            </p>
-                            
-                            <p>
-                                Silfavell, üye ile üyelik ilişkisi kapsamında sunulan hizmetlerin kalitesini artırma, üyelere daha iyi hizmet sunma, üyelerin şikayetlerine çözüm bulmak amacıyla üyelere SMS veya elektronik posta iletileri yoluyla anket formları gönderebilir veya bu iletişimin sağlanması amacıyla üye verilerini bağlı bulunduğu iştirakleri veya üçüncü kişi çözüm ortaklarına aktarabilir.
-                            </p>
-                            
-                            <p>
-                                Silfavell, üyenin kendisine bildirdiği kişisel verilerinin tamamını üyelik ilişkisi devam ettiği sürece kendisi, bağlı bulunduğu iştirakleri ve üçüncü kişi çözüm ortakları nezdinde saklayabilir. Üyelik ilişkisinin sona ermesinden sonra Silfavell, üyelik ilişkisinden kaynaklı olası hukuki uyuşmazlıkların doğru bir şekilde çözümü, üyenin üyelik ilişkisini ihlal ederek Silfavell’e veya üçüncü kişilere zarar verici davranışlarda bulunduğuna ilişkin iddiaların aydınlatılması amaçlarına bağlı olarak üyenin kişisel verilerini kendisi, bağlı bulunduğu iştirakleri ve üçüncü kişi çözüm ortakları nezdinde saklayabilir.
-                            </p>
-                            
-                            <p>
-                                Silfavell, kamu kurumlarının emredici hukuk kuralları doğrultusunda talepte bulunması halinde üye kişisel verilerini talep eden kuruluşa açıklar.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>14 -</b> Silfavell, internet sitesinin güvenliği için imkan dahilinde önlemler almıştır. Üye’nin de kullanıcı adı ve şifresi gibi üyelik ilişkisinden kaynaklı erişim bilgilerini güvenlik altına alması, kendisine ait veya kullanımında olan bilişim sistemini yetkin ve doğru araçlarla ( güvenlik duvarı, anti-virüs yazılımları vs) koruması gerekmektedir. Üye’nin aksi gibi bir davranışından kaynaklı olarak meydana gelecek zararlardan Silfavell sorumlu tutulamaz.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>15 -</b> Silfavell, üyelik ilişkisi kapsamında sağladığı hizmetleri, internet sitesinin içeriğini tek taraflı değiştirme, üyelik ilişkisini sona erdirme ve internet sitesini kısmen veya tamamen faaliyetten kaldırma, üyelerin bütün bilgilerini silme haklarını saklı tutar. Üyelik sözleşmesi herhangi bir bildirim yapılmadan Silfavell tarafından değiştirilebilir. Üye, üyelik ilişkisini sonlandırmadığı sürece ilgili değişikliklerin yürürlük tarihinde kendisi hakkında da uygulanacağını kabul eder.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>16 -</b> Üyelik sözleşmesinden kaynaklanan uyuşmazlıklarda Silfavell kayıt ve belgeleri HMK uyarınca münhasır ve yegane delil hükmündedir.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>C -</b> Sözleşmenin Sona Ermesi
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>17 -</b> Üye, üyelik ilişkisini internet sitesinde bu hak için ayrılmış bölümden her zaman sona erdirebilir. Silfavell, üyelik ilişkisini her zaman herhangi bir neden göstermeksizin veya üyenin üyelik sözleşmesinden kaynaklanan yükümlülüklerinden birini ihlal etmesi üzerine tek taraflı olarak sona erdirebilir.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>D -</b> Görevli ve Yetkili Mahkeme
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>18 -</b> Bu sözleşme Türk Hukukuna tabidir. Bu sözleşmeden kaynaklanan uyuşmazlıklarda İstanbul Mahkemeleri ve İcra Daireleri yetkili ve görevlidir.
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>E -</b> Yürürlük
-                            </p>
-                            
-                            <p>
-                                <b className='text-black'>19 -</b> Bu üyelik sözleşmesi, üyelik süreci tamamlanmadan önce üyenin dikkatine sunulmuştur. Üyenin, üyelik kaydı yapması bu sözleşmede yer alan bütün hükümleri okuduğu ve bu hükümleri kabul ettiği anlamına gelir. Üyelik sözleşmesi üyelik kaydı yapılması ile yürürlüğe girer.
-                            </p>
-                        </p>
                         </div>
                     </div>
                 </div>
