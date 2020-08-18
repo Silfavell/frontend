@@ -247,9 +247,8 @@ class Navbar extends React.Component {
                                                                 ))
                                                             }
 
-                                                            <a className='w-100 p-2 px-4' href='/cart' style={{ fontSize: '1.1rem', fontWeight: '400' }}>
-                                                                Sepete Git
-                                                            </a>
+                                                            <a className='col-12 p-2 px-4' href='/cart' style={{ fontSize: '1.1rem', fontWeight: '400', borderBottom: '1px solid #F9F9F9' }}>Sepete Git</a>
+                                                            <a className='col-12 p-2 px-4' href='/payment' style={{ fontSize: '1.1rem', fontWeight: '400' }}>Satın Al</a>
                                                         </div>
                                                     )
                                                 }
