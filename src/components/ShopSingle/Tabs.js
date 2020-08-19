@@ -13,7 +13,7 @@ class Tabs extends React.Component {
                         <Nav.Link style={{ color: '#495057' }} eventKey='details'>Ürün Özellikleri</Nav.Link>
                     </Nav.Item>
                     <Nav.Item className={'mx-2'}>
-                        <Nav.Link style={{ color: '#495057' }} eventKey='comments'>Yorumlar (Aktif Değil)</Nav.Link>
+                        <Nav.Link style={{ color: '#495057' }} eventKey='comments' disabled>Yorumlar (Aktif Değil)</Nav.Link>
                     </Nav.Item>
                     <Nav.Item className={'mx-2'}>
                         <Nav.Link style={{ color: '#495057' }} eventKey='return-conditions'>İade Koşulları</Nav.Link>
