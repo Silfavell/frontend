@@ -62,49 +62,66 @@ class CartItem extends React.Component {
                         className='img-fluid img' />
                 </td>
                 <td className='right-td'>
-                    <div className="product-name">
-                        <h5 className='text-black'>{name}</h5>
+                    <div>
+                        {
+                            this.props.returnItem && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek ürün:</h5>
+                        }
 
+                        <div className='product-name'>
+                            <h5 className='text-black'>{name}</h5>
+                        </div>
                     </div>
 
-                    <div className='input-group quantity-container'>
+                    <div>
                         {
-                            !this.props.order && (
-                                <div className='input-group-prepend'>
-                                    <button className='btn btn-outline-primary js-btn-minus' type='button' onClick={this.onDecreaseClick}>&#45;</button>
-                                </div>
-                            )
+                            this.props.returnItem && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek adet:</h5>
                         }
 
-                        <input
-                            type='text'
-                            className='form-control text-center'
-                            value={quantity}
-                            onChange={this.onQuantityChange}
-                            disabled={this.props.order}
-                            onBlur={this.onFocusOut}
-                            placeholder=''
-                        />
-                        {
-                            !this.props.order && (
-                                <div className='input-group-append'>
-                                    <button className='btn btn-outline-primary js-btn-plus' type='button' onClick={this.onIncreaseClick}>&#43;</button>
-                                </div>
-                            )
-                        }
+                        <div className='input-group quantity-container'>
+                            {
+                                !this.props.order && (
+                                    <div className='input-group-prepend'>
+                                        <button className='btn btn-outline-primary js-btn-minus' type='button' onClick={this.onDecreaseClick}>&#45;</button>
+                                    </div>
+                                )
+                            }
+
+                            <input
+                                type='text'
+                                className='form-control text-center'
+                                value={quantity}
+                                onChange={this.onQuantityChange}
+                                disabled={this.props.order}
+                                onBlur={this.onFocusOut}
+                                placeholder=''
+                            />
+                            {
+                                !this.props.order && (
+                                    <div className='input-group-append'>
+                                        <button className='btn btn-outline-primary js-btn-plus' type='button' onClick={this.onIncreaseClick}>&#43;</button>
+                                    </div>
+                                )
+                            }
+                        </div>
                     </div>
 
-                    <div className='direction-row mx-3'>
-                        <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
-                            {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
-                        </strong>
+                    <div>
                         {
-                            discountedPrice && (
-                                <strong className='ml-3' style={{ fontSize: 20 }}>
-                                    {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
-                                </strong>
-                            )
+                            this.props.returnItem && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek tutar:</h5>
                         }
+                        
+                        <div className='direction-row mx-3'>
+                            <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
+                                {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
+                            </strong>
+                            {
+                                discountedPrice && (
+                                    <strong className='ml-3' style={{ fontSize: 20 }}>
+                                        {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
+                                    </strong>
+                                )
+                            }
+                        </div>
                     </div>
                 </td>
                 {

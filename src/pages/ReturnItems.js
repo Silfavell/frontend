@@ -86,8 +86,8 @@ class ReturnItems extends React.Component {
 
         return (
             <SiteWrap divider={divider}>
-                <div className="container">
-                    <div className='form-group form-check ml-1'>
+                <div className='container'>
+                    <div className='form-group form-check' style={{ marginLeft: '.40rem' }}>
                         <div className='col-md-12'>
                             <input
                                 id='select-all'
@@ -114,6 +114,7 @@ class ReturnItems extends React.Component {
                                                 onDecreaseClick={this.onDecreaseClick}
                                                 onIncreaseClick={this.onIncreaseClick}
                                                 setProductQuantity={this.setProductQuantity}
+                                                returnItem
                                             />
 
                                             <div style={{ position: 'absolute', left: 20, top: 20, }}>
