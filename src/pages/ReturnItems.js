@@ -55,11 +55,35 @@ class ReturnItems extends React.Component {
     }
 
     onIncreaseClick = (_id) => {
-        console.log('2')
+        const { products } = this.state.order
+        const product = products.find((product) => product._id === _id)
+        const indexOfProduct = products.indexOf(product)
+
+        product.quantity += 1
+        products.splice(indexOfProduct, 1, product)
+
+        this.setState({
+            order: {
+                ...this.state.order,
+                products
+            }
+        })
     }
 
     setProductQuantity = (_id) => {
-        console.log('3')
+        const { products } = this.state.order
+        const product = products.find((product) => product._id === _id)
+        const indexOfProduct = products.indexOf(product)
+
+        product.quantity += 1
+        products.splice(indexOfProduct, 1, product)
+
+        this.setState({
+            order: {
+                ...this.state.order,
+                products
+            }
+        })
     }
 
     onSelect = (event) => {
@@ -99,7 +123,7 @@ class ReturnItems extends React.Component {
                 title: 'İade'
             }
         ]
-        
+
         return (
             <SiteWrap divider={divider}>
                 <div className='container'>
@@ -116,7 +140,7 @@ class ReturnItems extends React.Component {
                             <label
                                 style={{ cursor: 'pointer', display: 'unset' }}
                                 htmlFor='select-all'
-                                className='form-check-label ml-4'>Tümünü Seç</label>
+                                className='form-check-label ml-4 text-black'>Tümünü Seç</label>
                         </div>
                     </div>
                     <div className='site-blocks-table'>
@@ -126,6 +150,7 @@ class ReturnItems extends React.Component {
                                     this.state?.order?.products.map((product) => (
                                         <div style={{ position: 'relative' }}>
                                             <CartItem
+                                                key={product._id + ':' + product.quantity}
                                                 item={product}
                                                 onDecreaseClick={this.onDecreaseClick}
                                                 onIncreaseClick={this.onIncreaseClick}
@@ -148,10 +173,10 @@ class ReturnItems extends React.Component {
                             </tbody>
                         </table>
                     </div>
-                    <div className="col-md-12 d-flex justify-content-end">
+                    <div className='col-md-12 d-flex justify-content-end'>
                         <button
                             className='btn btn-primary'
-                            onClick={this.onReturnBtnClick}>Seçili Ürünleri İadet Et</button>
+                            onClick={this.onReturnBtnClick}>Seçili Ürünleri Iade Et</button>
                     </div>
                 </div>
             </SiteWrap>
