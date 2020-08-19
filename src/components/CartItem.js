@@ -41,7 +41,8 @@ class CartItem extends React.Component {
             image,
             name,
             price,
-            discountedPrice
+            discountedPrice,
+            paidPrice
         } = this.props.item
 
         const {
@@ -110,18 +111,26 @@ class CartItem extends React.Component {
                             this.props.returnItem && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek tutar:</h5>
                         }
 
-                        <div className='direction-row mx-3'>
-                            <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
-                                {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
-                            </strong>
-                            {
-                                discountedPrice && (
-                                    <strong className='ml-3' style={{ fontSize: 20 }}>
-                                        {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
-                                    </strong>
+                        {
+                            this.props.returnItem ? (
+                                <strong className='ml-3' style={{ fontSize: 20 }}>
+                                    {'₺' + (paidPrice * quantity).toFixed(2).toString().replace('.', ',')}
+                                </strong>
+                            ) : (
+                                    <div className='direction-row mx-3'>
+                                        <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
+                                            {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
+                                        </strong>
+                                        {
+                                            discountedPrice && (
+                                                <strong className='ml-3' style={{ fontSize: 20 }}>
+                                                    {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
+                                                </strong>
+                                            )
+                                        }
+                                    </div>
                                 )
-                            }
-                        </div>
+                        }
                     </div>
                 </td>
                 {
