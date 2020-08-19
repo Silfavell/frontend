@@ -109,7 +109,7 @@ class CartItem extends React.Component {
                         {
                             this.props.returnItem && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek tutar:</h5>
                         }
-                        
+
                         <div className='direction-row mx-3'>
                             <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
                                 {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}

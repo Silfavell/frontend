@@ -38,15 +38,27 @@ class ReturnItems extends React.Component {
         })
     )
 
-    onDecreaseClick = () => {
-        console.log('1')
+    onDecreaseClick = (_id) => {
+        const { products } = this.state.order
+        const product = products.find((product) => product._id === _id)
+        const indexOfProduct = products.indexOf(product)
+
+        product.quantity -= 1
+        products.splice(indexOfProduct, 1, product)
+
+        this.setState({
+            order: {
+                ...this.state.order,
+                products
+            }
+        })
     }
 
-    onIncreaseClick = () => {
+    onIncreaseClick = (_id) => {
         console.log('2')
     }
 
-    setProductQuantity = () => {
+    setProductQuantity = (_id) => {
         console.log('3')
     }
 
@@ -70,6 +82,10 @@ class ReturnItems extends React.Component {
         } else {
             this.setState({ selectedItems: [] })
         }
+    }
+
+    onReturnBtnClick = () => {
+        alert('sa')
     }
 
     render() {
@@ -131,6 +147,11 @@ class ReturnItems extends React.Component {
                                 }
                             </tbody>
                         </table>
+                    </div>
+                    <div className="col-md-12 d-flex justify-content-end">
+                        <button
+                            className='btn btn-primary'
+                            onClick={this.onReturnBtnClick}>Seçili Ürünleri İadet Et</button>
                     </div>
                 </div>
             </SiteWrap>
