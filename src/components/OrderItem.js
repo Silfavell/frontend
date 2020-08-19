@@ -21,12 +21,15 @@ class OrderItem extends React.Component {
             products,
             date,
             status,
-            paidPrice
+            paidPrice,
+            trackingNumber,
+            _id
         } = this.props.item
 
+        const returnable = true // TODO
 
         return (
-            <div className='container border mb-3'>
+            <div className='container border mb-3 pt-3'>
                 <div className='col-md-12'>
                     <div className='d-flex align-items-center justify-content-between p1'>
                         <p>Sipariş Tarihi:</p>
@@ -63,18 +66,23 @@ class OrderItem extends React.Component {
                         </table>
                     </div>
                 </div>
-
-                {
-                    status && (
-                        <div className='col-md-12'>
-                            <a href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${this.props.item.trackingNumber}`}
+                <div className='col-md-12'>
+                    {
+                        (status && !returnable) ? (
+                            <a href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${trackingNumber}`}
                                 className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
                                 <span className='font-weight-bold' style={{ color: '#EE4266' }}>Kargo Takip</span>
                                 <IoIosArrowForward size={24} />
                             </a>
-                        </div>
-                    )
-                }
+                        ) : (
+                                <a href={`/return-items/${_id}`}
+                                    className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
+                                    <span className='font-weight-bold' style={{ color: '#EE4266' }}>İade Talebinde Bulun</span>
+                                    <IoIosArrowForward size={24} />
+                                </a>
+                            )
+                    }
+                </div>
             </div>
         )
     }

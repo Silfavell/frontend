@@ -47,7 +47,7 @@ class App extends React.Component {
 
                     <Route path='/favorite-products' component={FavoriteProducts} />
                     <Route path='/previous-orders' component={PreviousOrders} />
-                    <Route path='/return-items' component={ReturnItems} />
+                    <Route path='/return-items/:_id' component={ReturnItems} />
 
                     <Route path='/update-password' component={UpdatePassword} />
                     <Route path='/forgot-password' component={ForgotPassword} />
