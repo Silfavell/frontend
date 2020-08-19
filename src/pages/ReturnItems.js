@@ -15,6 +15,7 @@ class ReturnItems extends React.Component {
             if (order) {
                 this.setState({
                     order,
+                    selectedItems: [],
                     status: true
                 })
             } else {
@@ -49,6 +50,28 @@ class ReturnItems extends React.Component {
         console.log('3')
     }
 
+    onSelect = (event) => {
+        const { selectedItems } = this.state
+
+        if (selectedItems.includes(event.target.id)) {
+            selectedItems.splice(selectedItems.indexOf(event.target.id), 1)
+        } else {
+            selectedItems.push(event.target.id)
+        }
+
+        this.setState({ selectedItems })
+    }
+
+    selectAll = (event) => {
+        if (event.target.checked) {
+            this.setState({
+                selectedItems: this.state.order.products.map((product) => product._id)
+            })
+        } else {
+            this.setState({ selectedItems: [] })
+        }
+    }
+
     render() {
         const divider = [
             {
@@ -64,17 +87,45 @@ class ReturnItems extends React.Component {
         return (
             <SiteWrap divider={divider}>
                 <div className="container">
+                    <div className='form-group form-check ml-1'>
+                        <div className='col-md-12'>
+                            <input
+                                id='select-all'
+                                name='select-all'
+                                type='checkbox'
+                                className='form-check-input'
+                                onChange={this.selectAll}
+                                style={{ width: 24, height: 24 }}
+                            />
+                            <label
+                                style={{ cursor: 'pointer', display: 'unset' }}
+                                htmlFor='select-all'
+                                className='form-check-label ml-4'>Tümünü Seç</label>
+                        </div>
+                    </div>
                     <div className='site-blocks-table'>
                         <table className='table border'>
                             <tbody>
                                 {
                                     this.state?.order?.products.map((product) => (
-                                        <CartItem
-                                            item={product}
-                                            onDecreaseClick={this.onDecreaseClick}
-                                            onIncreaseClick={this.onIncreaseClick}
-                                            setProductQuantity={this.setProductQuantity}
-                                        />
+                                        <div style={{ position: 'relative' }}>
+                                            <CartItem
+                                                item={product}
+                                                onDecreaseClick={this.onDecreaseClick}
+                                                onIncreaseClick={this.onIncreaseClick}
+                                                setProductQuantity={this.setProductQuantity}
+                                            />
+
+                                            <div style={{ position: 'absolute', left: 20, top: 20, }}>
+                                                <input
+                                                    id={product._id}
+                                                    type='checkbox'
+                                                    style={{ width: 24, height: 24 }}
+                                                    checked={this.state.selectedItems.includes(product._id)}
+                                                    onChange={this.onSelect}
+                                                />
+                                            </div>
+                                        </div>
                                     ))
                                 }
                             </tbody>
