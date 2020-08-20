@@ -118,8 +118,6 @@ class ReturnItems extends React.Component {
             delete item.selected
             return item
         })
-        
-        console.log(items)
     }
 
     render() {
