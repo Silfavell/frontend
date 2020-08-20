@@ -15,7 +15,11 @@ class ReturnItems extends React.Component {
             if (order) {
                 this.setState({
                     order,
-                    selectedItems: [],
+                    items: order?.products?.map((product) => ({
+                        _id: product._id,
+                        quantity: 1,
+                        selected: false
+                    })),
                     status: true
                 })
             } else {
@@ -39,77 +43,83 @@ class ReturnItems extends React.Component {
     )
 
     onDecreaseClick = (_id) => {
-        const { products } = this.state.order
-        const product = products.find((product) => product._id === _id)
-        const indexOfProduct = products.indexOf(product)
+        const { items } = this.state
 
-        product.quantity -= 1
-        products.splice(indexOfProduct, 1, product)
+        const selectedItem = items.find((item) => item._id === _id)
 
-        this.setState({
-            order: {
-                ...this.state.order,
-                products
-            }
-        })
+        if (selectedItem.quantity - 1 >= 1) {
+            selectedItem.quantity -= 1
+
+            this.setState({ items })
+        }
+
     }
 
     onIncreaseClick = (_id) => {
+        const { items } = this.state
         const { products } = this.state.order
-        const product = products.find((product) => product._id === _id)
-        const indexOfProduct = products.indexOf(product)
 
-        product.quantity += 1
-        products.splice(indexOfProduct, 1, product)
+        const selectedItem = items.find((item) => item._id === _id)
+        const selectedOrderItem = products.find((product) => product._id === _id)
 
-        this.setState({
-            order: {
-                ...this.state.order,
-                products
-            }
-        })
+        if (selectedItem.quantity + 1 <= selectedOrderItem.quantity) {
+            selectedItem.quantity += 1
+
+            this.setState({ items })
+        }
     }
 
-    setProductQuantity = (_id) => {
+    setProductQuantity = (_id, quantity) => {
+        const { items } = this.state
         const { products } = this.state.order
-        const product = products.find((product) => product._id === _id)
-        const indexOfProduct = products.indexOf(product)
 
-        product.quantity += 1
-        products.splice(indexOfProduct, 1, product)
+        const selectedItem = items.find((item) => item._id === _id)
+        const selectedOrderItem = products.find((product) => product._id === _id)
 
-        this.setState({
-            order: {
-                ...this.state.order,
-                products
-            }
-        })
+        if (quantity <= selectedOrderItem.quantity) {
+            selectedItem.quantity = quantity
+        } else {
+            selectedItem.quantity = selectedOrderItem.quantity
+        }
+
+        this.setState({ items })
     }
 
     onSelect = (event) => {
-        const { selectedItems } = this.state
+        const { items } = this.state
 
-        if (selectedItems.includes(event.target.id)) {
-            selectedItems.splice(selectedItems.indexOf(event.target.id), 1)
-        } else {
-            selectedItems.push(event.target.id)
-        }
+        const selectedItem = items.find((item) => item._id === event.target.id)
 
-        this.setState({ selectedItems })
+        selectedItem.selected = !selectedItem.selected
+
+        this.setState({ items })
     }
 
     selectAll = (event) => {
         if (event.target.checked) {
             this.setState({
-                selectedItems: this.state.order.products.map((product) => product._id)
+                items: this.state.items.map((item) => {
+                    item.selected = true
+                    return item
+                })
             })
         } else {
-            this.setState({ selectedItems: [] })
+            this.setState({
+                items: this.state.items.map((item) => {
+                    item.selected = false
+                    return item
+                })
+            })
         }
     }
 
     onReturnBtnClick = () => {
-        alert('sa')
+        const items = this.state.items.filter((item) => item.selected).map((item) => {
+            delete item.selected
+            return item
+        })
+        
+        console.log(items)
     }
 
     render() {
@@ -147,28 +157,32 @@ class ReturnItems extends React.Component {
                         <table className='table border'>
                             <tbody>
                                 {
-                                    this.state?.order?.products.map((product) => (
-                                        <div style={{ position: 'relative' }}>
-                                            <CartItem
-                                                key={product._id + ':' + product.quantity}
-                                                item={product}
-                                                onDecreaseClick={this.onDecreaseClick}
-                                                onIncreaseClick={this.onIncreaseClick}
-                                                setProductQuantity={this.setProductQuantity}
-                                                returnItem
-                                            />
+                                    this.state?.order?.products.map((product) => {
+                                        const returnItem = this.state.items.find((item) => item._id === product._id)
 
-                                            <div style={{ position: 'absolute', left: 20, top: 20, }}>
-                                                <input
-                                                    id={product._id}
-                                                    type='checkbox'
-                                                    style={{ width: 24, height: 24 }}
-                                                    checked={this.state.selectedItems.includes(product._id)}
-                                                    onChange={this.onSelect}
+                                        return (
+                                            <div style={{ position: 'relative' }}>
+                                                <CartItem
+                                                    key={returnItem._id + ':' + returnItem.quantity}
+                                                    item={product}
+                                                    onDecreaseClick={this.onDecreaseClick}
+                                                    onIncreaseClick={this.onIncreaseClick}
+                                                    setProductQuantity={this.setProductQuantity}
+                                                    returnItem={returnItem}
                                                 />
+
+                                                <div style={{ position: 'absolute', left: 20, top: 20, }}>
+                                                    <input
+                                                        id={product._id}
+                                                        type='checkbox'
+                                                        style={{ width: 24, height: 24 }}
+                                                        checked={returnItem.selected}
+                                                        onChange={this.onSelect}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))
+                                        )
+                                    })
                                 }
                             </tbody>
                         </table>

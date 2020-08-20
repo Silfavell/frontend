@@ -9,7 +9,7 @@ import './CartItem.css'
 class CartItem extends React.Component {
 
     state = {
-        quantity: this.props.item.quantity
+        quantity: this.props.returnItem?.quantity ?? this.props.item.quantity
     }
 
     onIncreaseClick = () => {
@@ -113,9 +113,11 @@ class CartItem extends React.Component {
 
                         {
                             this.props.returnItem ? (
-                                <strong className='ml-3' style={{ fontSize: 20 }}>
-                                    {'₺' + (paidPrice * quantity).toFixed(2).toString().replace('.', ',')}
-                                </strong>
+                                <div className='direction-row mx-3'>
+                                    <strong style={{ fontSize: 20 }}>
+                                        {'₺' + (paidPrice * quantity).toFixed(2).toString().replace('.', ',')}
+                                    </strong>
+                                </div>
                             ) : (
                                     <div className='direction-row mx-3'>
                                         <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
