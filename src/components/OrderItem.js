@@ -16,17 +16,43 @@ class OrderItem extends React.Component {
         }
     }
 
+    renderFooter = () => {
+        const {
+            status,
+            trackingNumber,
+            _id,
+            returnItems
+        } = this.props.item
+
+        if (!(returnItems.length > 0) && status) {
+            return (
+                <a href={`/return-items/${_id}`}
+                    className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
+                    <span className='font-weight-bold' style={{ color: '#EE4266' }}>İade Talebinde Bulun</span>
+                    <IoIosArrowForward size={24} />
+                </a>
+            )
+        } else if (status) {
+            return (
+                <a href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${trackingNumber}`}
+                    className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
+                    <span className='font-weight-bold' style={{ color: '#EE4266' }}>Kargo Takip</span>
+                    <IoIosArrowForward size={24} />
+                </a>
+            )
+        }
+
+        return null
+    }
+
     render() {
         const {
             products,
             date,
             status,
             paidPrice,
-            trackingNumber,
-            _id
+            returnItems
         } = this.props.item
-
-        const returnable = true // TODO
 
         return (
             <div className='container border mb-3 pt-3'>
@@ -68,21 +94,31 @@ class OrderItem extends React.Component {
                 </div>
                 <div className='col-md-12'>
                     {
-                        (status && !returnable) ? (
-                            <a href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${trackingNumber}`}
-                                className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
-                                <span className='font-weight-bold' style={{ color: '#EE4266' }}>Kargo Takip</span>
-                                <IoIosArrowForward size={24} />
-                            </a>
-                        ) : (
-                                <a href={`/return-items/${_id}`}
-                                    className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
-                                    <span className='font-weight-bold' style={{ color: '#EE4266' }}>İade Talebinde Bulun</span>
-                                    <IoIosArrowForward size={24} />
-                                </a>
-                            )
+                        this.renderFooter()
                     }
                 </div>
+                {
+                    returnItems.length > 0 && (
+                        <>
+                            <div className='col-md-12'>
+                                <p>İade Edilen Ürünler:</p>
+                            </div>
+                            <div className='col-md-12'>
+                                <div className='site-blocks-table'>
+                                    <table className='table border'>
+                                        <tbody>
+                                            {
+                                                products.filter((product) => returnItems.find((item) => item._id === product._id)).map((product) => (
+                                                    <CartItem item={{ ...product, quantity: returnItems.find((item) => item._id === product._id).quantity }} order />
+                                                ))
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </>
+                    )
+                }
             </div>
         )
     }

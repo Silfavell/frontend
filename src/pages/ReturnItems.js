@@ -118,6 +118,10 @@ class ReturnItems extends React.Component {
             delete item.selected
             return item
         })
+
+        axios.post(`${process.env.REACT_APP_API_URL}/user/return-items/${this.state.order._id}`, items).then((res) => {
+            console.log(res)
+        })
     }
 
     render() {
