@@ -61,8 +61,8 @@ class OrderItem extends React.Component {
                     {
                         !this.props.returnItems && (
                             <div className='d-flex align-items-center justify-content-between p1'>
-                                <p>Sipariş Tarihi:</p>
-                                <p>
+                                <p style={{ fontSize: 18 }}>Sipariş Tarihi:</p>
+                                <p style={{ fontSize: 18 }}>
                                     {
                                         new Date(date).toLocaleDateString('tr-TR', {
                                             weekday: 'long',
@@ -77,15 +77,15 @@ class OrderItem extends React.Component {
                     }
 
                     <div className='d-flex align-items-center justify-content-between p1'>
-                        <p>{this.props.returnItems ? 'Ödenecek Tutar:' : 'Ödenen Tutar:'}</p>
-                        <strong className='text-black'>{`₺${paidPrice.toFixed(2).replace('.', ',')}`}</strong>
+                        <p style={{ fontSize: 18 }}>{this.props.returnItems ? 'Ödenecek Tutar:' : 'Ödenen Tutar:'}</p>
+                        <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>{`₺${paidPrice.toFixed(2).replace('.', ',')}`}</p>
                     </div>
 
                     {
                         !this.props.returnItems && (
                             <div className='d-flex align-items-center justify-content-between p1'>
-                                <p>Sipariş Durumu:</p>
-                                <strong className='text-black'>{this.getOrderStatus(status)}</strong>
+                                <p style={{ fontSize: 18 }}>Sipariş Durumu:</p>
+                                <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>{this.getOrderStatus(status)}</p>
                             </div>
                         )
                     }
@@ -130,6 +130,18 @@ class OrderItem extends React.Component {
                         </>
                     )
                 }
+
+                <div className='col-md-12 pb-3'>
+                    <div
+                        className='col-md-12 d-flex align-items-center justify-content-center flex-column'
+                        style={{ border: '1px solid #ee4266' }}>
+                        <h6 className='px-5 py-3 text-black' style={{ textAlign: 'center' }}>
+                            {
+                                `Iade etmek için seçtiğiniz ürünleri 7 iş günü içinde kargoya vermeniz gerekmektedir. <KOD> kodu ile ürününüzü ÜCRETSIZ olarak gönderebilirsiniz. Gönderim kodunuz mail adresinize gönderilmiştir.`
+                            }
+                        </h6>
+                    </div>
+                </div>
             </div>
         )
     }

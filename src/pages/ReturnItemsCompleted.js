@@ -56,7 +56,7 @@ class ReturnItemsCompleted extends React.Component {
                                 style={{ color: '#51C625' }}>
                                 Aşağıdaki ürün(ler) için sipariş iade talebiniz alınmıştır.
                             </h5>
-                            <p>Ürününüz kargo aracılığıyla depomuza ulaştıktan sonra iade işleminiz tamamlanmak üzere işleme konulacaktır.</p>
+                            <p className='text-black'>Ürününüz kargo aracılığıyla depomuza ulaştıktan sonra iade işleminiz tamamlanmak üzere işleme konulacaktır.</p>
                         </div>
                     </div>
                     <div className='col-md-12 order-1 py-4'>
