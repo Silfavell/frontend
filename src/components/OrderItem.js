@@ -51,34 +51,44 @@ class OrderItem extends React.Component {
             date,
             status,
             paidPrice,
-            returnItems,
+            returnItems, // TODO IF TRUE map returnItems instead of products line 98
             returnable
         } = this.props.item
 
         return (
             <div className='container border mb-3 pt-3'>
                 <div className='col-md-12'>
+                    {
+                        !this.props.returnItems && (
+                            <div className='d-flex align-items-center justify-content-between p1'>
+                                <p>Sipariş Tarihi:</p>
+                                <p>
+                                    {
+                                        new Date(date).toLocaleDateString('tr-TR', {
+                                            weekday: 'long',
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric'
+                                        })
+                                    }
+                                </p>
+                            </div>
+                        )
+                    }
+
                     <div className='d-flex align-items-center justify-content-between p1'>
-                        <p>Sipariş Tarihi:</p>
-                        <p>
-                            {
-                                new Date(date).toLocaleDateString('tr-TR', {
-                                    weekday: 'long',
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })
-                            }
-                        </p>
-                    </div>
-                    <div className='d-flex align-items-center justify-content-between p1'>
-                        <p>Ödenen Tutar:</p>
+                        <p>{this.props.returnItems ? 'Ödenecek Tutar:' : 'Ödenen Tutar:'}</p>
                         <strong className='text-black'>{`₺${paidPrice.toFixed(2).replace('.', ',')}`}</strong>
                     </div>
-                    <div className='d-flex align-items-center justify-content-between p1'>
-                        <p>Sipariş Durumu:</p>
-                        <strong className='text-black'>{this.getOrderStatus(status)}</strong>
-                    </div>
+
+                    {
+                        !this.props.returnItems && (
+                            <div className='d-flex align-items-center justify-content-between p1'>
+                                <p>Sipariş Durumu:</p>
+                                <strong className='text-black'>{this.getOrderStatus(status)}</strong>
+                            </div>
+                        )
+                    }
                 </div>
                 <div className='col-md-12'>
                     <div className='site-blocks-table'>

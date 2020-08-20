@@ -124,8 +124,10 @@ class ReturnItems extends React.Component {
             return item
         })
 
-        axios.post(`${process.env.REACT_APP_API_URL}/user/return-items/${this.state.order._id}`, items).then((res) => {
-            console.log(res)
+        axios.post(`${process.env.REACT_APP_API_URL}/user/return-items/${this.state.order._id}`, items).then(({ status }) => {
+            if (status === 200) {
+                this.props.history.push(`/return-items/${this.state.order._id}`)
+            }
         })
     }
 
