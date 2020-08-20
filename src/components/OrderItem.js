@@ -21,10 +21,10 @@ class OrderItem extends React.Component {
             status,
             trackingNumber,
             _id,
-            returnItems
+            returnable
         } = this.props.item
 
-        if (!(returnItems.length > 0) && status) {
+        if (returnable && status) {
             return (
                 <a href={`/return-items/${_id}`}
                     className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
@@ -51,7 +51,8 @@ class OrderItem extends React.Component {
             date,
             status,
             paidPrice,
-            returnItems
+            returnItems,
+            returnable
         } = this.props.item
 
         return (
@@ -98,7 +99,7 @@ class OrderItem extends React.Component {
                     }
                 </div>
                 {
-                    returnItems.length > 0 && (
+                    (status && !returnable) && (
                         <>
                             <div className='col-md-12'>
                                 <p>İade Edilen Ürünler:</p>
@@ -109,7 +110,7 @@ class OrderItem extends React.Component {
                                         <tbody>
                                             {
                                                 products.filter((product) => returnItems.find((item) => item._id === product._id)).map((product) => (
-                                                    <CartItem item={{ ...product, quantity: returnItems.find((item) => item._id === product._id).quantity }} order />
+                                                    <CartItem item={{ ...product, quantity: returnItems.find((item) => item._id === product._id).quantity }} returnOrderItem />
                                                 ))
                                             }
                                         </tbody>

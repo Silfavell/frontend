@@ -9,7 +9,7 @@ import './CartItem.css'
 class CartItem extends React.Component {
 
     state = {
-        quantity: this.props.returnItem?.quantity ?? this.props.item.quantity
+        quantity: (this.props.returnItem ?? this.props.returnOrderItem)?.quantity ?? this.props.item.quantity
     }
 
     onIncreaseClick = () => {
@@ -46,6 +46,12 @@ class CartItem extends React.Component {
         } = this.props.item
 
         const {
+            returnItem,
+            returnOrderItem,
+            order
+        } = this.props
+
+        const {
             quantity
         } = this.state
 
@@ -65,7 +71,7 @@ class CartItem extends React.Component {
                 <td className='right-td'>
                     <div>
                         {
-                            this.props.returnItem && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek ürün:</h5>
+                            (returnItem || returnOrderItem) && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek ürün:</h5>
                         }
 
                         <div className='product-name'>
@@ -75,12 +81,12 @@ class CartItem extends React.Component {
 
                     <div>
                         {
-                            this.props.returnItem && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek adet:</h5>
+                            (returnItem || returnOrderItem) && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek adet:</h5>
                         }
 
                         <div className='input-group quantity-container'>
                             {
-                                !this.props.order && (
+                                !(order || returnOrderItem) && (
                                     <div className='input-group-prepend'>
                                         <button className='btn btn-outline-primary js-btn-minus' type='button' onClick={this.onDecreaseClick}>&#45;</button>
                                     </div>
@@ -92,12 +98,12 @@ class CartItem extends React.Component {
                                 className='form-control text-center'
                                 value={quantity}
                                 onChange={this.onQuantityChange}
-                                disabled={this.props.order}
+                                disabled={order || returnOrderItem}
                                 onBlur={this.onFocusOut}
                                 placeholder=''
                             />
                             {
-                                !this.props.order && (
+                                !(order || returnOrderItem) && (
                                     <div className='input-group-append'>
                                         <button className='btn btn-outline-primary js-btn-plus' type='button' onClick={this.onIncreaseClick}>&#43;</button>
                                     </div>
@@ -108,11 +114,11 @@ class CartItem extends React.Component {
 
                     <div>
                         {
-                            this.props.returnItem && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek tutar:</h5>
+                            (returnItem || returnOrderItem) && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek tutar:</h5>
                         }
 
                         {
-                            this.props.returnItem ? (
+                            (returnItem || returnOrderItem) ? (
                                 <div className='direction-row mx-3'>
                                     <strong style={{ fontSize: 20 }}>
                                         {'₺' + (paidPrice * quantity).toFixed(2).toString().replace('.', ',')}

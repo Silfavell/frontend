@@ -13,15 +13,20 @@ class ReturnItems extends React.Component {
 
         this.getOrder().then((order) => {
             if (order) {
-                this.setState({
-                    order,
-                    items: order?.products?.map((product) => ({
-                        _id: product._id,
-                        quantity: 1,
-                        selected: false
-                    })),
-                    status: true
-                })
+                if (order.returnable) {
+                    this.setState({
+                        order,
+                        items: order?.products?.map((product) => ({
+                            _id: product._id,
+                            quantity: 1,
+                            selected: false
+                        })),
+                        status: true
+                    })
+                } else {
+                    this.props.history.push('/previous-orders')
+                }
+
             } else {
                 this.setState({
                     status: false
