@@ -19,13 +19,12 @@ import EditProfile from './pages/EditProfile'
 import UpdatePassword from './pages/UpdatePassword'
 import ForgotPassword from './pages/ForgotPassword'
 import Payment from './pages/Payment'
-
 import FavoriteProducts from './pages/FavoriteProducts'
 import PreviousOrders from './pages/PreviousOrders'
 import ReturnItems from './pages/ReturnItems'
-
-import NotFound from './pages/NotFound'
+import ReturnItemsCompleted from './pages/ReturnItemsCompleted'
 import PaymentCompleted from './pages/PaymentCompleted'
+import NotFound from './pages/NotFound'
 
 axios()
 
@@ -48,6 +47,7 @@ class App extends React.Component {
                     <Route path='/favorite-products' component={FavoriteProducts} />
                     <Route path='/previous-orders' component={PreviousOrders} />
                     <Route path='/return-items/:_id' component={ReturnItems} />
+                    <Route path='/return-items-completed' component={ReturnItemsCompleted} />
 
                     <Route path='/update-password' component={UpdatePassword} />
                     <Route path='/forgot-password' component={ForgotPassword} />
