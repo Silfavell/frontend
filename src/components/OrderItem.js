@@ -11,16 +11,17 @@ class OrderItem extends React.Component {
 
     getOrderStatus = (status) => {
         switch (status) {
-            case true: return 'Onaylandı'
-            case false: return 'Iptal Edildi'
-            default: return 'Onay Bekliyor'
+            case 0: return 'Onay Bekliyor'
+            case 1: return 'Onaylandı'
+            case 2: return 'Iptal Edildi'
+            default: return 'Onaylandı'
         }
     }
 
     renderFooter = () => {
         const {
             status,
-            trackingNumber,
+            message,
             _id
         } = this.props.item
 
@@ -34,7 +35,7 @@ class OrderItem extends React.Component {
             )
         } else if (status === OrderStatus.APPROVED) {
             return (
-                <a href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${trackingNumber}`}
+                <a href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${message}`}
                     className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
                     <span className='font-weight-bold' style={{ color: '#EE4266' }}>Kargo Takip</span>
                     <IoIosArrowForward size={24} />
