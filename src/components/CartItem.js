@@ -120,20 +120,20 @@ class CartItem extends React.Component {
                         {
                             (returnItem || returnOrderItem) ? (
                                 <div className='direction-row mx-3'>
-                                    <strong style={{ fontSize: 20 }}>
+                                    <h5 className='font-weight-normal' style={{ fontSize: 20 }}>
                                         {'₺' + (paidPrice * quantity).toFixed(2).toString().replace('.', ',')}
-                                    </strong>
+                                    </h5>
                                 </div>
                             ) : (
                                     <div className='direction-row mx-3'>
-                                        <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
+                                        <h5 className='font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
                                             {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
-                                        </strong>
+                                        </h5>
                                         {
                                             discountedPrice && (
-                                                <strong className='ml-3' style={{ fontSize: 20 }}>
+                                                <h5 className='font-weight-normal' className='ml-3' style={{ fontSize: 20 }}>
                                                     {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
-                                                </strong>
+                                                </h5>
                                             )
                                         }
                                     </div>
