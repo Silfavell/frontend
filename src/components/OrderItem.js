@@ -110,7 +110,7 @@ class OrderItem extends React.Component {
                     }
                 </div>
                 {
-                    (status && !returnable) && (
+                    (status && !returnable) && ( // TODO status true olduğunda ve returnable false olduğunda bu iade edilmiş demek olmuyor. Kargo henüz ulaşmamış olabilir ?
                         <>
                             <div className='col-md-12'>
                                 <p>İade Edilen Ürünler:</p>
@@ -132,17 +132,21 @@ class OrderItem extends React.Component {
                     )
                 }
 
-                <div className='col-md-12 pb-3'>
-                    <div
-                        className='col-md-12 d-flex align-items-center justify-content-center flex-column'
-                        style={{ border: '1px solid #ee4266' }}>
-                        <h6 className='px-5 py-3 text-black' style={{ textAlign: 'center' }}>
-                            {
-                                `Iade etmek için seçtiğiniz ürünleri 7 iş günü içinde kargoya vermeniz gerekmektedir. <KOD> kodu ile ürününüzü ÜCRETSIZ olarak gönderebilirsiniz. Gönderim kodunuz mail adresinize gönderilmiştir.`
-                            }
-                        </h6>
-                    </div>
-                </div>
+                {
+                    this.props.returnItems && (
+                        <div className='col-md-12 pb-3'>
+                            <div
+                                className='col-md-12 d-flex align-items-center justify-content-center flex-column'
+                                style={{ border: '1px solid #ee4266' }}>
+                                <h6 className='px-5 py-3 text-black' style={{ textAlign: 'center' }}>
+                                    {
+                                        `Iade etmek için seçtiğiniz ürünleri 7 iş günü içinde kargoya vermeniz gerekmektedir. <KOD> kodu ile ürününüzü ÜCRETSIZ olarak gönderebilirsiniz.` // Gönderim kodunuz mail adresinize gönderilmiştir.
+                                    }
+                                </h6>
+                            </div>
+                        </div>
+                    )
+                }
             </div>
         )
     }
