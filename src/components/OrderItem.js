@@ -110,7 +110,7 @@ class OrderItem extends React.Component {
                     }
                 </div>
                 {
-                    (status && !returnable) && ( // TODO status true olduğunda ve returnable false olduğunda bu iade edilmiş demek olmuyor. Kargo henüz ulaşmamış olabilir ?
+                    (status && returnable === false) && (
                         <>
                             <div className='col-md-12'>
                                 <p>İade Edilen Ürünler:</p>

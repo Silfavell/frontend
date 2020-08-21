@@ -14,14 +14,14 @@ class ReturnItemsCompleted extends React.Component {
 
         this.getOrder().then((order) => {
             if (order) {
-                //  if (order.returnItems.length > 0) { // TODO
-                this.setState({
-                    order,
-                    status: true
-                })
-                //  } else {
-                //      this.props.history.push('/previous-orders')
-                //  }
+                if (order.returnable === false) {
+                    this.setState({
+                        order,
+                        status: true
+                    })
+                } else {
+                    this.props.history.push('/previous-orders')
+                }
             } else {
                 this.setState({
                     status: false
