@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import joi from '@hapi/joi'
@@ -119,7 +117,7 @@ class CartItem extends React.Component {
 
                         {
                             (returnItem || returnOrderItem) ? (
-                                <div className='direction-row mx-3'>
+                                <div className='direction-row'>
                                     <h5 className='font-weight-normal' style={{ fontSize: 20 }}>
                                         {'₺' + (paidPrice * quantity).toFixed(2).toString().replace('.', ',')}
                                     </h5>
@@ -131,7 +129,7 @@ class CartItem extends React.Component {
                                         </h5>
                                         {
                                             discountedPrice && (
-                                                <h5 className='font-weight-normal' className='ml-3' style={{ fontSize: 20 }}>
+                                                <h5 className='font-weight-normal ml-3' style={{ fontSize: 20 }}>
                                                     {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
                                                 </h5>
                                             )
