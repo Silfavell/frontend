@@ -51,7 +51,8 @@ class OrderItem extends React.Component {
             date,
             status,
             paidPrice,
-            returnItems, // TODO IF TRUE map returnItems instead of products line 98
+            returnItems,
+            returnItemsTotalPayback,
             returnable
         } = this.props.item
 
@@ -78,7 +79,7 @@ class OrderItem extends React.Component {
 
                     <div className='d-flex align-items-center justify-content-between p1'>
                         <p style={{ fontSize: 18 }}>{this.props.returnItems ? 'Ödenecek Tutar:' : 'Ödenen Tutar:'}</p>
-                        <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>{`₺${paidPrice.toFixed(2).replace('.', ',')}`}</p>
+                        <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>{`₺${(this.props.returnItems ? returnItemsTotalPayback : paidPrice).toFixed(2).replace('.', ',')}`}</p>
                     </div>
 
                     {
@@ -95,8 +96,8 @@ class OrderItem extends React.Component {
                         <table className='table border'>
                             <tbody>
                                 {
-                                    products.map((product) => (
-                                        <CartItem item={product} order />
+                                    (returnItems ?? products).map((product) => (
+                                        <CartItem item={product} order={!returnItems} returnItem={!!returnItems} />
                                     ))
                                 }
                             </tbody>

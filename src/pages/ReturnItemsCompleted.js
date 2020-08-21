@@ -43,7 +43,6 @@ class ReturnItemsCompleted extends React.Component {
     )
 
     render() {
-        console.log(this.state)
         return (
             <SiteWrap>
                 <div className='container'>
