@@ -6,6 +6,7 @@ import OrderItem from '../components/OrderItem'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
+import OrderStatus from '../models/OrderStatus'
 
 class ReturnItemsCompleted extends React.Component {
 
@@ -14,7 +15,7 @@ class ReturnItemsCompleted extends React.Component {
 
         this.getOrder().then((order) => {
             if (order) {
-                if (order.returnable === false) {
+                if (order.status === OrderStatus.RETURNED) {
                     this.setState({
                         order,
                         status: true

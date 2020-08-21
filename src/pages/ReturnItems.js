@@ -6,6 +6,7 @@ import CartItem from '../components/CartItem'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
+import OrderStatus from '../models/OrderStatus'
 
 class ReturnItems extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class ReturnItems extends React.Component {
 
         this.getOrder().then((order) => {
             if (order) {
-                if (order.returnable) {
+                if (order.status === OrderStatus.RETURNABLE) {
                     this.setState({
                         order,
                         items: order?.products?.map((product) => ({

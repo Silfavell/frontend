@@ -5,6 +5,7 @@ import { IoIosArrowForward } from 'react-icons/io'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import CartItem from './CartItem'
+import OrderStatus from '../models/OrderStatus'
 
 class OrderItem extends React.Component {
 
@@ -20,11 +21,10 @@ class OrderItem extends React.Component {
         const {
             status,
             trackingNumber,
-            _id,
-            returnable
+            _id
         } = this.props.item
 
-        if (returnable && status) {
+        if (status === OrderStatus.RETURNABLE) {
             return (
                 <a href={`/return-items/${_id}`}
                     className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
@@ -32,7 +32,7 @@ class OrderItem extends React.Component {
                     <IoIosArrowForward size={24} />
                 </a>
             )
-        } else if (status) {
+        } else if (status === OrderStatus.APPROVED) {
             return (
                 <a href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${trackingNumber}`}
                     className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
@@ -52,8 +52,7 @@ class OrderItem extends React.Component {
             status,
             paidPrice,
             returnItems,
-            returnItemsTotalPayback,
-            returnable
+            returnItemsTotalPayback
         } = this.props.item
 
         return (
@@ -110,7 +109,7 @@ class OrderItem extends React.Component {
                     }
                 </div>
                 {
-                    (status && returnable === false) && (
+                    (status === OrderStatus.RETURNED) && (
                         <>
                             <div className='col-md-12'>
                                 <p>İade Edilen Ürünler:</p>
