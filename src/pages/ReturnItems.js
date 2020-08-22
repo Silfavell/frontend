@@ -1,12 +1,14 @@
 import React from 'react'
 import axios from 'axios'
+import VanillaToasts from 'vanillatoasts'
 
 import SiteWrap from '../components/SiteWrap'
 import CartItem from '../components/CartItem'
 
+import OrderStatus from '../models/OrderStatus'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/css/style.css'
-import OrderStatus from '../models/OrderStatus'
 
 class ReturnItems extends React.Component {
     constructor(props) {
@@ -125,11 +127,21 @@ class ReturnItems extends React.Component {
             return item
         })
 
-        axios.post(`${process.env.REACT_APP_API_URL}/user/return-items/${this.state.order._id}`, items).then(({ status }) => {
-            if (status === 200) {
-                this.props.history.push(`/return-items/${this.state.order._id}`)
-            }
-        })
+        if (items.length > 0) {
+            axios.post(`${process.env.REACT_APP_API_URL}/user/return-items/${this.state.order._id}`, items).then(({ status }) => {
+                if (status === 200) {
+                    window.history.pushState({}, null, `/return-items-completed/${this.state.order._id}`)
+                    window.location.reload()
+                }
+            })
+        } else {
+            VanillaToasts.create({
+                title: `Lütfen iade etmek istediğiniz ürünleri seçiniz`,
+                positionClass: 'topRight',
+                type: 'warning',
+                timeout: 3 * 1000
+            })
+        }
     }
 
     render() {
@@ -143,6 +155,8 @@ class ReturnItems extends React.Component {
                 title: 'İade'
             }
         ]
+
+        console.log(this.state)
 
         return (
             <SiteWrap divider={divider}>

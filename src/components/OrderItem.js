@@ -58,63 +58,82 @@ class OrderItem extends React.Component {
 
         return (
             <div className='container border mb-3 pt-3'>
-                <div className='col-md-12'>
-                    {
-                        !this.props.returnItems && (
-                            <div className='d-flex align-items-center justify-content-between p1'>
-                                <p style={{ fontSize: 18 }}>Sipariş Tarihi:</p>
-                                <p style={{ fontSize: 18 }}>
-                                    {
-                                        new Date(date).toLocaleDateString('tr-TR', {
-                                            weekday: 'long',
-                                            year: 'numeric',
-                                            month: 'long',
-                                            day: 'numeric'
-                                        })
-                                    }
-                                </p>
-                            </div>
-                        )
-                    }
-
-                    <div className='d-flex align-items-center justify-content-between p1'>
-                        <p style={{ fontSize: 18 }}>{this.props.returnItems ? 'Ödenecek Tutar:' : 'Ödenen Tutar:'}</p>
-                        <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>{`₺${(this.props.returnItems ? returnItemsTotalPayback : paidPrice).toFixed(2).replace('.', ',')}`}</p>
-                    </div>
-
-                    {
-                        !this.props.returnItems && (
-                            <div className='d-flex align-items-center justify-content-between p1'>
-                                <p style={{ fontSize: 18 }}>Sipariş Durumu:</p>
-                                <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>{this.getOrderStatus(status)}</p>
-                            </div>
-                        )
-                    }
-                </div>
-                <div className='col-md-12'>
-                    <div className='site-blocks-table'>
-                        <table className='table border'>
-                            <tbody>
+                {
+                    !this.props.returnItemsCompleted && (
+                        <>
+                            <div className='col-md-12'>
                                 {
-                                    (returnItems ?? products).map((product) => (
-                                        <CartItem item={product} order={!returnItems} returnItem={!!returnItems} />
-                                    ))
+                                    !this.props.returnItems && (
+                                        <div className='d-flex align-items-center justify-content-between p1'>
+                                            <p style={{ fontSize: 18 }}>Sipariş Tarihi:</p>
+                                            <p style={{ fontSize: 18 }}>
+                                                {
+                                                    new Date(date).toLocaleDateString('tr-TR', {
+                                                        weekday: 'long',
+                                                        year: 'numeric',
+                                                        month: 'long',
+                                                        day: 'numeric'
+                                                    })
+                                                }
+                                            </p>
+                                        </div>
+                                    )
                                 }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div className='col-md-12'>
-                    {
-                        this.renderFooter()
-                    }
-                </div>
+
+                                <div className='d-flex align-items-center justify-content-between p1'>
+                                    <p style={{ fontSize: 18 }}>{this.props.returnItems ? 'Ödenecek Tutar:' : 'Ödenen Tutar:'}</p>
+                                    <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>{`₺${(this.props.returnItems ? returnItemsTotalPayback : paidPrice).toFixed(2).replace('.', ',')}`}</p>
+                                </div>
+
+                                {
+                                    !this.props.returnItems && (
+                                        <div className='d-flex align-items-center justify-content-between p1'>
+                                            <p style={{ fontSize: 18 }}>Sipariş Durumu:</p>
+                                            <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>{this.getOrderStatus(status)}</p>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            <div className='col-md-12'>
+                                <div className='site-blocks-table'>
+                                    <table className='table border'>
+                                        <tbody>
+                                            {
+                                                products.map((product) => (
+                                                    <CartItem item={product} order />
+                                                ))
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div className='col-md-12'>
+                                {
+                                    this.renderFooter()
+                                }
+                            </div>
+                        </>
+
+                    )
+                }
                 {
                     (status === OrderStatus.RETURNED) && (
                         <>
-                            <div className='col-md-12'>
-                                <p>İade Edilen Ürünler:</p>
-                            </div>
+                            {
+                                !this.props.returnItemsCompleted && (
+                                    <>
+                                        <div className='col-md-12 d-flex align-items-center justify-content-between p1'>
+                                            <p style={{ fontSize: 18 }}>Iade Edilecek Toplam Tutar:</p>
+                                            <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>
+                                                {`₺${returnItemsTotalPayback.toFixed(2).replace('.', ',')}`}
+                                            </p>
+                                        </div>
+                                        <div className='col-md-12'>
+                                            <p style={{ fontSize: 18 }}>Iade Edilen Ürünler:</p>
+                                        </div>
+                                    </>
+                                )
+                            }
                             <div className='col-md-12'>
                                 <div className='site-blocks-table'>
                                     <table className='table border'>
@@ -133,7 +152,7 @@ class OrderItem extends React.Component {
                 }
 
                 {
-                    this.props.returnItems && (
+                    this.props.returnItemsCompleted && (
                         <div className='col-md-12 pb-3'>
                             <div
                                 className='col-md-12 d-flex align-items-center justify-content-center flex-column'
@@ -147,7 +166,7 @@ class OrderItem extends React.Component {
                         </div>
                     )
                 }
-            </div>
+            </div >
         )
     }
 }

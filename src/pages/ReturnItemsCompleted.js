@@ -62,7 +62,7 @@ class ReturnItemsCompleted extends React.Component {
                     <div className='col-md-12 order-1 py-4'>
                         {
                             this.state?.order && (
-                                <OrderItem item={this.state?.order} returnItems />
+                                <OrderItem item={this.state?.order} returnItemsCompleted />
                             )
                         }
                     </div>

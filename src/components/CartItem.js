@@ -84,7 +84,7 @@ class CartItem extends React.Component {
 
                         <div className='input-group quantity-container'>
                             {
-                                !(order || returnItem || returnOrderItem) && (
+                                !(order || returnOrderItem) && (
                                     <div className='input-group-prepend'>
                                         <button className='btn btn-outline-primary js-btn-minus' type='button' onClick={this.onDecreaseClick}>&#45;</button>
                                     </div>
@@ -96,12 +96,12 @@ class CartItem extends React.Component {
                                 className='form-control text-center'
                                 value={quantity}
                                 onChange={this.onQuantityChange}
-                                disabled={order || returnItem || returnOrderItem}
+                                disabled={order || returnOrderItem}
                                 onBlur={this.onFocusOut}
                                 placeholder=''
                             />
                             {
-                                !(order || returnItem || returnOrderItem) && (
+                                !(order || returnOrderItem) && (
                                     <div className='input-group-append'>
                                         <button className='btn btn-outline-primary js-btn-plus' type='button' onClick={this.onIncreaseClick}>&#43;</button>
                                     </div>
