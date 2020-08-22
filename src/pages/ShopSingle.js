@@ -1,8 +1,7 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from 'axios'
 import React from 'react'
 import joi from '@hapi/joi'
+import { Helmet } from 'react-helmet'
 
 import Loading from '../components/Loading'
 import SiteWrap from '../components/SiteWrap'
@@ -129,6 +128,9 @@ class ShopSingle extends React.Component {
 
         return (
             <div className='container'>
+                <Helmet>
+                    <title>{`${name} | Silfavell`}</title>
+                </Helmet>
                 <div className='row'>
                     <div className='col-md-6 pb-5'>
                         <ProductImages images={this.getImages(image, imageCount)} />
