@@ -130,6 +130,7 @@ class ShopSingle extends React.Component {
             <div className='container'>
                 <Helmet>
                     <title>{`${name} | Silfavell`}</title>
+                    <meta name='description' content={details} />
                 </Helmet>
                 <div className='row'>
                     <div className='col-md-6 pb-5'>
