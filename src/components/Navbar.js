@@ -232,7 +232,9 @@ class Navbar extends React.Component {
                                         </li>
                                         <li>
                                             <span className='icons-btn d-inline-block bag'>
-                                                <IoIosBasket color={'#8C92A0'} size={26} />
+                                                <a href='/cart'>
+                                                    <IoIosBasket color={'#8C92A0'} size={26} />
+                                                </a>
                                                 <span className='number'>{this.props.products.length}</span>
                                                 {
                                                     this.props.products.length > 0 &&
