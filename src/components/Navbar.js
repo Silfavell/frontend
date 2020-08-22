@@ -44,6 +44,18 @@ class Navbar extends React.Component {
         })
     }
 
+    // for mobile
+    onPersonClick = () => {
+        window.history.pushState({}, null, '/edit-profile')
+        window.location.reload()
+    }
+
+    // for mobile
+    onBagClick = () => {
+        window.history.pushState({}, null, '/cart')
+        window.location.reload()
+    }
+
     renderPersonMenu = () => {
         if (this.state.loggedIn) {
             return (
@@ -225,17 +237,15 @@ class Navbar extends React.Component {
                                 <div className='site-navigation icon-dropdown'>
                                     <div className='site-menu'>
                                         <li className='has-children person-menu'>
-                                            <IoMdPerson size={26} />
+                                            <IoMdPerson size={26} onClick={this.onPersonClick} />
                                             {
                                                 this.renderPersonMenu()
                                             }
                                         </li>
                                         <li>
                                             <span className='icons-btn d-inline-block bag'>
-                                                <a href='/cart'>
-                                                    <IoIosBasket color={'#8C92A0'} size={26} />
-                                                </a>
-                                                <span className='number'>{this.props.products.length}</span>
+                                                <IoIosBasket color={'#8C92A0'} size={26} onClick={this.onBagClick} />
+                                                <span className='number' onClick={this.onBagClick}>{this.props.products.length}</span>
                                                 {
                                                     this.props.products.length > 0 &&
                                                     (
