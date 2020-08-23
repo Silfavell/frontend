@@ -11,10 +11,13 @@ class OrderItem extends React.Component {
 
     getOrderStatus = (status) => {
         switch (status) {
-            case 0: return 'Onay Bekliyor'
-            case 1: return 'Onaylandı'
-            case 2: return 'Iptal Edildi'
-            default: return 'Onaylandı'
+			case OrderStatus.WAITING_FOR_APPROVAL: return 'Onay Bekliyor'
+			case OrderStatus.APPROVED: return 'Onaylandı'
+			case OrderStatus.CANCELED: return 'Iptal Edildi'
+			case OrderStatus.RETURNED: return 'Iade Talep Edildi'
+			case OrderStatus.RETURN_ACCEPTED: return 'Iade Kabul Edildi'
+			case OrderStatus.RETURN_DENIED: return 'Iade Reddedildi'
+			default: return 'Onaylandı'
         }
     }
 
