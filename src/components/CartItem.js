@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import joi from '@hapi/joi'
@@ -9,7 +7,7 @@ import './CartItem.css'
 class CartItem extends React.Component {
 
     state = {
-        quantity: this.props.item.quantity
+        quantity: (this.props.returnItem ?? this.props.returnOrderItem)?.quantity ?? this.props.item.quantity
     }
 
     onIncreaseClick = () => {
@@ -41,8 +39,15 @@ class CartItem extends React.Component {
             image,
             name,
             price,
-            discountedPrice
+            discountedPrice,
+            paidPrice
         } = this.props.item
+
+        const {
+            returnItem,
+            returnOrderItem,
+            order
+        } = this.props
 
         const {
             quantity
@@ -62,48 +67,75 @@ class CartItem extends React.Component {
                         className='img-fluid img' />
                 </td>
                 <td className='right-td'>
-                    <div className="product-name">
-                        <h5 className='text-black'>{name}</h5>
-
-                    </div>
-
-                    <div className='input-group quantity-container'>
+                    <div>
                         {
-                            !this.props.order && (
-                                <div className='input-group-prepend'>
-                                    <button className='btn btn-outline-primary js-btn-minus' type='button' onClick={this.onDecreaseClick}>&#45;</button>
-                                </div>
-                            )
+                            (returnItem || returnOrderItem) && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek ürün:</h5>
                         }
 
-                        <input
-                            type='text'
-                            className='form-control text-center'
-                            value={quantity}
-                            onChange={this.onQuantityChange}
-                            disabled={this.props.order}
-                            onBlur={this.onFocusOut}
-                            placeholder=''
-                        />
-                        {
-                            !this.props.order && (
-                                <div className='input-group-append'>
-                                    <button className='btn btn-outline-primary js-btn-plus' type='button' onClick={this.onIncreaseClick}>&#43;</button>
-                                </div>
-                            )
-                        }
+                        <div className='product-name'>
+                            <h5 className='text-black'>{name}</h5>
+                        </div>
                     </div>
 
-                    <div className='direction-row mx-3'>
-                        <strong style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
-                            {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
-                        </strong>
+                    <div>
                         {
-                            discountedPrice && (
-                                <strong className='ml-3' style={{ fontSize: 20 }}>
-                                    {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
-                                </strong>
-                            )
+                            (returnItem || returnOrderItem) && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek adet:</h5>
+                        }
+
+                        <div className='input-group quantity-container'>
+                            {
+                                !(order || returnOrderItem) && (
+                                    <div className='input-group-prepend'>
+                                        <button className='btn btn-outline-primary js-btn-minus' type='button' onClick={this.onDecreaseClick}>&#45;</button>
+                                    </div>
+                                )
+                            }
+
+                            <input
+                                type='text'
+                                className='form-control text-center'
+                                value={quantity}
+                                onChange={this.onQuantityChange}
+                                disabled={order || returnOrderItem}
+                                onBlur={this.onFocusOut}
+                                placeholder=''
+                            />
+                            {
+                                !(order || returnOrderItem) && (
+                                    <div className='input-group-append'>
+                                        <button className='btn btn-outline-primary js-btn-plus' type='button' onClick={this.onIncreaseClick}>&#43;</button>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </div>
+
+                    <div>
+                        {
+                            (returnItem || returnOrderItem) && <h5 className='pr-3 font-weight-normal' style={{ whiteSpace: 'nowrap' }}>İade edilecek tutar:</h5>
+                        }
+
+                        {
+                            (returnItem || returnOrderItem) ? (
+                                <div className='direction-row'>
+                                    <h5 className='font-weight-normal' style={{ fontSize: 20 }}>
+                                        {'₺' + (paidPrice * quantity).toFixed(2).toString().replace('.', ',')}
+                                    </h5>
+                                </div>
+                            ) : (
+                                    <div className='direction-row mx-3'>
+                                        <h5 className='font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
+                                            {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
+                                        </h5>
+                                        {
+                                            discountedPrice && (
+                                                <h5 className='font-weight-normal ml-3' style={{ fontSize: 20 }}>
+                                                    {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
+                                                </h5>
+                                            )
+                                        }
+                                    </div>
+                                )
                         }
                     </div>
                 </td>

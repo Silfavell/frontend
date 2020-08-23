@@ -1,7 +1,7 @@
 /* CART */
 
 .bag .cart {
-    max-height: 400px;
+    max-height: 500px;
     position: absolute;
     width: 400px;
     right: -50px;
@@ -87,6 +87,24 @@
     margin-top: 20px;
     visibility: visible;
     opacity: 1;
+}
+
+.bag .cart .cart-btn-container {
+    border-top: 1px solid #EE4266 !important;
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    z-index: 12
+}
+
+.bag .cart .cart-btn.cart-btn-first {
+    border-bottom: 1px solid #F9F9F9 !important;
+}
+
+.bag .cart .cart-btn {
+    font-size: 1.1rem !important;
+    font-weight: 400 !important;
+    color: black !important;
 }
 
 @media (max-width: 991.98px) {

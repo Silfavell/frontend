@@ -7,7 +7,7 @@ class ReturnConditions extends React.Component {
                 <div className='col-md-12'>
                     <b>İptal Koşulları:</b>
                     <p style={{ whiteSpace: 'break-spaces' }}>
-                        Sipariş adımlarını tamamlayarak ödemenizi gerçekleştirdikten sonra siparişinizin iptali için talep oluşturabilirsiniz. Talebinizi mobil cihazınız veya <a href='/return-items'>buradan</a> oluşturabilirsiniz.
+                        Sipariş adımlarını tamamlayarak ödemenizi gerçekleştirdikten sonra siparişinizin iptali için talep oluşturabilirsiniz. Talebinizi mobil cihazınız veya siparişlerim sayfasından oluşturabilirsiniz.
                     </p>
                     <br/>
                     <b>İade Koşulları:</b>

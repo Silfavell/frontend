@@ -44,6 +44,18 @@ class Navbar extends React.Component {
         })
     }
 
+    // for mobile
+    onPersonClick = () => {
+        window.history.pushState({}, null, '/edit-profile')
+        window.location.reload()
+    }
+
+    // for mobile
+    onBagClick = () => {
+        window.history.pushState({}, null, '/cart')
+        window.location.reload()
+    }
+
     renderPersonMenu = () => {
         if (this.state.loggedIn) {
             return (
@@ -225,15 +237,15 @@ class Navbar extends React.Component {
                                 <div className='site-navigation icon-dropdown'>
                                     <div className='site-menu'>
                                         <li className='has-children person-menu'>
-                                            <IoMdPerson size={26} />
+                                            <IoMdPerson size={26} onClick={this.onPersonClick} />
                                             {
                                                 this.renderPersonMenu()
                                             }
                                         </li>
                                         <li>
                                             <span className='icons-btn d-inline-block bag'>
-                                                <IoIosBasket color={'#8C92A0'} size={26} />
-                                                <span className='number'>{this.props.products.length}</span>
+                                                <IoIosBasket color={'#8C92A0'} size={26} onClick={this.onBagClick} />
+                                                <span className='number' onClick={this.onBagClick}>{this.props.products.length}</span>
                                                 {
                                                     this.props.products.length > 0 &&
                                                     (
@@ -247,8 +259,10 @@ class Navbar extends React.Component {
                                                                 ))
                                                             }
 
-                                                            <a className='col-12 p-2 px-4' href='/cart' style={{ fontSize: '1.1rem', fontWeight: '400', borderBottom: '1px solid #F9F9F9' }}>Sepete Git</a>
-                                                            <a className='col-12 p-2 px-4' href='/payment' style={{ fontSize: '1.1rem', fontWeight: '400' }}>Satın Al</a>
+                                                            <div className='cart-btn-container'>
+                                                                <a className='col-12 p-2 px-4 cart-btn cart-btn-first' href='/cart'>Sepete Git</a>
+                                                                <a className='col-12 p-2 px-4 cart-btn' href='/payment'>Satın Al</a>
+                                                            </div>
                                                         </div>
                                                     )
                                                 }

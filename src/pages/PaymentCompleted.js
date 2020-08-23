@@ -15,11 +15,11 @@ class PaymentCompleted extends React.Component {
                         <div
                             className='col-md-12 d-flex align-items-center justify-content-center border'
                             style={{ backgroundColor: 'rgba(81, 198, 37, 0.1)' }}>
-                            <h4
+                            <h5
                                 className='p-3'
                                 style={{ color: '#51C625' }}>
                                 Siparişiniz alınmıştır.
-                            </h4>
+                            </h5>
                         </div>
                     </div>
                     <div className='col-md-12 order-1 py-4'>
