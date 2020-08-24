@@ -7,8 +7,10 @@ import Loading from '../components/Loading'
 import SiteWrap from '../components/SiteWrap'
 import ProductImages from '../components/ProductImages'
 import Tabs from '../components/ShopSingle/Tabs'
+import Accordion from '../components/ShopSingle/Accordion'
 import Carousel from '../components/Carousel'
 
+import './ShopSingle.css'
 
 class ShopSingle extends React.Component {
 
@@ -229,8 +231,15 @@ class ShopSingle extends React.Component {
 
                     </div>
                 </div>
-                <div className='row mt-5'>
+                <div className='mt-5' id='shop-single-tabs'>
                     <Tabs
+                        details={details}
+                        specifications={specifications}
+                    />
+                </div>
+
+                <div className='mt-5' id='shop-single-accordion'>
+                    <Accordion
                         details={details}
                         specifications={specifications}
                     />
@@ -241,7 +250,7 @@ class ShopSingle extends React.Component {
                         <>
                             <div className='col-md-12 p-4' />
                             <div className='col-md-12 px-2'>
-                                <h2 className='h4 mb-3 text-black d-flex align-items-center justify-content-start'>İlgizi Çekebilecek Diğer Ürünler</h2>
+                                <h2 className='h4 my-3 text-black d-flex align-items-center justify-content-start'>İlgizi Çekebilecek Diğer Ürünler</h2>
                             </div>
 
                             <Carousel

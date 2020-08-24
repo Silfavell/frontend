@@ -1,0 +1,18 @@
+#shop-single-accordion {
+    display: none;
+}
+
+@media (max-width:768px) {
+    #shop-single-tabs {
+        display: none;
+    }
+
+    #shop-single-accordion {
+        display: unset;
+    }
+}
+
+#shop-single-accordion .collapsing .p-4,
+#shop-single-accordion .collapse .p-4{
+    padding: 1.5rem 0 !important;
+}

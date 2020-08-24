@@ -5,8 +5,8 @@ class ProductSpecifications extends React.Component {
     renderDetailRow = ({ title, value, first }) => (
         <div className={`col-md-12 ${!first ? 'border-top' : ''}`}>
             <div className='row'>
-                <div className='col-3 py-2 bg-light'>{title}</div>
-                <div className='border-left col-9 py-2'>
+                <div className='col-md-3 py-2 bg-light'>{title}</div>
+                <div className='border-left col-md-9 py-2'>
                     <strong className='text-black'>{value}</strong>
                 </div>
             </div>
