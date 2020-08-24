@@ -34,8 +34,8 @@ class Comments extends React.Component {
                     <p style={{ fontSize: 16 }} className='text-black mb-5 mt-3 font-weight-bolder'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem fugiat repellendus, ratione impedit maxime consequatur pariatur temporibus est eius expedita voluptatem inventore delectus adipisci voluptatibus libero quis accusantium asperiores ullam.</p>
 
                     <div>
-                        <span style={{ fontSize: 16 }} className='text-black font-weight-bolder'>Yardımcı oldu mu ?</span>
-                        <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='ml-3 text-white font-weight-bolder bg-secondary px-3 py-1'>Evet</span>
+                        <span style={{ fontSize: 16 }} className='text-black font-weight-bolder mr-3'>Yardımcı oldu mu ?</span>
+                        <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='text-white font-weight-bolder bg-secondary px-3 py-1'>Evet</span>
                         <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='ml-3 text-white font-weight-bolder bg-secondary px-3 py-1'>Hayır</span>
                         <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='ml-3 text-white font-weight-bolder bg-secondary px-3 py-1'>Bildir</span>
                     </div>
