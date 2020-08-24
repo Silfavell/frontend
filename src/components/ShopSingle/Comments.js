@@ -1,7 +1,14 @@
 import React from 'react'
 import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from 'react-icons/io'
+import WriteReviewPopup from './WriteReviewPopup'
+
+import './Comments.css'
 
 class Comments extends React.Component {
+
+    state = {
+        showWriteReviewPopup: true
+    }
 
     renderDetailRow = ({ title, value, first }) => (
         <div className={`col-md-12 ${!first ? 'border-top' : ''}`}>
@@ -30,7 +37,7 @@ class Comments extends React.Component {
                         <IoIosStarOutline size={24} color='orange' />
                         <IoIosStarOutline size={24} color='orange' />
                     </div>
-                    <b style={{ fontSize: 18 }} className='text-black font-weight-bold'>söyleyebileceğim çok can yakıyo</b>
+                    <b style={{ fontSize: 18 }} className='text-black font-weight-bold'>Başlık başlık başlık</b>
                     <p style={{ fontSize: 16 }} className='text-black mb-5 mt-3 font-weight-bolder'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem fugiat repellendus, ratione impedit maxime consequatur pariatur temporibus est eius expedita voluptatem inventore delectus adipisci voluptatibus libero quis accusantium asperiores ullam.</p>
 
                     <div>
@@ -45,15 +52,30 @@ class Comments extends React.Component {
         </div>
     )
 
+    onWriteReviewClick = () => {
+        this.setState({ showWriteReviewPopup: true })
+    }
+
+    hideWriteReviewPopup = () => {
+        this.setState({ showWriteReviewPopup: false })
+    }
+
     render() {
         return (
-            <div className='p-4 border-bottom'>
-                <div className='col-md-12'>
-                    <p style={{ whiteSpace: 'break-spaces', fontSize: 16 }}>
-                        {
+            <div className='p-4'>
 
-                        }
-                    </p>
+                {
+                    this.state.showWriteReviewPopup && <WriteReviewPopup hideWriteReviewPopup={this.hideWriteReviewPopup} />
+                }
+
+                <div className='col-md-12 text-black py-4'>
+                    <div className='row justify-content-end'>
+                        <span
+                            style={{ borderRadius: '0.25rem', cursor: 'pointer', backgroundColor: '#EE4266' }}
+                            onClick={this.onWriteReviewClick}
+                            id='write-review'
+                            className='text-white font-weight-bolder text-align-center px-3 py-1'>Değerlendirme Yazın</span>
+                    </div>
                 </div>
 
                 {

@@ -127,13 +127,13 @@ class EditProfile extends React.Component {
 
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='c_email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
+                                        <label htmlFor='email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
                                         <input
                                             onChange={this.onEmailChange}
                                             type='email'
                                             className='form-control'
-                                            id='c_email'
-                                            name='c_email'
+                                            id='email'
+                                            name='email'
                                             placeholder='E-Posta adresinizi giriniz' value={email} />
                                     </div>
                                 </div>
