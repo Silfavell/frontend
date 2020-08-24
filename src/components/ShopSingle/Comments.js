@@ -74,7 +74,7 @@ class Comments extends React.Component {
                             style={{ borderRadius: '0.25rem', cursor: 'pointer', backgroundColor: '#EE4266' }}
                             onClick={this.onWriteReviewClick}
                             id='write-review'
-                            className='text-white font-weight-bolder text-align-center px-3 py-1'>Değerlendirme Yazın</span>
+                            className='text-white font-weight-bolder text-align-center px-4 py-2'>Değerlendirme Yazın</span>
                     </div>
                 </div>
 
