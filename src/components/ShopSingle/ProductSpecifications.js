@@ -17,7 +17,7 @@ class ProductSpecifications extends React.Component {
         return (
             <div className='p-4'>
                 <div className='col-md-12'>
-                    <p style={{ whiteSpace: 'break-spaces', fontSize: 17 }}>
+                    <p className='text-black' style={{ whiteSpace: 'break-spaces', fontSize: 16 }}>
                         {this.props.details ?? 'Ürün detayı bulunmamaktadır.'}
                     </p>
                 </div>
