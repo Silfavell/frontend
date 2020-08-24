@@ -240,7 +240,7 @@ class ShopSingle extends React.Component {
                     (this.state.relatedProducts && this.state.relatedProducts.length > 0) && (
                         <>
                             <div className='col-md-12 p-4' />
-                            <div className='col-md-12 p-1'>
+                            <div className='col-md-12 px-2'>
                                 <h2 className='h4 mb-3 text-black d-flex align-items-center justify-content-start'>İlgizi Çekebilecek Diğer Ürünler</h2>
                             </div>
 

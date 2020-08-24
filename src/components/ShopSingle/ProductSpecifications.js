@@ -15,11 +15,11 @@ class ProductSpecifications extends React.Component {
 
     render() {
         return (
-            <div className='my-3'>
+            <div className='p-4'>
                 <div className='col-md-12'>
-                    <span style={{ whiteSpace: 'break-spaces' }}>
+                    <p style={{ whiteSpace: 'break-spaces', fontSize: 17 }}>
                         {this.props.details ?? 'Ürün detayı bulunmamaktadır.'}
-                    </span>
+                    </p>
                 </div>
 
                 {
