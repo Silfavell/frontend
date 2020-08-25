@@ -19,7 +19,7 @@ class ProductAccordion extends React.Component {
                 <Card>
                     <Accordion.Toggle as={Card.Header} eventKey='comments'>Yorumlar</Accordion.Toggle>
                     <Accordion.Collapse eventKey='comments'>
-                        <Comments />
+                        <Comments comments={this.props.comments} />
                     </Accordion.Collapse>
                 </Card>
 

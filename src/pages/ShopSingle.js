@@ -108,6 +108,7 @@ class ShopSingle extends React.Component {
             name,
             details,
             specifications,
+            variables,
             price,
             discountedPrice,
             brand,
@@ -234,6 +235,7 @@ class ShopSingle extends React.Component {
                 <div className='mt-5' id='shop-single-tabs'>
                     <Tabs
                         details={details}
+                        comments={variables.comments}
                         specifications={specifications}
                     />
                 </div>
@@ -241,6 +243,7 @@ class ShopSingle extends React.Component {
                 <div className='mt-5' id='shop-single-accordion'>
                     <Accordion
                         details={details}
+                        comments={variables.comments}
                         specifications={specifications}
                     />
                 </div>

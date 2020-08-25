@@ -21,15 +21,15 @@ class Comments extends React.Component {
         </div>
     )
 
-    renderComment = () => (
+    renderComment = ({ ownerAlias, title, comment }) => (
         <div className='col-md-12 mb-2'>
             <div className='row p-3'>
-                <div className='col-md-2'>
+                <div className='col-md-3'>
                     <div>
-                        <b style={{ fontSize: 18 }} className='text-black'>cenab ı GOD</b>
+                        <b style={{ fontSize: 18, wordBreak: 'break-word' }} className='text-black'>{ownerAlias}</b>
                     </div>
                 </div>
-                <div className='col-md-8'>
+                <div className='col-md-7'>
                     <div className='pb-3'>
                         <IoIosStar size={24} color='orange' />
                         <IoIosStarHalf size={24} color='orange' />
@@ -37,8 +37,8 @@ class Comments extends React.Component {
                         <IoIosStarOutline size={24} color='orange' />
                         <IoIosStarOutline size={24} color='orange' />
                     </div>
-                    <b style={{ fontSize: 18 }} className='text-black font-weight-bold'>Başlık başlık başlık</b>
-                    <p style={{ fontSize: 16 }} className='text-black mb-5 mt-3 font-weight-bolder'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem fugiat repellendus, ratione impedit maxime consequatur pariatur temporibus est eius expedita voluptatem inventore delectus adipisci voluptatibus libero quis accusantium asperiores ullam.</p>
+                    <b style={{ fontSize: 18 }} className='text-black font-weight-bold'>{title}</b>
+                    <p style={{ fontSize: 16 }} className='text-black mb-5 mt-3 font-weight-bolder'>{comment}</p>
 
                     <div>
                         <span style={{ fontSize: 16 }} className='text-black font-weight-bolder mr-4'>Yardımcı oldu mu ?</span>
@@ -79,11 +79,8 @@ class Comments extends React.Component {
                 </div>
 
                 {
-                    // this.props.specifications.length > 0 && (
-                    true && (
-                        [1, 2, 3].map(() => (
-                            this.renderComment()
-                        ))
+                    this.props.comments.length > 0 && (
+                        this.props.comments.map(this.renderComment)
                     )
                 }
             </div>
