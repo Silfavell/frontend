@@ -59,6 +59,10 @@ class WriteReviewPopup extends React.Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
+    onAgreementChange = (event) => {
+        this.setState({ isAgreementChecked: event.target.checked })
+    }
+
     render() {
         const {
             title,
@@ -173,16 +177,17 @@ class WriteReviewPopup extends React.Component {
 
                         <div className='flex-row d-flex justify-content-between'>
                             <div className='form-check form-check-inline'>
-                                <input className='form-check-input' type='checkbox' checked={this.state.isPreInfoChecked} onChange={this.onPreInfoChange} style={{ width: 24, height: 24, cursor: 'pointer' }} />
+                                <input className='form-check-input' type='checkbox' checked={this.state.isAgreementChecked} onChange={this.onAgreementChange} style={{ width: 24, height: 24, cursor: 'pointer' }} />
                                 <label className='form-check-label  ml-2'>
                                     <span onClick={this.showPreInfoPopup} className='text-primary' style={{ cursor: 'pointer' }}>Şartlar ve koşulları</span> kabul ediyorum.
                                 </label>
                             </div>
 
-                            <span
+                            <button
                                 onClick={this.onConfirm}
-                                className='px-4 py-2 text-white'
-                                style={{ backgroundColor: '#EE4266', borderRadius: '.25rem', cursor: 'pointer' }}>Yorumu Gönder</span>
+                                className='btn px-4 py-2 text-white'
+                                disabled={!this.state.isAgreementChecked}
+                                style={{ backgroundColor: '#EE4266', borderRadius: '.25rem', cursor: 'pointer' }}>Yorumu Gönder</button>
                         </div>
 
                     </form>

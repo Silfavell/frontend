@@ -60,7 +60,9 @@ class Comments extends React.Component {
         if (cookies.get('token')) {
             this.setState({ showWriteReviewPopup: true })
         } else {
-            alert('need login') // TODO
+            localStorage.setItem('return', window.location.href)
+            window.history.pushState({}, null, '/sign-in')
+            window.location.reload()
         }
     }
 
@@ -78,11 +80,11 @@ class Comments extends React.Component {
 
                 <div className='col-md-12 text-black py-4'>
                     <div className='row justify-content-end'>
-                        <span
+                        <button
                             style={{ borderRadius: '0.25rem', cursor: 'pointer', backgroundColor: '#EE4266' }}
                             onClick={this.onWriteReviewClick}
                             id='write-review'
-                            className='text-white font-weight-bolder text-align-center px-4 py-2'>Değerlendirme Yazın</span>
+                            className='btn text-white font-weight-bolder text-align-center px-4 py-2'>Değerlendirme Yazın</button>
                     </div>
                 </div>
 
