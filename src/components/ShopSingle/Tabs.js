@@ -26,7 +26,7 @@ class Tabs extends React.Component {
                         <ProductSpecifications details={this.props.details} specifications={this.props.specifications} />
                     </Tab.Pane>
                     <Tab.Pane eventKey='comments'>
-                        <Comments comments={this.props.comments} />
+                        <Comments productId={this.props.productId} comments={this.props.comments} />
                     </Tab.Pane>
                     <Tab.Pane eventKey='return-conditions'>
                         <ReturnConditions />

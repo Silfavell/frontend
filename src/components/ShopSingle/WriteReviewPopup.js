@@ -10,7 +10,7 @@ class WriteReviewPopup extends React.Component {
     state = {
         title: '',
         comment: '',
-        alias: '',
+        ownerAlias: '',
         email: '',
         isAgreementChecked: false,
 
@@ -19,20 +19,28 @@ class WriteReviewPopup extends React.Component {
     }
 
     onConfirm = () => {
-        //  axios.delete(`${process.env.REACT_APP_API_URL}/user/address/${this.props.deleteAddressId}`).then(({ data, status }) => {
-        //      if (status === 200) {
-        //          VanillaToasts.create({
-        //              title: `Adresiniz silindi`,
-        //              positionClass: 'topRight',
-        //              type: 'success',
-        //              timeout: 3 * 1000
-        //          })
-        //      }
-        //  
-        //      this.props.hideWriteReviewPopup(data.addresses)
-        //  }).catch((err) => {
-        //      this.props.hideWriteReviewPopup()
-        //  })
+        const {
+            title,
+            comment,
+            ownerAlias,
+            email
+        } = this.state
+
+        axios.post(`${process.env.REACT_APP_API_URL}/user/save-comment`, { productId: this.props.productId, title, comment, ownerAlias, rate: 7 }).then(({ data, status }) => {
+            if (status === 200) {
+                VanillaToasts.create({
+                    // title: `Yorum gönderdiğiniz için teşekkür ederiz! Yorumunuz şu anda inceleniyor ve görüntülenmesi için bir kaç gün geçmesi gerekebilir.`,
+                    title: `Yorumunuz gönderildi`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 5 * 1000
+                })
+            }
+
+            this.props.hideWriteReviewPopup()
+        }).catch((err) => {
+            this.props.hideWriteReviewPopup()
+        })
     }
 
     onOutsideClick = (event) => {
@@ -55,7 +63,7 @@ class WriteReviewPopup extends React.Component {
         const {
             title,
             comment,
-            alias,
+            ownerAlias,
             email,
             isAgreementChecked
         } = this.state
@@ -111,15 +119,15 @@ class WriteReviewPopup extends React.Component {
 
                         <div className='form-group row'>
                             <div className='col-md-6'>
-                                <label htmlFor='alias' className='text-black'>Takma Ad <span className='text-danger'>*</span></label>
+                                <label htmlFor='ownerAlias' className='text-black'>Takma Ad <span className='text-danger'>*</span></label>
                                 <input
                                     type='text'
                                     className='form-control'
-                                    id='alias'
-                                    name='alias'
+                                    id='ownerAlias'
+                                    name='ownerAlias'
                                     placeholder='Diğer kullanıcıların gördüğü'
                                     onChange={this.onChange}
-                                    value={alias} />
+                                    value={ownerAlias} />
                             </div>
 
                             <div className='col-md-6'>
@@ -171,7 +179,10 @@ class WriteReviewPopup extends React.Component {
                                 </label>
                             </div>
 
-                            <span className='px-4 py-2 text-white' style={{ backgroundColor: '#EE4266', borderRadius: '.25rem', cursor: 'pointer' }}>Yorumu Gönder</span>
+                            <span
+                                onClick={this.onConfirm}
+                                className='px-4 py-2 text-white'
+                                style={{ backgroundColor: '#EE4266', borderRadius: '.25rem', cursor: 'pointer' }}>Yorumu Gönder</span>
                         </div>
 
                     </form>

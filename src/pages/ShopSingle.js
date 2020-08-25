@@ -234,6 +234,7 @@ class ShopSingle extends React.Component {
                 </div>
                 <div className='mt-5' id='shop-single-tabs'>
                     <Tabs
+                        productId={_id}
                         details={details}
                         comments={variables.comments}
                         specifications={specifications}
@@ -242,6 +243,7 @@ class ShopSingle extends React.Component {
 
                 <div className='mt-5' id='shop-single-accordion'>
                     <Accordion
+                        productId={_id}
                         details={details}
                         comments={variables.comments}
                         specifications={specifications}

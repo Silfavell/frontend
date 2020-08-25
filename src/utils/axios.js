@@ -25,12 +25,21 @@ export default () => {
         response,
         (error) => { // Do something with response error
             if (error.response) {
-                VanillaToasts.create({
-                    title: error?.response?.data?.error ?? 'Beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz',
-                    positionClass: 'topRight',
-                    type: 'error',
-                    timeout: 5 * 1000
-                })
+                if (error.response.status === 401) {
+                    VanillaToasts.create({
+                        title: `Devam etmeden önce giriş yapmalısınız.`,
+                        positionClass: 'topRight',
+                        type: 'error',
+                        timeout: 5 * 1000
+                    })
+                } else {
+                    VanillaToasts.create({
+                        title: error?.response?.data?.error ?? 'Beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz',
+                        positionClass: 'topRight',
+                        type: 'error',
+                        timeout: 5 * 1000
+                    })
+                }
 
                 return Promise.reject(error)
             }

@@ -1,8 +1,12 @@
 import React from 'react'
 import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from 'react-icons/io'
+import Cookies from 'universal-cookie'
+
 import WriteReviewPopup from './WriteReviewPopup'
 
 import './Comments.css'
+
+const cookies = new Cookies()
 
 class Comments extends React.Component {
 
@@ -53,7 +57,11 @@ class Comments extends React.Component {
     )
 
     onWriteReviewClick = () => {
-        this.setState({ showWriteReviewPopup: true })
+        if (cookies.get('token')) {
+            this.setState({ showWriteReviewPopup: true })
+        } else {
+            alert('need login') // TODO
+        }
     }
 
     hideWriteReviewPopup = () => {
@@ -65,7 +73,7 @@ class Comments extends React.Component {
             <div className='p-4'>
 
                 {
-                    this.state.showWriteReviewPopup && <WriteReviewPopup hideWriteReviewPopup={this.hideWriteReviewPopup} />
+                    this.state.showWriteReviewPopup && <WriteReviewPopup productId={this.props.productId} hideWriteReviewPopup={this.hideWriteReviewPopup} />
                 }
 
                 <div className='col-md-12 text-black py-4'>
