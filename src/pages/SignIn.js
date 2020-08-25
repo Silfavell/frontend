@@ -43,10 +43,19 @@ class SignIn extends React.Component {
                 if (window.localStorage.getItem('cart')) {
                     axios.post(`${process.env.REACT_APP_API_URL}/user/cart`, JSON.parse(window.localStorage.getItem('cart'))).then(() => {
                         window.localStorage.removeItem('cart')
-                        this.props.history.push('/')
+
+                        if (document.referrer.includes(window.location.origin)) {
+                            window.history.back()
+                        } else {
+                            this.props.history.push('/')
+                        }
                     })
                 } else {
-                    this.props.history.push('/')
+                    if (document.referrer.includes(window.location.origin)) {
+                        window.history.back()
+                    } else {
+                        this.props.history.push('/')
+                    }
                 }
             }
         })

@@ -34,14 +34,10 @@ class Navbar extends React.Component {
     }
 
     onLogoutClick = () => {
-        cookies.remove('token')
-        cookies.remove('user')
+        cookies.remove('token', { path: '/' })
+        cookies.remove('user', { path: '/' })
         localStorage.removeItem('favoriteProducts')
-
-        this.setState({ loggedIn: false }, () => {
-            window.history.pushState({}, null, '/')
-            window.location.reload()
-        })
+        window.location.reload()
     }
 
     // for mobile

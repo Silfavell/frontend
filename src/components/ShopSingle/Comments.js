@@ -11,7 +11,7 @@ const cookies = new Cookies()
 class Comments extends React.Component {
 
     state = {
-        showWriteReviewPopup: true
+        showWriteReviewPopup: false
     }
 
     renderDetailRow = ({ title, value, first }) => (
@@ -60,7 +60,6 @@ class Comments extends React.Component {
         if (cookies.get('token')) {
             this.setState({ showWriteReviewPopup: true })
         } else {
-            localStorage.setItem('return', window.location.href)
             window.history.pushState({}, null, '/sign-in')
             window.location.reload()
         }
@@ -84,7 +83,7 @@ class Comments extends React.Component {
                             style={{ borderRadius: '0.25rem', cursor: 'pointer', backgroundColor: '#EE4266' }}
                             onClick={this.onWriteReviewClick}
                             id='write-review'
-                            className='btn text-white font-weight-bolder text-align-center px-4 py-2'>Değerlendirme Yazın</button>
+                            className='btn text-white font-weight-bolder text-align-center px-4 py-2'>{cookies.get('token') ? 'Değerlendirme yazın' : 'Değerlendirme yazmak için giriş yapın'}</button>
                     </div>
                 </div>
 
