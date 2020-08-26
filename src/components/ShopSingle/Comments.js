@@ -11,7 +11,8 @@ const cookies = new Cookies()
 class Comments extends React.Component {
 
     state = {
-        showWriteReviewPopup: false
+        showWriteReviewPopup: false,
+        comments: this.props.comments
     }
 
     renderDetailRow = ({ title, value, first }) => (
@@ -25,7 +26,7 @@ class Comments extends React.Component {
         </div>
     )
 
-    renderComment = ({ ownerAlias, title, comment }) => (
+    renderComment = ({ ownerAlias, title, comment, verified }) => (
         <div className='col-md-12 mb-2'>
             <div className='row p-3'>
                 <div className='col-md-3'>
@@ -42,14 +43,22 @@ class Comments extends React.Component {
                         <IoIosStarOutline size={24} color='orange' />
                     </div>
                     <b style={{ fontSize: 18 }} className='text-black font-weight-bold'>{title}</b>
-                    <p style={{ fontSize: 16 }} className='text-black mb-5 mt-3 font-weight-bolder'>{comment}</p>
+                    <p style={{ fontSize: 16 }} className='text-black mb-4 mt-3 font-weight-bolder'>{comment}</p>
 
-                    <div>
-                        <span style={{ fontSize: 16 }} className='text-black font-weight-bolder mr-4'>Yardımcı oldu mu ?</span>
-                        <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='text-white font-weight-bolder bg-secondary px-3 py-1'>Evet</span>
-                        <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='ml-2 text-white font-weight-bolder bg-secondary px-3 py-1'>Hayır</span>
-                        <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='ml-2 text-white font-weight-bolder bg-secondary px-3 py-1'>Bildir</span>
-                    </div>
+                    {
+                        verified ? (
+                            <div>
+                                <span style={{ fontSize: 16 }} className='text-black font-weight-bolder mr-4'>Yardımcı oldu mu ?</span>
+                                <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='text-white font-weight-bolder bg-secondary px-3 py-1'>Evet</span>
+                                <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='ml-2 text-white font-weight-bolder bg-secondary px-3 py-1'>Hayır</span>
+                                <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='ml-2 text-white font-weight-bolder bg-secondary px-3 py-1'>Bildir</span>
+                            </div>
+                        ) : (
+                                <div className='px-3 py-1 text-black' style={{ backgroundColor: 'rgb(255 250 204 / 76%)', borderRadius: '.25rem' }}>
+                                    Yorum gönderdiğiniz için teşekkür ederiz! Yorumunuz şu anda inceleniyor ve görüntülenmesi için bir kaç gün geçmesi gerekebilir.
+                                </div>
+                            )
+                    }
                 </div>
                 <div className='col-md-2'></div>
             </div>
@@ -65,8 +74,13 @@ class Comments extends React.Component {
         }
     }
 
-    hideWriteReviewPopup = () => {
-        this.setState({ showWriteReviewPopup: false })
+    hideWriteReviewPopup = (comment) => {
+        if (comment) {
+            this.state.comments.unshift(comment)
+            this.setState({ showWriteReviewPopup: false, comments: this.state.comments })
+        } else {
+            this.setState({ showWriteReviewPopup: false })
+        }
     }
 
     render() {
@@ -88,7 +102,7 @@ class Comments extends React.Component {
                 </div>
 
                 {
-                    this.props.comments.length > 0 && (
+                    this.state.comments.length > 0 && (
                         this.props.comments.map(this.renderComment)
                     )
                 }

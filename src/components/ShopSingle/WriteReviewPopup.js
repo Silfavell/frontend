@@ -26,10 +26,17 @@ class WriteReviewPopup extends React.Component {
             email
         } = this.state
 
-        axios.post(`${process.env.REACT_APP_API_URL}/user/save-comment`, { productId: this.props.productId, title, comment, ownerAlias, rate: 7 }).then(({ data, status }) => {
+        axios.post(`${process.env.REACT_APP_API_URL}/user/save-comment`, {
+            productId: this.props.productId,
+            title,
+            comment,
+            ownerAlias,
+            generalRate: 4,
+            qualityRate: 4,
+            priceRate: 4
+        }).then(({ data, status }) => {
             if (status === 200) {
                 VanillaToasts.create({
-                    // title: `Yorum gönderdiğiniz için teşekkür ederiz! Yorumunuz şu anda inceleniyor ve görüntülenmesi için bir kaç gün geçmesi gerekebilir.`,
                     title: `Yorumunuz gönderildi`,
                     positionClass: 'topRight',
                     type: 'success',
@@ -37,7 +44,7 @@ class WriteReviewPopup extends React.Component {
                 })
             }
 
-            this.props.hideWriteReviewPopup()
+            this.props.hideWriteReviewPopup(data)
         }).catch((err) => {
             this.props.hideWriteReviewPopup()
         })
