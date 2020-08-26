@@ -186,7 +186,7 @@ class WriteReviewPopup extends React.Component {
                             <button
                                 onClick={this.onConfirm}
                                 className='btn px-4 py-2 text-white'
-                                disabled={!this.state.isAgreementChecked}
+                                disabled={!isAgreementChecked}
                                 style={{ backgroundColor: '#EE4266', borderRadius: '.25rem', cursor: 'pointer' }}>Yorumu Gönder</button>
                         </div>
 
