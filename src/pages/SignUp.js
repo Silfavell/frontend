@@ -148,6 +148,7 @@ class SignUp extends React.Component {
             if (status === 200) {
                 cookies.set('token', data.token)
                 localStorage.setItem('_id', data.user._id)
+                localStorage.setItem('alias', data.user.alias)
                 localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
 
                 if (window.localStorage.getItem('cart')) {

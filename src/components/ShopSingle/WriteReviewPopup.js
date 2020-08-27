@@ -11,7 +11,6 @@ class WriteReviewPopup extends React.Component {
         title: '',
         comment: '',
         ownerAlias: '',
-        email: '',
         isAgreementChecked: false,
 
 
@@ -22,32 +21,44 @@ class WriteReviewPopup extends React.Component {
         const {
             title,
             comment,
-            ownerAlias,
-            email
+            ownerAlias
         } = this.state
 
-        axios.post(`${process.env.REACT_APP_API_URL}/user/save-comment`, {
-            productId: this.props.productId,
-            title,
-            comment,
-            ownerAlias,
-            generalRate: 4,
-            qualityRate: 4,
-            priceRate: 4
-        }).then(({ data, status }) => {
-            if (status === 200) {
-                VanillaToasts.create({
-                    title: `Yorumunuz gönderildi`,
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 5 * 1000
-                })
-            }
+        if (title.trim().length > 0 && comment.trim().length > 30 && (localStorage.getItem('alias') || ownerAlias.trim().length > 0)) {
+            axios.post(`${process.env.REACT_APP_API_URL}/user/save-comment`, {
+                productId: this.props.productId,
+                title,
+                comment,
+                ownerAlias,
+                generalRate: 4,
+                qualityRate: 4,
+                priceRate: 4
+            }).then(({ data, status }) => {
+                if (status === 200) {
+                    VanillaToasts.create({
+                        title: `Yorumunuz gönderildi`,
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 5 * 1000
+                    })
 
-            this.props.hideWriteReviewPopup(data)
-        }).catch((err) => {
-            this.props.hideWriteReviewPopup()
-        })
+                    if (ownerAlias.length > 0) {
+                        localStorage.setItem('alias', ownerAlias)
+                    }
+                }
+
+                this.props.hideWriteReviewPopup(data)
+            }).catch((err) => {
+                this.props.hideWriteReviewPopup()
+            })
+        } else {
+            VanillaToasts.create({
+                title: `Lütfen gerekli alanlarını doldurunuz`,
+                positionClass: 'topRight',
+                type: 'error',
+                timeout: 3 * 1000
+            })
+        }
     }
 
     onOutsideClick = (event) => {
@@ -75,7 +86,6 @@ class WriteReviewPopup extends React.Component {
             title,
             comment,
             ownerAlias,
-            email,
             isAgreementChecked
         } = this.state
 
@@ -85,7 +95,7 @@ class WriteReviewPopup extends React.Component {
                 <div className='col-md-12 p-5'>
                     <h4 className='text-black'>Flormar Perfect Coverage Liquid Concealer Kapatıcı 004 Medium Beige hakkındaki Yorumum</h4>
                     <br />
-                    <form autoComplete='off' action='' onSubmit={this.onSubmitForm}>
+                    <div>
 
                         <div className='form-group row border-top border-bottom py-4'>
                             <div className='col-md-6 d-flex align-items-center'>
@@ -116,7 +126,14 @@ class WriteReviewPopup extends React.Component {
 
                         <div className='form-group row'>
                             <div className='col-md-12'>
-                                <label htmlFor='comment' className='text-black'>Yorum <span className='text-danger'>*</span></label>
+                                <div className='d-flex justify-content-between'>
+                                    <label htmlFor='title' className='text-black'>Yorum <span className='text-danger'>*</span></label>
+                                    {
+                                        comment.length < 30 && (
+                                            <span className='text-black'>{`En az 30 karakter (${comment.length})`}</span>
+                                        )
+                                    }
+                                </div>
                                 <textarea
                                     type='text'
                                     className='form-control'
@@ -128,31 +145,23 @@ class WriteReviewPopup extends React.Component {
                             </div>
                         </div>
 
-                        <div className='form-group row'>
-                            <div className='col-md-6'>
-                                <label htmlFor='ownerAlias' className='text-black'>Takma Ad <span className='text-danger'>*</span></label>
-                                <input
-                                    type='text'
-                                    className='form-control'
-                                    id='ownerAlias'
-                                    name='ownerAlias'
-                                    placeholder='Diğer kullanıcıların gördüğü'
-                                    onChange={this.onChange}
-                                    value={ownerAlias} />
-                            </div>
-
-                            <div className='col-md-6'>
-                                <label htmlFor='email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
-                                <input
-                                    onChange={this.onEmailChange}
-                                    type='email'
-                                    className='form-control'
-                                    id='email'
-                                    name='email'
-                                    onChange={this.onChange}
-                                    value={email} />
-                            </div>
-                        </div>
+                        {
+                            !localStorage.getItem('alias') && (
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='ownerAlias' className='text-black'>Takma Ad <span className='text-danger'>*</span></label>
+                                        <input
+                                            type='text'
+                                            className='form-control'
+                                            id='ownerAlias'
+                                            name='ownerAlias'
+                                            placeholder='Diğer kullanıcıların gördüğü'
+                                            onChange={this.onChange}
+                                            value={ownerAlias} />
+                                    </div>
+                                </div>
+                            )
+                        }
 
                         <div className='form-group row border-top border-bottom py-4'>
                             <div className='col-md-6 d-flex align-items-center justify-content-center'>
@@ -197,7 +206,7 @@ class WriteReviewPopup extends React.Component {
                                 style={{ backgroundColor: '#EE4266', borderRadius: '.25rem', cursor: 'pointer' }}>Yorumu Gönder</button>
                         </div>
 
-                    </form>
+                    </div>
                 </div>
             </PopupWrapper>
         )
