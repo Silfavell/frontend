@@ -4,6 +4,8 @@ import { Nav, Tab } from 'react-bootstrap'
 
 import Carousel from '../Carousel'
 
+import './Tabs.css'
+
 class Tabs extends React.Component {
     state = {
         bestSeller: []
