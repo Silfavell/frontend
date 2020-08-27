@@ -147,7 +147,26 @@ class SignUp extends React.Component {
         }).then(({ status, data }) => {
             if (status === 200) {
                 cookies.set('token', data.token)
-                this.props.history.push('/')
+                localStorage.setItem('_id', data.user._id)
+                localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
+
+                if (window.localStorage.getItem('cart')) {
+                    axios.post(`${process.env.REACT_APP_API_URL}/user/cart`, JSON.parse(window.localStorage.getItem('cart'))).then(() => {
+                        window.localStorage.removeItem('cart')
+
+                        if (document.referrer.includes(window.location.origin)) {
+                            window.history.back()
+                        } else {
+                            this.props.history.push('/')
+                        }
+                    })
+                } else {
+                    if (document.referrer.includes(window.location.origin)) {
+                        window.history.back()
+                    } else {
+                        this.props.history.push('/')
+                    }
+                }
             }
         })
     }

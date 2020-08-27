@@ -156,8 +156,6 @@ class ReturnItems extends React.Component {
             }
         ]
 
-        console.log(this.state)
-
         return (
             <SiteWrap divider={divider}>
                 <div className='container'>

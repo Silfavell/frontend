@@ -38,6 +38,7 @@ class SignIn extends React.Component {
         axios.post(url, { phoneNumber, password }).then(({ status, data }) => {
             if (status === 200) {
                 cookies.set('token', data.token)
+                localStorage.setItem('_id', data.user._id)
                 localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
 
                 if (window.localStorage.getItem('cart')) {

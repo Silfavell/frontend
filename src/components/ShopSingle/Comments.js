@@ -1,8 +1,10 @@
 import React from 'react'
-import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from 'react-icons/io'
 import Cookies from 'universal-cookie'
+import axios from 'axios'
+import VanillaToasts from 'vanillatoasts'
 
 import WriteReviewPopup from './WriteReviewPopup'
+import Comment from './Comment'
 
 import './Comments.css'
 
@@ -26,44 +28,50 @@ class Comments extends React.Component {
         </div>
     )
 
-    renderComment = ({ ownerAlias, title, comment, verified }) => (
-        <div className='col-md-12 mb-2'>
-            <div className='row p-3'>
-                <div className='col-md-3'>
-                    <div>
-                        <b style={{ fontSize: 18, wordBreak: 'break-word' }} className='text-black'>{ownerAlias}</b>
-                    </div>
-                </div>
-                <div className='col-md-7'>
-                    <div className='pb-3'>
-                        <IoIosStar size={24} color='orange' />
-                        <IoIosStarHalf size={24} color='orange' />
-                        <IoIosStarOutline size={24} color='orange' />
-                        <IoIosStarOutline size={24} color='orange' />
-                        <IoIosStarOutline size={24} color='orange' />
-                    </div>
-                    <b style={{ fontSize: 18 }} className='text-black font-weight-bold'>{title}</b>
-                    <p style={{ fontSize: 16 }} className='text-black mb-4 mt-3 font-weight-bolder'>{comment}</p>
+    onLikeClick = (_id, alreadyLiked) => {
+        const url = alreadyLiked ? `${process.env.REACT_APP_API_URL}/user/remove-like-comment/${_id}` : `${process.env.REACT_APP_API_URL}/user/like-comment/${_id}`
 
-                    {
-                        verified ? (
-                            <div>
-                                <span style={{ fontSize: 16 }} className='text-black font-weight-bolder mr-4'>Yardımcı oldu mu ?</span>
-                                <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='text-white font-weight-bolder bg-secondary px-3 py-1'>Evet</span>
-                                <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='ml-2 text-white font-weight-bolder bg-secondary px-3 py-1'>Hayır</span>
-                                <span style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }} className='ml-2 text-white font-weight-bolder bg-secondary px-3 py-1'>Bildir</span>
-                            </div>
-                        ) : (
-                                <div className='px-3 py-1 text-black' style={{ backgroundColor: 'rgb(255 250 204 / 76%)', borderRadius: '.25rem' }}>
-                                    Yorum gönderdiğiniz için teşekkür ederiz! Yorumunuz şu anda inceleniyor ve görüntülenmesi için bir kaç gün geçmesi gerekebilir.
-                                </div>
-                            )
-                    }
-                </div>
-                <div className='col-md-2'></div>
-            </div>
-        </div>
-    )
+        axios.put(url).then(({ status, data }) => {
+            if (status === 200) {
+                this.setState({
+                    comments: this.state.comments.map((comment) => {
+                        if (comment._id === data._id) {
+                            return data
+                        }
+
+                        return comment
+                    })
+                })
+            }
+        })
+    }
+
+    onDislikeClick = (_id, alreadyDisliked) => {
+        const url = alreadyDisliked ? `${process.env.REACT_APP_API_URL}/user/remove-dislike-comment/${_id}` : `${process.env.REACT_APP_API_URL}/user/dislike-comment/${_id}`
+
+        axios.put(url).then(({ status, data }) => {
+            if (status === 200) {
+                this.setState({
+                    comments: this.state.comments.map((comment) => {
+                        if (comment._id === data._id) {
+                            return data
+                        }
+
+                        return comment
+                    })
+                })
+            }
+        })
+    }
+
+    onReportClick = (_id) => {
+        VanillaToasts.create({
+            title: 'Yorum Bildirildi',
+            positionClass: 'topRight',
+            type: 'success',
+            timeout: 3 * 1000
+        })
+    }
 
     onWriteReviewClick = () => {
         if (cookies.get('token')) {
@@ -82,6 +90,14 @@ class Comments extends React.Component {
             this.setState({ showWriteReviewPopup: false })
         }
     }
+
+    renderComment = (comment) => (
+        <Comment
+            item={comment}
+            onLikeClick={this.onLikeClick}
+            onDislikeClick={this.onDislikeClick}
+            onReportClick={this.onReportClick} />
+    )
 
     render() {
         return (
@@ -103,7 +119,7 @@ class Comments extends React.Component {
 
                 {
                     this.state.comments.length > 0 && (
-                        this.props.comments.map(this.renderComment)
+                        this.state.comments.map(this.renderComment)
                     )
                 }
             </div>
