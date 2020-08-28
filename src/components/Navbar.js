@@ -36,6 +36,8 @@ class Navbar extends React.Component {
     onLogoutClick = () => {
         cookies.remove('token', { path: '/' })
         cookies.remove('user', { path: '/' })
+        localStorage.removeItem('_id')
+        localStorage.removeItem('alias')
         localStorage.removeItem('favoriteProducts')
         window.location.reload()
     }
