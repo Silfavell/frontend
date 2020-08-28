@@ -49,7 +49,7 @@ E-Posta: muhammetipek57@hotmail.com
                                 <h5 className='text-black my-5'>B - Ürüne, Ürünün Satış Fiyatına ve Nakliyesine İlişkin Bilgiler</h5>
                                 <p><b className='text-black'>3 - Ürün Bilgileri</b></p>
 
-                                <table class='table table-bordered'>
+                                <table className='table table-bordered'>
                                     <thead>
                                         <tr>
                                             <th scope='col'>Ürün Adı</th>

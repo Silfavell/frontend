@@ -16,14 +16,15 @@ class PopupWrapper extends React.Component {
                 alignItems: 'center',
                 justifyContent: 'center'
             }} onClick={this.props.onOutsideClick}>
-                <div style={{
-                    backgroundColor: 'white',
-                    maxWidth: '50%',
-                    maxHeight: '90%',
-                    width: '100%',
-                    position: 'relative',
-                    overflow: 'auto'
-                }}>
+                <div
+                    className='col-md-6'
+                    style={{
+                        backgroundColor: 'white',
+                        maxHeight: '90%',
+                        width: '100%',
+                        position: 'relative',
+                        overflow: 'auto'
+                    }}>
                     <IoIosClose
                         onClick={this.props.onCloseClick}
                         style={{

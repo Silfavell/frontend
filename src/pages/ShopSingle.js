@@ -7,8 +7,10 @@ import Loading from '../components/Loading'
 import SiteWrap from '../components/SiteWrap'
 import ProductImages from '../components/ProductImages'
 import Tabs from '../components/ShopSingle/Tabs'
+import Accordion from '../components/ShopSingle/Accordion'
 import Carousel from '../components/Carousel'
 
+import './ShopSingle.css'
 
 class ShopSingle extends React.Component {
 
@@ -106,6 +108,7 @@ class ShopSingle extends React.Component {
             name,
             details,
             specifications,
+            comments,
             price,
             discountedPrice,
             brand,
@@ -133,7 +136,7 @@ class ShopSingle extends React.Component {
                     <meta name='description' content={details} />
                 </Helmet>
                 <div className='row'>
-                    <div className='col-md-6 pb-5'>
+                    <div className='col-md-6 pb-5 pr-5'>
                         <ProductImages images={this.getImages(image, imageCount)} />
                     </div>
                     <div className='col-md-6 pb-4'>
@@ -229,9 +232,20 @@ class ShopSingle extends React.Component {
 
                     </div>
                 </div>
-                <div className='row mt-5'>
+                <div className='mt-5' id='shop-single-tabs'>
                     <Tabs
+                        productId={_id}
                         details={details}
+                        comments={comments}
+                        specifications={specifications}
+                    />
+                </div>
+
+                <div className='mt-5' id='shop-single-accordion'>
+                    <Accordion
+                        productId={_id}
+                        details={details}
+                        comments={comments}
                         specifications={specifications}
                     />
                 </div>
@@ -240,8 +254,8 @@ class ShopSingle extends React.Component {
                     (this.state.relatedProducts && this.state.relatedProducts.length > 0) && (
                         <>
                             <div className='col-md-12 p-4' />
-                            <div className='col-md-12 p-1'>
-                                <h2 className='h4 mb-3 text-black d-flex align-items-center justify-content-start'>İlgizi Çekebilecek Diğer Ürünler</h2>
+                            <div className='col-md-12 px-2'>
+                                <h2 className='h4 my-3 text-black d-flex align-items-center justify-content-start'>İlgizi Çekebilecek Diğer Ürünler</h2>
                             </div>
 
                             <Carousel

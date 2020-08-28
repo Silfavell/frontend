@@ -281,13 +281,13 @@ class Payment extends React.Component {
                                             <div className='row border'>
                                                 <div className='col-md-6 border-right p-3' style={{ cursor: 'pointer', borderBottom: this.state.selected === 0 ? '2px solid #EE4266' : '' }} onClick={this.onAddressOptionsClick}>
                                                     <h4 className={'text-secondary'}>Adres Bilgileri</h4>
-                                                    <p className={'text-primary h5'}>{this.state.addresses[this.state.selectedAddress]?.addressTitle}</p>
-                                                    <p className={'text-black h6'}>{this.state.addresses[this.state.selectedAddress]?.openAddress}</p>
+                                                    <p style={{ textOverflow: 'ellipsis', overflow: 'hidden' }} className={'text-primary h5'}>{this.state.addresses[this.state.selectedAddress]?.addressTitle}</p>
+                                                    <p style={{ textOverflow: 'ellipsis', overflow: 'hidden' }} className={'text-black h6'}>{this.state.addresses[this.state.selectedAddress]?.openAddress}</p>
                                                 </div>
                                                 <div className='col-md-6 p-3' style={{ cursor: 'pointer', borderBottom: this.state.selected === 1 ? '2px solid #EE4266' : '' }} onClick={this.onPaymentOptionsClick}>
                                                     <h4 className={'text-secondary'}>Ödeme Seçenekleri</h4>
-                                                    <p className={'text-primary h5'}>{this.state.cards[this.state.selectedCard]?.cardAlias}</p>
-                                                    <p className={'text-black h6'}>{this.state.cards[this.state.selectedCard] ? '**** **** **** ' + this.state.cards[this.state.selectedCard]?.lastFourDigits : ''}</p>
+                                                    <p style={{ textOverflow: 'ellipsis', overflow: 'hidden' }} className={'text-primary h5'}>{this.state.cards[this.state.selectedCard]?.cardAlias}</p>
+                                                    <p style={{ textOverflow: 'ellipsis', overflow: 'hidden' }} className={'text-black h6'}>{this.state.cards[this.state.selectedCard] ? '**** **** **** ' + this.state.cards[this.state.selectedCard]?.lastFourDigits : ''}</p>
                                                 </div>
                                             </div>
                                         </div>

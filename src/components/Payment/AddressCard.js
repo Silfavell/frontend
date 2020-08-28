@@ -26,7 +26,7 @@ class AddressCard extends React.Component {
                             addressTitle
                         }
                     </div>
-                    <div className='col-md-12'>
+                    <div className='col-md-12' style={{ textOverflow: 'ellipsis', overflow: 'hidden' }} >
                         {
                             openAddress
                         }
