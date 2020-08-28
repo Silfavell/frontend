@@ -1,9 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
-import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from 'react-icons/io'
 
 import PopupWrapper from '../PopupWrapper'
+import Rate from './Rate'
 
 class WriteReviewPopup extends React.Component {
 
@@ -11,10 +11,7 @@ class WriteReviewPopup extends React.Component {
         title: '',
         comment: '',
         ownerAlias: '',
-        isAgreementChecked: false,
-
-
-        generalEvaluationRateHover: 5
+        isAgreementChecked: false
     }
 
     onConfirm = () => {
@@ -24,15 +21,21 @@ class WriteReviewPopup extends React.Component {
             ownerAlias
         } = this.state
 
-        if (title.trim().length > 0 && comment.trim().length > 30 && (localStorage.getItem('alias') || ownerAlias.trim().length > 0)) {
+        if (
+            title.trim().length > 0 &&
+            comment.trim().length > 30 &&
+            this.generalRateRef.state.rate > 0 &&
+            this.qualityRateRef.state.rate > 0 &&
+            this.priceRateRef.state.rate > 0 &&
+            (localStorage.getItem('alias') || ownerAlias.trim().length > 0)) {
             axios.post(`${process.env.REACT_APP_API_URL}/user/save-comment`, {
                 productId: this.props.productId,
                 title,
                 comment,
                 ownerAlias,
-                generalRate: 4,
-                qualityRate: 4,
-                priceRate: 4
+                generalRate: this.generalRateRef.state.rate,
+                qualityRate: this.qualityRateRef.state.rate,
+                priceRate: this.priceRateRef.state.rate
             }).then(({ data, status }) => {
                 if (status === 200) {
                     VanillaToasts.create({
@@ -81,6 +84,18 @@ class WriteReviewPopup extends React.Component {
         this.setState({ isAgreementChecked: event.target.checked })
     }
 
+    onGeneralRateRef = (ref) => {
+        this.generalRateRef = ref
+    }
+
+    onQualityRateRef = (ref) => {
+        this.qualityRateRef = ref
+    }
+
+    onPriceRateRef = (ref) => {
+        this.priceRateRef = ref
+    }
+
     render() {
         const {
             title,
@@ -103,11 +118,7 @@ class WriteReviewPopup extends React.Component {
                             </div>
 
                             <div className='col-md-6 d-flex align-items-center justify-content-center'>
-                                <IoIosStar size={32} color='orange' />
-                                <IoIosStarHalf size={32} color='orange' />
-                                <IoIosStarOutline size={32} color='orange' />
-                                <IoIosStarOutline size={32} color='orange' />
-                                <IoIosStarOutline size={32} color='orange' />
+                                <Rate ref={this.onGeneralRateRef} />
                             </div>
                         </div>
 
@@ -130,7 +141,7 @@ class WriteReviewPopup extends React.Component {
                                     <label htmlFor='title' className='text-black'>Yorum <span className='text-danger'>*</span></label>
                                     {
                                         comment.length < 30 && (
-                                            <span className='text-black'>{`En az 30 karakter (${comment.length})`}</span>
+                                            <span style={{ color: 'red' }}>{`En az 30 karakter (${comment.length})`}</span>
                                         )
                                     }
                                 </div>
@@ -169,11 +180,7 @@ class WriteReviewPopup extends React.Component {
                             </div>
 
                             <div className='col-md-6 d-flex align-items-center justify-content-center'>
-                                <IoIosStar size={32} color='orange' />
-                                <IoIosStarHalf size={32} color='orange' />
-                                <IoIosStarOutline size={32} color='orange' />
-                                <IoIosStarOutline size={32} color='orange' />
-                                <IoIosStarOutline size={32} color='orange' />
+                                <Rate ref={this.onQualityRateRef} />
                             </div>
                         </div>
 
@@ -183,11 +190,7 @@ class WriteReviewPopup extends React.Component {
                             </div>
 
                             <div className='col-md-6 d-flex align-items-center justify-content-center'>
-                                <IoIosStar size={32} color='orange' />
-                                <IoIosStarHalf size={32} color='orange' />
-                                <IoIosStarOutline size={32} color='orange' />
-                                <IoIosStarOutline size={32} color='orange' />
-                                <IoIosStarOutline size={32} color='orange' />
+                                <Rate ref={this.onPriceRateRef} />
                             </div>
                         </div>
 
