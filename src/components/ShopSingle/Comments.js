@@ -13,7 +13,7 @@ const cookies = new Cookies()
 class Comments extends React.Component {
 
     state = {
-        showWriteReviewPopup: true,
+        showWriteReviewPopup: false,
         comments: this.props.comments
     }
 
