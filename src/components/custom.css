@@ -193,3 +193,20 @@
     justify-content: center;
     border-radius: 0 !important;
 }
+
+/** toast types */
+.vanillatoasts-success {
+    border-bottom: 2px solid #51C625 !important;
+}
+
+.vanillatoasts-warning {
+    border-bottom: 2px solid #DB9215 !important;
+}
+
+.vanillatoasts-error {
+    border-bottom: 2px solid #DB2B1D !important;
+}
+
+.vanillatoasts-info {
+    border-bottom: 2px solid #27ABDB !important;
+}
