@@ -355,7 +355,10 @@ class Payment extends React.Component {
                                         <div className='col-md-12'>
                                             <button
                                                 disabled={
-                                                    !this.state.isPreInfoChecked || !this.state.isSalesContractChecked
+                                                    !this.state.isPreInfoChecked ||
+                                                    !this.state.isSalesContractChecked ||
+                                                    !this.state.addresses[this.state.selectedAddress] ||
+                                                    !this.state.cards[this.state.selectedCard]
                                                 }
                                                 className='btn btn-primary btn-lg btn-block'
                                                 onClick={this.onCompletePaymentClick}>Ödemeyi Tamamla</button>
@@ -365,7 +368,7 @@ class Payment extends React.Component {
                             </div>
                         </div>
                     </>
-                </SiteWrap>
+                </SiteWrap >
             )
         }
     }
