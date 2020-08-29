@@ -389,8 +389,8 @@ class SignUp extends React.Component {
         return (
             <SiteWrap divider={divider}>
                 <div className='container'>
-                    <div className="col-md-12 d-flex align-items-center justify-content-center">
-                        <div className='col-md-6'>
+                    <div className='w-100 d-flex align-items-center justify-content-center'>
+                        <div className='col-md-6 px-0'>
                             {
                                 this.renderSignUpScreen()
                             }

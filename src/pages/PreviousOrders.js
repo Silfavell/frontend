@@ -58,22 +58,24 @@ class PreviousOrders extends React.Component {
                     <div className='container'>
                         <div className='row mb-5'>
                             <ProfileColumn />
-                            <div className={`col-md-9 order-1 ${!(this.state.orders.length > 0) ? 'border' : ''}`}>
-                                {
-                                    this.state.orders.length > 0 ? (
-                                        <>
-                                            {
-                                                this.state.orders.map((order) => (
-                                                    <OrderItem key={order._id} item={order} />
-                                                ))
-                                            }
-                                        </>
-                                    ) : (
-                                            <div className='h-100 w-100 d-flex align-items-center justify-content-center'>
-                                                Siparişiniz bulunmamaktadır.
-                                            </div>
-                                        )
-                                }
+                            <div className={`col-md-9 order-1 my-2`}>
+                                <div className={`w-100 h-100 ${!(this.state.orders.length > 0) ? 'border' : ''}`}>
+                                    {
+                                        this.state.orders.length > 0 ? (
+                                            <>
+                                                {
+                                                    this.state.orders.map((order) => (
+                                                        <OrderItem key={order._id} item={order} />
+                                                    ))
+                                                }
+                                            </>
+                                        ) : (
+                                                <div className='h-100 w-100 d-flex align-items-center justify-content-center p-5'>
+                                                    Siparişiniz bulunmamaktadır.
+                                                </div>
+                                            )
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>

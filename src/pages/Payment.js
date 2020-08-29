@@ -170,7 +170,7 @@ class Payment extends React.Component {
     }
 
     renderAddressesSection = () => (
-        <div id={'addresses'} className='row mb-5 border'>
+        <div id={'addresses'} className='mb-5 border'>
             <div className='col-md-12 p-4'>
                 <p className={'text-gray h5'}>Adres Seçimi</p>
             </div>
@@ -193,7 +193,7 @@ class Payment extends React.Component {
 
     renderPaymentOptionsSection = () => {
         return (
-            <div id={'paymentOptions'} className='row mb-5 border' style={{ display: 'none' }}>
+            <div id={'paymentOptions'} className='mb-5 border' style={{ display: 'none' }}>
                 <div className='col-md-12 p-4'>
                     <p className={'text-gray h6'}>Kredi kartı bilgileriniz Silfavell tarafından saklanmamaktadır.</p>
                     <p className={'text-black font-weight-bold h6'}>Ödeme altyapısı MasterPass tarafından sağlanmaktadır.</p>
@@ -275,8 +275,8 @@ class Payment extends React.Component {
 
                         <div className='container'>
                             <div className='row'>
-                                <div className='col-md-8' style={{ paddingRight: '2.2rem', paddingLeft: '2.2rem' }}>
-                                    <div className='row mb-5'>
+                                <div className='col-md-8'>
+                                    <div className='mb-5'>
                                         <div className='col-md-12'>
                                             <div className='row border'>
                                                 <div className='col-md-6 border-right p-3' style={{ cursor: 'pointer', borderBottom: this.state.selected === 0 ? '2px solid #EE4266' : '' }} onClick={this.onAddressOptionsClick}>
@@ -300,7 +300,7 @@ class Payment extends React.Component {
                                         this.renderAddressesSection()
                                     }
                                 </div>
-                                <div>
+                                <div className='col-md-4'>
                                     <div className='col-md-12 border p-4'>
                                         <div className='row'>
                                             <div className='col-md-12 text-left mb-5'>
