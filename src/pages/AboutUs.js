@@ -16,7 +16,7 @@ class AboutUs extends React.Component {
                     <div className='row'>
                         <div className='col-md-12'>
                             <div className='row'>
-                                <div className='col-md-7'>
+                                <div className='col-md-7 my-2'>
                                     <div className='p-3 p-lg-5 border'>
                                         <div className='col-md-12'>
                                             <h2 className='h3 mb-3 text-black'>Silfavell Hakkında</h2>
@@ -50,7 +50,7 @@ class AboutUs extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className='col-md-5 ml-auto'>
+                                <div className='col-md-5 ml-auto my-2'>
                                     <div className='p-4 border mb-3'>
                                         <span className='d-block text-primary h6 text-uppercase'>Vizyonumuz</span>
                                         <p className='mb-0'>

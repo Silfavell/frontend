@@ -75,7 +75,7 @@ class Contact extends React.Component {
       <SiteWrap divider={divider}>
         <div className='container'>
           <div className='row'>
-            <div className='col-md-7'>
+            <div className='col-md-7 my-2'>
 
               <div className='p-3 p-lg-5 border'>
                 <div className='form-group row'>
@@ -126,7 +126,7 @@ class Contact extends React.Component {
             </div>
 
 
-            <div className='col-md-5 ml-auto'>
+            <div className='col-md-5 ml-auto my-2'>
               <div className='p-4 border mb-3'>
                 <span className='d-block text-primary h6 text-uppercase'>İstanbul</span>
                 <p className='mb-0'>Yavuz Sultan Selim, Dr. Sadık Ahmet Cd. No:24, 34083 Fatih/İstanbul</p>
