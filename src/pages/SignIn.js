@@ -123,8 +123,8 @@ class SignIn extends React.Component {
         return (
             <SiteWrap divider={divider}>
                 <div className='container'>
-                    <div className='col-md-12 d-flex align-items-center justify-content-center'>
-                        <div className='col-md-6'>
+                    <div className='w-100 d-flex align-items-center justify-content-center'>
+                        <div className='col-md-6 px-0'>
                             <div className='p-3 p-lg-5'>
                                 <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
                                     <div className='col-md-12'>
