@@ -59,7 +59,7 @@ class ReturnItemsCompleted extends React.Component {
                             <p className='text-black'>Ürününüz kargo aracılığıyla depomuza ulaştıktan sonra iade işleminiz tamamlanmak üzere işleme konulacaktır.</p>
                         </div>
                     </div>
-                    <div className='col-md-12 order-1 py-4'>
+                    <div className='col-md-12 order-1 py-4' style={{ overflowX: 'auto' }}>
                         {
                             this.state?.order && (
                                 <OrderItem item={this.state?.order} returnItemsCompleted />

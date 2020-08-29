@@ -11,13 +11,13 @@ class OrderItem extends React.Component {
 
     getOrderStatus = (status) => {
         switch (status) {
-			case OrderStatus.WAITING_FOR_APPROVAL: return 'Onay Bekliyor'
-			case OrderStatus.APPROVED: return 'Onaylandı'
-			case OrderStatus.CANCELED: return 'Iptal Edildi'
-			case OrderStatus.RETURNED: return 'Iade Talep Edildi'
-			case OrderStatus.RETURN_ACCEPTED: return 'Iade Kabul Edildi'
-			case OrderStatus.RETURN_DENIED: return 'Iade Reddedildi'
-			default: return 'Onaylandı'
+            case OrderStatus.WAITING_FOR_APPROVAL: return 'Onay Bekliyor'
+            case OrderStatus.APPROVED: return 'Onaylandı'
+            case OrderStatus.CANCELED: return 'Iptal Edildi'
+            case OrderStatus.RETURNED: return 'Iade Talep Edildi'
+            case OrderStatus.RETURN_ACCEPTED: return 'Iade Kabul Edildi'
+            case OrderStatus.RETURN_DENIED: return 'Iade Reddedildi'
+            default: return 'Onaylandı'
         }
     }
 
@@ -60,7 +60,7 @@ class OrderItem extends React.Component {
         } = this.props.item
 
         return (
-            <div className='container border mb-3 pt-3'>
+            <div className='container border mb-3 pt-3' style={{ minWidth: 400 }}>
                 {
                     !this.props.returnItemsCompleted && (
                         <>

@@ -59,7 +59,7 @@ class PreviousOrders extends React.Component {
                         <div className='row mb-5'>
                             <ProfileColumn />
                             <div className={`col-md-9 order-1 my-2`}>
-                                <div className={`w-100 h-100 ${!(this.state.orders.length > 0) ? 'border' : ''}`}>
+                                <div className={`w-100 h-100 ${!(this.state.orders.length > 0) ? 'border' : ''}`} style={{ overflowX: 'auto' }}>
                                     {
                                         this.state.orders.length > 0 ? (
                                             <>

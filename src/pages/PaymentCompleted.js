@@ -22,7 +22,7 @@ class PaymentCompleted extends React.Component {
                             </h5>
                         </div>
                     </div>
-                    <div className='w-100 order-1 py-4'>
+                    <div className='w-100 order-1 py-4' style={{ overflowX: 'auto' }}>
                         <OrderItem item={this.props.location.state.order} />
                     </div>
                 </div>
