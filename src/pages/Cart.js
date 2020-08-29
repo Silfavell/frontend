@@ -17,7 +17,7 @@ class Cart extends React.Component {
         return (
             <div className='container'>
                 <div className='row mb-5'>
-                    <div className='col-md-9'>
+                    <div className='col-md-8'>
                         <div className='site-blocks-table'>
                             <table className='table border'>
                                 <tbody>
@@ -36,7 +36,7 @@ class Cart extends React.Component {
                             </table>
                         </div>
                     </div>
-                    <div className='col-md-3'>
+                    <div className='col-md-4'>
                         <div className='col-md-12 border p-4'>
                             <div className='row'>
                                 <div className='col-md-12 text-left mb-5'>

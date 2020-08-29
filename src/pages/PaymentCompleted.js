@@ -11,7 +11,7 @@ class PaymentCompleted extends React.Component {
         return (
             <SiteWrap>
                 <div className='container'>
-                    <div className='col-md-12'>
+                    <div className='w-100'>
                         <div
                             className='col-md-12 d-flex align-items-center justify-content-center border'
                             style={{ backgroundColor: 'rgba(81, 198, 37, 0.1)' }}>
@@ -22,7 +22,7 @@ class PaymentCompleted extends React.Component {
                             </h5>
                         </div>
                     </div>
-                    <div className='col-md-12 order-1 py-4'>
+                    <div className='w-100 order-1 py-4'>
                         <OrderItem item={this.props.location.state.order} />
                     </div>
                 </div>
