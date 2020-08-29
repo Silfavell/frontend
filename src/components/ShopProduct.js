@@ -81,7 +81,7 @@ class ShopProduct extends React.Component {
                             className='w-100 py-5' />
 
                         <div className='interface'>
-                            <div className='top w-100'>
+                            <div className='top col-md-12'>
                                 <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-favorite'>
                                     <div onClick={this.props.loggedIn && (this.state.favorite ? this.removeFromFavoriteProdutcs : this.addToFavoriteProducts)}>
                                         {
