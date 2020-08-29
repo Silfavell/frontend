@@ -56,12 +56,10 @@ class Shop extends React.Component {
 
         var searchParams = new URLSearchParams(location.search)
 
-        if (searchParams.toString().includes(`${filter}=${filterValue.toString().replace(' ', '+')}`)) {
-            if (searchParams.toString().startsWith(`?${filter}=${filterValue.toString().replace(' ', '+')}`)) {
-                return '?' + searchParams.toString().replace(`?${filter}=${filterValue.toString().replace(' ', '+')}`, '')
-            }
-
-            return '?' + searchParams.toString().replace(`&${filter}=${filterValue.toString().replace(' ', '+')}`, '')
+        if (searchParams.toString().includes(`${filter}=${filterValue.toString().split(' ').join('+')}`)) {
+            return '?' + searchParams.toString()
+                .replace(`&${filter}=${filterValue.toString().split(' ').join('+')}`, '')
+                .replace(`${filter}=${filterValue.toString().split(' ').join('+')}`, '')
         } else {
             if (multiple) {
                 searchParams.append(filter, filterValue)
@@ -326,7 +324,7 @@ class Shop extends React.Component {
                                                     brand={brand.name}
                                                     className='mr-2 mt-1'
                                                     style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
-                                                    checked={this.props.location.search.includes(`brands=${brand.name.replace(' ', '+')}`)} />
+                                                    checked={this.props.location.search.includes(`brands=${brand.name.split(' ').join('+')}`)} />
                                                 <span className='text-black'>
                                                     {`${brand.name} (${brand.count})`}
                                                 </span>
