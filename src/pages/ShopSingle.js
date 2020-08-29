@@ -136,7 +136,7 @@ class ShopSingle extends React.Component {
                     <meta name='description' content={details} />
                 </Helmet>
                 <div className='row'>
-                    <div className='col-md-6 pb-5 pr-5'>
+                    <div className='col-md-6 pb-5 px-5'>
                         <ProductImages images={this.getImages(image, imageCount)} />
                     </div>
                     <div className='col-md-6 pb-4'>
