@@ -68,7 +68,7 @@ class Product extends React.Component {
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
 
         return (
-            <a href={`/${this.props.item.slug}/p`} className='col-md-12 ml-auto d-relative product' style={{ cursor: 'unset' }}>
+            <a href={`/${this.props.item.slug}/p`} className='col-md-12 ml-auto d-relative product'>
                 <div className='border product-border-bottom m-1'>
                     <div className='position-relative interface-container'>
                         <img
