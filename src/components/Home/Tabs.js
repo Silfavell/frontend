@@ -1,21 +1,20 @@
 import React from 'react'
 import axios from 'axios'
-import { Nav, Tab } from 'react-bootstrap'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import 'react-tabs/style/react-tabs.css'
 
 import Carousel from '../Carousel'
 
 import './Tabs.css'
 
-class Tabs extends React.Component {
+class CustomTabs extends React.Component {
     state = {
         bestSeller: []
     }
 
     UNSAFE_componentWillMount() {
         this.fetchProducts().then((bestSeller) => {
-            this.setState({
-                bestSeller
-            })
+            this.setState({ bestSeller })
         })
     }
 
@@ -27,30 +26,25 @@ class Tabs extends React.Component {
     render() {
         if (this.state.bestSeller.length > 0) {
             return (
-                <Tab.Container defaultActiveKey={this.state.bestSeller[0]._id}>
-                    <Nav variant='tabs' className={'pl-4 w-100'}>
+                <Tabs defaultIndex={0} className='w-100'>
+                    <TabList>
                         {
                             this.state.bestSeller.map((category) => (
-                                <Nav.Item key={'bestSellerTab' + category._id} className={'mx-2'}>
-                                    <Nav.Link style={{ color: '#495057' }} eventKey={category._id}>{category.name}</Nav.Link>
-                                </Nav.Item>
+                                <Tab>{category.name}</Tab>
                             ))
                         }
-                    </Nav>
-
-                    <Tab.Content className={'w-100'}>
-                        {
-                            this.state.bestSeller.map((category) => (
-                                <Tab.Pane key={'bestSellerPane' + category._id} eventKey={category._id}>
-                                    <Carousel
-                                        products={category.products}
-                                        onIncreaseClick={this.props.onIncreaseClick}
-                                    />
-                                </Tab.Pane>
-                            ))
-                        }
-                    </Tab.Content>
-                </Tab.Container>
+                    </TabList>
+                    {
+                        this.state.bestSeller.map((category) => (
+                            <TabPanel className='w-100'>
+                                <Carousel
+                                    products={category.products}
+                                    onIncreaseClick={this.props.onIncreaseClick}
+                                />
+                            </TabPanel>
+                        ))
+                    }
+                </Tabs>
             )
         }
 
@@ -58,4 +52,4 @@ class Tabs extends React.Component {
     }
 }
 
-export default Tabs
+export default CustomTabs
