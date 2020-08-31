@@ -21,7 +21,7 @@ class ProfileColumn extends React.Component {
                     <li><a href='/update-password'>Şifremi Değiştir</a></li>
                     <li><a href='/favorite-products'>Favori Ürünlerim</a></li>
                     <li><a href='/previous-orders'>Siparişlerim</a></li>
-                    <li><div style={{ color: '#007bff' }} onClick={this.onLogoutClick}>Çıkış Yap</div></li>
+                    <li><span style={{ color: '#007bff', cursor: 'pointer' }} onClick={this.onLogoutClick}>Çıkış Yap</span></li>
                 </ul>
             </div>
         )
