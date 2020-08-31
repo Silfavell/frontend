@@ -54,10 +54,11 @@ class Shop extends React.Component {
     onFilterLinkClick = (filter, filterValue, multiple, price) => {
         const { location } = this.props
 
-        var searchParams = new URLSearchParams(location.search)
+        let searchParams = new URLSearchParams(location.search)
+        let searchParamsAsString = decodeURIComponent(searchParams.toString())
 
-        if (searchParams.toString().includes(`${filter}=${filterValue.toString().split(' ').join('+')}`)) {
-            return '?' + searchParams.toString()
+        if (searchParamsAsString.includes(`${filter}=${filterValue.toString().split(' ').join('+')}`)) {
+            return '?' + searchParamsAsString
                 .replace(`&${filter}=${filterValue.toString().split(' ').join('+')}`, '')
                 .replace(`${filter}=${filterValue.toString().split(' ').join('+')}`, '')
         } else {
