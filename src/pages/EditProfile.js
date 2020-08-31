@@ -108,8 +108,8 @@ class EditProfile extends React.Component {
                 <div className='container'>
                     <div className='row'>
                         <ProfileColumn />
-                        <div className='col-md-9 d-flex align-items-center justify-content-center my-2'>
-                            <div className="w-100 h-100 border py-4">
+                        <div className='col-md-9'>
+                            <div className="w-100 h-100 d-flex align-items-center justify-content-center my-2 border py-4">
                                 <div className='col-md-6'>
 
                                     <div className='form-group row'>
