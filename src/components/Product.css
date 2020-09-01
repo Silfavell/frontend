@@ -41,3 +41,11 @@
 .product .interface-container .interface .top .add-to-favorite svg {
     cursor: pointer;
 }
+
+.product .product-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
