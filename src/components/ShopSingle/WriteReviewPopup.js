@@ -23,7 +23,7 @@ class WriteReviewPopup extends React.Component {
 
         if (
             title.trim().length > 0 &&
-            comment.trim().length > 30 &&
+            comment.trim().length >= 30 &&
             this.generalRateRef.state.rate > 0 &&
             this.qualityRateRef.state.rate > 0 &&
             this.priceRateRef.state.rate > 0 &&
