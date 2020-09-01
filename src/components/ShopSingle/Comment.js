@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoIosStar, IoIosStarHalf, IoIosStarOutline } from 'react-icons/io'
+import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
 
 class Comment extends React.Component {
 
@@ -16,7 +16,7 @@ class Comment extends React.Component {
     }
 
     render() {
-        const { ownerAlias, title, comment, verified, likes, dislikes } = this.props.item
+        const { ownerAlias, title, comment, verified, likes, dislikes, generalRate } = this.props.item
 
         const alreadyLiked = likes.includes(localStorage.getItem('_id'))
         const alreadyDisliked = dislikes.includes(localStorage.getItem('_id'))
@@ -31,11 +31,15 @@ class Comment extends React.Component {
                     </div>
                     <div className='col-md-7'>
                         <div className='pb-3'>
-                            <IoIosStar size={24} color='orange' />
-                            <IoIosStarHalf size={24} color='orange' />
-                            <IoIosStarOutline size={24} color='orange' />
-                            <IoIosStarOutline size={24} color='orange' />
-                            <IoIosStarOutline size={24} color='orange' />
+                            {
+                                [1, 2, 3, 4, 5].map((rate) => {
+                                    if (rate <= generalRate) {
+                                        return <IoIosStar size={24} color='orange' />
+                                    }
+
+                                    return <IoIosStarOutline size={24} color='orange' />
+                                })
+                            }
                         </div>
                         <b style={{ fontSize: 18 }} className='text-black font-weight-bold'>{title}</b>
                         <p style={{ fontSize: 16 }} className='text-black mb-4 mt-3 font-weight-bolder'>{comment}</p>
