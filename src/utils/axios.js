@@ -25,7 +25,7 @@ export default () => {
         response,
         (error) => { // Do something with response error
             if (error.response) {
-                if (error.response.status === 401) {
+                if (error.response.status === 401 && !error?.response?.config?.url.includes('/api/login')) {
                     VanillaToasts.create({
                         title: `Devam etmeden önce giriş yapmalısınız.`,
                         positionClass: 'topRight',
