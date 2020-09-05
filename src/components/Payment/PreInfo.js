@@ -66,7 +66,7 @@ E-Posta: ${this.props.profile.email}
                                                 <tr>
                                                     <td>{product.name}</td>
                                                     <td>{product.quantity}</td>
-                                                    <td>{(product.paidPrice * product.quantity).toFixed(2).replace('.', ',') + ' TL'}</td>
+                                                    <td>{(product.paidPrice * product.quantity).toFixed(2) + ' TL'}</td>
                                                 </tr>
                                             ))
                                         }
@@ -76,7 +76,7 @@ E-Posta: ${this.props.profile.email}
                                         </tr>
                                         <tr>
                                             <td colSpan='2'>Toplam</td>
-                                            <td>{totalPrice + ' TL'}</td>
+                                            <td>{(parseFloat(totalPrice) + parseFloat(cargoPrice)).toFixed(2) + ' TL'}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -86,7 +86,7 @@ E-Posta: ${this.props.profile.email}
                                 <p style={{ whiteSpace: 'break-spaces' }}>
                                     {`Ödeme Yöntemi : Kredi kartı
 Kargo ücreti : ${cargoPrice + ' TL'}
-Toplam Sipariş Bedeli : ${totalPrice + ' TL'}
+Toplam Sipariş Bedeli : ${(parseFloat(totalPrice) + parseFloat(cargoPrice)).toFixed(2) + ' TL'}
 Konutta Ödeme
 `
                                     }
