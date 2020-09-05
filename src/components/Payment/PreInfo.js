@@ -16,12 +16,15 @@ class MembershipAgreement extends React.Component {
     }
 
     render() {// TODO REVIEW
+        const totalPrice = this.props.products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0).toFixed(2)
+        const cargoPrice = (15).toFixed(2)
+
         return (
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
-                <div className='col-md-12 d-flex'>
+                <div className='w-100 d-flex'>
                     <div className='row'>
                         <div className='col-md-12'>
-                            <p className='p-lg-5' style={{ whiteSpace: 'break-spaces' }}>
+                            <div className='p-lg-5' style={{ whiteSpace: 'break-spaces' }}>
                                 <h2 className='text-black text-center mb-5'>Ön Bilgilendirme Formu</h2>
 
                                 <h5 className='text-black mb-5'>A - Satıcı Bilgileri ve Alıcı Bilgileri</h5>
@@ -38,10 +41,10 @@ Müşteri Hizmetleri: 0850 210 6 900
 
                                 <p><b className='text-black'>2 - Alıcı Adı Soyadı ve Adresi</b></p>
                                 <p style={{ whiteSpace: 'break-spaces' }}>
-                                    {`Teslim edilecek kişi: Muhammet İpek
-Teslimat Adresi: Fatih/Istanbul
-Telefon: 5468133198
-E-Posta: muhammetipek57@hotmail.com
+                                    {`Teslim edilecek kişi: ${this.props.profile.nameSurname}
+Teslimat Adresi: ${this.props.address?.openAddress}
+Telefon: ${this.props.profile.phoneNumber}
+E-Posta: ${this.props.profile.email}
 `
                                     }
                                 </p>
@@ -58,23 +61,22 @@ E-Posta: muhammetipek57@hotmail.com
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {
+                                            this.props.products.map((product) => (
+                                                <tr>
+                                                    <td>{product.name}</td>
+                                                    <td>{product.quantity}</td>
+                                                    <td>{(product.paidPrice * product.quantity).toFixed(2).replace('.', ',') + ' TL'}</td>
+                                                </tr>
+                                            ))
+                                        }
                                         <tr>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                            <td colSpan='2'>Kargo Tutarı</td>
+                                            <td>{cargoPrice + ' TL'}</td>
                                         </tr>
                                         <tr>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan='2'>Kargo Tutarı</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan='2'>Toplam</td>
-                                            <td></td>
+                                            <td colSpan='2'>Toplam</td>
+                                            <td>{totalPrice + ' TL'}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -83,10 +85,10 @@ E-Posta: muhammetipek57@hotmail.com
 
                                 <p style={{ whiteSpace: 'break-spaces' }}>
                                     {`Ödeme Yöntemi : Kredi kartı
-Kargo ücreti : 7.99 TL
-Toplam Sipariş Bedeli : 56.74 TL
+Kargo ücreti : ${cargoPrice + ' TL'}
+Toplam Sipariş Bedeli : ${totalPrice + ' TL'}
 Konutta Ödeme
-                                `
+`
                                     }
                                 </p>
 
@@ -252,7 +254,7 @@ Konutta Ödeme
                                     <b className='text-black'>18 - </b>
                                     Bu önbilgilendirme formunun konusunu oluşturan siparişten ve taraflar arasında kurulacak mesafeli satış sözleşmesinden kaynaklanan uyuşmazlıklarda güncel mevzuattaki parasal sınırlara göre tüketicinin ikamet ettiği ya da tüketicinin işlem yaptığı il/ilçe hakem heyetleri ile satıcının yerleşim yeri veya tüketicinin yerleşim yeri Tüketici Mahkemeleri görevli ve yetkilidirler.
                                 </p>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>

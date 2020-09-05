@@ -25,6 +25,7 @@ class Payment extends React.Component {
         fetching: true,
         selected: 0,
         products: [],
+        profile: {},
         addresses: [],
         cards: [],
 
@@ -36,7 +37,7 @@ class Payment extends React.Component {
         showDeleteCardPopup: false,
         showCardPopup: false,
         showSalesContractPopup: false,
-        showPreInfoPopup: false,
+        showPreInfoPopup: true,
 
         isPreInfoChecked: false,
         isSalesContractChecked: false,
@@ -100,8 +101,8 @@ class Payment extends React.Component {
         axios.get(`${process.env.REACT_APP_API_URL}/user/list-cards`).then(({ data }) => data.cardDetails ?? [])
     )
 
-    getAddresses = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/user/profile`).then(({ status, data: { addresses } }) => addresses)
+    getProfile = () => (
+        axios.get(`${process.env.REACT_APP_API_URL}/user/profile`).then(({ status, data }) => data)
     )
 
     showSalesContractPopup = () => {
@@ -121,11 +122,12 @@ class Payment extends React.Component {
     }
 
     setDatas = () => (
-        Promise.all([this.getCart(), this.getPaymentCards(), this.getAddresses()]).then((results) => {
+        Promise.all([this.getCart(), this.getPaymentCards(), this.getProfile()]).then((results) => {
             this.setState({
                 products: Object.values(results[0]?.cart ?? {}),
                 cards: results[1] ?? [],
-                addresses: results[2] ?? [],
+                profile: results[2],
+                addresses: results[2]?.addresses ?? [],
                 fetching: false
             })
         })
@@ -266,11 +268,25 @@ class Payment extends React.Component {
                         }
 
                         {
-                            this.state.showSalesContractPopup && <SalesContract hideSalesContractPopup={this.hideSalesContractPopup} />
+                            this.state.showSalesContractPopup && (
+                                <SalesContract
+                                    hideSalesContractPopup={this.hideSalesContractPopup}
+                                    profile={this.state.profile}
+                                    products={this.state.products}
+                                    address={this.state.addresses[this.state.selectedAddress]}
+                                />
+                            )
                         }
 
                         {
-                            this.state.showPreInfoPopup && <PreInfo hidePreInfoPopup={this.hidePreInfoPopup} />
+                            this.state.showPreInfoPopup && (
+                                <PreInfo
+                                    hidePreInfoPopup={this.hidePreInfoPopup}
+                                    profile={this.state.profile}
+                                    products={this.state.products}
+                                    address={this.state.addresses[this.state.selectedAddress]}
+                                />
+                            )
                         }
 
                         <div className='container'>
@@ -368,7 +384,7 @@ class Payment extends React.Component {
                             </div>
                         </div>
                     </>
-                </SiteWrap >
+                </SiteWrap>
             )
         }
     }

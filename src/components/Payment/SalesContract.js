@@ -16,28 +16,32 @@ class MembershipAgreement extends React.Component {
     }
 
     render() {// TODO REVIEW
+
+        const totalPrice = this.props.products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0).toFixed(2)
+        const cargoPrice = (15).toFixed(2)
+
         return (
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
-                <div className='col-md-12 d-flex'>
+                <div className='w-100 d-flex'>
                     <div className='row'>
                         <div className='col-md-12'>
-                            <p className='p-lg-5' style={{ whiteSpace: 'break-spaces' }}>
+                            <div className='p-lg-5' style={{ whiteSpace: 'break-spaces' }}>
                                 <h2 className='text-black text-center mb-5'>Mesafeli Satış Sözleşmesi</h2>
 
                                 <h5 className='text-black mb-5'>A - Taraflar ve Tanımlar</h5>
 
                                 <p>
                                     <b className='text-black'>1 - Satıcı: </b>
-                                    Bu satış sözleşmesi ( sözleşme) Levent Mahallesi, Yapı Kredi Plaza C Blok Cömert Sokak, 1 C Kat:1 34430 Beşiktaş/İstanbul adresinde yer alan 0411035618802101 Mersis No lu GRATİS İÇ VE DIŞ TİCARET ANONİM ŞİRKETİ ile ( sözleşmenin devam eden metinlerinde satıcı olarak anılacaktır) aşağıda kimlik bilgileri ve adresine yer verilen Alıcı arasında kurulmuştur.
+                                    Bu satış sözleşmesi ( sözleşme) Levent Mahallesi, Yapı Kredi Plaza C Blok Cömert Sokak, 1 C Kat:1 34430 Beşiktaş/İstanbul adresinde yer alan 0411035618802101 Mersis No lu Silfavell ile ( sözleşmenin devam eden metinlerinde satıcı olarak anılacaktır) aşağıda kimlik bilgileri ve adresine yer verilen Alıcı arasında kurulmuştur.
                                 </p>
 
                                 <p><b className='text-black'>Alıcı: </b></p>
 
                                 <p style={{ whiteSpace: 'break-spaces' }}>
-                                    {`Adı/Soyadı/Ünvanı: Muhammet İpek
-Adresi: Fatih/Istanbul
-Telefon: 5468133198
-E-Posta: muhammetipek57@hotmail.com
+                                    {`Adı/Soyadı/Ünvanı: ${this.props.profile.nameSurname}
+Adresi: ${this.props.address?.openAddress}
+Telefon: ${this.props.profile.phoneNumber}
+E-Posta: ${this.props.profile.email}
 `
                                     }
                                 </p>
@@ -66,7 +70,7 @@ E-Posta: muhammetipek57@hotmail.com
 
                                 <p>
                                     <b className='text-black'>Ürün: </b>
-                                    Alıcı ile Satıcı arasında Satıcıya ait Gratis.com.tr internet adresi kullanılarak kurulan bu mesafeli satış sözleşmesine konu, Satıcı tarafından müşterilere arz edilmiş emtiayı, satış konusunu ifade eder.
+                                    Alıcı ile Satıcı arasında Satıcıya ait silfavell.com internet adresi kullanılarak kurulan bu mesafeli satış sözleşmesine konu, Satıcı tarafından müşterilere arz edilmiş emtiayı, satış konusunu ifade eder.
                                 </p>
 
                                 <h5 className='text-black my-5'>B - Satış Sözleşmesine Konu Olan Ürün, Ödeme</h5>
@@ -84,23 +88,22 @@ E-Posta: muhammetipek57@hotmail.com
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {
+                                            this.props.products.map((product) => (
+                                                <tr>
+                                                    <td>{product.name}</td>
+                                                    <td>{product.quantity}</td>
+                                                    <td>{(product.paidPrice * product.quantity).toFixed(2).replace('.', ',') + ' TL'}</td>
+                                                </tr>
+                                            ))
+                                        }
                                         <tr>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                            <td colSpan='2'>Kargo Tutarı</td>
+                                            <td>{cargoPrice + ' TL'}</td>
                                         </tr>
                                         <tr>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan='2'>Kargo Tutarı</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan='2'>Toplam</td>
-                                            <td></td>
+                                            <td colSpan='2'>Toplam</td>
+                                            <td>{totalPrice + ' TL'}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -109,8 +112,8 @@ E-Posta: muhammetipek57@hotmail.com
 
                                 <p style={{ whiteSpace: 'break-spaces' }}>
                                     {`Ödeme Yöntemi : Kredi kartı
-Kargo ücreti : 7.99 TL
-Toplam Sipariş Bedeli : 56.74 TL
+Kargo ücreti : ${cargoPrice + ' TL'}
+Toplam Sipariş Bedeli : ${totalPrice + ' TL'}
 Konutta Ödeme
                                 `
                                     }
@@ -291,7 +294,7 @@ Konutta Ödeme
                                     <b className='text-black'>20 - </b>
                                     Bu mesafeli satış sözleşmesinden kaynaklanan uyuşmazlıklarda sözleşmenin kurulduğu tarihte yürürlükte olan güncel parasal sınırlara göre alıcının ikamet ettiği ya da alıcının işlem yaptığı il/ilçe hakem heyetleri ile satıcının yerleşim yeri veya tüketicinin yerleşim yeri Tüketici Mahkemeleri görevli ve yetkilidirler.
                                 </p>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>
