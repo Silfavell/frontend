@@ -30,14 +30,14 @@ class Payment extends React.Component {
         cards: [],
 
         selectedAddress: 0,
-        selectedCard: 0,
+        selectedCard: 0, 
 
         showSaveAddressPopup: false,
         showDeleteAddressPopup: false,
         showDeleteCardPopup: false,
         showCardPopup: false,
         showSalesContractPopup: false,
-        showPreInfoPopup: true,
+        showPreInfoPopup: false,
 
         isPreInfoChecked: false,
         isSalesContractChecked: false,
