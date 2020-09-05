@@ -150,7 +150,7 @@ class ShopSingle extends React.Component {
                                 <p className='my-4'>
                                     <p className='text-secondary h5 mb-4'>{`Renk: ${color.name}`}</p>
 
-                                    <div className='row'>
+                                    <div className='row' style={{ paddingLeft: 10, paddingRight: 10 }}>
                                         {
                                             group.map((groupColor) => (
                                                 <div
