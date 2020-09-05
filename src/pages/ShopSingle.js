@@ -150,12 +150,12 @@ class ShopSingle extends React.Component {
                                 <p className='my-4'>
                                     <p className='text-secondary h5 mb-4'>{`Renk: ${color.name}`}</p>
 
-                                    <div className='d-flex direction-row'>
+                                    <div className='row'>
                                         {
                                             group.map((groupColor) => (
                                                 <div
                                                     onClick={() => { this.onColorClick(groupColor.slug) }}
-                                                    className={`p-1 mr-2 ${groupColor._id === _id ? 'border' : ''}`} style={{ height: 36, width: 36, borderRadius: '50%', cursor: 'pointer' }}>
+                                                    className={`mr-2 ${groupColor._id === _id ? 'border' : ''}`} style={{ padding: '.3rem', height: 36, width: 36, borderRadius: '50%', cursor: 'pointer' }}>
                                                     <div style={{ height: '100%', width: '100%', borderRadius: '50%', backgroundColor: groupColor.color.code }} />
                                                 </div>
                                             ))
