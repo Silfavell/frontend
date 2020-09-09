@@ -42,8 +42,8 @@ class ShopSingle extends React.Component {
                     if (visitedProductsAsArray.indexOf(vals[0]._id) !== -1) {
                         visitedProductsAsArray.splice(visitedProductsAsArray.indexOf(vals[0]._id), 1)
                     }
-                    
-                    if(vals[0]?._id){
+
+                    if (vals[0]?._id) {
                         visitedProductsAsArray.push(vals[0]._id)
                     }
 
@@ -147,7 +147,7 @@ class ShopSingle extends React.Component {
                     <div className='col-md-6 pb-4'>
                         <h2 className='text-black'>{name}</h2>
                         <a
-                            href={`/shop/${this.state.categorySlug}/${this.state.subCategorySlug}?brands=${this.state.product.brand}`}
+                            href={`/shop/${this.state.categorySlug}/${this.state.subCategorySlug}?brands=${this.state.product.brand.split(' ').join('+')}`}
                             className='text-primary h5'
                             style={{ cursor: 'pointer' }}>{brand}</a>
                         {
