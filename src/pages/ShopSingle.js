@@ -38,10 +38,15 @@ class ShopSingle extends React.Component {
                 const visitedProducts = window.localStorage.getItem('visitedProducts')
                 if (visitedProducts) {
                     const visitedProductsAsArray = JSON.parse(visitedProducts)
+
                     if (visitedProductsAsArray.indexOf(vals[0]._id) !== -1) {
                         visitedProductsAsArray.splice(visitedProductsAsArray.indexOf(vals[0]._id), 1)
                     }
-                    visitedProductsAsArray.push(vals[0]._id)
+                    
+                    if(vals[0]?._id){
+                        visitedProductsAsArray.push(vals[0]._id)
+                    }
+
                     window.localStorage.setItem('visitedProducts', JSON.stringify(visitedProductsAsArray))
                 } else {
                     window.localStorage.setItem('visitedProducts', JSON.stringify([vals[0]._id]))
