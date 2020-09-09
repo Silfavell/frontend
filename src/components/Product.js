@@ -20,21 +20,32 @@ class Product extends React.Component {
         this.props.onIncreaseClick(this.props.item._id)
     }
 
+    onAddToFavoriteProductsSuccess = () => {
+        VanillaToasts.create({
+            title: `Ürün favorilere eklendi`,
+            positionClass: 'topRight',
+            type: 'success',
+            timeout: 3 * 1000
+        })
+    }
+
     addToFavoriteProducts = (event) => {
         event.stopPropagation()
         event.preventDefault()
 
         axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ status }) => {
             if (status === 200) {
-                this.setState({ favorite: true }, () => {
-                    VanillaToasts.create({
-                        title: `Ürün favorilere eklendi`,
-                        positionClass: 'topRight',
-                        type: 'success',
-                        timeout: 3 * 1000
-                    })
-                })
+                this.setState({ favorite: true }, this.onAddToFavoriteProductsSuccess)
             }
+        })
+    }
+
+    onRemoveFromFavoriteProductsSuccess = () => {
+        VanillaToasts.create({
+            title: `Ürün favorilerden çıkarıldı`,
+            positionClass: 'topRight',
+            type: 'success',
+            timeout: 3 * 1000
         })
     }
 
@@ -45,16 +56,13 @@ class Product extends React.Component {
 
         axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ status }) => {
             if (status === 200) {
-                this.setState({ favorite: false }, () => {
-                    VanillaToasts.create({
-                        title: `Ürün favorilerden çıkarıldı`,
-                        positionClass: 'topRight',
-                        type: 'success',
-                        timeout: 3 * 1000
-                    })
-                })
+                this.setState({ favorite: false }, this.onRemoveFromFavoriteProductsSuccess)
             }
         })
+    }
+
+    onImageError = (event) => {
+        event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
     }
 
     render() {
@@ -74,9 +82,7 @@ class Product extends React.Component {
                         <img
                             src={url}
                             alt=''
-                            onError={(e) => {
-                                e.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
-                            }}
+                            onError={this.onImageError}
                             className='w-100 py-5' />
 
                         <div className='interface'>
@@ -120,8 +126,8 @@ class Product extends React.Component {
 
                         </div>
                         <div className='col-md-12 d-flex flex-row justify-content-start align-items-center p-0' style={{ textAlign: 'left' }}>
-                            <div className='h6 text-black font-weight-normal px-4' style={{ wordWrap: 'break-word', height: 50 }}>
-                                {name.substr(0, 60)}
+                            <div className='col-md-12 h6 text-black font-weight-normal product-name' style={{ height: 60 }}>
+                                {name}
                             </div>
                         </div>
                     </div>
