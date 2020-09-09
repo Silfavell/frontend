@@ -4,6 +4,7 @@ import React from 'react'
 import axios from 'axios'
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 import Cookies from 'universal-cookie'
+import { Helmet } from 'react-helmet'
 
 import SiteWrap from '../components/SiteWrap'
 import ShopProduct from '../components/ShopProduct'
@@ -447,6 +448,10 @@ class Shop extends React.Component {
         } else {
             return (
                 <SiteWrap divider={divider}>
+                    <Helmet>
+                        <title>{`${(subCategory ?? currentCategory)?.name} | Silfavell`}</title>
+                        <meta name='description' content={`${(subCategory ?? currentCategory)?.name}`} data-react-helmet='true' />
+                    </Helmet>
                     <this.renderShopContent />
                 </SiteWrap>
             )

@@ -133,7 +133,7 @@ class ShopSingle extends React.Component {
             <div className='container'>
                 <Helmet>
                     <title>{`${name} | Silfavell`}</title>
-                    <meta name='description' content={details} />
+                    <meta name='description' content={details} data-react-helmet='true' />
                 </Helmet>
                 <div className='row'>
                     <div className='col-md-6 pb-5 px-5'>
