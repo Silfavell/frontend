@@ -32,7 +32,7 @@ class ShopSingle extends React.Component {
         return axios.get(`${process.env.REACT_APP_API_URL}/related-products/${productSlug}`).then(({ data }) => data)
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         Promise.all([this.fetchAndSetProduct(this.props.match.params._id), this.fetchRelatedProducts(this.props.match.params._id)]).then((vals) => {
             this.setState({ product: vals[0], relatedProducts: vals[1] }, () => {
                 const visitedProducts = window.localStorage.getItem('visitedProducts')
