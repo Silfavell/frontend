@@ -161,7 +161,14 @@ class ShopSingle extends React.Component {
                                                 <div
                                                     onClick={() => { this.onColorClick(groupColor.slug) }}
                                                     className={`mr-2 ${groupColor._id === _id ? 'border' : ''}`} style={{ padding: '.3rem', height: 36, width: 36, borderRadius: '50%', cursor: 'pointer' }}>
-                                                    <div style={{ height: '100%', width: '100%', borderRadius: '50%', backgroundColor: groupColor.color.code }} />
+                                                    <div style={{
+                                                        height: '100%',
+                                                        width: '100%',
+                                                        borderRadius: '50%',
+                                                        backgroundColor: groupColor.color.code,
+                                                        borderWidth: 4,
+                                                        border: groupColor._id === _id ? '' : '1px solid #EFEFEF'
+                                                    }} />
                                                 </div>
                                             ))
                                         }
