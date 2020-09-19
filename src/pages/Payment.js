@@ -133,7 +133,7 @@ class Payment extends React.Component {
         })
     )
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         if (cookies.get('token')) {
             this.setDatas()
         } else {

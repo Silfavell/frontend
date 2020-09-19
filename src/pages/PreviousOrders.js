@@ -14,6 +14,12 @@ import '../style/css/style.css'
 
 const cookies = new Cookies()
 
+const fetchOrders = () => {
+    const url = `${process.env.REACT_APP_API_URL}/user/orders`
+
+    return axios.get(url).then(({ data }) => data)
+}
+
 class PreviousOrders extends React.Component {
 
     state = {
@@ -21,15 +27,11 @@ class PreviousOrders extends React.Component {
         fetching: true
     }
 
-    fetchOrders = () => {
-        const url = `${process.env.REACT_APP_API_URL}/user/orders`
-
-        return axios.get(url).then(({ data }) => data)
-    }
-
-    UNSAFE_componentWillMount() {
+    constructor() {
+        super()
+        
         if (cookies.get('token')) {
-            this.fetchOrders().then((orders) => {
+            fetchOrders().then((orders) => {
                 this.setState({
                     orders,
                     fetching: false

@@ -148,7 +148,7 @@ class Shop extends React.Component {
         )
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         Promise.all([this.getCategories(), this.filterShop()]).then((vals) => {
             this.setState({
                 categories: vals[0],
@@ -410,6 +410,7 @@ class Shop extends React.Component {
     )
 
     render() {
+        console.log('render')
         const currentCategory = this.state.categories.find(category => category._id === this.state.shop._id)
         const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.shop.subCategoryId) : null
 

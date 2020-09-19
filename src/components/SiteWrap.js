@@ -39,8 +39,7 @@ class SiteWrap extends React.Component {
     )
 
     fetchOfflineCartProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/filter-shop?${
-            JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => `productIds=${cartProduct._id}`).join('&')
+        const url = `${process.env.REACT_APP_API_URL}/filter-shop?${JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => `productIds=${cartProduct._id}`).join('&')
             }`
 
         return axios.get(url).then(({ data }) => data?.products ?? [])
@@ -202,7 +201,7 @@ class SiteWrap extends React.Component {
         })
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         if (cookies.get('token')) {
             Promise.all([this.getCategories(), this.getCartProducts(), this.getFavoriteProducts()]).then((vals) => {
                 this.setState({ categories: vals[0], products: vals[1] }, () => {
@@ -227,9 +226,7 @@ class SiteWrap extends React.Component {
                 }
             })
         }
-    }
 
-    componentDidMount() {
         setTimeout(() => {
             window.scrollTo({ behavior: 'smooth', top: 0 })
         }, 100)

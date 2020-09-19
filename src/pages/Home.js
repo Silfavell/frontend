@@ -25,7 +25,7 @@ class Home extends React.Component {
         return axios.get(url).then(({ data }) => data || {})
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         if (window.localStorage.visitedProducts) {
             const visitedProductIds = JSON.parse(window.localStorage.getItem('visitedProducts')).map((id) => `productIds=${id}`).join('&')
 

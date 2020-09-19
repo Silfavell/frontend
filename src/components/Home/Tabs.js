@@ -12,7 +12,7 @@ class CustomTabs extends React.Component {
         bestSeller: []
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.fetchProducts().then((bestSeller) => {
             this.setState({ bestSeller })
         })
@@ -30,13 +30,13 @@ class CustomTabs extends React.Component {
                     <TabList>
                         {
                             this.state.bestSeller.map((category) => (
-                                <Tab>{category.name}</Tab>
+                                <Tab key={'Tab:' + category.name}>{category.name}</Tab>
                             ))
                         }
                     </TabList>
                     {
                         this.state.bestSeller.map((category) => (
-                            <TabPanel className='w-100'>
+                            <TabPanel key={'TabPane:' + category.name} className='w-100'>
                                 <Carousel
                                     products={category.products}
                                     onIncreaseClick={this.props.onIncreaseClick}

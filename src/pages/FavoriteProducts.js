@@ -27,7 +27,7 @@ class FavoriteProducts extends React.Component {
         return axios.get(url).then(({ data }) => data.favoriteProducts)
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         if (cookies.get('token')) {
             this.fetchProducts().then((products) => {
                 this.setState({

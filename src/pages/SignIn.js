@@ -27,6 +27,14 @@ class SignIn extends React.Component {
         invalidPassword: false
     }
 
+    constructor() {
+        super()
+
+        if (cookies.get('token')) {
+            this.props.history.push('/')
+        }
+    }
+
     onSignInClick = () => {
         const url = `${process.env.REACT_APP_API_URL}/login`
 
@@ -39,7 +47,7 @@ class SignIn extends React.Component {
             if (status === 200) {
                 cookies.set('token', data.token)
                 localStorage.setItem('_id', data.user._id)
-                
+
                 if (data.user.alias) {
                     localStorage.setItem('alias', data.user.alias)
                 }
@@ -98,12 +106,6 @@ class SignIn extends React.Component {
             }).catch((err) => {
                 this.setState({ password: value, isPasswordInitialized: true, invalidPassword: !!err })
             })
-    }
-
-    UNSAFE_componentWillMount() {
-        if (cookies.get('token')) {
-            this.props.history.push('/')
-        }
     }
 
     onSubmitForm = (event) => {

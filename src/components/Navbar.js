@@ -298,8 +298,8 @@ class Navbar extends React.Component {
                                                                             <ul className='dropdown'>
                                                                                 {
                                                                                     subCategory.types.map((type) => (
-                                                                                        <li>
-                                                                                            <a key={type._id} href={`/shop/${category.slug}/${subCategory.slug}?type=${type.slug}`}>{type.name}</a>
+                                                                                        <li key={type._id}>
+                                                                                            <a href={`/shop/${category.slug}/${subCategory.slug}?type=${type.slug}`}>{type.name}</a>
                                                                                         </li>
                                                                                     ))
                                                                                 }

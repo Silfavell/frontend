@@ -29,7 +29,7 @@ class EditProfile extends React.Component {
         isEmailInitialized: true
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         if (cookies.get('token')) {
             axios.get(`${process.env.REACT_APP_API_URL}/user/profile`).then(({ status, data }) => {
                 if (status === 200) {
