@@ -30,12 +30,7 @@ class Shop extends React.Component {
 
 
     filterShop = () => {
-        const url = `${
-            process.env.REACT_APP_API_URL}/filter-shop${
-            this.props.location.pathname.replace('/shop', '')}${
-            this.props.location.search}${
-            this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${
-            maximumProductLengthInOnePage}`
+        const url = `${process.env.REACT_APP_API_URL}/filter-shop${this.props.location.pathname.replace('/shop', '')}${this.props.location.search}${this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${maximumProductLengthInOnePage}`
 
         return axios.get(url).then(({ data }) => data)
     }
@@ -52,13 +47,13 @@ class Shop extends React.Component {
         })
     }
 
-    onFilterLinkClick = (filter, filterValue, multiple, price) => {
+    onFilterLinkClick = (filter, filterValue, multiple, price, keep) => {
         const { location } = this.props
 
         let searchParams = new URLSearchParams(location.search)
         let searchParamsAsString = decodeURIComponent(searchParams.toString())
 
-        if (searchParamsAsString.includes(`${filter}=${filterValue.toString().split(' ').join('+')}`)) {
+        if (searchParamsAsString.includes(`${filter}=${filterValue.toString().split(' ').join('+')}`) && !keep) {
             return '?' + searchParamsAsString
                 .replace(`&${filter}=${filterValue.toString().split(' ').join('+')}`, '')
                 .replace(`${filter}=${filterValue.toString().split(' ').join('+')}`, '')
@@ -97,16 +92,14 @@ class Shop extends React.Component {
         const startingIndex = this.getStartingIndex()
         const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
 
-        if ((this.state.shop.productsLength - startingIndexOfPage) > maximumProductLengthInOnePage * maximumPageCount) {
+        if (this.state.shop.productsLength - startingIndexOfPage > maximumProductLengthInOnePage * maximumPageCount) {
             return this.onFilterLinkClick(
                 'start',
                 startingIndex +
                 (maximumProductLengthInOnePage * maximumPageCount) -
-                ((startingIndex + maximumProductLengthInOnePage * maximumPageCount) % (maximumProductLengthInOnePage * maximumPageCount)))
+                ((startingIndex + maximumProductLengthInOnePage * maximumPageCount) % (maximumProductLengthInOnePage * maximumPageCount)), null, null, true)
         } else {
-            return this.onFilterLinkClick(
-                'start',
-                this.state.shop.productsLength % maximumProductLengthInOnePage === 0 ? this.state.shop.productsLength - maximumProductLengthInOnePage : this.state.shop.productsLength - 1)
+            return this.onFilterLinkClick('start', this.state.shop.productsLength - (this.state.shop.productsLength % maximumProductLengthInOnePage), null, null, true)
         }
     }
 
@@ -250,7 +243,7 @@ class Shop extends React.Component {
                                                 >
                                                     <a
                                                         className='text-black'
-                                                        href={this.onFilterLinkClick('start', (this.getPageText(index) - 1) * maximumProductLengthInOnePage)}>
+                                                        href={this.onFilterLinkClick('start', (this.getPageText(index) - 1) * maximumProductLengthInOnePage, null, null, true)}>
                                                         {this.getPageText(index)}
                                                     </a>
                                                 </li>
@@ -410,7 +403,6 @@ class Shop extends React.Component {
     )
 
     render() {
-        console.log('render')
         const currentCategory = this.state.categories.find(category => category._id === this.state.shop._id)
         const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.shop.subCategoryId) : null
 
