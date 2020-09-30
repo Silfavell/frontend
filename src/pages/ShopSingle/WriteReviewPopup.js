@@ -1,6 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
+
+import { saveComment } from '../../scripts/requests'
 
 import PopupWrapper from '../../components/PopupWrapper'
 import Rate from './Rate'
@@ -28,7 +29,7 @@ class WriteReviewPopup extends React.Component {
             this.qualityRateRef.state.rate > 0 &&
             this.priceRateRef.state.rate > 0 &&
             (localStorage.getItem('alias') || ownerAlias.trim().length > 0)) {
-            axios.post(`${process.env.REACT_APP_API_URL}/user/save-comment`, {
+            saveComment({
                 productId: this.props.productId,
                 title,
                 comment,

@@ -1,11 +1,11 @@
 import React from 'react'
-import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
 import { IoMdHeart, IoMdHeartEmpty, IoMdCart } from 'react-icons/io'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import './Product.css'
+import { addFavorite, removeFavorite } from '../../scripts/requests'
 
 class Product extends React.Component {
 
@@ -33,7 +33,7 @@ class Product extends React.Component {
         event.stopPropagation()
         event.preventDefault()
 
-        axios.post(`${process.env.REACT_APP_API_URL}/user/favorite-product`, { _id: this.props.item._id }).then(({ status }) => {
+        addFavorite(this.props.item._id).then(({ status }) => {
             if (status === 200) {
                 this.setState({ favorite: true }, this.onAddToFavoriteProductsSuccess)
             }
@@ -54,7 +54,7 @@ class Product extends React.Component {
         event.stopPropagation()
         event.preventDefault()
 
-        axios.delete(`${process.env.REACT_APP_API_URL}/user/favorite-product/${this.props.item._id}`).then(({ status }) => {
+        removeFavorite(this.props.item._id).then(({ status }) => {
             if (status === 200) {
                 this.setState({ favorite: false }, this.onRemoveFromFavoriteProductsSuccess)
             }

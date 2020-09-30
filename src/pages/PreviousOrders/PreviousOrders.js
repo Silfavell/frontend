@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
-import axios from 'axios'
 import Cookies from 'universal-cookie'
+
+import { getOrders } from '../../scripts/requests'
 
 import SiteWrap from '../../components/SiteWrap'
 import Loading from '../../components/Loading'
@@ -15,9 +16,7 @@ import '../../style/css/style.css'
 const cookies = new Cookies()
 
 const fetchOrders = () => {
-    const url = `${process.env.REACT_APP_API_URL}/user/orders`
-
-    return axios.get(url).then(({ data }) => data)
+    return getOrders().then(({ data }) => data)
 }
 
 class PreviousOrders extends React.Component {
@@ -29,7 +28,7 @@ class PreviousOrders extends React.Component {
 
     constructor() {
         super()
-        
+
         if (cookies.get('token')) {
             fetchOrders().then((orders) => {
                 this.setState({

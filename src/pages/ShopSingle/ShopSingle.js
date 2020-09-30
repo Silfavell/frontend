@@ -1,7 +1,8 @@
-import axios from 'axios'
 import React from 'react'
 import joi from '@hapi/joi'
 import { Helmet } from 'react-helmet'
+
+import { getProductBySlug, getRelatedProductsBySlug } from '../../scripts/requests'
 
 import Loading from '../../components/Loading'
 import SiteWrap from '../../components/SiteWrap'
@@ -25,11 +26,11 @@ class ShopSingle extends React.Component {
     }
 
     fetchAndSetProduct = (productSlug) => {
-        return axios.get(`${process.env.REACT_APP_API_URL}/product/${productSlug}`).then(({ data }) => data)
+        return getProductBySlug(productSlug).then(({ data }) => data)
     }
 
     fetchRelatedProducts = (productSlug) => {
-        return axios.get(`${process.env.REACT_APP_API_URL}/related-products/${productSlug}`).then(({ data }) => data)
+        return getRelatedProductsBySlug(productSlug).then(({ data }) => data)
     }
 
     componentWillMount() {

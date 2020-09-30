@@ -1,17 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import axios from 'axios'
 import $ from 'jquery'
 import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
 
+import { resetPassword, sendActivationCode } from '../../scripts/requests'
+
+import SiteWrap from '../../components/SiteWrap'
+
 import '../../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../style/css/owl.theme.default.min.css'
 import '../../style/css/style.css'
-
-import SiteWrap from '../../components/SiteWrap'
 
 class UpdatePassword extends React.Component {
 
@@ -57,9 +58,8 @@ class UpdatePassword extends React.Component {
                 timeout: 3 * 1000
             })
         } else {
-            const url = `${process.env.REACT_APP_API_URL}/reset-password`
 
-            axios.put(url, {
+            resetPassword({
                 phoneNumber: this.state.phoneNumber,
                 newPassword: this.state.newPassword,
                 activationCode: this.state.activationCode
@@ -79,9 +79,7 @@ class UpdatePassword extends React.Component {
     }
 
     onSendActivationCodeClick = () => {
-        const url = `${process.env.REACT_APP_API_URL}/send-activation-code`
-
-        axios.post(url, {
+        sendActivationCode({
             phoneNumber: this.state.phoneNumber,
             activationCodeType: 1
         }).then(({ status }) => {

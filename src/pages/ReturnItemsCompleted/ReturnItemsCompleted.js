@@ -1,12 +1,13 @@
 import React from 'react'
-import axios from 'axios'
 
 import SiteWrap from '../../components/SiteWrap'
 import OrderItem from '../../components/OrderItem'
 
+import { getOrderById } from '../../scripts/requests'
+import OrderStatus from '../../models/OrderStatus'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../style/css/style.css'
-import OrderStatus from '../../models/OrderStatus'
 
 class ReturnItemsCompleted extends React.Component {
 
@@ -32,7 +33,7 @@ class ReturnItemsCompleted extends React.Component {
     }
 
     getOrder = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/user/order/${this.props.match.params._id}`).then(({ status, data }) => {
+        getOrderById(this.props.match.params._id).then(({ status, data }) => {
             if (status === 200) {
                 return data
             }

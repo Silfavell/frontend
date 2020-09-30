@@ -1,7 +1,8 @@
 import React from 'react'
 import Cookies from 'universal-cookie'
-import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
+
+import { likeComment, unlikeComment } from '../../scripts/requests'
 
 import WriteReviewPopup from './WriteReviewPopup'
 import Comment from './Comment'
@@ -29,9 +30,9 @@ class Comments extends React.Component {
     )
 
     onLikeClick = (_id, alreadyLiked) => {
-        const url = alreadyLiked ? `${process.env.REACT_APP_API_URL}/user/remove-like-comment/${_id}` : `${process.env.REACT_APP_API_URL}/user/like-comment/${_id}`
+        const request = alreadyLiked ? unlikeComment(_id) : likeComment(_id)
 
-        axios.put(url).then(({ status, data }) => {
+        request.then(({ status, data }) => {
             if (status === 200) {
                 this.setState({
                     comments: this.state.comments.map((comment) => {
@@ -47,9 +48,9 @@ class Comments extends React.Component {
     }
 
     onDislikeClick = (_id, alreadyDisliked) => {
-        const url = alreadyDisliked ? `${process.env.REACT_APP_API_URL}/user/remove-dislike-comment/${_id}` : `${process.env.REACT_APP_API_URL}/user/dislike-comment/${_id}`
+        const request = alreadyDisliked ? unlikeComment(_id) : likeComment(_id)
 
-        axios.put(url).then(({ status, data }) => {
+        request.then(({ status, data }) => {
             if (status === 200) {
                 this.setState({
                     comments: this.state.comments.map((comment) => {

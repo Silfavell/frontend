@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import Cookies from 'universal-cookie'
-import axios from 'axios'
 import joi from '@hapi/joi'
 import VanillaToasts from 'vanillatoasts'
+
+import { getProfile, updateProfile } from '../../scripts/requests'
 
 import SiteWrap from '../../components/SiteWrap'
 import ProfileColumn from '../../components/ProfileColumn'
@@ -31,7 +32,7 @@ class EditProfile extends React.Component {
 
     componentDidMount() {
         if (cookies.get('token')) {
-            axios.get(`${process.env.REACT_APP_API_URL}/user/profile`).then(({ status, data }) => {
+            getProfile().then(({ status, data }) => {
                 if (status === 200) {
                     this.setState(data)
                 }
@@ -44,7 +45,7 @@ class EditProfile extends React.Component {
     }
 
     onSaveClick = () => {
-        axios.put(`${process.env.REACT_APP_API_URL}/user/profile`, {
+        updateProfile({
             nameSurname: this.state.nameSurname,
             email: this.state.email
         }).then(({ status, data }) => {
@@ -109,7 +110,7 @@ class EditProfile extends React.Component {
                     <div className='row'>
                         <ProfileColumn />
                         <div className='col-md-9'>
-                            <div className="w-100 h-100 d-flex align-items-center justify-content-center my-2 border py-4">
+                            <div className='w-100 h-100 d-flex align-items-center justify-content-center my-2 border py-4'>
                                 <div className='col-md-6'>
 
                                     <div className='form-group row'>

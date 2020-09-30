@@ -1,8 +1,9 @@
 import React from 'react'
-import axios from 'axios'
 import $ from 'jquery'
 import VanillaToasts from 'vanillatoasts'
 import Cookies from 'universal-cookie'
+
+import { getCartProducts, getProfile, listCards, makeOrder } from '../../scripts/requests'
 
 import SiteWrap from '../../components/SiteWrap'
 import Loading from '../../components/Loading'
@@ -30,7 +31,7 @@ class Payment extends React.Component {
         cards: [],
 
         selectedAddress: 0,
-        selectedCard: 0, 
+        selectedCard: 0,
 
         showSaveAddressPopup: false,
         showDeleteAddressPopup: false,
@@ -94,15 +95,15 @@ class Payment extends React.Component {
     }
 
     getCart = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data: cart }) => cart)
+        getCartProducts().then(({ data: cart }) => cart)
     )
 
     getPaymentCards = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/user/list-cards`).then(({ data }) => data.cardDetails ?? [])
+        listCards().then(({ data }) => data.cardDetails ?? [])
     )
 
     getProfile = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/user/profile`).then(({ status, data }) => data)
+        getProfile().then(({ data }) => data)
     )
 
     showSalesContractPopup = () => {
@@ -149,7 +150,7 @@ class Payment extends React.Component {
     }
 
     onCompletePaymentClick = () => {
-        axios.post(`${process.env.REACT_APP_API_URL}/user/order`, {
+        makeOrder({
             address: this.state.addresses[this.state.selectedAddress]._id,
             card: this.state.cards[this.state.selectedCard].cardToken
         }).then(({ status, data }) => {

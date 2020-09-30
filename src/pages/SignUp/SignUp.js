@@ -1,18 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import axios from 'axios'
 import $ from 'jquery'
 import Cookies from 'universal-cookie'
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
 
+import { bulkCart, signUp, sendActivationCode } from '../../scripts/requests'
+
+import SiteWrap from '../../components/SiteWrap'
+import MembershipAgreement from './MembershipAgreement'
+
 import '../../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../style/css/owl.theme.default.min.css'
 import '../../style/css/style.css'
-
-import SiteWrap from '../../components/SiteWrap'
-import MembershipAgreement from './MembershipAgreement'
 
 const cookies = new Cookies()
 
@@ -126,8 +127,6 @@ class SignUp extends React.Component {
     }
 
     onSignUpClick = () => {
-        const url = `${process.env.REACT_APP_API_URL}/register`
-
         const {
             phoneNumber,
             nameSurname,
@@ -137,7 +136,7 @@ class SignUp extends React.Component {
             activationCode
         } = this.state
 
-        axios.post(url, {
+        signUp({
             phoneNumber,
             nameSurname,
             email,
@@ -148,7 +147,7 @@ class SignUp extends React.Component {
             if (status === 200) {
                 cookies.set('token', data.token)
                 localStorage.setItem('_id', data.user._id)
-                
+
                 if (data.user.alias) {
                     localStorage.setItem('alias', data.user.alias)
                 }
@@ -156,7 +155,7 @@ class SignUp extends React.Component {
                 localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
 
                 if (window.localStorage.getItem('cart')) {
-                    axios.post(`${process.env.REACT_APP_API_URL}/user/cart`, JSON.parse(window.localStorage.getItem('cart'))).then(() => {
+                    bulkCart().then(() => {
                         window.localStorage.removeItem('cart')
 
                         if (document.referrer.includes(window.location.origin)) {
@@ -186,9 +185,7 @@ class SignUp extends React.Component {
         //      })
         //  } else
 
-        const url = `${process.env.REACT_APP_API_URL}/send-activation-code`
-
-        axios.post(url, {
+        sendActivationCode({
             phoneNumber: this.state.phoneNumber,
             activationCodeType: 0
         }).then(({ status, data }) => {

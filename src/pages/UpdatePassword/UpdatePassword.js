@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
+
+import { changePassword } from '../../scripts/requests'
 
 import SiteWrap from '../../components/SiteWrap'
 import ProfileColumn from '../../components/ProfileColumn'
@@ -58,9 +59,7 @@ class UpdatePassword extends React.Component {
                 timeout: 3 * 1000
             })
         } else {
-            const url = `${process.env.REACT_APP_API_URL}/user/change-password`
-
-            axios.put(url, {
+            changePassword({
                 oldPassword: this.state.oldPassword,
                 newPassword: this.state.newPassword
             }).then(({ status }) => {

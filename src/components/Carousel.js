@@ -26,7 +26,7 @@ const responsive = {
     }
 }
 
-class CarouselComponent extends React.Component {
+class CarouselComponent extends React.PureComponent {
     render() {
         const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
         const loggedIn = cookies.get('token')

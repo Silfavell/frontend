@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import axios from 'axios'
 import Cookies from 'universal-cookie'
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
+
+import { bulkCart, login } from '../../scripts/requests'
 
 import '../../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -36,14 +37,12 @@ class SignIn extends React.Component {
     }
 
     onSignInClick = () => {
-        const url = `${process.env.REACT_APP_API_URL}/login`
-
         const {
             phoneNumber,
             password
         } = this.state
 
-        axios.post(url, { phoneNumber, password }).then(({ status, data }) => {
+        login({ phoneNumber, password }).then(({ status, data }) => {
             if (status === 200) {
                 cookies.set('token', data.token)
                 localStorage.setItem('_id', data.user._id)
@@ -55,7 +54,7 @@ class SignIn extends React.Component {
                 localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
 
                 if (window.localStorage.getItem('cart')) {
-                    axios.post(`${process.env.REACT_APP_API_URL}/user/cart`, JSON.parse(window.localStorage.getItem('cart'))).then(() => {
+                    bulkCart().then(() => {
                         window.localStorage.removeItem('cart')
 
                         if (document.referrer.includes(window.location.origin)) {

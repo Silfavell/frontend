@@ -1,7 +1,8 @@
 import React from 'react'
-import axios from 'axios'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
+
+import { getBestSellerProducts } from '../../scripts/requests'
 
 import Carousel from '../../components/Carousel'
 
@@ -19,8 +20,7 @@ class CustomTabs extends React.Component {
     }
 
     fetchProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/best-seller`
-        return axios.get(url).then((result) => result?.data || [])
+        return getBestSellerProducts().then((result) => result?.data || [])
     }
 
     render() {

@@ -1,15 +1,23 @@
 import React from 'react'
-import axios from 'axios'
 import Cookies from 'universal-cookie'
 import VanillaToasts from 'vanillatoasts'
 import $ from 'jquery'
+
+import {
+    fetchOfflineCartProducts,
+    getCartProducts,
+    getCategories,
+    increaseProductQuantity,
+    decreaseProductQuantity,
+    setProductQuantity,
+    listFavorites
+} from '../scripts/requests'
 
 import Navbar from './Navbar/Navbar'
 import Footer from './Footer'
 import Divider from './Divider'
 import FirstImage from './FirstImage'
 
-import '../style/css/style.css'
 import 'vanillatoasts/vanillatoasts.css'
 
 const cookies = new Cookies()
@@ -31,27 +39,6 @@ class SiteWrap extends React.Component {
             this.changeMobileMenuStatus(false)
         }
     }
-
-    getCartProducts = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/user/cart`).then(({ data }) => (
-            (data && data.cart) ? Object.values(data.cart) : []
-        ))
-    )
-
-    fetchOfflineCartProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/filter-shop?${JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => `productIds=${cartProduct._id}`).join('&')
-            }`
-
-        return axios.get(url).then(({ data }) => data?.products ?? [])
-    }
-
-    getCategories = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then((result) => result?.data || [])
-    )
-
-    getFavoriteProducts = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/user/profile`).then(({ data }) => data.favoriteProducts)
-    )
 
     setCartToStorageOnIncrease = (productId, quantity) => {
         const cart = window.localStorage.getItem('cart')
@@ -91,7 +78,7 @@ class SiteWrap extends React.Component {
     }
 
     onIncreaseClick = (productId, quantity = 1, dontShowToast) => {
-        axios.put(`${process.env.REACT_APP_API_URL}/add-product/${productId}`, { quantity }).then(({ status, data }) => {
+        increaseProductQuantity(productId, quantity).then(({ status, data }) => {
             if (status === 200) {
 
                 const foundProduct = this.state.products.find(product => product._id === productId)
@@ -128,8 +115,7 @@ class SiteWrap extends React.Component {
     }
 
     onDecreaseClick = (productId, quantity = 1, dontShowToast) => {
-
-        axios.put(`${process.env.REACT_APP_API_URL}/deduct-product/${productId}`, { quantity }).then(({ status, data }) => {
+        decreaseProductQuantity(productId, quantity).then(({ status, data }) => {
             if (status === 200) {
                 const foundProduct = this.state.products.find(product => product._id === productId)
 
@@ -172,7 +158,7 @@ class SiteWrap extends React.Component {
     }
 
     setProductQuantity = (productId, quantity = 1) => {
-        axios.put(`${process.env.REACT_APP_API_URL}/set-product/${productId}`, { quantity }).then(({ status, data }) => {
+        setProductQuantity(productId, quantity).then(({ status, data }) => {
             if (status === 200) {
                 const foundProduct = this.state.products.find(product => product._id === productId)
                 const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
@@ -201,6 +187,20 @@ class SiteWrap extends React.Component {
         })
     }
 
+    getCartProducts = () => {
+        return getCartProducts().then(({ data }) => (
+            data?.cart ? Object.values(data.cart) : []
+        ))
+    }
+
+    getFavoriteProducts = () => {
+        return listFavorites().then(({ data }) => data.favoriteProducts)
+    }
+
+    getCategories = () => {
+        return getCategories().then(({ data }) => data)
+    }
+
     componentDidMount() {
         if (cookies.get('token')) {
             Promise.all([this.getCategories(), this.getCartProducts(), this.getFavoriteProducts()]).then((vals) => {
@@ -209,17 +209,19 @@ class SiteWrap extends React.Component {
                 })
             })
         } else {
-            this.getCategories().then((categories) => {
+            getCategories().then((categories) => {
                 const cart = window.localStorage.getItem('cart')
                 if (cart) {
                     const cartAsArray = JSON.parse(cart)
                     if (cartAsArray.length > 0) {
-                        this.fetchOfflineCartProducts().then((products) => {
-                            this.setState({
-                                categories,
-                                products: products.map((product, index) => Object.assign(product, { quantity: cartAsArray[index].quantity }))
+                        fetchOfflineCartProducts()
+                            .then(({ data }) => data?.products ?? [])
+                            .then((products) => {
+                                this.setState({
+                                    categories,
+                                    products: products.map((product, index) => Object.assign(product, { quantity: cartAsArray[index].quantity }))
+                                })
                             })
-                        })
                     }
                 } else {
                     this.setState({ categories, products: [] })

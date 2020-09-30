@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
-import axios from 'axios'
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 import Cookies from 'universal-cookie'
 import { Helmet } from 'react-helmet'
+
+import { getCategories, makeCustomRequest } from '../../scripts/requests'
 
 import SiteWrap from '../../components/SiteWrap'
 import ShopProduct from '../../components/Product/ShopProduct'
@@ -31,13 +32,12 @@ class Shop extends React.Component {
 
     filterShop = () => {
         const url = `${process.env.REACT_APP_API_URL}/filter-shop${this.props.location.pathname.replace('/shop', '')}${this.props.location.search}${this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${maximumProductLengthInOnePage}`
-
-        return axios.get(url).then(({ data }) => data)
+        return makeCustomRequest({ url }).then(({ data }) => data)
     }
 
-    getCategories = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then(({ data }) => data)
-    )
+    getCategories = () => {
+        return getCategories().then(({ data }) => data)
+    }
 
     refresh = () => {
         this.setState({ fetching: true }, () => {

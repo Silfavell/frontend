@@ -1,15 +1,14 @@
 import React from 'react'
-import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
+
+import { removeCard } from '../../scripts/requests'
 
 import PopupWrapper from '../../components/PopupWrapper'
 
 class CardDeletePopup extends React.Component {
 
     onConfirm = () => {
-        axios.put(`${process.env.REACT_APP_API_URL}/user/payment-card`, {
-            cardToken: this.props.deleteCardToken
-        }).then(({ status }) => {
+        removeCard({ cardToken: this.props.deleteCardToken }).then(({ status }) => {
             if (status === 200) {
                 VanillaToasts.create({
                     title: 'Kart silindi',

@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
 
 import SiteWrap from '../../components/SiteWrap'
@@ -9,6 +8,7 @@ import OrderStatus from '../../models/OrderStatus'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../style/css/style.css'
+import { getOrderById, returnItems } from '../../scripts/requests'
 
 class ReturnItems extends React.Component {
     constructor(props) {
@@ -39,7 +39,7 @@ class ReturnItems extends React.Component {
     }
 
     getOrder = () => (
-        axios.get(`${process.env.REACT_APP_API_URL}/user/order/${this.props.match.params._id}`).then(({ status, data }) => {
+        getOrderById(this.props.match.params._id).then(({ status, data }) => {
             if (status === 200) {
                 return data
             }
@@ -128,7 +128,7 @@ class ReturnItems extends React.Component {
         })
 
         if (items.length > 0) {
-            axios.post(`${process.env.REACT_APP_API_URL}/user/return-items/${this.state.order._id}`, items).then(({ status }) => {
+            returnItems(this.state.order._id, items).then(({ status }) => {
                 if (status === 200) {
                     window.history.pushState({}, null, `/return-items-completed/${this.state.order._id}`)
                     window.location.reload()

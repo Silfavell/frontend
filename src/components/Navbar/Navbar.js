@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import axios from 'axios'
 import Cookies from 'universal-cookie'
 import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose, IoIosArrowDown } from 'react-icons/io'
+
+import { search } from '../../scripts/requests'
 
 import '../../style/css/googleMukta.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -24,9 +25,7 @@ class Navbar extends React.Component {
     }
 
     onSearchClick = () => {
-        const url = `${process.env.REACT_APP_API_URL}/search-product?name=${this.state.searchText}`
-
-        axios.get(url).then(({ status, data }) => {
+        search(this.state.searchText).then(({ status, data }) => {
             if (status === 200) {
                 this.setState({ searchedProducts: data.map((product) => product._source) })
             }

@@ -1,6 +1,7 @@
 /* eslint-disable react/style-prop-object */
 import React from 'react'
-import axios from 'axios'
+
+import { fetchShop } from '../../scripts/requests'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'jquery/dist/jquery.min.js'
@@ -19,10 +20,8 @@ class Home extends React.Component {
         shop: {}
     }
 
-    fetchShop = (productIds) => {
-        const url = `${process.env.REACT_APP_API_URL}/filter-shop?${productIds}&quantity=32`
-
-        return axios.get(url).then(({ data }) => data || {})
+    fetchShop = (visitedProductIds) => {
+        return fetchShop(visitedProductIds).then(({ data }) => data || {})
     }
 
     componentDidMount() {

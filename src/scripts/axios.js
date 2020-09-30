@@ -8,13 +8,13 @@ const cookies = new Cookies()
 export default () => {
     // Add a request interceptor
     axios.interceptors.request.use((config) => { // Do something before request is sent
-        //config.cancelToken = new axios.CancelToken((c) => {
-        //    cancel = c
-        //})
+        //  config.cancelToken = new axios.CancelToken((c) => {
+        //      cancel = c
+        //  })
 
-        if (cookies.get('token')) {
-            config.headers.Authorization = cookies.get('token')
-        }
+        //  if (cookies.get('token')) {
+        //      config.headers.Authorization = cookies.get('token')
+        //  }
 
         return config
     }, (error) => // Do something with request error

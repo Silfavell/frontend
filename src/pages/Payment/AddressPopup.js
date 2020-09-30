@@ -1,7 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 
 import PopupWrapper from '../../components/PopupWrapper'
+import { saveAddress } from '../../scripts/requests'
 
 class AddressPopup extends React.Component {
 
@@ -19,9 +19,7 @@ class AddressPopup extends React.Component {
     }
 
     onSaveAddressClick = () => {
-        const url = `${process.env.REACT_APP_API_URL}/user/address`
-
-        axios.post(url, this.state).then(({ status, data }) => {
+        saveAddress(this.state).then(({ status, data }) => {
             if (status === 200) {
                 this.props.hideSaveAddressPopup(data.addresses)
             }
@@ -39,7 +37,6 @@ class AddressPopup extends React.Component {
     onCloseClick = (event) => {
         this.props.hideSaveAddressPopup()
     }
-
 
     render() {
         const {

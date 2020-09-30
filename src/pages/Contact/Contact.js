@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
 
 import '../../style/css/googleMukta.css'
@@ -9,15 +8,18 @@ import '../../style/css/owl.theme.default.min.css'
 import '../../style/css/style.css'
 
 import SiteWrap from '../../components/SiteWrap'
+import { postTicket } from '../../scripts/requests'
+
+const initialState = {
+  name: '',
+  surname: '',
+  email: '',
+  subject: '',
+  message: ''
+}
 
 class Contact extends React.Component {
-  state = {
-    name: '',
-    surname: '',
-    email: '',
-    subject: '',
-    message: ''
-  }
+  state = initialState
 
   onSendMessageClick = () => {
     const {
@@ -28,7 +30,7 @@ class Contact extends React.Component {
       message
     } = this.state
 
-    axios.post(`${process.env.REACT_APP_API_URL}/ticket`, {
+    postTicket({
       name,
       surname,
       email,
@@ -43,13 +45,7 @@ class Contact extends React.Component {
           timeout: 3 * 1000
         })
 
-        this.setState({
-          name: '',
-          surname: '',
-          email: '',
-          subject: '',
-          message: ''
-        })
+        this.setState(initialState)
       }
     })
   }

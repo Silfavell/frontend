@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
-import axios from 'axios'
 import Cookies from 'universal-cookie'
+
+import { listFavorites } from '../../scripts/requests'
 
 import SiteWrap from '../../components/SiteWrap'
 import ShopProduct from '../../components/Product/ShopProduct'
@@ -22,9 +23,7 @@ class FavoriteProducts extends React.Component {
     }
 
     fetchProducts = () => {
-        const url = `${process.env.REACT_APP_API_URL}/user/favorite-products`
-
-        return axios.get(url).then(({ data }) => data.favoriteProducts)
+        return listFavorites().then(({ data }) => data.favoriteProducts)
     }
 
     componentDidMount() {

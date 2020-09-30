@@ -1,8 +1,9 @@
 import React from 'react'
-import axios from 'axios'
 import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
+
+import { addCard } from '../../scripts/requests'
 
 import PopupWrapper from '../../components/PopupWrapper'
 
@@ -140,7 +141,7 @@ class NewCreditCardPopup extends React.Component {
                 timeout: 5 * 1000
             })
         } else {
-            axios.post(`${process.env.REACT_APP_API_URL}/user/payment-card`, {
+            addCard({
                 card: {
                     cardAlias,
                     cardHolderName,

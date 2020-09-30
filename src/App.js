@@ -5,7 +5,7 @@ import {
     Route
 } from 'react-router-dom'
 
-import axios from './utils/axios'
+import axios from './scripts/axios'
 
 import Home from './pages/Home/Home'
 import Contact from './pages/Contact/Contact'
