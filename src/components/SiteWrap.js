@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie'
 import VanillaToasts from 'vanillatoasts'
 import $ from 'jquery'
 
-import Navbar from './Navbar'
+import Navbar from './Navbar/Navbar'
 import Footer from './Footer'
 import Divider from './Divider'
 import FirstImage from './FirstImage'

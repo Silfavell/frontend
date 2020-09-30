@@ -4,7 +4,7 @@ import React from 'react'
 import { IoIosArrowForward } from 'react-icons/io'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import CartItem from './CartItem'
+import CartItem from './CartItem/CartItem'
 import OrderStatus from '../models/OrderStatus'
 
 class OrderItem extends React.Component {
