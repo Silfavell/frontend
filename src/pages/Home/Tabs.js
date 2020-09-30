@@ -14,13 +14,9 @@ class CustomTabs extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchProducts().then((bestSeller) => {
-            this.setState({ bestSeller })
+        getBestSellerProducts().then(({ data }) => {
+            this.setState({ bestSeller: data })
         })
-    }
-
-    fetchProducts = () => {
-        return getBestSellerProducts().then((result) => result?.data || [])
     }
 
     render() {

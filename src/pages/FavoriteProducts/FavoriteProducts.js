@@ -22,15 +22,11 @@ class FavoriteProducts extends React.Component {
         fetching: true
     }
 
-    fetchProducts = () => {
-        return listFavorites().then(({ data }) => data.favoriteProducts)
-    }
-
     componentDidMount() {
         if (cookies.get('token')) {
-            this.fetchProducts().then((products) => {
+            listFavorites().then((result) => {
                 this.setState({
-                    products: products || [],
+                    products: result.data.favoriteProducts,
                     fetching: false
                 })
             })

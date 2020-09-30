@@ -203,9 +203,11 @@ class SiteWrap extends React.Component {
 
     componentDidMount() {
         if (cookies.get('token')) {
-            Promise.all([this.getCategories(), this.getCartProducts(), this.getFavoriteProducts()]).then((vals) => {
-                this.setState({ categories: vals[0], products: vals[1] }, () => {
-                    localStorage.setItem('favoriteProducts', JSON.stringify(vals[2]))
+            Promise.all([this.getCategories(), this.getCartProducts(), this.getFavoriteProducts()]).then((results) => {
+                const [categories, products, favoriteProducts] = results
+
+                this.setState({ categories, products }, () => {
+                    localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts))
                 })
             })
         } else {

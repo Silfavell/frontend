@@ -94,23 +94,11 @@ class Payment extends React.Component {
         this.setState({ showDeleteCardPopup: false, cards: this.state.cards })
     }
 
-    getCart = () => (
-        getCartProducts().then(({ data: cart }) => cart)
-    )
-
-    getPaymentCards = () => (
-        listCards().then(({ data }) => data.cardDetails ?? [])
-    )
-
-    getProfile = () => (
-        getProfile().then(({ data }) => data)
-    )
-
     showSalesContractPopup = () => {
         this.setState({ showSalesContractPopup: true })
     }
 
-    hideSalesContractPopup = (addresses) => {
+    hideSalesContractPopup = () => {
         this.setState({ showSalesContractPopup: false })
     }
 
@@ -123,12 +111,14 @@ class Payment extends React.Component {
     }
 
     setDatas = () => (
-        Promise.all([this.getCart(), this.getPaymentCards(), this.getProfile()]).then((results) => {
+        Promise.all([getCartProducts(), listCards(), getProfile()]).then((results) => {
+            const [cartSource, cardsSource, profileSource] = results
+
             this.setState({
-                products: Object.values(results[0]?.cart ?? {}),
-                cards: results[1] ?? [],
-                profile: results[2],
-                addresses: results[2]?.addresses ?? [],
+                products: Object.values(cartSource.data.cart ?? {}),
+                cards: cardsSource.data.cardDetails ?? [],
+                profile: profileSource.data,
+                addresses: profileSource.data.addresses,
                 fetching: false
             })
         })
