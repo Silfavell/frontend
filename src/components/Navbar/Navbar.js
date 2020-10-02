@@ -6,9 +6,6 @@ import { IoMdPerson, IoIosBasket, IoMdMenu, IoIosSearch, IoMdClose, IoIosArrowDo
 
 import { search } from '../../scripts/requests'
 
-import '../../style/css/googleMukta.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../style/css/style.css'
 import './Navbar.css'
 
 import SearchProduct from '../SearchProduct'

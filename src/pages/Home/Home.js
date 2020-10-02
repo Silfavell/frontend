@@ -7,9 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
-import '../../style/css/style.css'
-import '../../style/css/googleMukta.css'
-
 import SiteWrap from '../../components/SiteWrap'
 import Carousel from '../../components/Carousel'
 import Tabs from './Tabs'

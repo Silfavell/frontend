@@ -2,11 +2,6 @@
 import React from 'react'
 import VanillaToasts from 'vanillatoasts'
 
-import '../../style/css/googleMukta.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../style/css/owl.theme.default.min.css'
-import '../../style/css/style.css'
-
 import SiteWrap from '../../components/SiteWrap'
 import { postTicket } from '../../scripts/requests'
 

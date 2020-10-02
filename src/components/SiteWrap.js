@@ -18,8 +18,6 @@ import Footer from './Footer'
 import Divider from './Divider'
 import FirstImage from './FirstImage'
 
-import 'vanillatoasts/vanillatoasts.css'
-
 const cookies = new Cookies()
 
 class SiteWrap extends React.Component {
@@ -193,13 +191,9 @@ class SiteWrap extends React.Component {
         ))
     }
 
-    getFavoriteProducts = () => {
-        return listFavorites().then(({ data }) => data.favoriteProducts)
-    }
+    getFavoriteProducts = () => listFavorites().then(({ data }) => data.favoriteProducts)
 
-    getCategories = () => {
-        return getCategories().then(({ data }) => data)
-    }
+    getCategories = () => getCategories().then(({ data }) => data)
 
     componentDidMount() {
         if (cookies.get('token')) {
@@ -211,13 +205,13 @@ class SiteWrap extends React.Component {
                 })
             })
         } else {
-            getCategories().then((categories) => {
+            this.getCategories().then((categories) => {
                 const cart = window.localStorage.getItem('cart')
                 if (cart) {
                     const cartAsArray = JSON.parse(cart)
                     if (cartAsArray.length > 0) {
                         fetchOfflineCartProducts()
-                            .then(({ data }) => data?.products ?? [])
+                            .then(({ data }) => data.products)
                             .then((products) => {
                                 this.setState({
                                     categories,

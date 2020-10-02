@@ -9,11 +9,6 @@ import { getProfile, updateProfile } from '../../scripts/requests'
 import SiteWrap from '../../components/SiteWrap'
 import ProfileColumn from '../../components/ProfileColumn'
 
-import '../../style/css/googleMukta.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../style/css/owl.theme.default.min.css'
-import '../../style/css/style.css'
-
 const cookies = new Cookies()
 
 class EditProfile extends React.Component {

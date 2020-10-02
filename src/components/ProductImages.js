@@ -3,12 +3,6 @@ import React, { useState } from 'react'
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 import { Carousel } from 'react-bootstrap'
 
-import '../style/css/googleMukta.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../style/css/owl.theme.default.min.css'
-import '../style/css/style.css'
-
-
 function ProductImages({ images }) {
     const [index, setIndex] = useState(0)
 

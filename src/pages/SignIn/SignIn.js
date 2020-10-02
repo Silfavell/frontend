@@ -6,11 +6,6 @@ import InputMask from 'react-input-mask'
 
 import { bulkCart, login } from '../../scripts/requests'
 
-import '../../style/css/googleMukta.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../style/css/owl.theme.default.min.css'
-import '../../style/css/style.css'
-
 import SiteWrap from '../../components/SiteWrap'
 
 const cookies = new Cookies()

@@ -9,10 +9,6 @@ import {
     IoLogoTwitter
 } from 'react-icons/io'
 
-import '../style/css/googleMukta.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../style/css/style.css'
-
 import about1 from '../style/images/about_1.jpg'
 
 function Footer() {
