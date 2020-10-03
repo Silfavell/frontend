@@ -10,9 +10,6 @@ import Loading from '../../components/Loading'
 import OrderItem from '../../components/OrderItem'
 import ProfileColumn from '../../components/ProfileColumn'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../style/css/style.css'
-
 const cookies = new Cookies()
 
 const fetchOrders = () => {

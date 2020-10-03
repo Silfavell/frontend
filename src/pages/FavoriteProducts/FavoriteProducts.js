@@ -10,9 +10,6 @@ import ShopProduct from '../../components/Product/ShopProduct'
 import Loading from '../../components/Loading'
 import ProfileColumn from '../../components/ProfileColumn'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../style/css/style.css'
-
 const cookies = new Cookies()
 
 class FavoriteProducts extends React.Component {

@@ -12,8 +12,6 @@ import ShopProduct from '../../components/Product/ShopProduct'
 import Loading from '../../components/Loading'
 import Slider from './Slider'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../style/css/style.css'
 import './Shop.css'
 
 const maximumProductLengthInOnePage = 6 * 3

@@ -1,5 +1,4 @@
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import joi from '@hapi/joi'
 
 import './CartItem.css'
@@ -40,8 +39,8 @@ class CartItem extends React.Component {
 
     render() {
         const {
-            image,
             name,
+            slug,
             price,
             discountedPrice,
             paidPrice
@@ -57,7 +56,7 @@ class CartItem extends React.Component {
             quantity
         } = this.state
 
-        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
+        const url = `${process.env.REACT_APP_API_URL}/assets/products/${slug}_300x300.webp`
 
         return (
             <tr>

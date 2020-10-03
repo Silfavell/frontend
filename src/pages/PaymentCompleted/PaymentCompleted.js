@@ -2,8 +2,6 @@ import React from 'react'
 
 import SiteWrap from '../../components/SiteWrap'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../style/css/style.css'
 import OrderItem from '../../components/OrderItem'
 
 class PaymentCompleted extends React.Component {

@@ -6,11 +6,10 @@ class SearchProduct extends React.Component {
         const {
             name,
             price,
-            image,
             slug
         } = this.props.item
 
-        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
+        const url = `${process.env.REACT_APP_API_URL}/assets/products/${slug}_300x300.webp`
 
         return (
             <a

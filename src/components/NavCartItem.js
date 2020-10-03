@@ -15,10 +15,10 @@ class NavCartItem extends React.Component {
             price,
             discountedPrice,
             quantity,
-            image
+            slug
         } = this.props.item
 
-        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
+        const url = `${process.env.REACT_APP_API_URL}/assets/products/${slug}_300x300.webp`
 
         return (
             <div className='item col-md-12 p-2'>

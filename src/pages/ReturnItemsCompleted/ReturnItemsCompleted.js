@@ -6,9 +6,6 @@ import OrderItem from '../../components/OrderItem'
 import { getOrderById } from '../../scripts/requests'
 import OrderStatus from '../../models/OrderStatus'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../style/css/style.css'
-
 class ReturnItemsCompleted extends React.Component {
 
     constructor(props) {

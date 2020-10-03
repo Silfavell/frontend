@@ -68,12 +68,12 @@ class Product extends React.Component {
     render() {
         const {
             name,
+            slug,
             price,
-            discountedPrice,
-            image
+            discountedPrice
         } = this.props.item
 
-        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
+        const url = `${process.env.REACT_APP_API_URL}/assets/products/${slug}_300x300.webp`
 
         return (
             <a href={`/${this.props.item.slug}/p`} className='col-md-12 ml-auto d-relative product'>

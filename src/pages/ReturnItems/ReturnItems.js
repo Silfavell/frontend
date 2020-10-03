@@ -1,14 +1,11 @@
 import React from 'react'
 import VanillaToasts from 'vanillatoasts'
 
-import SiteWrap from '../../components/SiteWrap'
-import CartItem from '../../components/CartItem/CartItem'
-
+import { getOrderById, returnItems } from '../../scripts/requests'
 import OrderStatus from '../../models/OrderStatus'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../style/css/style.css'
-import { getOrderById, returnItems } from '../../scripts/requests'
+import SiteWrap from '../../components/SiteWrap'
+import CartItem from '../../components/CartItem/CartItem'
 
 class ReturnItems extends React.Component {
     constructor(props) {

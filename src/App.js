@@ -26,6 +26,12 @@ import ReturnItemsCompleted from './pages/ReturnItemsCompleted/ReturnItemsComple
 import PaymentCompleted from './pages/PaymentCompleted/PaymentCompleted'
 import NotFound from './pages/NotFound/NotFound'
 
+import 'vanillatoasts/vanillatoasts.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './style/css/googleMukta.css'
+import './style/css/owl.theme.default.min.css'
+import './style/css/style.css'
+
 axios()
 
 class App extends React.Component {

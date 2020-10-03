@@ -90,7 +90,7 @@ class ShopSingle extends React.Component {
 
     getImages = (image, imageCount) => {
         return Array.from(new Array(imageCount)).map((_, index) => (
-            `${process.env.REACT_APP_API_URL}/assets/products/${image}-${index}.webp`
+            `${process.env.REACT_APP_API_URL}/assets/products/${this.state.product.slug}_${index}_940x940.webp`
         ))
     }
 

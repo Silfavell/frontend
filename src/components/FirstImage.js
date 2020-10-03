@@ -2,10 +2,6 @@
 import React, { useState } from 'react'
 import { Carousel } from 'react-bootstrap'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '../style/css/owl.theme.default.min.css'
-import '../style/css/style.css'
-
 import bg from '../style/images/hero_2.jpg'
 
 function FirstImage() {

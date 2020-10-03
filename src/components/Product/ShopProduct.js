@@ -4,7 +4,6 @@ import { IoMdHeartEmpty, IoMdHeart, IoMdCart } from 'react-icons/io'
 
 import { addFavorite, removeFavorite } from '../../scripts/requests'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
 import './Product.css'
 
 class ShopProduct extends React.Component {
@@ -59,13 +58,13 @@ class ShopProduct extends React.Component {
 
     render() {
         const {
-            image,
             name,
+            slug,
             price,
             discountedPrice
         } = this.props.item
 
-        const url = `${process.env.REACT_APP_API_URL}/assets/products/${image}-0.webp`
+        const url = `${process.env.REACT_APP_API_URL}/assets/products/${slug}_300x300.webp`
 
         return (
             <a href={`/${this.props.item.slug}/p`} className='col-lg-4 col-sm-6 col-6 m-0 p-2 mb-4 product product-padding'>
