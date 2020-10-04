@@ -189,7 +189,9 @@ class Payment extends React.Component {
             <div id={'paymentOptions'} className='mb-5 border' style={{ display: 'none' }}>
                 <div className='col-md-12 p-4'>
                     <p className={'text-gray h6'}>Kredi kartı bilgileriniz Silfavell tarafından saklanmamaktadır.</p>
-                    <p className={'text-black font-weight-bold h6'}>Ödeme altyapısı MasterPass tarafından sağlanmaktadır.</p>
+                    {
+                        // <p className={'text-black font-weight-bold h6'}>Ödeme altyapısı MasterPass tarafından sağlanmaktadır.</p>
+                    }
                 </div>
 
                 <div className='col-md-12 p-4'>

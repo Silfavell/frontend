@@ -20,7 +20,7 @@ class MembershipAgreement extends React.Component {
         const totalPrice = this.props.products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0).toFixed(2)
         const cargoPrice = (15).toFixed(2)
 
-        return (
+        return ( // TODO update mersis
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
                 <div className='w-100 d-flex'>
                     <div className='row'>
@@ -32,7 +32,7 @@ class MembershipAgreement extends React.Component {
 
                                 <p>
                                     <b className='text-black'>1 - Satıcı: </b>
-                                    Bu satış sözleşmesi ( sözleşme) Levent Mahallesi, Yapı Kredi Plaza C Blok Cömert Sokak, 1 C Kat:1 34430 Beşiktaş/İstanbul adresinde yer alan 0411035618802101 Mersis No lu Silfavell ile ( sözleşmenin devam eden metinlerinde satıcı olarak anılacaktır) aşağıda kimlik bilgileri ve adresine yer verilen Alıcı arasında kurulmuştur.
+                                    Bu satış sözleşmesi ( sözleşme) Yavuz Sultan Selim, Dr. Sadık Ahmet Cd. No:24, 34083 Fatih/İstanbul adresinde yer alan 0411035618802101 Mersis No lu Silfavell ile ( sözleşmenin devam eden metinlerinde satıcı olarak anılacaktır) aşağıda kimlik bilgileri ve adresine yer verilen Alıcı arasında kurulmuştur.
                                 </p>
 
                                 <p><b className='text-black'>Alıcı: </b></p>

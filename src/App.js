@@ -31,6 +31,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './style/css/googleMukta.css'
 import './style/css/owl.theme.default.min.css'
 import './style/css/style.css'
+import DeletThisPage from './pages/DeletThisPage'
 
 axios()
 
@@ -40,6 +41,9 @@ class App extends React.Component {
             <Router>
                 <Switch>
                     <Route exact path='/' component={Home} />
+
+                    <Route exact path='/sales-contract' component={DeletThisPage} />
+
                     <Route path='/contact' component={Contact} />
                     <Route path='/about-us' component={AboutUs} />
                     <Route path='/shop' component={Shop} />

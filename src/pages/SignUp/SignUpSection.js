@@ -2,13 +2,21 @@ import React from 'react'
 import InputMask from 'react-input-mask'
 
 import MembershipAgreement from './MembershipAgreement'
+import KvkkAgreement from './KvkkAgreement'
 
-const SignUpSection = ({ state, onInputChange, hideAgreementPopup, sendActivationCode, showAgreementPopup }) => {
+const SignUpSection = ({ state,
+  onInputChange,
+  sendActivationCode,
+  showAgreementPopup,
+  hideAgreementPopup,
+  showKvkkAgreementPopup,
+  hideKvkkAgreementPopup
+}) => {
   const {
     phoneNumber,
     nameSurname,
     email,
-    password
+    password,
     // rePassword
   } = state
 
@@ -16,6 +24,10 @@ const SignUpSection = ({ state, onInputChange, hideAgreementPopup, sendActivatio
     <div id={'register'} className='p-3 p-lg-5'>
       {
         state.showAgreementPopup && <MembershipAgreement hideAgreementPopup={hideAgreementPopup} />
+      }
+
+      {
+        state.showKvkkAgreementPopup && <KvkkAgreement hideKvkkAgreementPopup={hideKvkkAgreementPopup} />
       }
 
       <div className='form-group row'>
@@ -101,8 +113,11 @@ const SignUpSection = ({ state, onInputChange, hideAgreementPopup, sendActivatio
           htmlFor='agreement'
           className='form-check-label'>Hesap oluşturarak <span
             id='agreement'
-            className='text-primary'
-            onClick={showAgreementPopup}>üyelik sözleşmesini</span> okuduğunuzu ve kabul ettiğinizi onaylıyorsunuz.</label>
+            className='text-primary agreement'
+            onClick={showAgreementPopup}>Üyelik Sözleşmesini</span> ve <span
+              id='kvkk'
+              className='text-primary agreement'
+              onClick={showKvkkAgreementPopup}>KVKK Aydınlatma Metnini</span> okuduğunuzu ve kabul ettiğinizi onaylıyorsunuz.</label>
       </div>
 
       {

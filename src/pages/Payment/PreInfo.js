@@ -30,7 +30,7 @@ class MembershipAgreement extends React.Component {
                                 <h5 className='text-black mb-5'>A - Satıcı Bilgileri ve Alıcı Bilgileri</h5>
                                 <p><b className='text-black'>1 - Ünvan: Silfavell</b></p>
                                 <p style={{ whiteSpace: 'break-spaces' }}>
-                                    {`Adres: Levent Mahallesi, Yapı Kredi Plaza C Blok Cömert Sokak, 1 C Kat:1 34430 Beşiktaş/İstanbul
+                                    {`Adres: Yavuz Sultan Selim, Dr. Sadık Ahmet Cd. No:24, 34083 Fatih/İstanbul
 Telefon: 0 212 705 26 00
 Faks: 0 212 284 22 78
 Mersis No: 0411035618802101

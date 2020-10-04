@@ -34,7 +34,9 @@ class SignUp extends React.Component {
         // rePassword: '',
         activationCode: '',
         membershipAgreement: true,
+
         showAgreementPopup: false,
+        showKvkkAgreementPopup: false,
 
         validationError: null
     }
@@ -120,6 +122,14 @@ class SignUp extends React.Component {
         this.setState({ showAgreementPopup: false })
     }
 
+    showKvkkAgreementPopup = () => {
+        this.setState({ showKvkkAgreementPopup: true })
+    }
+
+    hideKvkkAgreementPopup = () => {
+        this.setState({ showKvkkAgreementPopup: false })
+    }
+
     onSubmitForm = (event) => {
         event.preventDefault()
     }
@@ -138,9 +148,11 @@ class SignUp extends React.Component {
                         <div className='col-md-6 px-0'>
                             <SignUpSection
                                 onInputChange={this.onInputChange}
-                                hideAgreementPopup={this.hideAgreementPopup}
                                 sendActivationCode={this.sendActivationCode}
                                 showAgreementPopup={this.showAgreementPopup}
+                                hideAgreementPopup={this.hideAgreementPopup}
+                                showKvkkAgreementPopup={this.showKvkkAgreementPopup}
+                                hideKvkkAgreementPopup={this.hideKvkkAgreementPopup}
                                 state={this.state}
                             />
 

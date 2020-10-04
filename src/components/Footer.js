@@ -8,21 +8,24 @@ import {
     IoLogoInstagram,
     IoLogoTwitter
 } from 'react-icons/io'
+import {
+    FaCcVisa,
+    FaCcMastercard
+} from 'react-icons/fa'
 
-import about1 from '../style/images/about_1.jpg'
-
-function Footer() {
+const Footer = () => {
     return (
         <footer className='site-footer custom-border-top'>
             <div className='container'>
                 <div className='row'>
                     <div className='col-md-6 col-lg-3 mb-4 mb-lg-0'>
-                        <h3 className='footer-heading mb-4' style={{ letterSpacing: '.1em' }}>Promo</h3>
-                        <a href='' className='block-6'>
-                            <img src={about1} alt='Image placeholder' className='img-fluid rounded mb-4' />
-                            <h3 className='font-weight-light  mb-0'>Finding Your Perfect Shirts This Summer</h3>
-                            <p>Promo from  July 15 &mdash; 25, 2019</p>
-                        </a>
+                        <h3 className='footer-heading mb-4' style={{ letterSpacing: '.1em' }}>-</h3>
+                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            <FaCcMastercard size={64} color={'black'} className='mr-2' />
+                            <FaCcVisa size={64} color={'black'} className='mr-2' />
+                        </div>
+                        <br/>
+                        <a href="/sales-contract">Mesafeli Satış Sözleşmesi</a>
                     </div>
 
                     <div className='col-lg-5 ml-auto mb-5 mb-lg-0'>
@@ -126,7 +129,7 @@ function Footer() {
                 </div>
                 <div className='row pt-2 mt-2 text-center'>
                     <div className='col-md-12'>
-                        <p>Copyright &copy; {new Date().getFullYear()}, Silfavell Inc</p>
+                        <p>Copyright &copy; {new Date().getFullYear()}, Silfavell</p>
                     </div>
                 </div>
             </div>
