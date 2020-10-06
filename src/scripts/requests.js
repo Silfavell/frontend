@@ -3,15 +3,24 @@ import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
 
-const headers = {}
 
 if (cookies.get('token')) {
-  headers['Authorization'] = cookies.get('token')
+
 }
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  headers
+  transformRequest: [function (data, headers) {
+    const token = cookies.get('token')
+    if (token) {
+      headers['Authorization'] = token
+    }
+
+    return JSON.stringify(data)
+  }],
+  headers: {
+    'Content-Type': 'application/json'
+  }
   //  timeout: 1000,
 })
 

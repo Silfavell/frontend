@@ -23,8 +23,8 @@ class SignIn extends React.Component {
         invalidPassword: false
     }
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         if (cookies.get('token')) {
             this.props.history.push('/')
@@ -53,14 +53,14 @@ class SignIn extends React.Component {
                         window.localStorage.removeItem('cart')
 
                         if (document.referrer.includes(window.location.origin)) {
-                            window.history.back()
+                            this.props.history.goBack()
                         } else {
                             this.props.history.push('/')
                         }
                     })
                 } else {
                     if (document.referrer.includes(window.location.origin)) {
-                        window.history.back()
+                        this.props.history.goBack()
                     } else {
                         this.props.history.push('/')
                     }
