@@ -94,7 +94,7 @@ export const getRelatedProductsBySlug = (slug) => instance.get(`/related-product
 
 export const deleteAddress = (_id) => instance.delete(`/user/address/${_id}`)
 
-export const saveAddress = (data) => instance.delete('/user/address/', data)
+export const saveAddress = (data) => instance.post('/user/address/', data)
 
 export const getOrderById = (_id) => instance.get(`/user/order/${_id}`)
 
