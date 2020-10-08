@@ -26,6 +26,8 @@ const Footer = () => {
                         </div>
                         <br/>
                         <a href="/sales-contract">Mesafeli Satış Sözleşmesi</a>
+                        <br/>
+                        <a href="/privacy-policy">Gizlilik Politikası</a>
                     </div>
 
                     <div className='col-lg-5 ml-auto mb-5 mb-lg-0'>
