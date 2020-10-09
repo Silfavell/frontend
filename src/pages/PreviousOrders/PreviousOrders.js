@@ -23,8 +23,8 @@ class PreviousOrders extends React.Component {
         fetching: true
     }
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         if (cookies.get('token')) {
             fetchOrders().then((orders) => {
@@ -34,7 +34,7 @@ class PreviousOrders extends React.Component {
                 })
             })
         } else {
-            this.props.history.push('/sign-in')
+            props.history.push('/sign-in')
         }
     }
 
