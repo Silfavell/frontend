@@ -32,9 +32,6 @@ import './style/css/googleMukta.css'
 import './style/css/owl.theme.default.min.css'
 import './style/css/style.css'
 
-import DeletThisPage from './pages/DeletThisPage'
-import DeletThisPage2 from './pages/DeletThisPage2'
-
 axios()
 
 class App extends React.Component {
@@ -43,9 +40,6 @@ class App extends React.Component {
             <Router>
                 <Switch>
                     <Route exact path='/' component={Home} />
-
-                    <Route exact path='/sales-contract' component={DeletThisPage} />
-                    <Route exact path='/privacy-policy' component={DeletThisPage2} />
 
                     <Route path='/contact' component={Contact} />
                     <Route path='/about-us' component={AboutUs} />

@@ -24,10 +24,6 @@ const Footer = () => {
                             <FaCcMastercard size={64} color={'black'} className='mr-2' />
                             <FaCcVisa size={64} color={'black'} className='mr-2' />
                         </div>
-                        <br/>
-                        <a href="/sales-contract">Mesafeli Satış Sözleşmesi</a>
-                        <br/>
-                        <a href="/privacy-policy">Gizlilik Politikası</a>
                     </div>
 
                     <div className='col-lg-5 ml-auto mb-5 mb-lg-0'>
