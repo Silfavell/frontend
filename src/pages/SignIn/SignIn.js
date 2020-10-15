@@ -31,42 +31,41 @@ class SignIn extends React.Component {
         }
     }
 
-    onSignInClick = () => {
+    onSignInClick = async () => {
         const {
             phoneNumber,
             password
         } = this.state
 
-        login({ phoneNumber, password }).then(({ status, data }) => {
-            if (status === 200) {
-                cookies.set('token', data.token)
-                localStorage.setItem('_id', data.user._id)
+        const { status, data } = await login({ phoneNumber, password })
+        if (status === 200) {
+            cookies.set('token', data.token)
+            localStorage.setItem('_id', data.user._id)
 
-                if (data.user.alias) {
-                    localStorage.setItem('alias', data.user.alias)
-                }
+            if (data.user.alias) {
+                localStorage.setItem('alias', data.user.alias)
+            }
 
-                localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
+            localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
 
-                if (window.localStorage.getItem('cart')) {
-                    bulkCart().then(() => {
-                        window.localStorage.removeItem('cart')
+            if (window.localStorage.getItem('cart')) {
+                await bulkCart()
 
-                        if (document.referrer.includes(window.location.origin)) {
-                            this.props.history.goBack()
-                        } else {
-                            this.props.history.push('/')
-                        }
-                    })
+                window.localStorage.removeItem('cart')
+
+                if (document.referrer.includes(window.location.origin)) {
+                    this.props.history.goBack()
                 } else {
-                    if (document.referrer.includes(window.location.origin)) {
-                        this.props.history.goBack()
-                    } else {
-                        this.props.history.push('/')
-                    }
+                    this.props.history.push('/')
+                }
+            } else {
+                if (document.referrer.includes(window.location.origin)) {
+                    this.props.history.goBack()
+                } else {
+                    this.props.history.push('/')
                 }
             }
-        })
+        }
     }
 
     onSignUpClick = () => {

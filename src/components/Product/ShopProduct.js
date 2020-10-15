@@ -19,41 +19,41 @@ class ShopProduct extends React.Component {
         this.props.onIncreaseClick(this.props.item._id)
     }
 
-    addToFavoriteProducts = (event) => {
+    addToFavoriteProducts = async (event) => {
         event.stopPropagation()
         event.preventDefault()
 
-        addFavorite(this.props.item._id).then(({ status }) => {
-            if (status === 200) {
-                this.setState({ favorite: true }, () => {
-                    VanillaToasts.create({
-                        title: `Ürün favorilere eklendi`,
-                        positionClass: 'topRight',
-                        type: 'success',
-                        timeout: 3 * 1000
-                    })
+        const { status } = await addFavorite(this.props.item._id)
+
+        if (status === 200) {
+            this.setState({ favorite: true }, () => {
+                VanillaToasts.create({
+                    title: `Ürün favorilere eklendi`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
                 })
-            }
-        })
+            })
+        }
     }
 
 
-    removeFromFavoriteProdutcs = (event) => {
+    removeFromFavoriteProdutcs = async (event) => {
         event.stopPropagation()
         event.preventDefault()
 
-        removeFavorite(this.props.item._id).then(({ status }) => {
-            if (status === 200) {
-                this.setState({ favorite: false }, () => {
-                    VanillaToasts.create({
-                        title: `Ürün favorilerden çıkarıldı`,
-                        positionClass: 'topRight',
-                        type: 'success',
-                        timeout: 3 * 1000
-                    })
+        const { status } = removeFavorite(this.props.item._id)
+
+        if (status === 200) {
+            this.setState({ favorite: false }, () => {
+                VanillaToasts.create({
+                    title: `Ürün favorilerden çıkarıldı`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
                 })
-            }
-        })
+            })
+        }
     }
 
     render() {

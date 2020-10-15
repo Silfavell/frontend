@@ -29,15 +29,14 @@ class Product extends React.Component {
         })
     }
 
-    addToFavoriteProducts = (event) => {
+    addToFavoriteProducts = async (event) => {
         event.stopPropagation()
         event.preventDefault()
 
-        addFavorite(this.props.item._id).then(({ status }) => {
-            if (status === 200) {
-                this.setState({ favorite: true }, this.onAddToFavoriteProductsSuccess)
-            }
-        })
+        const { status } = await addFavorite(this.props.item._id)
+        if (status === 200) {
+            this.setState({ favorite: true }, this.onAddToFavoriteProductsSuccess)
+        }
     }
 
     onRemoveFromFavoriteProductsSuccess = () => {
@@ -50,15 +49,15 @@ class Product extends React.Component {
     }
 
 
-    removeFromFavoriteProdutcs = (event) => {
+    removeFromFavoriteProdutcs = async (event) => {
         event.stopPropagation()
         event.preventDefault()
 
-        removeFavorite(this.props.item._id).then(({ status }) => {
-            if (status === 200) {
-                this.setState({ favorite: false }, this.onRemoveFromFavoriteProductsSuccess)
-            }
-        })
+        const { status } = await removeFavorite(this.props.item._id)
+
+        if (status === 200) {
+            this.setState({ favorite: false }, this.onRemoveFromFavoriteProductsSuccess)
+        }
     }
 
     onImageError = (event) => {

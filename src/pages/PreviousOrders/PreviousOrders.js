@@ -12,8 +12,10 @@ import ProfileColumn from '../../components/ProfileColumn'
 
 const cookies = new Cookies()
 
-const fetchOrders = () => {
-    return getOrders().then(({ data }) => data)
+const fetchOrders = async () => {
+    const { data } = await getOrders()
+
+    return data
 }
 
 class PreviousOrders extends React.Component {

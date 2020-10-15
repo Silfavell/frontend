@@ -30,7 +30,7 @@ class UpdatePassword extends React.Component {
         isActivationCodeInitialized: false
     }
 
-    onUpdateClick = () => {
+    onUpdateClick = async () => {
         if (this.state.newPassword === '' || this.state.reNewPassword === '') {
             VanillaToasts.create({
                 title: `Lütfen gerekli alanlarını doldurunuz`,
@@ -53,38 +53,37 @@ class UpdatePassword extends React.Component {
                 timeout: 3 * 1000
             })
         } else {
-
-            resetPassword({
+            const { status } = await resetPassword({
                 phoneNumber: this.state.phoneNumber,
                 newPassword: this.state.newPassword,
                 activationCode: this.state.activationCode
-            }).then(({ status }) => {
-                if (status === 200) {
-                    VanillaToasts.create({
-                        title: `Şifreniz değiştirildi`,
-                        positionClass: 'topRight',
-                        type: 'success',
-                        timeout: 3 * 1000
-                    })
-
-                    this.props.history.push('/sign-in')
-                }
             })
+
+            if (status === 200) {
+                VanillaToasts.create({
+                    title: `Şifreniz değiştirildi`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
+
+                this.props.history.push('/sign-in')
+            }
         }
     }
 
-    onSendActivationCodeClick = () => {
-        sendActivationCode({
+    onSendActivationCodeClick = async () => {
+        const { status } = await sendActivationCode({
             phoneNumber: this.state.phoneNumber,
             activationCodeType: 1
-        }).then(({ status }) => {
-            if (status === 202) {
-                this.setState({ isActivationCodeSended: true }, () => {
-                    $('#phone-section').hide()
-                    $('#password-section').fadeIn('slow')
-                })
-            }
         })
+
+        if (status === 202) {
+            this.setState({ isActivationCodeSended: true }, () => {
+                $('#phone-section').hide()
+                $('#password-section').fadeIn('slow')
+            })
+        }
     }
 
     onNewPasswordChange = (event) => {

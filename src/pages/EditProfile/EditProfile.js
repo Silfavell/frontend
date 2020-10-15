@@ -25,25 +25,29 @@ class EditProfile extends React.Component {
         isEmailInitialized: true
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if (cookies.get('token')) {
-            getProfile().then(({ status, data }) => {
+            try {
+                const { status, data } = await getProfile()
+
                 if (status === 200) {
                     this.setState(data)
                 }
-            }).catch((err) => {
+            } catch (error) {
                 this.props.history.push('/')
-            })
+            }
         } else {
             this.props.history.push('/sign-in')
         }
     }
 
-    onSaveClick = () => {
-        updateProfile({
-            nameSurname: this.state.nameSurname,
-            email: this.state.email
-        }).then(({ status, data }) => {
+    onSaveClick = async () => {
+        try {
+            const { status, data } = await updateProfile({
+                nameSurname: this.state.nameSurname,
+                email: this.state.email
+            })
+
             if (status === 200) {
                 this.setState(data, () => {
                     VanillaToasts.create({
@@ -54,9 +58,9 @@ class EditProfile extends React.Component {
                     })
                 })
             }
-        }).catch(() => {
+        } catch (error) {
             this.props.history.push('/')
-        })
+        }
     }
 
     onNameSurnameChange = (event) => {

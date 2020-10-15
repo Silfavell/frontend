@@ -110,19 +110,17 @@ class Payment extends React.Component {
         this.setState({ showPreInfoPopup: false })
     }
 
-    setDatas = () => (
-        Promise.all([getCartProducts(), listCards(), getProfile()]).then((results) => {
-            const [cartSource, cardsSource, profileSource] = results
+    setDatas = async () => {
+        const [cartSource, cardsSource, profileSource] = await Promise.all([getCartProducts(), listCards(), getProfile()])
 
-            this.setState({
-                products: Object.values(cartSource.data.cart ?? {}),
-                cards: cardsSource.data.cardDetails ?? [],
-                profile: profileSource.data,
-                addresses: profileSource.data.addresses,
-                fetching: false
-            })
+        this.setState({
+            products: Object.values(cartSource.data.cart ?? {}),
+            cards: cardsSource.data.cardDetails ?? [],
+            profile: profileSource.data,
+            addresses: profileSource.data.addresses,
+            fetching: false
         })
-    )
+    }
 
     componentDidMount() {
         if (cookies.get('token')) {
@@ -139,15 +137,15 @@ class Payment extends React.Component {
         }
     }
 
-    onCompletePaymentClick = () => {
-        makeOrder({
+    onCompletePaymentClick = async () => {
+        const { status, data } = await makeOrder({
             address: this.state.addresses[this.state.selectedAddress]._id,
             card: this.state.cards[this.state.selectedCard].cardToken
-        }).then(({ status, data }) => {
-            if (status === 200) {
-                this.props.history.push('payment-completed', { order: data.order })
-            }
         })
+
+        if (status === 200) {
+            this.props.history.push('payment-completed', { order: data.order })
+        }
     }
 
     onAddressOptionsClick = () => {

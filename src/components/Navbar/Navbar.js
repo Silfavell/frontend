@@ -21,12 +21,12 @@ class Navbar extends React.Component {
         searchedProducts: []
     }
 
-    onSearchClick = () => {
-        search(this.state.searchText).then(({ status, data }) => {
-            if (status === 200) {
-                this.setState({ searchedProducts: data.map((product) => product._source) })
-            }
-        })
+    onSearchClick = async () => {
+        const { status, data } = await search(this.state.searchText)
+
+        if (status === 200) {
+            this.setState({ searchedProducts: data.map((product) => product._source) })
+        }
     }
 
     onLogoutClick = () => {

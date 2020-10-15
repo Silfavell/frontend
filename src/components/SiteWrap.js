@@ -75,154 +75,157 @@ class SiteWrap extends React.Component {
         window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
     }
 
-    onIncreaseClick = (productId, quantity = 1, dontShowToast) => {
-        increaseProductQuantity(productId, quantity).then(({ status, data }) => {
-            if (status === 200) {
+    onIncreaseClick = async (productId, quantity = 1, dontShowToast) => {
+        const { status, data } = await increaseProductQuantity(productId, quantity)
 
-                const foundProduct = this.state.products.find(product => product._id === productId)
-                if (foundProduct) {
-                    const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
-                    // eslint-disable-next-line
-                    this.state.products[indexOfFoundProduct] = { ...data, quantity: foundProduct.quantity + quantity }
+        if (status === 200) {
+            const foundProduct = this.state.products.find(product => product._id === productId)
 
-                    this.setState({ products: this.state.products })
+            if (foundProduct) {
+                const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
+                // eslint-disable-next-line
+                this.state.products[indexOfFoundProduct] = { ...data, quantity: foundProduct.quantity + quantity }
 
-                    if (!cookies.get('token')) {
-                        this.setCartToStorageOnIncrease(productId, foundProduct.quantity + quantity)
-                    }
-                } else {
-                    this.state.products.push({ ...data, quantity })
-                    this.setState({ products: this.state.products })
-
-                    if (!cookies.get('token')) {
-                        this.setCartToStorageOnIncrease(productId, quantity)
-                    }
-                }
-
-
-                if (!dontShowToast) {
-                    VanillaToasts.create({
-                        title: `Ürün sepete eklendi`,
-                        positionClass: 'topRight',
-                        type: 'success',
-                        timeout: 3 * 1000
-                    })
-                }
-            }
-        })
-    }
-
-    onDecreaseClick = (productId, quantity = 1, dontShowToast) => {
-        decreaseProductQuantity(productId, quantity).then(({ status, data }) => {
-            if (status === 200) {
-                const foundProduct = this.state.products.find(product => product._id === productId)
-
-                if (foundProduct.quantity - quantity > 0) {
-                    const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
-                    // eslint-disable-next-line
-                    this.state.products[indexOfFoundProduct] = { ...data, quantity: foundProduct.quantity - quantity }
-
-                    this.setState({ products: this.state.products }, () => {
-                        if (!dontShowToast) {
-                            VanillaToasts.create({
-                                title: `Ürün sepetten çıkarıldı`,
-                                positionClass: 'topRight',
-                                type: 'success',
-                                timeout: 3 * 1000
-                            })
-                        }
-                    })
-                } else {
-                    const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
-                    this.state.products.splice(indexOfFoundProduct, 1)
-
-                    this.setState({ products: this.state.products }, () => {
-                        if (!dontShowToast) {
-                            VanillaToasts.create({
-                                title: `Ürün sepetten çıkarıldı`,
-                                positionClass: 'topRight',
-                                type: 'success',
-                                timeout: 3 * 1000
-                            })
-                        }
-                    })
-                }
+                this.setState({ products: this.state.products })
 
                 if (!cookies.get('token')) {
-                    this.setCartToStorageOnDecrease(productId, quantity)
+                    this.setCartToStorageOnIncrease(productId, foundProduct.quantity + quantity)
+                }
+            } else {
+                this.state.products.push({ ...data, quantity })
+                this.setState({ products: this.state.products })
+
+                if (!cookies.get('token')) {
+                    this.setCartToStorageOnIncrease(productId, quantity)
                 }
             }
-        })
+
+            if (!dontShowToast) {
+                VanillaToasts.create({
+                    title: `Ürün sepete eklendi`,
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
+            }
+        }
     }
 
-    setProductQuantity = (productId, quantity = 1) => {
-        setProductQuantity(productId, quantity).then(({ status, data }) => {
-            if (status === 200) {
-                const foundProduct = this.state.products.find(product => product._id === productId)
+    onDecreaseClick = async (productId, quantity = 1, dontShowToast) => {
+        const { status, data } = await decreaseProductQuantity(productId, quantity)
+
+        if (status === 200) {
+            const foundProduct = this.state.products.find(product => product._id === productId)
+
+            if (foundProduct.quantity - quantity > 0) {
                 const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
+                // eslint-disable-next-line
+                this.state.products[indexOfFoundProduct] = { ...data, quantity: foundProduct.quantity - quantity }
 
-                if (data.quantity) {
-                    // eslint-disable-next-line
-                    this.state.products[indexOfFoundProduct] = { ...data, quantity }
-                    this.setState({ products: this.state.products })
-                } else {
-                    this.state.products.splice(indexOfFoundProduct, 1)
-
-                    this.setState({ products: this.state.products }, () => {
+                this.setState({ products: this.state.products }, () => {
+                    if (!dontShowToast) {
                         VanillaToasts.create({
                             title: `Ürün sepetten çıkarıldı`,
                             positionClass: 'topRight',
                             type: 'success',
                             timeout: 3 * 1000
                         })
-                    })
-                }
-
-                if (!cookies.get('token')) {
-                    this.setCartToStorageOnIncrease(productId, quantity)
-                }
-            }
-        })
-    }
-
-    getCartProducts = () => {
-        return getCartProducts().then(({ data }) => (
-            data?.cart ? Object.values(data.cart) : []
-        ))
-    }
-
-    getFavoriteProducts = () => listFavorites().then(({ data }) => data.favoriteProducts)
-
-    getCategories = () => getCategories().then(({ data }) => data)
-
-    componentDidMount() {
-        if (cookies.get('token')) {
-            Promise.all([this.getCategories(), this.getCartProducts(), this.getFavoriteProducts()]).then((results) => {
-                const [categories, products, favoriteProducts] = results
-
-                this.setState({ categories, products }, () => {
-                    localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts))
+                    }
                 })
+            } else {
+                const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
+                this.state.products.splice(indexOfFoundProduct, 1)
+
+                this.setState({ products: this.state.products }, () => {
+                    if (!dontShowToast) {
+                        VanillaToasts.create({
+                            title: `Ürün sepetten çıkarıldı`,
+                            positionClass: 'topRight',
+                            type: 'success',
+                            timeout: 3 * 1000
+                        })
+                    }
+                })
+            }
+
+            if (!cookies.get('token')) {
+                this.setCartToStorageOnDecrease(productId, quantity)
+            }
+        }
+    }
+
+    setProductQuantity = async (productId, quantity = 1) => {
+        const { status, data } = await setProductQuantity(productId, quantity)
+
+        if (status === 200) {
+            const foundProduct = this.state.products.find(product => product._id === productId)
+            const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
+
+            if (data.quantity) {
+                // eslint-disable-next-line
+                this.state.products[indexOfFoundProduct] = { ...data, quantity }
+                this.setState({ products: this.state.products })
+            } else {
+                this.state.products.splice(indexOfFoundProduct, 1)
+
+                this.setState({ products: this.state.products }, () => {
+                    VanillaToasts.create({
+                        title: `Ürün sepetten çıkarıldı`,
+                        positionClass: 'topRight',
+                        type: 'success',
+                        timeout: 3 * 1000
+                    })
+                })
+            }
+
+            if (!cookies.get('token')) {
+                this.setCartToStorageOnIncrease(productId, quantity)
+            }
+        }
+    }
+
+    getCartProducts = async () => {
+        const { data } = await getCartProducts()
+
+        return data?.cart ? Object.values(data.cart) : []
+    }
+
+    getFavoriteProducts = async () => {
+        const { data } = await listFavorites()
+
+        return data.favoriteProducts
+    }
+
+    getCategories = async () => {
+        const { data } = await getCategories()
+
+        return data
+    }
+
+    async componentDidMount() {
+        if (cookies.get('token')) {
+            const [categories, products, favoriteProducts] = await Promise.all([this.getCategories(), this.getCartProducts(), this.getFavoriteProducts()])
+
+            this.setState({ categories, products }, () => {
+                localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts))
             })
         } else {
-            this.getCategories().then((categories) => {
-                const cart = window.localStorage.getItem('cart')
-                if (cart) {
-                    const cartAsArray = JSON.parse(cart)
-                    if (cartAsArray.length > 0) {
-                        fetchOfflineCartProducts()
-                            .then(({ data }) => data.products)
-                            .then((products) => {
-                                this.setState({
-                                    categories,
-                                    products: products.map((product, index) => Object.assign(product, { quantity: cartAsArray[index].quantity }))
-                                })
-                            })
-                    }
-                } else {
-                    this.setState({ categories, products: [] })
+            const categories = await this.getCategories()
+            const cart = window.localStorage.getItem('cart')
+
+            if (cart) {
+                const cartAsArray = JSON.parse(cart)
+                if (cartAsArray.length > 0) {
+                    const { data } = await fetchOfflineCartProducts()
+
+                    this.setState({
+                        categories,
+                        products: data.products.map((product, index) => Object.assign(product, { quantity: cartAsArray[index].quantity }))
+                    })
                 }
-            })
+            } else {
+                this.setState({ categories, products: [] })
+            }
         }
 
         setTimeout(() => {
@@ -267,7 +270,6 @@ class SiteWrap extends React.Component {
                 </div>
 
                 <Footer />
-
             </div>
         )
     }

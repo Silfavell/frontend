@@ -13,10 +13,10 @@ class CustomTabs extends React.Component {
         bestSeller: []
     }
 
-    componentDidMount() {
-        getBestSellerProducts().then(({ data }) => {
-            this.setState({ bestSeller: data })
-        })
+    async componentDidMount() {
+        const { data } = await getBestSellerProducts()
+
+        this.setState({ bestSeller: data })
     }
 
     render() {

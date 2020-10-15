@@ -28,20 +28,24 @@ class Shop extends React.Component {
     }
 
 
-    filterShop = () => {
+    filterShop = async () => {
         const url = `${process.env.REACT_APP_API_URL}/filter-shop${this.props.location.pathname.replace('/shop', '')}${this.props.location.search}${this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${maximumProductLengthInOnePage}`
-        return makeCustomRequest({ url }).then(({ data }) => data)
+        const { data } = await makeCustomRequest({ url })
+
+        return data
     }
 
-    getCategories = () => {
-        return getCategories().then(({ data }) => data)
+    getCategories = async () => {
+        const { data } = await getCategories()
+
+        return data
     }
 
     refresh = () => {
-        this.setState({ fetching: true }, () => {
-            this.filterShop().then((shop) => {
-                this.setState({ shop, fetching: false })
-            })
+        this.setState({ fetching: true }, async () => {
+            const shop = await this.filterShop()
+
+            this.setState({ shop, fetching: false })
         })
     }
 
@@ -139,13 +143,13 @@ class Shop extends React.Component {
         )
     }
 
-    componentDidMount() {
-        Promise.all([this.getCategories(), this.filterShop()]).then((vals) => {
-            this.setState({
-                categories: vals[0],
-                shop: vals[1],
-                fetching: false
-            })
+    async componentDidMount() {
+        const [categories, shop] = await Promise.all([this.getCategories(), this.filterShop()])
+
+        this.setState({
+            categories,
+            shop,
+            fetching: false
         })
     }
 
