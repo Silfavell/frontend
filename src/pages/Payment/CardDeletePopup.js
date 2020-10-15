@@ -7,8 +7,9 @@ import PopupWrapper from '../../components/PopupWrapper'
 
 class CardDeletePopup extends React.Component {
 
-    onConfirm = () => {
-        removeCard({ cardToken: this.props.deleteCardToken }).then(({ status }) => {
+    onConfirm = async () => {
+        try {
+            const { status } = await removeCard({ cardToken: this.props.deleteCardToken })
             if (status === 200) {
                 VanillaToasts.create({
                     title: 'Kart silindi',
@@ -19,9 +20,9 @@ class CardDeletePopup extends React.Component {
 
                 this.props.hideDeleteCardPopup(this.props.deleteCardToken)
             }
-        }).catch((error) => {
+        } catch (error) {
             this.props.hideDeleteCardPopup()
-        })
+        }
     }
 
     onOutsideClick = (event) => {

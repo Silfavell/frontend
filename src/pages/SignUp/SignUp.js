@@ -53,7 +53,7 @@ class SignUp extends React.Component {
         this.setState({ [name]: value })
     }
 
-    onSignUpClick = () => {
+    onSignUpClick = async () => {
         const {
             phoneNumber,
             nameSurname,
@@ -63,55 +63,54 @@ class SignUp extends React.Component {
             activationCode
         } = this.state
 
-        signUp({
+        const { status, data } = await signUp({
             phoneNumber,
             nameSurname,
             email,
             password,
             // rePassword,
             activationCode
-        }).then(({ status, data }) => {
-            if (status === 200) {
-                cookies.set('token', data.token)
-                localStorage.setItem('_id', data.user._id)
+        })
+        if (status === 200) {
+            cookies.set('token', data.token)
+            localStorage.setItem('_id', data.user._id)
 
-                if (data.user.alias) {
-                    localStorage.setItem('alias', data.user.alias)
-                }
+            if (data.user.alias) {
+                localStorage.setItem('alias', data.user.alias)
+            }
 
-                localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
+            localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
 
-                if (window.localStorage.getItem('cart')) {
-                    bulkCart().then(() => {
-                        window.localStorage.removeItem('cart')
+            if (window.localStorage.getItem('cart')) {
+                await bulkCart()
 
-                        if (document.referrer.includes(window.location.origin)) {
-                            window.history.back()
-                        } else {
-                            this.props.history.push('/')
-                        }
-                    })
+                window.localStorage.removeItem('cart')
+
+                if (document.referrer.includes(window.location.origin)) {
+                    window.history.back()
                 } else {
-                    if (document.referrer.includes(window.location.origin)) {
-                        window.history.back()
-                    } else {
-                        this.props.history.push('/')
-                    }
+                    this.props.history.push('/')
+                }
+            } else {
+                if (document.referrer.includes(window.location.origin)) {
+                    window.history.back()
+                } else {
+                    this.props.history.push('/')
                 }
             }
-        })
+        }
     }
 
-    sendActivationCode = () => {
-        sendActivationCode({
+    sendActivationCode = async () => {
+        const { status } = await sendActivationCode({
             phoneNumber: this.state.phoneNumber,
-            activationCodeType: 0
-        }).then(({ status }) => {
-            if (status === 202) {
-                $('#register').hide()
-                $('#activation').fadeIn('slow')
-            }
+            activationCodeType: 0 // TODO
         })
+
+        if (status === 202) {
+            $('#register').hide()
+            $('#activation').fadeIn('slow')
+        }
     }
 
     showAgreementPopup = () => {

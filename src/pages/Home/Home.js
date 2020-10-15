@@ -17,17 +17,18 @@ class Home extends React.Component {
         shop: {}
     }
 
-    fetchShop = (visitedProductIds) => {
-        return fetchShop(visitedProductIds).then(({ data }) => data || {})
+    fetchShop = async (visitedProductIds) => {
+        const { data } = await fetchShop(visitedProductIds)
+
+        return data || {}
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if (window.localStorage.visitedProducts) {
             const visitedProductIds = JSON.parse(window.localStorage.getItem('visitedProducts')).map((id) => `productIds=${id}`).join('&')
+            const shop = await this.fetchShop(visitedProductIds)
 
-            this.fetchShop(visitedProductIds).then((shop) => {
-                this.setState({ shop })
-            })
+            this.setState({ shop })
         }
     }
 

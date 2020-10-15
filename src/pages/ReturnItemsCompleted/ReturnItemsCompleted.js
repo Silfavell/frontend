@@ -29,17 +29,14 @@ class ReturnItemsCompleted extends React.Component {
         })
     }
 
-    getOrder = () => (
-        getOrderById(this.props.match.params._id).then(({ status, data }) => {
-            if (status === 200) {
-                return data
-            }
+    getOrder = async () => {
+        const { status, data } = await getOrderById(this.props.match.params._id)
+        if (status === 200) {
+            return data
+        }
 
-            return false
-        }).catch(() => {
-            return false
-        })
-    )
+        return false
+    }
 
     render() {
         return (

@@ -15,7 +15,7 @@ class WriteReviewPopup extends React.Component {
         isAgreementChecked: false
     }
 
-    onConfirm = () => {
+    onConfirm = async () => {
         const {
             title,
             comment,
@@ -29,15 +29,17 @@ class WriteReviewPopup extends React.Component {
             this.qualityRateRef.state.rate > 0 &&
             this.priceRateRef.state.rate > 0 &&
             (localStorage.getItem('alias') || ownerAlias.trim().length > 0)) {
-            saveComment({
-                productId: this.props.productId,
-                title,
-                comment,
-                ownerAlias,
-                generalRate: this.generalRateRef.state.rate,
-                qualityRate: this.qualityRateRef.state.rate,
-                priceRate: this.priceRateRef.state.rate
-            }).then(({ data, status }) => {
+
+            try {
+                const { data, status } = await saveComment({
+                    productId: this.props.productId,
+                    title,
+                    comment,
+                    ownerAlias,
+                    generalRate: this.generalRateRef.state.rate,
+                    qualityRate: this.qualityRateRef.state.rate,
+                    priceRate: this.priceRateRef.state.rate
+                })
                 if (status === 200) {
                     VanillaToasts.create({
                         title: `Yorumunuz gönderildi`,
@@ -52,9 +54,9 @@ class WriteReviewPopup extends React.Component {
                 }
 
                 this.props.hideWriteReviewPopup(data)
-            }).catch((err) => {
+            } catch (error) {
                 this.props.hideWriteReviewPopup()
-            })
+            }
         } else {
             VanillaToasts.create({
                 title: `Lütfen gerekli alanlarını doldurunuz`,

@@ -29,40 +29,36 @@ class Comments extends React.Component {
         </div>
     )
 
-    onLikeClick = (_id, alreadyLiked) => {
-        const request = alreadyLiked ? unlikeComment(_id) : likeComment(_id)
+    onLikeClick = async (_id, alreadyLiked) => {
+        const { status, data } = await alreadyLiked ? unlikeComment(_id) : likeComment(_id)
 
-        request.then(({ status, data }) => {
-            if (status === 200) {
-                this.setState({
-                    comments: this.state.comments.map((comment) => {
-                        if (comment._id === data._id) {
-                            return data
-                        }
+        if (status === 200) {
+            this.setState({
+                comments: this.state.comments.map((comment) => {
+                    if (comment._id === data._id) {
+                        return data
+                    }
 
-                        return comment
-                    })
+                    return comment
                 })
-            }
-        })
+            })
+        }
     }
 
-    onDislikeClick = (_id, alreadyDisliked) => {
-        const request = alreadyDisliked ? unlikeComment(_id) : likeComment(_id)
+    onDislikeClick = async (_id, alreadyDisliked) => {
+        const { status, data } = await alreadyDisliked ? unlikeComment(_id) : likeComment(_id)
 
-        request.then(({ status, data }) => {
-            if (status === 200) {
-                this.setState({
-                    comments: this.state.comments.map((comment) => {
-                        if (comment._id === data._id) {
-                            return data
-                        }
+        if (status === 200) {
+            this.setState({
+                comments: this.state.comments.map((comment) => {
+                    if (comment._id === data._id) {
+                        return data
+                    }
 
-                        return comment
-                    })
+                    return comment
                 })
-            }
-        })
+            })
+        }
     }
 
     onReportClick = (_id) => {

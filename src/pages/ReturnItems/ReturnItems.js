@@ -35,17 +35,14 @@ class ReturnItems extends React.Component {
         })
     }
 
-    getOrder = () => (
-        getOrderById(this.props.match.params._id).then(({ status, data }) => {
-            if (status === 200) {
-                return data
-            }
+    getOrder = async () => {
+        const { status, data } = await getOrderById(this.props.match.params._id)
+        if (status === 200) {
+            return data
+        }
 
-            return false
-        }).catch(() => {
-            return false
-        })
-    )
+        return false
+    }
 
     onDecreaseClick = (_id) => {
         const { items } = this.state
@@ -118,19 +115,19 @@ class ReturnItems extends React.Component {
         }
     }
 
-    onReturnBtnClick = () => {
+    onReturnBtnClick = async () => {
         const items = this.state.items.filter((item) => item.selected).map((item) => {
             delete item.selected
             return item
         })
 
         if (items.length > 0) {
-            returnItems(this.state.order._id, items).then(({ status }) => {
-                if (status === 200) {
-                    window.history.pushState({}, null, `/return-items-completed/${this.state.order._id}`)
-                    window.location.reload()
-                }
-            })
+            const { status } = await returnItems(this.state.order._id, items)
+
+            if (status === 200) {
+                window.history.pushState({}, null, `/return-items-completed/${this.state.order._id}`)
+                window.location.reload()
+            }
         } else {
             VanillaToasts.create({
                 title: `Lütfen iade etmek istediğiniz ürünleri seçiniz`,

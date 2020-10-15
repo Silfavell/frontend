@@ -18,12 +18,12 @@ class AddressPopup extends React.Component {
         this.setState({ addressTitle: event.target.value })
     }
 
-    onSaveAddressClick = () => {
-        saveAddress(this.state).then(({ status, data }) => {
-            if (status === 200) {
-                this.props.hideSaveAddressPopup(data.addresses)
-            }
-        })
+    onSaveAddressClick = async () => {
+        const { status, data } = await saveAddress(this.state)
+
+        if (status === 200) {
+            this.props.hideSaveAddressPopup(data.addresses)
+        }
     }
 
     onOutsideClick = (event) => {

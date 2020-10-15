@@ -25,44 +25,50 @@ class ShopSingle extends React.Component {
         subCategorySlug: ''
     }
 
-    fetchAndSetProduct = (productSlug) => {
-        return getProductBySlug(productSlug).then(({ data }) => data)
+    fetchAndSetProduct = async (productSlug) => {
+        const { data } = await getProductBySlug(productSlug)
+
+        return data
     }
 
-    fetchRelatedProducts = (productSlug) => {
-        return getRelatedProductsBySlug(productSlug).then(({ data }) => data)
+    fetchRelatedProducts = async (productSlug) => {
+        const { data } = await getRelatedProductsBySlug(productSlug)
+
+        return data
     }
 
-    componentWillMount() {
-        Promise.all([this.fetchAndSetProduct(this.props.match.params._id), this.fetchRelatedProducts(this.props.match.params._id)]).then((vals) => {
-            this.setState({ product: vals[0], relatedProducts: vals[1] }, () => {
+    async componentWillMount() {
+        try {
+            const [product, relatedProducts] = await Promise.all([this.fetchAndSetProduct(this.props.match.params._id), this.fetchRelatedProducts(this.props.match.params._id)])
+
+            this.setState({ product, relatedProducts }, () => {
                 const visitedProducts = window.localStorage.getItem('visitedProducts')
                 if (visitedProducts) {
                     const visitedProductsAsArray = JSON.parse(visitedProducts)
 
-                    if (visitedProductsAsArray.indexOf(vals[0]._id) !== -1) {
-                        visitedProductsAsArray.splice(visitedProductsAsArray.indexOf(vals[0]._id), 1)
+                    if (visitedProductsAsArray.indexOf(product._id) !== -1) {
+                        visitedProductsAsArray.splice(visitedProductsAsArray.indexOf(product._id), 1)
                     }
 
-                    if (vals[0]?._id) {
-                        visitedProductsAsArray.push(vals[0]._id)
+                    if (product?._id) {
+                        visitedProductsAsArray.push(product._id)
                     }
 
                     window.localStorage.setItem('visitedProducts', JSON.stringify(visitedProductsAsArray))
                 } else {
-                    window.localStorage.setItem('visitedProducts', JSON.stringify([vals[0]._id]))
+                    window.localStorage.setItem('visitedProducts', JSON.stringify([product._id]))
                 }
             })
-        }).catch((err) => {
-            console.log(err)
+        } catch (error) {
+            console.log(error)
             this.props.history.push('/not-found')
-        })
+        }
     }
 
-    onColorClick = (productSlug) => {
-        this.fetchAndSetProduct(productSlug).then((product) => {
-            this.setState({ product })
-        })
+    onColorClick = async (productSlug) => {
+        const product = await this.fetchAndSetProduct(productSlug)
+
+        this.setState({ product })
     }
 
     increaseQuantity = () => {

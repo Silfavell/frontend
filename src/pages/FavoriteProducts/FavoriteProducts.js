@@ -19,13 +19,13 @@ class FavoriteProducts extends React.Component {
         fetching: true
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if (cookies.get('token')) {
-            listFavorites().then((result) => {
-                this.setState({
-                    products: result.data.favoriteProducts,
-                    fetching: false
-                })
+            const result = await listFavorites()
+
+            this.setState({
+                products: result.data.favoriteProducts,
+                fetching: false
             })
         } else {
             this.props.history.push('/sign-in')

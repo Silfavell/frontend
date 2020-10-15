@@ -123,7 +123,7 @@ class NewCreditCardPopup extends React.Component {
             })
     }
 
-    onSaveClick = () => {
+    onSaveClick = async () => {
         const {
             cardAlias,
             cardNumber,
@@ -141,16 +141,18 @@ class NewCreditCardPopup extends React.Component {
                 timeout: 5 * 1000
             })
         } else {
-            addCard({
-                card: {
-                    cardAlias,
-                    cardHolderName,
-                    cardNumber: cardNumber.split(' ').join(''),
-                    expireMonth,
-                    expireYear,
-                    // cvc2 // TODO
-                }
-            }).then(({ data, status }) => {
+            try {
+                const { data, status } = await addCard({
+                    card: {
+                        cardAlias,
+                        cardHolderName,
+                        cardNumber: cardNumber.split(' ').join(''),
+                        expireMonth,
+                        expireYear,
+                        // cvc2 // TODO
+                    }
+                })
+
                 if (status === 200) {
                     VanillaToasts.create({
                         title: 'Kartınız kayıt edildi',
@@ -161,9 +163,9 @@ class NewCreditCardPopup extends React.Component {
 
                     this.props.hideCreditCardPopup(data)
                 }
-            }).catch(() => {
+            } catch (error) {
                 this.props.hideCreditCardPopup()
-            })
+            }
         }
     }
 

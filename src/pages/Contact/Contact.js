@@ -16,7 +16,7 @@ const initialState = {
 class Contact extends React.Component {
   state = initialState
 
-  onSendMessageClick = () => {
+  onSendMessageClick = async () => {
     const {
       name,
       surname,
@@ -25,24 +25,24 @@ class Contact extends React.Component {
       message
     } = this.state
 
-    postTicket({
+    const { status } = await postTicket({
       name,
       surname,
       email,
       subject,
       message
-    }).then(({ status }) => {
-      if (status === 200) {
-        VanillaToasts.create({
-          title: `Mesajınız iletildi`,
-          positionClass: 'topRight',
-          type: 'success',
-          timeout: 3 * 1000
-        })
-
-        this.setState(initialState)
-      }
     })
+
+    if (status === 200) {
+      VanillaToasts.create({
+        title: `Mesajınız iletildi`,
+        positionClass: 'topRight',
+        type: 'success',
+        timeout: 3 * 1000
+      })
+
+      this.setState(initialState)
+    }
   }
 
   onChange = (event) => {

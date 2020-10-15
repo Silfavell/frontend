@@ -24,7 +24,7 @@ class UpdatePassword extends React.Component {
         isReNewPasswordInitialized: false
     }
 
-    onUpdateClick = () => {
+    onUpdateClick = async () => {
         if (this.state.oldPassword === '' || this.state.newPassword === '') {
             VanillaToasts.create({
                 title: 'Lütfen gerekli alanlarını doldurunuz',
@@ -54,19 +54,19 @@ class UpdatePassword extends React.Component {
                 timeout: 3 * 1000
             })
         } else {
-            changePassword({
+            const { status } = await changePassword({
                 oldPassword: this.state.oldPassword,
                 newPassword: this.state.newPassword
-            }).then(({ status }) => {
-                if (status === 200) {
-                    VanillaToasts.create({
-                        title: 'Şifreniz değiştirildi',
-                        positionClass: 'topRight',
-                        type: 'success',
-                        timeout: 3 * 1000
-                    })
-                }
             })
+
+            if (status === 200) {
+                VanillaToasts.create({
+                    title: 'Şifreniz değiştirildi',
+                    positionClass: 'topRight',
+                    type: 'success',
+                    timeout: 3 * 1000
+                })
+            }
         }
     }
 
