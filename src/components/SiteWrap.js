@@ -196,8 +196,8 @@ class SiteWrap extends React.Component {
         return data.favoriteProducts
     }
 
-    getCategories = () => {
-        const { data } = getCategories()
+    getCategories = async () => {
+        const { data } = await getCategories()
 
         return data
     }
