@@ -1,27 +1,19 @@
 import React from 'react'
-import Cookies from 'universal-cookie'
-import VanillaToasts from 'vanillatoasts'
 import $ from 'jquery'
-
-import {
-    fetchOfflineCartProducts,
-    getCartProducts,
-    getCategories,
-    increaseProductQuantity,
-    decreaseProductQuantity,
-    setProductQuantity,
-    listFavorites
-} from '../../scripts/requests'
 
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
 import Divider from '../Divider/Divider'
 import FirstImage from '../FirstImage/FirstImage'
 
-const cookies = new Cookies()
+import {
+    onIncreaseClick,
+    onDecreaseClick,
+    setProductQuantity,
+    getInitialDatas
+} from './scripts'
 
 class SiteWrap extends React.Component {
-
     state = {
         isMobileMenuOpen: false,
         categories: [],
@@ -38,199 +30,25 @@ class SiteWrap extends React.Component {
         }
     }
 
-    setCartToStorageOnIncrease = (productId, quantity) => {
-        const cart = window.localStorage.getItem('cart')
-
-        if (cart) {
-            const cartAsArray = JSON.parse(cart)
-            const foundProduct = cartAsArray.find((cartProduct) => cartProduct._id === productId)
-
-            if (foundProduct) {
-                cartAsArray[cartAsArray.indexOf(foundProduct)].quantity = quantity
-
-                if (cartAsArray[cartAsArray.indexOf(foundProduct)].quantity < 1) {
-                    cartAsArray.splice(cartAsArray.indexOf(foundProduct), 1)
-                }
-            } else {
-                cartAsArray.push({ _id: productId, quantity })
-            }
-
-            window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
-        } else {
-            window.localStorage.setItem('cart', JSON.stringify([{ _id: productId, quantity }]))
-        }
-    }
-
-    setCartToStorageOnDecrease = (productId, quantity) => {
-        const cart = window.localStorage.getItem('cart')
-
-        const cartAsArray = JSON.parse(cart)
-        const foundProduct = cartAsArray.find((cartProduct) => cartProduct._id === productId)
-        cartAsArray[cartAsArray.indexOf(foundProduct)].quantity -= quantity
-
-        if (cartAsArray[cartAsArray.indexOf(foundProduct)].quantity < 1) {
-            cartAsArray.splice(cartAsArray.indexOf(foundProduct), 1)
-        }
-
-        window.localStorage.setItem('cart', JSON.stringify(cartAsArray))
-    }
-
     onIncreaseClick = async (productId, quantity = 1, dontShowToast) => {
-        const { status, data } = await increaseProductQuantity(productId, quantity)
-
-        if (status === 200) {
-            const foundProduct = this.state.products.find(product => product._id === productId)
-
-            if (foundProduct) {
-                const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
-                // eslint-disable-next-line
-                this.state.products[indexOfFoundProduct] = { ...data, quantity: foundProduct.quantity + quantity }
-
-                this.setState({ products: this.state.products })
-
-                if (!cookies.get('token')) {
-                    this.setCartToStorageOnIncrease(productId, foundProduct.quantity + quantity)
-                }
-            } else {
-                this.state.products.push({ ...data, quantity })
-                this.setState({ products: this.state.products })
-
-                if (!cookies.get('token')) {
-                    this.setCartToStorageOnIncrease(productId, quantity)
-                }
-            }
-
-            if (!dontShowToast) {
-                VanillaToasts.create({
-                    title: `Ürün sepete eklendi`,
-                    positionClass: 'topRight',
-                    type: 'success',
-                    timeout: 3 * 1000
-                })
-            }
-        }
+        const products = await onIncreaseClick(productId, quantity, dontShowToast, this.state.products)
+        this.setState({ products })
     }
 
     onDecreaseClick = async (productId, quantity = 1, dontShowToast) => {
-        const { status, data } = await decreaseProductQuantity(productId, quantity)
-
-        if (status === 200) {
-            const foundProduct = this.state.products.find(product => product._id === productId)
-
-            if (foundProduct.quantity - quantity > 0) {
-                const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
-                // eslint-disable-next-line
-                this.state.products[indexOfFoundProduct] = { ...data, quantity: foundProduct.quantity - quantity }
-
-                this.setState({ products: this.state.products }, () => {
-                    if (!dontShowToast) {
-                        VanillaToasts.create({
-                            title: `Ürün sepetten çıkarıldı`,
-                            positionClass: 'topRight',
-                            type: 'success',
-                            timeout: 3 * 1000
-                        })
-                    }
-                })
-            } else {
-                const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
-                this.state.products.splice(indexOfFoundProduct, 1)
-
-                this.setState({ products: this.state.products }, () => {
-                    if (!dontShowToast) {
-                        VanillaToasts.create({
-                            title: `Ürün sepetten çıkarıldı`,
-                            positionClass: 'topRight',
-                            type: 'success',
-                            timeout: 3 * 1000
-                        })
-                    }
-                })
-            }
-
-            if (!cookies.get('token')) {
-                this.setCartToStorageOnDecrease(productId, quantity)
-            }
-        }
+        const products = await onDecreaseClick(productId, quantity, dontShowToast, this.state.products)
+        this.setState({ products })
     }
 
     setProductQuantity = async (productId, quantity = 1) => {
-        const { status, data } = await setProductQuantity(productId, quantity)
-
-        if (status === 200) {
-            const foundProduct = this.state.products.find(product => product._id === productId)
-            const indexOfFoundProduct = this.state.products.indexOf(foundProduct)
-
-            if (data.quantity) {
-                // eslint-disable-next-line
-                this.state.products[indexOfFoundProduct] = { ...data, quantity }
-                this.setState({ products: this.state.products })
-            } else {
-                this.state.products.splice(indexOfFoundProduct, 1)
-
-                this.setState({ products: this.state.products }, () => {
-                    VanillaToasts.create({
-                        title: `Ürün sepetten çıkarıldı`,
-                        positionClass: 'topRight',
-                        type: 'success',
-                        timeout: 3 * 1000
-                    })
-                })
-            }
-
-            if (!cookies.get('token')) {
-                this.setCartToStorageOnIncrease(productId, quantity)
-            }
-        }
-    }
-
-    getCartProducts = async () => {
-        const { data } = await getCartProducts()
-
-        return data?.cart ? Object.values(data.cart) : []
-    }
-
-    getFavoriteProducts = async () => {
-        const { data } = await listFavorites()
-
-        return data.favoriteProducts
-    }
-
-    getCategories = async () => {
-        const { data } = await getCategories()
-
-        return data
+        const products = await setProductQuantity(productId, quantity, this.state.products)
+        this.setState({ products })
     }
 
     async componentDidMount() {
-        if (cookies.get('token')) {
-            const [categories, products, favoriteProducts] = await Promise.all([this.getCategories(), this.getCartProducts(), this.getFavoriteProducts()])
+        const initialDatas = await getInitialDatas()
 
-            this.setState({ categories, products }, () => {
-                localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts))
-            })
-        } else {
-            const categories = await this.getCategories()
-            const cart = window.localStorage.getItem('cart')
-
-            if (cart) {
-                const cartAsArray = JSON.parse(cart)
-                if (cartAsArray.length > 0) {
-                    const { data } = await fetchOfflineCartProducts()
-
-                    this.setState({
-                        categories,
-                        products: data.products.map((product, index) => Object.assign(product, { quantity: cartAsArray[index].quantity }))
-                    })
-                }
-            } else {
-                this.setState({ categories, products: [] })
-            }
-        }
-
-        setTimeout(() => {
-            window.scrollTo({ behavior: 'smooth', top: 0 })
-        }, 100)
+        this.setState(initialDatas)
     }
 
     render() {
