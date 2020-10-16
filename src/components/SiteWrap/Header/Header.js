@@ -4,7 +4,7 @@ import React from 'react'
 import Cookies from 'universal-cookie'
 import { IoMdPerson, IoIosBasket, IoMdMenu } from 'react-icons/io'
 
-import NavCartItem from '../NavCartItem/NavCartItem'
+import NavCartItem from './NavCartItem'
 import SearchBarBottom from './SearchBarBottom'
 import SearchBarTop from './SearchBarTop'
 import MobileMenu from './MobileMenu'
@@ -12,7 +12,7 @@ import Navbar from './Navbar'
 import PersonMenu from './PersonMenu'
 import Logo from './Logo'
 
-import { search } from '../../scripts/requests'
+import { search } from '../../../scripts/requests'
 
 import './Header.css'
 

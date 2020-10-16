@@ -1,10 +1,10 @@
 import React from 'react'
 import $ from 'jquery'
 
-import Header from '../Header/Header'
-import Footer from '../Footer/Footer'
-import Divider from '../Divider/Divider'
-import FirstImage from '../FirstImage/FirstImage'
+import Header from './Header/Header'
+import Footer from './Footer'
+import Divider from './Divider'
+import FirstImage from './FirstImage'
 
 import {
     onIncreaseClick,

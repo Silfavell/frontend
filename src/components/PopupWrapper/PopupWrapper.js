@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoIosClose } from 'react-icons/io'
 
-class PopupWrapper extends React.Component {
+class PopupWrapper extends React.PureComponent {
     render() {
         return (
             <div style={{

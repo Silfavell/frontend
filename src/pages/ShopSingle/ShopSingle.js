@@ -2,19 +2,18 @@ import React from 'react'
 import joi from '@hapi/joi'
 import { Helmet } from 'react-helmet'
 
-import { getProductBySlug, getRelatedProductsBySlug } from '../../scripts/requests'
-
 import Loading from '../../components/Loading/Loading'
 import SiteWrap from '../../components/SiteWrap/SiteWrap'
-import ProductImages from '../../components/ProductImages/ProductImages'
+import ProductImages from './ProductImages'
 import Tabs from './Tabs'
 import Accordion from './Accordion'
 import Carousel from '../../components/Carousel/Carousel'
 
+import { getProductBySlug, getRelatedProductsBySlug } from '../../scripts/requests'
+
 import './ShopSingle.css'
 
 class ShopSingle extends React.Component {
-
     state = {
         product: {},
         relatedProducts: [],
@@ -196,36 +195,7 @@ class ShopSingle extends React.Component {
                                 )
                             }
                         </p>
-                        {
-                            /*
-                            <div className='mb-1 d-flex'>
-                                <label htmlFor='option-sm' className='d-flex mr-3 mb-3'>
-                                    <span className='d-inline-block mr-2' style={{ top: -2, position: 'relative' }}>
-                                        <input type='radio' id='option-sm' name='shop-sizes' />
-                                    </span>
-                                    <span className='d-inline-block text-black'>Small</span>
-                                </label>
-                                <label htmlFor='option-md' className='d-flex mr-3 mb-3'>
-                                    <span className='d-inline-block mr-2' style={{ top: -2, position: 'relative' }}>
-                                        <input type='radio' id='option-md' name='shop-sizes' />
-                                    </span>
-                                    <span className='d-inline-block text-black'>Medium</span>
-                                </label>
-                                <label htmlFor='option-lg' className='d-flex mr-3 mb-3'>
-                                    <span className='d-inline-block mr-2' style={{ top: -2, position: 'relative' }}>
-                                        <input type='radio' id='option-lg' name='shop-sizes' />
-                                    </span>
-                                    <span className='d-inline-block text-black'>Large</span>
-                                </label>
-                                <label htmlFor='option-xl' className='d-flex mr-3 mb-3'>
-                                    <span className='d-inline-block mr-2' style={{ top: -2, position: 'relative' }}>
-                                        <input type='radio' id='option-xl' name='shop-sizes' />
-                                    </span>
-                                    <span className='d-inline-block text-black'> Extra Large</span>
-                                </label>
-                            </div>
-                            */
-                        }
+
                         <div className='mb-5'>
                             <div className='input-group mb-3' style={{ maxWidth: 120 }}>
 
