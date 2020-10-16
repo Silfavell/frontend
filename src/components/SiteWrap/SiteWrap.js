@@ -11,12 +11,12 @@ import {
     decreaseProductQuantity,
     setProductQuantity,
     listFavorites
-} from '../scripts/requests'
+} from '../../scripts/requests'
 
-import Navbar from './Navbar/Navbar'
-import Footer from './Footer'
-import Divider from './Divider'
-import FirstImage from './FirstImage'
+import Navbar from '../Navbar/Navbar'
+import Footer from '../Footer/Footer'
+import Divider from '../Divider/Divider'
+import FirstImage from '../FirstImage/FirstImage'
 
 const cookies = new Cookies()
 

@@ -5,7 +5,7 @@ import InputMask from 'react-input-mask'
 
 import { addCard } from '../../scripts/requests'
 
-import PopupWrapper from '../../components/PopupWrapper'
+import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 
 class NewCreditCardPopup extends React.Component {
 

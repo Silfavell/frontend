@@ -4,7 +4,7 @@ import 'react-tabs/style/react-tabs.css'
 
 import { getBestSellerProducts } from '../../scripts/requests'
 
-import Carousel from '../../components/Carousel'
+import Carousel from '../../components/Carousel/Carousel'
 
 import './Tabs.css'
 

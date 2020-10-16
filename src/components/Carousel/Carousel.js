@@ -4,7 +4,7 @@ import Carousel from 'react-multi-carousel'
 import Cookies from 'universal-cookie'
 import 'react-multi-carousel/lib/styles.css'
 
-import Product from './Product/Product'
+import Product from '../Product/Product'
 
 const cookies = new Cookies()
 

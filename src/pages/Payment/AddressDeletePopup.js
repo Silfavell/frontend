@@ -3,7 +3,7 @@ import VanillaToasts from 'vanillatoasts'
 
 import { deleteAddress } from '../../scripts/requests'
 
-import PopupWrapper from '../../components/PopupWrapper'
+import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 
 class AddressDeletePopup extends React.Component {
 

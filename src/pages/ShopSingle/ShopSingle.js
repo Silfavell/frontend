@@ -4,12 +4,12 @@ import { Helmet } from 'react-helmet'
 
 import { getProductBySlug, getRelatedProductsBySlug } from '../../scripts/requests'
 
-import Loading from '../../components/Loading'
-import SiteWrap from '../../components/SiteWrap'
-import ProductImages from '../../components/ProductImages'
+import Loading from '../../components/Loading/Loading'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import ProductImages from '../../components/ProductImages/ProductImages'
 import Tabs from './Tabs'
 import Accordion from './Accordion'
-import Carousel from '../../components/Carousel'
+import Carousel from '../../components/Carousel/Carousel'
 
 import './ShopSingle.css'
 

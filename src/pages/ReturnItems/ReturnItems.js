@@ -4,7 +4,7 @@ import VanillaToasts from 'vanillatoasts'
 import { getOrderById, returnItems } from '../../scripts/requests'
 import OrderStatus from '../../models/OrderStatus'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import CartItem from '../../components/CartItem/CartItem'
 
 class ReturnItems extends React.Component {

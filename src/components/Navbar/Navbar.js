@@ -8,8 +8,8 @@ import { search } from '../../scripts/requests'
 
 import './Navbar.css'
 
-import SearchProduct from '../SearchProduct'
-import NavCartItem from '../NavCartItem'
+import SearchProduct from '../SearchProduct/SearchProduct'
+import NavCartItem from '../NavCartItem/NavCartItem'
 
 const cookies = new Cookies()
 

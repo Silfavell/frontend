@@ -6,7 +6,7 @@ import InputMask from 'react-input-mask'
 
 import { bulkCart, login } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
 
 const cookies = new Cookies()
 

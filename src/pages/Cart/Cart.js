@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import CartItem from '../../components/CartItem/CartItem'
 
 class Cart extends React.Component {

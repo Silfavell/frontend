@@ -3,8 +3,8 @@
 import React from 'react'
 import { IoIosArrowForward } from 'react-icons/io'
 
-import CartItem from './CartItem/CartItem'
-import OrderStatus from '../models/OrderStatus'
+import CartItem from '../CartItem/CartItem'
+import OrderStatus from '../../models/OrderStatus'
 
 class OrderItem extends React.Component {
 

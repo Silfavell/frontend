@@ -5,10 +5,10 @@ import Cookies from 'universal-cookie'
 
 import { getOrders } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
-import Loading from '../../components/Loading'
-import OrderItem from '../../components/OrderItem'
-import ProfileColumn from '../../components/ProfileColumn'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import Loading from '../../components/Loading/Loading'
+import OrderItem from '../../components/OrderItem/OrderItem'
+import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 
 const cookies = new Cookies()
 

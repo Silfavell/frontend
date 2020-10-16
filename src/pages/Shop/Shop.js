@@ -7,9 +7,9 @@ import { Helmet } from 'react-helmet'
 
 import { getCategories, makeCustomRequest } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import ShopProduct from '../../components/Product/ShopProduct'
-import Loading from '../../components/Loading'
+import Loading from '../../components/Loading/Loading'
 import Slider from './Slider'
 
 import './Shop.css'

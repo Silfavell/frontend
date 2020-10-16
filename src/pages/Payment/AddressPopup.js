@@ -1,6 +1,6 @@
 import React from 'react'
 
-import PopupWrapper from '../../components/PopupWrapper'
+import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 import { saveAddress } from '../../scripts/requests'
 
 class AddressPopup extends React.Component {

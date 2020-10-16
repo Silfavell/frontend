@@ -5,10 +5,10 @@ import Cookies from 'universal-cookie'
 
 import { listFavorites } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import ShopProduct from '../../components/Product/ShopProduct'
-import Loading from '../../components/Loading'
-import ProfileColumn from '../../components/ProfileColumn'
+import Loading from '../../components/Loading/Loading'
+import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 
 const cookies = new Cookies()
 

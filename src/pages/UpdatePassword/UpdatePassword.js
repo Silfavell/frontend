@@ -5,8 +5,8 @@ import joi from '@hapi/joi'
 
 import { changePassword } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
-import ProfileColumn from '../../components/ProfileColumn'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 
 class UpdatePassword extends React.Component {
 

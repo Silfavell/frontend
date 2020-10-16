@@ -1,8 +1,8 @@
 import React from 'react'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
 
-import OrderItem from '../../components/OrderItem'
+import OrderItem from '../../components/OrderItem/OrderItem'
 
 class PaymentCompleted extends React.Component {
     render() {

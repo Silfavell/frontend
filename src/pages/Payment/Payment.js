@@ -5,8 +5,8 @@ import Cookies from 'universal-cookie'
 
 import { getCartProducts, getProfile, listCards, makeOrder } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
-import Loading from '../../components/Loading'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import Loading from '../../components/Loading/Loading'
 import EmptyAddressCard from './EmptyAddressCard'
 import AddressCard from './AddressCard'
 import PaymentCard from './PaymentCard'

@@ -6,8 +6,8 @@ import VanillaToasts from 'vanillatoasts'
 
 import { getProfile, updateProfile } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
-import ProfileColumn from '../../components/ProfileColumn'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 
 const cookies = new Cookies()
 

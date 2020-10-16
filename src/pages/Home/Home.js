@@ -7,8 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
-import SiteWrap from '../../components/SiteWrap'
-import Carousel from '../../components/Carousel'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import Carousel from '../../components/Carousel/Carousel'
 import Tabs from './Tabs'
 
 class Home extends React.Component {

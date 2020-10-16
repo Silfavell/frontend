@@ -5,8 +5,6 @@ import {
     Route
 } from 'react-router-dom'
 
-import axios from './scripts/axios'
-
 import Home from './pages/Home/Home'
 import Contact from './pages/Contact/Contact'
 import ShopSingle from './pages/ShopSingle/ShopSingle'
@@ -26,6 +24,8 @@ import ReturnItemsCompleted from './pages/ReturnItemsCompleted/ReturnItemsComple
 import PaymentCompleted from './pages/PaymentCompleted/PaymentCompleted'
 import NotFound from './pages/NotFound/NotFound'
 
+import axios from './scripts/axios'
+
 import 'vanillatoasts/vanillatoasts.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './style/css/googleMukta.css'
@@ -34,7 +34,7 @@ import './style/css/style.css'
 
 axios()
 
-class App extends React.Component {
+class App extends React.PureComponent {
     render() {
         return (
             <Router>

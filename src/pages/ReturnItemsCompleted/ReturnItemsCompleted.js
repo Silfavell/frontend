@@ -1,7 +1,7 @@
 import React from 'react'
 
-import SiteWrap from '../../components/SiteWrap'
-import OrderItem from '../../components/OrderItem'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import OrderItem from '../../components/OrderItem/OrderItem'
 
 import { getOrderById } from '../../scripts/requests'
 import OrderStatus from '../../models/OrderStatus'

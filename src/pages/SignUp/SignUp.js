@@ -7,7 +7,7 @@ import JoiPhoneNumber from 'joi-phone-number'
 
 import { bulkCart, signUp, sendActivationCode } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import ActivationSection from './ActivationSection'
 import SignUpSection from './SignUpSection'
 

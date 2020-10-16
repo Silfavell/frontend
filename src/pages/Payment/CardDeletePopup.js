@@ -3,7 +3,7 @@ import VanillaToasts from 'vanillatoasts'
 
 import { removeCard } from '../../scripts/requests'
 
-import PopupWrapper from '../../components/PopupWrapper'
+import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 
 class CardDeletePopup extends React.Component {
 

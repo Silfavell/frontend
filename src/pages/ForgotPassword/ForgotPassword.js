@@ -7,7 +7,7 @@ import InputMask from 'react-input-mask'
 
 import { resetPassword, sendActivationCode } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
 
 class UpdatePassword extends React.Component {
 

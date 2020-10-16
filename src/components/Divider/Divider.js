@@ -1,6 +1,6 @@
 import React from 'react'
 
-class Divider extends React.Component {
+class Divider extends React.PureComponent {
     render() {
         return (
             <div className='bg-light py-3'>

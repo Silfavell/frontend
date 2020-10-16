@@ -1,8 +1,8 @@
 import React from 'react'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
 
-class NotFound extends React.Component {
+class NotFound extends React.PureComponent {
     render() {
         return (
             <SiteWrap>

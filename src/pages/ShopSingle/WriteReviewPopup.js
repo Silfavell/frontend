@@ -3,7 +3,7 @@ import VanillaToasts from 'vanillatoasts'
 
 import { saveComment } from '../../scripts/requests'
 
-import PopupWrapper from '../../components/PopupWrapper'
+import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 import Rate from './Rate'
 
 class WriteReviewPopup extends React.Component {
