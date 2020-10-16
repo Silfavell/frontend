@@ -1,7 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
 
-import Navbar from '../Navbar/Navbar'
+import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import Divider from '../Divider/Divider'
 import FirstImage from '../FirstImage/FirstImage'
@@ -57,7 +57,7 @@ class SiteWrap extends React.Component {
                 className={`site-wrap ${this.state.isMobileMenuOpen ? 'offcanvas-menu' : ''}`}
                 onClick={this.onOutsideMenuClick}>
 
-                <Navbar
+                <Header
                     categories={this.state.categories}
                     products={this.state.products}
                     firstImage={this.props.firstImage}
