@@ -5,28 +5,33 @@ import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 import Cookies from 'universal-cookie'
 import { Helmet } from 'react-helmet'
 
-import { getCategories, makeCustomRequest } from '../../scripts/requests'
-
 import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import ShopProduct from '../../components/Product/ShopProduct'
 import Loading from '../../components/Loading/Loading'
 import Slider from './Slider'
+import Specifications from './Specifications'
+
+import { getCategories, makeCustomRequest } from '../../scripts/requests'
+import {
+    getPageText,
+    isPageActive,
+    maximumProductLengthInOnePage,
+    onPageGtClick,
+    onPageLtClick,
+    onFilterLinkClick,
+    getPageList
+} from './scripts'
 
 import './Shop.css'
-
-const maximumProductLengthInOnePage = 6 * 3
-const maximumPageCount = 5
 
 const cookies = new Cookies()
 
 class Shop extends React.Component {
-
     state = {
         categories: [],
         shop: {},
         fetching: true
     }
-
 
     filterShop = async () => {
         const url = `${process.env.REACT_APP_API_URL}/filter-shop${this.props.location.pathname.replace('/shop', '')}${this.props.location.search}${this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${maximumProductLengthInOnePage}`
@@ -47,100 +52,6 @@ class Shop extends React.Component {
 
             this.setState({ shop, fetching: false })
         })
-    }
-
-    onFilterLinkClick = (filter, filterValue, multiple, price, keep) => {
-        const { location } = this.props
-
-        let searchParams = new URLSearchParams(location.search)
-        let searchParamsAsString = decodeURIComponent(searchParams.toString())
-
-        if (searchParamsAsString.includes(`${filter}=${filterValue.toString().split(' ').join('+')}`) && !keep) {
-            return '?' + searchParamsAsString
-                .replace(`&${filter}=${filterValue.toString().split(' ').join('+')}`, '')
-                .replace(`${filter}=${filterValue.toString().split(' ').join('+')}`, '')
-        } else {
-            if (multiple) {
-                searchParams.append(filter, filterValue)
-                searchParams.delete('start')
-            } else if (price) {
-                searchParams.set('minPrice', price.min)
-                searchParams.set('maxPrice', price.max)
-            } else {
-                searchParams.set(filter, filterValue)
-            }
-        }
-
-        return '?' + searchParams.toString()
-    }
-
-    getStartingIndex = () => {
-        const { location } = this.props
-
-        var searchParams = new URLSearchParams(location.search)
-
-        let start = 0
-
-        for (let param of searchParams) {
-            if (param[0] === 'start') {
-                start = Number.isNaN(parseInt(param[1])) ? 0 : parseInt(param[1])
-            }
-        }
-
-        return start
-    }
-
-    onPageGtClick = () => {
-        const startingIndex = this.getStartingIndex()
-        const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
-
-        if (this.state.shop.productsLength - startingIndexOfPage > maximumProductLengthInOnePage * maximumPageCount) {
-            return this.onFilterLinkClick(
-                'start',
-                startingIndex +
-                (maximumProductLengthInOnePage * maximumPageCount) -
-                ((startingIndex + maximumProductLengthInOnePage * maximumPageCount) % (maximumProductLengthInOnePage * maximumPageCount)), null, null, true)
-        } else {
-            return this.onFilterLinkClick('start', this.state.shop.productsLength - (this.state.shop.productsLength % maximumProductLengthInOnePage), null, null, true)
-        }
-    }
-
-    onPageLtClick = () => {
-        const startingIndex = this.getStartingIndex()
-        const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
-
-        if (startingIndexOfPage >= maximumProductLengthInOnePage * maximumPageCount) {
-            return this.onFilterLinkClick(
-                'start',
-                startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount) + maximumProductLengthInOnePage))
-        } else {
-            return this.onFilterLinkClick('start', 0)
-        }
-    }
-
-    getPageText = (index) => {
-        return (index + 1) + (Math.floor((this.getStartingIndex() + 1) / (maximumProductLengthInOnePage * maximumPageCount))) * maximumPageCount
-    }
-
-    isPageActive = (index) => {
-        const startingIndex = this.getStartingIndex()
-
-        return (
-            index + (Math.floor((startingIndex + 1) / (maximumProductLengthInOnePage * maximumPageCount))) * maximumPageCount
-            ===
-            Math.floor((startingIndex - (startingIndex % maximumProductLengthInOnePage)) / maximumProductLengthInOnePage)
-        )
-    }
-
-    getPageList = () => {
-        const startingIndex = this.getStartingIndex()
-        const startingIndexOfPage = startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount))
-
-        return new Array(
-            Math.ceil((this.state.shop.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage) >= maximumPageCount ?
-                maximumPageCount :
-                Math.ceil((this.state.shop.productsLength - startingIndexOfPage) / maximumProductLengthInOnePage)
-        )
     }
 
     async componentDidMount() {
@@ -199,15 +110,45 @@ class Shop extends React.Component {
                                                     <div className='dropdown-divider' />
                                                 */
                                             }
-                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 0)}>Akıllı Sıralama</a>
+                                            <a
+                                                className='dropdown-item'
+                                                href={onFilterLinkClick({
+                                                    filter: 'sortType',
+                                                    filterValue: 0,
+                                                    location: this.props.location
+                                                })}>Akıllı Sıralama</a>
 
-                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 1)}>Çok Satanlar</a>
+                                            <a
+                                                className='dropdown-item'
+                                                href={onFilterLinkClick({
+                                                    filter: 'sortType',
+                                                    filterValue: 1,
+                                                    location: this.props.location
+                                                })}>Çok Satanlar</a>
 
-                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 2)}>En Yeniler</a>
+                                            <a
+                                                className='dropdown-item'
+                                                href={onFilterLinkClick({
+                                                    filter: 'sortType',
+                                                    filterValue: 2,
+                                                    location: this.props.location
+                                                })}>En Yeniler</a>
 
-                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 3)}>En Düşük Fiyat</a>
+                                            <a
+                                                className='dropdown-item'
+                                                href={onFilterLinkClick({
+                                                    filter: 'sortType',
+                                                    filterValue: 3,
+                                                    location: this.props.location
+                                                })}>En Düşük Fiyat</a>
 
-                                            <a className='dropdown-item' href={this.onFilterLinkClick('sortType', 4)}>En Yüksek Fiyat</a>
+                                            <a
+                                                className='dropdown-item'
+                                                href={onFilterLinkClick({
+                                                    filter: 'sortType',
+                                                    filterValue: 4,
+                                                    location: this.props.location
+                                                })}>En Yüksek Fiyat</a>
                                         </div>
                                     </div>
                                 </div>
@@ -231,28 +172,48 @@ class Shop extends React.Component {
                                 <div className='site-block-27'>
                                     <ul>
                                         <li>
-                                            <a href={this.onPageLtClick()} style={{ marginLeft: 5, cursor: 'pointer', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <a
+                                                href={onPageLtClick({ location: this.props.location })}
+                                                style={{ marginLeft: 5, cursor: 'pointer', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                 <IoIosArrowBack color={'#707070'} />
                                             </a>
                                         </li>
                                         {
                                             // pages
-                                            Array.from(this.getPageList()).map((_, index) => (
+                                            Array.from(getPageList({ shop: this.state.shop, location: this.props.location })).map((_, index) => (
                                                 <li
                                                     key={'page' + index}
                                                     style={{ marginLeft: 5, cursor: 'pointer' }}
-                                                    className={this.isPageActive(index) ? 'active' : ''}
+                                                    className={isPageActive({ index, location: this.props.location }) ? 'active' : ''}
                                                 >
                                                     <a
                                                         className='text-black'
-                                                        href={this.onFilterLinkClick('start', (this.getPageText(index) - 1) * maximumProductLengthInOnePage, null, null, true)}>
-                                                        {this.getPageText(index)}
+                                                        href={
+                                                            onFilterLinkClick({
+                                                                filter: 'start',
+                                                                filterValue: (getPageText({
+                                                                    index,
+                                                                    location: this.props.location
+                                                                }) - 1) * maximumProductLengthInOnePage,
+                                                                keep: true,
+                                                                location: this.props.location
+                                                            })
+                                                        }>
+                                                        {getPageText({
+                                                            index,
+                                                            location: this.props.location
+                                                        })}
                                                     </a>
                                                 </li>
                                             ))
                                         }
                                         <li>
-                                            <a href={this.onPageGtClick()} style={{ marginLeft: 5, cursor: 'pointer', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <a
+                                                href={onPageGtClick({
+                                                    shop: this.state.shop,
+                                                    location: this.props.location
+                                                })}
+                                                style={{ marginLeft: 5, cursor: 'pointer', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                 <IoIosArrowForward color={'#707070'} />
                                             </a>
                                         </li>
@@ -311,10 +272,16 @@ class Shop extends React.Component {
                                         this.state.shop.brands.map((brand, index) => (
                                             <a
                                                 className='d-flex align-items-center justify-content-start'
-                                                href={this.onFilterLinkClick('brands', brand.name, true)}
+                                                href={onFilterLinkClick({
+                                                    filter: 'brands',
+                                                    filterValue: brand.name,
+                                                    multiple: true,
+                                                    location: this.props.location
+                                                })}
                                                 key={brand._id}
                                                 htmlFor={brand._id}
                                                 style={{ cursor: 'pointer' }}>
+
                                                 <input
                                                     type='checkbox'
                                                     id={brand._id}
@@ -322,6 +289,7 @@ class Shop extends React.Component {
                                                     className='mr-2 mt-1'
                                                     style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
                                                     checked={this.props.location.search.includes(`brands=${brand.name.split(' ').join('+')}`)} />
+
                                                 <span className='text-black'>
                                                     {`${brand.name} (${brand.count})`}
                                                 </span>
@@ -332,68 +300,23 @@ class Shop extends React.Component {
                             </div>
                         </div>
 
-                        {
-                            this.state.shop.specifications.map((specification, index) => (
-                                <div className='card mb-3'>
-                                    <div className='card-header p-0 bg-white' id={`heading${index}`}>
-                                        <h5 className='mb-0'>
-                                            <button
-                                                className='btn btn-link w-100 mx-3'
-                                                style={{ textAlign: 'left', color: 'black', textDecoration: 'none' }}
-                                                data-toggle='collapse'
-                                                data-target={`#collapse${index}`}
-                                                aria-expanded='false'
-                                                aria-controls={`collapse${index}`}>
-                                                {specification.name}
-                                            </button>
-                                        </h5>
-                                    </div>
-
-                                    <div
-                                        id={`collapse${index}`}
-                                        className={`collapse ${this.props.location.search.includes(specification.slug) ? 'show' : ''}`}
-                                        aria-labelledby={`heading${index}`}>
-                                        <div className='card-body'>
-                                            {
-                                                specification.values.map((specificationValue, index) => (
-                                                    <a
-                                                        className='d-flex align-items-center justify-content-start'
-                                                        href={this.onFilterLinkClick(specification.slug, specificationValue.value, true)}
-                                                        key={specificationValue.slug}
-                                                        htmlFor={specificationValue.slug}
-                                                        style={{ cursor: 'pointer' }}>
-                                                        <input
-                                                            type='checkbox'
-                                                            id={specificationValue.slug}
-                                                            className='mr-2 mt-1'
-                                                            style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
-                                                            checked={this.props.location.search.includes(`${specification.slug}=${specificationValue.value}`)}
-                                                        />
-                                                        <span className='text-black'>
-                                                            {`${specificationValue.value} (${specificationValue.count})`}
-                                                        </span>
-                                                    </a>
-                                                ))
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        }
+                        <Specifications
+                            location={this.props.location}
+                            shop={this.state.shop}
+                        />
 
                         {
                             this.state.shop.maxPrice !== this.state.shop.minPrice && (
                                 <Slider
                                     max={this.state.shop.maxPrice}
                                     min={this.state.shop.minPrice}
-                                    onFilterLinkClick={this.onFilterLinkClick}
                                     location={this.props.location}
                                 />
                             )
                         }
                     </div>
                 </div>
-            </div>
+            </div >
         )
     }
 
