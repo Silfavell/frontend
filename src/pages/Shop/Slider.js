@@ -1,12 +1,10 @@
 import React from 'react'
 import MultiSlider from 'multi-slider'
-
 import { IoIosArrowForward } from 'react-icons/io'
 
 import { onFilterLinkClick } from './scripts'
 
 class Slider extends React.Component {
-
     constructor(props) {
         super(props)
 
@@ -158,7 +156,7 @@ class Slider extends React.Component {
                         />
                     </div>
                 </div>
-            </div >
+            </div>
         )
     }
 }

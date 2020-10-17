@@ -7,7 +7,6 @@ import { addFavorite, removeFavorite } from '../../scripts/requests'
 import './Product.css'
 
 class ShopProduct extends React.Component {
-
     state = {
         favorite: this.props.favorite
     }

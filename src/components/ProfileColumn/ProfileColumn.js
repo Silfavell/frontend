@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
 
-class ProfileColumn extends React.Component {
+class ProfileColumn extends React.PureComponent {
     onLogoutClick = () => {
         cookies.remove('token', { path: '/' })
         cookies.remove('user', { path: '/' })

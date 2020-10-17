@@ -1,14 +1,12 @@
 import React from 'react'
 import VanillaToasts from 'vanillatoasts'
 import { IoMdHeart, IoMdHeartEmpty, IoMdCart } from 'react-icons/io'
-
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import './Product.css'
 import { addFavorite, removeFavorite } from '../../scripts/requests'
+import './Product.css'
 
 class Product extends React.Component {
-
     state = {
         favorite: this.props.favorite
     }
