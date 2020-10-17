@@ -3,33 +3,29 @@ import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
 
-import { addCard } from '../../scripts/requests'
-
 import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 
-class NewCreditCardPopup extends React.Component {
+import { addCard } from '../../scripts/requests'
 
+class NewCreditCardPopup extends React.Component {
     state = {
         cardAlias: '',
         cardHolderName: '',
-        cardNumber: '', // 5526080000000006
+        cardNumber: '',
         expireYear: '',
         expireMonth: '',
-        cvc2: '',
 
         invalidCardAlias: false,
         invalidCardHolderName: false,
         invalidCardNumber: false,
         invalidExpireYear: false,
         invalidExpireMonth: false,
-        invalidCvc2: false,
 
         isCardAliasInitialized: false,
         isCardHolderNameInitialized: false,
         isCardNumberInitialized: false,
         isExpireYearInitialized: false,
         isExpireMonthInitialized: false,
-        isCvc2Initialized: false
     }
 
     onAliasChange = (event) => {
@@ -106,31 +102,13 @@ class NewCreditCardPopup extends React.Component {
             })
     }
 
-    onCvcChange = (event) => {
-        const { value } = event.target
-
-        joi.string()
-            .min(3)
-            .max(3)
-            .validateAsync(value).then(() => {
-                this.setState({ cvc2: value, isCvc2Initialized: true, invalidCvc2: false })
-            }).catch((err) => {
-                if (err.details[0].message.includes('3') && err.details[0].message.includes('equal')) {
-                    this.setState({ isCvc2Initialized: true, invalidCvc2: false })
-                } else {
-                    this.setState({ cvc2: value, isCvc2Initialized: true, invalidCvc2: !!err })
-                }
-            })
-    }
-
     onSaveClick = async () => {
         const {
             cardAlias,
             cardNumber,
             cardHolderName,
             expireMonth,
-            expireYear,
-            // cvc2
+            expireYear
         } = this.state
 
         if (new Date().getFullYear().toString() === expireYear && new Date().getMonth() + 1 > parseInt(expireMonth)) {
@@ -148,8 +126,7 @@ class NewCreditCardPopup extends React.Component {
                         cardHolderName,
                         cardNumber: cardNumber.split(' ').join(''),
                         expireMonth,
-                        expireYear,
-                        // cvc2 // TODO
+                        expireYear
                     }
                 })
 
@@ -201,8 +178,7 @@ class NewCreditCardPopup extends React.Component {
             cardHolderName,
             cardNumber,
             expireMonth,
-            expireYear,
-            cvc2
+            expireYear
         } = this.state
 
         return (
@@ -303,21 +279,6 @@ class NewCreditCardPopup extends React.Component {
                         </div>
 
                         <div className='form-group row'>
-                            <div className='col-md-12'>
-                                <label htmlFor='cvc2' className='text-black'>CVC2 <span className='text-danger'>*</span></label>
-                                <input
-                                    onChange={this.onCvcChange}
-                                    type='text'
-                                    className='form-control'
-                                    id='cvc2'
-                                    placeholder='CVC2'
-                                    name='cvc2'
-                                    value={cvc2}
-                                />
-                            </div>
-                        </div>
-
-                        <div className='form-group row'>
                             <div className='col-lg-12'>
                                 <button
                                     className='btn btn-primary btn-lg btn-block'
@@ -327,7 +288,6 @@ class NewCreditCardPopup extends React.Component {
                                         || this.state.invalidCardNumber || !this.state.isCardNumberInitialized
                                         || this.state.invalidExpireYear || !this.state.isExpireYearInitialized
                                         || this.state.invalidExpireMonth || !this.state.isExpireMonthInitialized
-                                        || this.state.invalidCvc2 || !this.state.isCvc2Initialized
                                     }
                                 >Kartı Kaydet</button>
                             </div>

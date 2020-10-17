@@ -1,10 +1,9 @@
 import React from 'react'
 
 import SiteWrap from '../../components/SiteWrap/SiteWrap'
-
 import OrderItem from '../../components/OrderItem/OrderItem'
 
-class PaymentCompleted extends React.Component {
+class PaymentCompleted extends React.PureComponent {
     render() {
         return (
             <SiteWrap>

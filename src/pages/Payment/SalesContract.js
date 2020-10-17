@@ -2,7 +2,7 @@ import React from 'react'
 
 import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 
-class MembershipAgreement extends React.Component {
+class MembershipAgreement extends React.PureComponent {
     onOutsideClick = (event) => {
         if (event.target !== event.currentTarget) {
             return
@@ -16,7 +16,6 @@ class MembershipAgreement extends React.Component {
     }
 
     render() {// TODO REVIEW
-
         const totalPrice = this.props.products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0).toFixed(2)
         const cargoPrice = (15).toFixed(2)
 

@@ -3,17 +3,16 @@
 import React from 'react'
 import Cookies from 'universal-cookie'
 
-import { listFavorites } from '../../scripts/requests'
-
 import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import ShopProduct from '../../components/Product/ShopProduct'
 import Loading from '../../components/Loading/Loading'
 import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 
+import { listFavorites } from '../../scripts/requests'
+
 const cookies = new Cookies()
 
 class FavoriteProducts extends React.Component {
-
     state = {
         products: [],
         fetching: true

@@ -5,7 +5,7 @@ import React from 'react'
 import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import CartItem from '../../components/CartItem/CartItem'
 
-class Cart extends React.Component {
+class Cart extends React.PureComponent {
     onCheckoutClick = () => {
         this.props.history.push('/payment')
     }

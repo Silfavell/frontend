@@ -1,6 +1,6 @@
 import React from 'react'
 
-class EmptyAddressCard extends React.Component {
+class EmptyAddressCard extends React.PureComponent {
     render() {
         return (
             <div className='col-md-12 p-4'>

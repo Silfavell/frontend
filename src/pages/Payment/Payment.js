@@ -3,14 +3,11 @@ import $ from 'jquery'
 import VanillaToasts from 'vanillatoasts'
 import Cookies from 'universal-cookie'
 
-import { getCartProducts, getProfile, listCards, makeOrder } from '../../scripts/requests'
-
 import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import Loading from '../../components/Loading/Loading'
 import EmptyAddressCard from './EmptyAddressCard'
 import AddressCard from './AddressCard'
 import PaymentCard from './PaymentCard'
-
 import AddressPopup from './AddressPopup'
 import CreditCardPopup from './CreditCardPopup'
 import CardDeletePopup from './CardDeletePopup'
@@ -18,10 +15,11 @@ import AddressDeletePopup from './AddressDeletePopup'
 import SalesContract from './SalesContract'
 import PreInfo from './PreInfo'
 
+import { getCartProducts, getProfile, listCards, makeOrder } from '../../scripts/requests'
+
 const cookies = new Cookies()
 
 class Payment extends React.Component {
-
     state = {
         fetching: true,
         selected: 0,

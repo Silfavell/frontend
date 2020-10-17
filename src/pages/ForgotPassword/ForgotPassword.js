@@ -5,12 +5,11 @@ import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
 
-import { resetPassword, sendActivationCode } from '../../scripts/requests'
-
 import SiteWrap from '../../components/SiteWrap/SiteWrap'
 
-class UpdatePassword extends React.Component {
+import { resetPassword, sendActivationCode } from '../../scripts/requests'
 
+class UpdatePassword extends React.Component {
     state = {
         isActivationCodeSended: false,
 

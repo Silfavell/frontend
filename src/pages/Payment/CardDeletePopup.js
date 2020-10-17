@@ -5,8 +5,7 @@ import { removeCard } from '../../scripts/requests'
 
 import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 
-class CardDeletePopup extends React.Component {
-
+class CardDeletePopup extends React.PureComponent {
     onConfirm = async () => {
         try {
             const { status } = await removeCard({ cardToken: this.props.deleteCardToken })

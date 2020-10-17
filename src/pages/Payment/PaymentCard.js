@@ -4,8 +4,7 @@ import {
     FaCcMastercard
 } from 'react-icons/fa'
 
-class PaymentCard extends React.Component {
-
+class PaymentCard extends React.PureComponent {
     getCardLogo = () => {
         switch (this.props.item.cardAssociation) {
             case "MASTER_CARD": return <FaCcMastercard size={48} color={'black'} />
@@ -26,9 +25,12 @@ class PaymentCard extends React.Component {
 
     render() {
         return (
-            <div className='col-md-12 mb-4' style={{
-                border: this.props.selected ? '1px solid #80DF80' : '1px solid #dee2e6'
-            }} onClick={this.onClick}>
+            <div
+                className='col-md-12 mb-4'
+                style={{
+                    border: this.props.selected ? '1px solid #80DF80' : '1px solid #dee2e6'
+                }}
+                onClick={this.onClick}>
                 <div className='row p-4'>
                     <div className='col-md-12'>
                         <span className='text-black font-weight-bold'>{this.props.item.cardAlias}</span>

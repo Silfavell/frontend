@@ -3,16 +3,15 @@ import React from 'react'
 
 import { fetchShop } from '../../scripts/requests'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'jquery/dist/jquery.min.js'
-import 'bootstrap/dist/js/bootstrap.min.js'
-
 import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import Carousel from '../../components/Carousel/Carousel'
 import Tabs from './Tabs'
 
-class Home extends React.Component {
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'jquery/dist/jquery.min.js'
+import 'bootstrap/dist/js/bootstrap.min.js'
 
+class Home extends React.Component {
     state = {
         shop: {}
     }
