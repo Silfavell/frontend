@@ -3,7 +3,7 @@ import $ from 'jquery'
 
 import Header from './Header/Header'
 import Footer from './Footer'
-import Divider from './Divider'
+import Breadcrumb from './Breadcrumb'
 import FirstImage from './FirstImage'
 
 import {
@@ -70,7 +70,7 @@ class SiteWrap extends React.Component {
                 }
 
                 {
-                    this.props.divider && <Divider divider={this.props.divider} />
+                    this.props.breadcrumb && <Breadcrumb breadcrumb={this.props.breadcrumb} />
                 }
 
                 <div className='site-section'>

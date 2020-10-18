@@ -95,7 +95,7 @@ class EditProfile extends React.Component {
             phoneNumber
         } = this.state
 
-        const divider = [
+        const breadcrumb = [
             {
                 path: null,
                 title: 'Profilimi Düzenle'
@@ -103,7 +103,7 @@ class EditProfile extends React.Component {
         ]
 
         return (
-            <SiteWrap divider={divider}>
+            <SiteWrap breadcrumb={breadcrumb}>
                 <div className='container'>
                     <div className='row'>
                         <ProfileColumn />

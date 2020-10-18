@@ -41,7 +41,7 @@ class PreviousOrders extends React.Component {
     }
 
     render() {
-        const divider = [
+        const breadcrumb = [
             {
                 path: null,
                 title: 'Siparişlerim'
@@ -53,7 +53,7 @@ class PreviousOrders extends React.Component {
         }
 
         return (
-            <SiteWrap divider={divider}>
+            <SiteWrap breadcrumb={breadcrumb}>
                 <div className='container'>
                     <div className='row mb-5'>
                         <ProfileColumn />

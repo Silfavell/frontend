@@ -139,7 +139,7 @@ class ReturnItems extends React.Component {
     }
 
     render() {
-        const divider = [
+        const breadcrumb = [
             {
                 path: '/previous-order',
                 title: 'Siparişlerim'
@@ -151,7 +151,7 @@ class ReturnItems extends React.Component {
         ]
 
         return (
-            <SiteWrap divider={divider}>
+            <SiteWrap breadcrumb={breadcrumb}>
                 <div className='container'>
                     <div className='form-group form-check' style={{ marginLeft: '.40rem' }}>
                         <div className='col-md-12'>

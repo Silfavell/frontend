@@ -6,12 +6,12 @@ import SiteWrap from '../../components/SiteWrap/SiteWrap'
 
 class AboutUs extends React.PureComponent {
     render() {
-        const divider = [
+        const breadcrumb = [
             { path: null, title: 'Hakkımızda' }
         ]
 
         return (
-            <SiteWrap divider={divider}>
+            <SiteWrap breadcrumb={breadcrumb}>
                 <div className='container'>
                     <div className='row'>
                         <div className='col-md-12'>

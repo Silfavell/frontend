@@ -4,7 +4,6 @@ import { onFilterLinkClick } from '../scripts'
 
 class AccordionItem extends React.PureComponent {
   render() {
-    console.log(`${this.props.filterKey}=${this.props.filterValue}`)
     return (
       <a
         className='d-flex align-items-center justify-content-start'

@@ -127,7 +127,7 @@ class Cart extends React.PureComponent {
     }
 
     render() {
-        const divider = [
+        const breadcrumb= [
             {
                 path: null,
                 title: 'Sepetim'
@@ -135,7 +135,7 @@ class Cart extends React.PureComponent {
         ]
 
         return (
-            <SiteWrap divider={divider}>
+            <SiteWrap breadcrumb={breadcrumb}>
                 <this.renderContent />
             </SiteWrap>
         )

@@ -227,7 +227,7 @@ class Payment extends React.Component {
         const totalPrice = this.state.products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0).toFixed(2)
         const cargoPrice = (15).toFixed(2)
 
-        const divider = [
+        const breadcrumb = [
             {
                 path: null, title: 'Ödemeyi Tamamla'
             }
@@ -237,7 +237,7 @@ class Payment extends React.Component {
             return <Loading />
         } else {
             return (
-                <SiteWrap divider={divider}>
+                <SiteWrap breadcrumb={breadcrumb}>
                     <>
 
                         {

@@ -120,7 +120,7 @@ class UpdatePassword extends React.Component {
             reNewPassword
         } = this.state
 
-        const divider = [
+        const breadcrumb = [
             {
                 path: null,
                 title: 'Şifremi Değiştir'
@@ -129,7 +129,7 @@ class UpdatePassword extends React.Component {
 
         return (
             <SiteWrap
-                divider={divider}>
+                breadcrumb={breadcrumb}>
                 <div className='container'>
                     <div className='row'>
                         <ProfileColumn />

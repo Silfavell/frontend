@@ -61,10 +61,10 @@ class Shop extends React.Component {
         const currentCategory = this.state.categories.find(category => category._id === this.state.shop._id)
         const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.shop.subCategoryId) : null
 
-        let divider = []
+        let breadcrumb = []
 
         if (subCategory) {
-            divider = [
+            breadcrumb = [
                 {
                     path: `/shop/${currentCategory?.slug}`,
                     title: currentCategory?.name
@@ -75,7 +75,7 @@ class Shop extends React.Component {
                 }
             ]
         } else {
-            divider = [
+            breadcrumb = [
                 {
                     path: null,
                     title: currentCategory?.name
@@ -95,7 +95,7 @@ class Shop extends React.Component {
             )
         } else {
             return (
-                <SiteWrap divider={divider}>
+                <SiteWrap breadcrumb={breadcrumb}>
                     <Helmet>
                         <title>{`${(subCategory ?? currentCategory)?.name} | Silfavell`}</title>
                         <meta name='description' content={`${(subCategory ?? currentCategory)?.name}`} data-react-helmet='true' />

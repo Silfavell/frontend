@@ -65,7 +65,7 @@ class FavoriteProducts extends React.Component {
     )
 
     render() {
-        const divider = [
+        const breadcrumb = [
             {
                 path: null,
                 title: 'Favorilerim'
@@ -78,7 +78,7 @@ class FavoriteProducts extends React.Component {
             )
         } else {
             return (
-                <SiteWrap divider={divider}>
+                <SiteWrap breadcrumb={breadcrumb}>
                     <this.renderContent />
                 </SiteWrap>
             )

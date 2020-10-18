@@ -269,7 +269,7 @@ class ShopSingle extends React.Component {
             subCategorySlug
         } = this.state
 
-        const divider = [
+        const breadcrumb = [
             { path: `/shop/${categorySlug}`, title: categoryName },
             { path: `/shop/${categorySlug}/${subCategorySlug}`, title: subCategoryName },
             { path: null, title: this.state.product.name }
@@ -277,7 +277,7 @@ class ShopSingle extends React.Component {
 
         if (this.state.product._id) {
             return (
-                <SiteWrap divider={divider}>
+                <SiteWrap breadcrumb={breadcrumb}>
                     <this.renderContent />
                 </SiteWrap>
             )
