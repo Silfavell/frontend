@@ -3,7 +3,7 @@ import { IoIosSearch, IoMdClose } from 'react-icons/io'
 
 import SearchProduct from './SearchProduct'
 
-class SearchBarTop extends React.PureComponent {
+class SearchBarTop extends React.Component {
   render() {
     return (
       <div className='search-top'>

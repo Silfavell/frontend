@@ -32,16 +32,19 @@ class SiteWrap extends React.Component {
 
     onIncreaseClick = async (productId, quantity = 1, dontShowToast) => {
         const products = await onIncreaseClick(productId, quantity, dontShowToast, this.state.products)
+
         this.setState({ products })
     }
 
     onDecreaseClick = async (productId, quantity = 1, dontShowToast) => {
         const products = await onDecreaseClick(productId, quantity, dontShowToast, this.state.products)
+
         this.setState({ products })
     }
 
     setProductQuantity = async (productId, quantity = 1) => {
         const products = await setProductQuantity(productId, quantity, this.state.products)
+
         this.setState({ products })
     }
 

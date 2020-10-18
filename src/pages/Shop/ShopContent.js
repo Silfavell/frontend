@@ -23,7 +23,7 @@ import './Shop.css'
 
 const cookies = new Cookies()
 
-class ShopContent extends React.PureComponent {
+class ShopContent extends React.Component {
   getInitialValues = () => {
     const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
     const loggedIn = cookies.get('token')

@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoIosSearch, IoMdClose } from 'react-icons/io'
 
-class SearchBarBottom extends React.PureComponent {
+class SearchBarBottom extends React.Component {
   render() {
     return (
       <div className='search-bottom'>
