@@ -4,15 +4,14 @@ import Cookies from 'universal-cookie'
 import joi from '@hapi/joi'
 import VanillaToasts from 'vanillatoasts'
 
-import { getProfile, updateProfile } from '../../scripts/requests'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 
-import SiteWrap from '../../components/SiteWrap'
-import ProfileColumn from '../../components/ProfileColumn'
+import { getProfile, updateProfile } from '../../scripts/requests'
 
 const cookies = new Cookies()
 
 class EditProfile extends React.Component {
-
     state = {
         nameSurname: '',
         phoneNumber: '',
@@ -96,7 +95,7 @@ class EditProfile extends React.Component {
             phoneNumber
         } = this.state
 
-        const divider = [
+        const breadcrumb = [
             {
                 path: null,
                 title: 'Profilimi Düzenle'
@@ -104,7 +103,7 @@ class EditProfile extends React.Component {
         ]
 
         return (
-            <SiteWrap divider={divider}>
+            <SiteWrap breadcrumb={breadcrumb}>
                 <div className='container'>
                     <div className='row'>
                         <ProfileColumn />

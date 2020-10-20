@@ -1,7 +1,6 @@
 import React from 'react'
 
-class AddressCard extends React.Component {
-
+class AddressCard extends React.PureComponent {
     onClick = () => {
         this.props.setSelectedAddress(this.props.index)
     }
@@ -17,9 +16,12 @@ class AddressCard extends React.Component {
         } = this.props.item
 
         return (
-            <div className='col-md-12 mb-4' style={{
-                border: this.props.selected ? '1px solid #80DF80' : '1px solid #dee2e6'
-            }} onClick={this.onClick}>
+            <div
+                className='col-md-12 mb-4'
+                style={{
+                    border: this.props.selected ? '1px solid #80DF80' : '1px solid #dee2e6'
+                }}
+                onClick={this.onClick}>
                 <div className='row p-4'>
                     <div className='col-md-12' style={{ fontWeight: 'bold' }}>
                         {

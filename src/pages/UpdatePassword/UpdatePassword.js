@@ -5,8 +5,8 @@ import joi from '@hapi/joi'
 
 import { changePassword } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
-import ProfileColumn from '../../components/ProfileColumn'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 
 class UpdatePassword extends React.Component {
 
@@ -120,7 +120,7 @@ class UpdatePassword extends React.Component {
             reNewPassword
         } = this.state
 
-        const divider = [
+        const breadcrumb = [
             {
                 path: null,
                 title: 'Şifremi Değiştir'
@@ -129,7 +129,7 @@ class UpdatePassword extends React.Component {
 
         return (
             <SiteWrap
-                divider={divider}>
+                breadcrumb={breadcrumb}>
                 <div className='container'>
                     <div className='row'>
                         <ProfileColumn />

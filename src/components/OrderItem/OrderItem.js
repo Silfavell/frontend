@@ -1,21 +1,24 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import { IoIosArrowForward } from 'react-icons/io'
 
-import CartItem from './CartItem/CartItem'
-import OrderStatus from '../models/OrderStatus'
+import CartItem from '../CartItem/CartItem'
+import OrderStatus from '../../models/OrderStatus'
 
-class OrderItem extends React.Component {
-
+class OrderItem extends React.PureComponent {
     getOrderStatus = (status) => {
         switch (status) {
             case OrderStatus.WAITING_FOR_APPROVAL: return 'Onay Bekliyor'
+
             case OrderStatus.APPROVED: return 'Onaylandı'
+
             case OrderStatus.CANCELED: return 'Iptal Edildi'
+
             case OrderStatus.RETURNED: return 'Iade Talep Edildi'
+
             case OrderStatus.RETURN_ACCEPTED: return 'Iade Kabul Edildi'
+
             case OrderStatus.RETURN_DENIED: return 'Iade Reddedildi'
+
             default: return 'Onaylandı'
         }
     }
@@ -169,7 +172,7 @@ class OrderItem extends React.Component {
                         </div>
                     )
                 }
-            </div >
+            </div>
         )
     }
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import SiteWrap from '../components/SiteWrap'
+import SiteWrap from '../SiteWrap/SiteWrap'
 
-class Loading extends React.Component {
+class Loading extends React.PureComponent {
     render() {
         return (
             <SiteWrap>

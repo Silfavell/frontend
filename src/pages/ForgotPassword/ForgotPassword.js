@@ -5,12 +5,11 @@ import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
 
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+
 import { resetPassword, sendActivationCode } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
-
 class UpdatePassword extends React.Component {
-
     state = {
         isActivationCodeSended: false,
 
@@ -249,14 +248,14 @@ class UpdatePassword extends React.Component {
     )
 
     render() {
-        const divider = [
+        const breadcrumb = [
             {
                 path: null, title: 'Şifremi Unuttum'
             }
         ]
 
         return (
-            <SiteWrap divider={divider}>
+            <SiteWrap breadcrumb={breadcrumb}>
                 <div className='container'>
                     <div className='col-md-12 d-flex align-items-center justify-content-center'>
                         <div className='col-md-6'>

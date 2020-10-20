@@ -1,6 +1,6 @@
 import React from 'react'
 
-class Divider extends React.Component {
+class Breadcrumb extends React.PureComponent {
     render() {
         return (
             <div className='bg-light py-3'>
@@ -9,19 +9,19 @@ class Divider extends React.Component {
                         <div className='col-md-12 mb-0'>
                             <a href={`/`} className='text-capitalize'>{'Ana sayfa'}</a>
                             {
-                                this.props.divider.map((divider, index) => {
-                                    if (divider.path) {
+                                this.props.breadcrumb.map((crumb, index) => {
+                                    if (crumb.path) {
                                         return (
-                                            <React.Fragment key={'divider' + index}>
+                                            <React.Fragment key={'crumb' + index}>
                                                 <span className='mx-2 mb-0'>/</span>
-                                                <a href={divider.path} className='text-capitalize'>{divider.title}</a>
+                                                <a href={crumb.path} className='text-capitalize'>{crumb.title}</a>
                                             </React.Fragment>
                                         )
                                     } else {
                                         return (
-                                            <React.Fragment key={'divider' + index}>
+                                            <React.Fragment key={'crumb' + index}>
                                                 <span className='mx-2 mb-0'>/</span>
-                                                <strong className='text-capitalize text-black'>{divider.title}</strong>
+                                                <strong className='text-capitalize text-black'>{crumb.title}</strong>
                                             </React.Fragment>
                                         )
                                     }
@@ -35,4 +35,4 @@ class Divider extends React.Component {
     }
 }
 
-export default Divider
+export default Breadcrumb

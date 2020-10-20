@@ -4,7 +4,6 @@ import joi from '@hapi/joi'
 import './CartItem.css'
 
 class CartItem extends React.Component {
-
     state = {
         quantity: (this.props.returnItem ?? this.props.returnOrderItem)?.quantity ?? this.props.item.quantity
     }

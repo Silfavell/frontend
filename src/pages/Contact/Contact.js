@@ -2,7 +2,8 @@
 import React from 'react'
 import VanillaToasts from 'vanillatoasts'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+
 import { postTicket } from '../../scripts/requests'
 
 const initialState = {
@@ -58,12 +59,12 @@ class Contact extends React.Component {
       message
     } = this.state
 
-    const divider = [
+    const breadcrumb = [
       { path: null, title: 'İletişim' }
     ]
 
     return (
-      <SiteWrap divider={divider}>
+      <SiteWrap breadcrumb={breadcrumb}>
         <div className='container'>
           <div className='row'>
             <div className='col-md-7 my-2'>

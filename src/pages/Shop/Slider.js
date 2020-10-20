@@ -1,10 +1,10 @@
 import React from 'react'
 import MultiSlider from 'multi-slider'
-
 import { IoIosArrowForward } from 'react-icons/io'
 
-class Slider extends React.Component {
+import { onFilterLinkClick } from './scripts'
 
+class Slider extends React.Component {
     constructor(props) {
         super(props)
 
@@ -136,7 +136,15 @@ class Slider extends React.Component {
                                     placeholder='En Çok' />
                             </div>
                             <div className='col-3 px-1'>
-                                <a className='form-control' href={this.props.onFilterLinkClick('price', '', '', { min: this.state.min, max: this.state.max })}>
+                                <a
+                                    className='form-control'
+                                    href={onFilterLinkClick({
+                                        filter: 'price',
+                                        filterValue: '',
+                                        multiple: '',
+                                        price: { min: this.state.min, max: this.state.max },
+                                        location: this.props.location
+                                    })}>
                                     <IoIosArrowForward />
                                 </a>
                             </div>

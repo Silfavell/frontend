@@ -1,12 +1,11 @@
 import React from 'react'
 import VanillaToasts from 'vanillatoasts'
 
+import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
+
 import { deleteAddress } from '../../scripts/requests'
 
-import PopupWrapper from '../../components/PopupWrapper'
-
-class AddressDeletePopup extends React.Component {
-
+class AddressDeletePopup extends React.PureComponent {
     onConfirm = async () => {
         try {
             const { data, status } = await deleteAddress(this.props.deleteAddressId)
@@ -56,7 +55,6 @@ class AddressDeletePopup extends React.Component {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </PopupWrapper>

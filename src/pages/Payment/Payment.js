@@ -3,14 +3,11 @@ import $ from 'jquery'
 import VanillaToasts from 'vanillatoasts'
 import Cookies from 'universal-cookie'
 
-import { getCartProducts, getProfile, listCards, makeOrder } from '../../scripts/requests'
-
-import SiteWrap from '../../components/SiteWrap'
-import Loading from '../../components/Loading'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import Loading from '../../components/Loading/Loading'
 import EmptyAddressCard from './EmptyAddressCard'
 import AddressCard from './AddressCard'
 import PaymentCard from './PaymentCard'
-
 import AddressPopup from './AddressPopup'
 import CreditCardPopup from './CreditCardPopup'
 import CardDeletePopup from './CardDeletePopup'
@@ -18,10 +15,11 @@ import AddressDeletePopup from './AddressDeletePopup'
 import SalesContract from './SalesContract'
 import PreInfo from './PreInfo'
 
+import { getCartProducts, getProfile, listCards, makeOrder } from '../../scripts/requests'
+
 const cookies = new Cookies()
 
 class Payment extends React.Component {
-
     state = {
         fetching: true,
         selected: 0,
@@ -229,7 +227,7 @@ class Payment extends React.Component {
         const totalPrice = this.state.products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0)
         const cargoPrice = totalPrice < 85 ? 15 : 0
 
-        const divider = [
+        const breadcrumb = [
             {
                 path: null, title: 'Ödemeyi Tamamla'
             }
@@ -239,7 +237,7 @@ class Payment extends React.Component {
             return <Loading />
         } else {
             return (
-                <SiteWrap divider={divider}>
+                <SiteWrap breadcrumb={breadcrumb}>
                     <>
 
                         {

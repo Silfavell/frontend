@@ -1,8 +1,8 @@
 import React from 'react'
 
-import PopupWrapper from '../../components/PopupWrapper'
+import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 
-class MembershipAgreement extends React.Component {
+class MembershipAgreement extends React.PureComponent {
     onOutsideClick = (event) => {
         if (event.target !== event.currentTarget) {
             return

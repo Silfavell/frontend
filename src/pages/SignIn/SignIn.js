@@ -6,7 +6,7 @@ import InputMask from 'react-input-mask'
 
 import { bulkCart, login } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap'
+import SiteWrap from '../../components/SiteWrap/SiteWrap'
 
 const cookies = new Cookies()
 
@@ -106,7 +106,7 @@ class SignIn extends React.Component {
     }
 
     render() {
-        const divider = [
+        const breadcrumb = [
             { path: null, title: 'Giriş Yap' }
         ]
 
@@ -120,7 +120,7 @@ class SignIn extends React.Component {
         } = this.state
 
         return (
-            <SiteWrap divider={divider}>
+            <SiteWrap breadcrumb={breadcrumb}>
                 <div className='container'>
                     <div className='w-100 d-flex align-items-center justify-content-center'>
                         <div className='col-md-6 px-0'>
