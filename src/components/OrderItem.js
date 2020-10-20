@@ -54,6 +54,7 @@ class OrderItem extends React.Component {
             date,
             status,
             paidPrice,
+            cargoPrice,
             returnItems,
             returnItemsTotalPayback
         } = this.props.item
@@ -84,7 +85,7 @@ class OrderItem extends React.Component {
 
                                 <div className='d-flex align-items-center justify-content-between p1'>
                                     <p style={{ fontSize: 18 }}>{this.props.returnItems ? 'Ödenecek Tutar:' : 'Ödenen Tutar:'}</p>
-                                    <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>{`₺${(this.props.returnItems ? returnItemsTotalPayback : paidPrice).toFixed(2).replace('.', ',')}`}</p>
+                                    <p style={{ fontSize: 18 }} className='text-black font-weight-normal'>{`₺${(this.props.returnItems ? returnItemsTotalPayback : paidPrice + cargoPrice).toFixed(2).replace('.', ',')}`}</p>
                                 </div>
 
                                 {

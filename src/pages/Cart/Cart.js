@@ -11,8 +11,8 @@ class Cart extends React.Component {
     }
 
     cartWithProducts = ({ products, onIncreaseClick, onDecreaseClick, setProductQuantity }) => {
-        const totalPrice = products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0).toFixed(2)
-        const cargoPrice = (15).toFixed(2)
+        const totalPrice = products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0)
+        const cargoPrice = totalPrice < 85 ? 15 : 0
 
         return (
             <div className='container'>
@@ -48,7 +48,7 @@ class Cart extends React.Component {
                                     <span className='text-black'>Tutar</span>
                                 </div>
                                 <div className='col-6 text-right'>
-                                    <strong className='text-black'>{`₺${totalPrice}`}</strong>
+                                    <strong className='text-black'>{`₺${totalPrice.toFixed(2)}`}</strong>
                                 </div>
                             </div>
                             <div className='row'>
@@ -56,7 +56,7 @@ class Cart extends React.Component {
                                     <span className='text-black'>Kargo Ücreti</span>
                                 </div>
                                 <div className='col-6 text-right'>
-                                    <strong className='text-black'>{`₺${cargoPrice}`}</strong>
+                                    <strong className='text-black'>{`₺${cargoPrice.toFixed(2)}`}</strong>
                                 </div>
                             </div>
                             <div className='row pt-4'>

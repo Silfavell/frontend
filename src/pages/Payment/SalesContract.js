@@ -16,9 +16,8 @@ class MembershipAgreement extends React.Component {
     }
 
     render() {// TODO REVIEW
-
         const totalPrice = this.props.products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0).toFixed(2)
-        const cargoPrice = (15).toFixed(2)
+        const cargoPrice = totalPrice < 85 ? 15 : 0
 
         return ( // TODO update mersis
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
@@ -98,7 +97,7 @@ E-Posta: ${this.props.profile.email}
                                             ))
                                         }
                                         <tr>
-                                            <td colSpan='2'>Kargo Tutarı</td>
+                                            <td colSpan='2'>Kargo Ücreti</td>
                                             <td>{cargoPrice + ' TL'}</td>
                                         </tr>
                                         <tr>
