@@ -8,11 +8,11 @@ class FilledCart extends React.Component {
   }
 
   render() {
+
     const { products, onIncreaseClick, onDecreaseClick, setProductQuantity } = this.props
 
     const totalPrice = products.reduce((previousValue, currentValue) => previousValue + parseFloat(currentValue.discountedPrice || currentValue.price) * currentValue.quantity, 0).toFixed(2)
     const cargoPrice = totalPrice < 85 ? 15 : 0
-
     return (
       <div className='container'>
         <div className='row mb-5'>
@@ -29,7 +29,8 @@ class FilledCart extends React.Component {
                         onDecreaseClick={onDecreaseClick}
                         setProductQuantity={setProductQuantity}
                       />
-                    ))
+                     
+                    )) 
                   }
                 </tbody>
               </table>
