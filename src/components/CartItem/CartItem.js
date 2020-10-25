@@ -1,6 +1,6 @@
 import React from 'react'
 import joi from '@hapi/joi'
-
+import { IoIosClose } from 'react-icons/io'
 import './CartItem.css'
 
 class CartItem extends React.Component {
@@ -36,6 +36,13 @@ class CartItem extends React.Component {
         event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
     }
 
+    removeProduct = (event) => {
+        event.stopPropagation()
+        event.preventDefault()
+
+        this.props.setProductQuantity(this.props.item._id, 0)
+    }
+
     render() {
         const {
             name,
@@ -59,6 +66,9 @@ class CartItem extends React.Component {
 
         return (
             <tr>
+                 <div style={{ position: 'absolute', bottom: 0, right: 0, padding: 6, zIndex: 2, cursor: 'pointer' }} onClick={this.removeProduct}>
+                    <IoIosClose size={24} color={'black'} />
+                </div>
                 <td className='product-thumbnail img-container'>
                     <img
                         src={url}
