@@ -2,7 +2,6 @@ import React from 'react'
 import {
     IoLogoAndroid,
     // IoLogoApple,
-    IoLogoFacebook,
     IoLogoInstagram,
     IoLogoTwitter
 } from 'react-icons/io'
@@ -84,13 +83,6 @@ const Footer = () => {
                                         <li className='phone'><a href='tel://23923929210'>+2 392 3929 210</a></li>
                                     */
                                 }
-
-                                <li className='d-flex align-items-center justify-content-start pl-0'>
-                                    <a href='https://www.facebook.com/Silfavell-110326400716229' target='_blank' rel='noopener noreferrer'>
-                                        <IoLogoFacebook size={32} color={'#EE4266'} className='mr-2' />
-                                        Facebook
-                                    </a>
-                                </li>
 
                                 <li className='d-flex align-items-center justify-content-start pl-0'>
                                     <a href='http://instagram.com/silfavell' target='_blank' rel='noopener noreferrer'>
