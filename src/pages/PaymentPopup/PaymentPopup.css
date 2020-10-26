@@ -1,0 +1,78 @@
+.container
+{
+    width: 50%;
+    margin-left: 25%;
+    height: 100vh;
+    padding-top: 10%;
+    background-color: rgb(243, 243, 243);
+    -webkit-box-shadow: 0px 0px 29px 7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 29px 7px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 29px 7px rgba(0,0,0,0.75);
+}
+.flex-Popup
+{
+    width: 60%;
+    height: 65%;
+    border-radius: 3vh;
+    border: 0.2vh solid black;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: column;      
+}
+/*Input*/
+.Popup-Input
+{
+    flex: 1;
+    text-align: center;
+}
+.Popup-Input input
+{
+    text-align: center;
+    border-radius: 1.5vh;
+    width: 5vh;
+    height: 5vh;
+    margin-top: 6%;
+    outline-style: none;
+    border: 0.2vh solid black;
+    border: 0;
+    margin-left: 1%;
+}
+/*Text*/
+.someText-container
+{
+    flex: 1;
+    text-align: center;
+}
+.someText
+{
+    margin-top: 8%;
+    font-weight: 500;
+}
+/*Clock*/
+.Clock
+{
+    flex: 1;
+}
+.Countdown-Timer
+{
+    width: 100%;
+    text-align: center;
+    margin-top: 6%;
+    font-size: 3vh;
+}
+/*Button*/
+.Popup-Button
+{
+    flex: 1;
+    text-align: center;
+    outline-style: none;
+}
+.Popup-Btn
+{
+    width: 30%;
+    border-radius: 1vh;
+    border: 0.2vh solid black;
+    margin-top: 2%;
+    height: 5vh;
+    outline-style: none;
+}
