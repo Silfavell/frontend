@@ -23,10 +23,9 @@ import ReturnItems from './pages/ReturnItems/ReturnItems'
 import ReturnItemsCompleted from './pages/ReturnItemsCompleted/ReturnItemsCompleted'
 import PaymentCompleted from './pages/PaymentCompleted/PaymentCompleted'
 import NotFound from './pages/NotFound/NotFound'
-import PaymentPopup from './pages/PaymentPopup/PaymentPopup'
 
 import axios from './scripts/axios'
-/*
+
 import 'vanillatoasts/vanillatoasts.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './style/css/googleMukta.css'
@@ -34,19 +33,11 @@ import './style/css/owl.theme.default.min.css'
 import './style/css/style.css'
 
 axios()
-*/
+
 class App extends React.PureComponent {
     render() {
         return (
-            <div>
-                <PaymentPopup></PaymentPopup>
-            </div>
-        )
-    }
-}
-export default App
-/*
-<Router>
+            <Router>
                 <Switch>
                     <Route exact path='/' component={Home} />
 
@@ -71,4 +62,7 @@ export default App
                     <Route exact path='*' component={NotFound} />
                 </Switch>
             </Router>
-*/
+        )
+    }
+}
+export default App
