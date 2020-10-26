@@ -3,25 +3,38 @@ import React, { Component } from 'react'
 export default class PaymentFunc extends Component {
     onChange = (event) => {
         if (event.target.maxLength === 1) {
-            this.nameInput.focus();
+            this.nameInput2.focus();
+        }
+        else
+        {
+            this.nameInput1.focus();
         }
     }
 
     onChangeFirst = (event) => {
         if (event.target.maxLength === 1) {
-            this.nameInput1.focus();
-        }
+            this.nameInput3.focus();
+        }   
         else
         {
-            this.nameInput.focus();
+            this.nameInput2.focus();
         }
     }
 
     onChangeSecond = (event) => {
         if (event.target.maxLength === 1) {
-            this.nameInput2.focus();
+            this.nameInput4.focus();
         }
-       
+        else
+        {
+            this.nameInput3.focus();
+        }
+    }
+
+    onChangeThird = (event) => {
+        if (event.target.maxLength === 1) {
+            this.nameInput4.focus();
+        }
     }
 
     render() {
@@ -30,23 +43,26 @@ export default class PaymentFunc extends Component {
                 <input
                     type="text"
                     maxLength="1"
-                    onChange={this.onChange} />
+                    onChange={this.onChange}
+                    ref={(input) => { this.nameInput1 = input; }}
+                    />
                 <input
                     type="text"
                     maxLength="1"
                     onChange={this.onChangeFirst}
-                    ref={(input) => { this.nameInput = input; }}
+                    ref={(input) => { this.nameInput2 = input; }}
                 />
                 <input
                     type="text"
                     maxLength="1"
                     onChange={this.onChangeSecond}
-                    ref={(input) => { this.nameInput1 = input; }}
+                    ref={(input) => { this.nameInput3 = input; }}
                 />
                 <input
                     type="text"
                     maxLength="1"
-                    ref={(input) => { this.nameInput2 = input; }}
+                    onChange={this.onChangeThird}
+                    ref={(input) => { this.nameInput4 = input; }}
                 />
             </div>
         )
