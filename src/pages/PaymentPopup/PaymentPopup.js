@@ -6,7 +6,7 @@ import PaymentFunc from './PaymentFunc'
 import './PaymentPopup.css'
 
 export default function PaymentPopup() {
-    const [timer, setTimer] = React.useState(1200);
+    const [timer, setTimer] = React.useState(180);
     const id = React.useRef(null);
     const clear = () => {
         window.clearInterval(id.current)

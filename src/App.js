@@ -31,22 +31,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './style/css/googleMukta.css'
 import './style/css/owl.theme.default.min.css'
 import './style/css/style.css'
-import PaymentPopup from './pages/PaymentPopup/PaymentPopup'
+//import PaymentPopup from './pages/PaymentPopup/PaymentPopup'
 
 axios()
 
 class App extends React.PureComponent {
     render() {
         return (
-            <div>
-                <PaymentPopup></PaymentPopup>
-            </div>
-        )
-    }
-}
-export default App
-/*
-<Router>
+            <Router>
                 <Switch>
                     <Route exact path='/' component={Home} />
 
@@ -71,4 +63,12 @@ export default App
                     <Route exact path='*' component={NotFound} />
                 </Switch>
             </Router>
-*/ 
+        )
+    }
+}
+export default App
+/*
+<div>
+                <PaymentPopup></PaymentPopup>
+            </div>
+*/
