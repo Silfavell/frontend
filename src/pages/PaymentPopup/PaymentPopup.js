@@ -35,15 +35,18 @@ export default function PaymentPopup() {
                             SOME TEXT IN THIS CONTAİNER
                         </div>
                     </div>
-                    <div className="Clock">
-                        <div className="Countdown-Timer">
-                            Time left : {timer}
+
+                    <div className="Popup-Input">
+                        <div id="divOuter">
+                            <div id="divInner">
+                                <input id="partitioned" type="text" maxlength="4" />
+                            </div>
                         </div>
                     </div>
-                    <div className="Popup-Input">
-                        <PaymentFunc></PaymentFunc>
-                    </div>
                     <div className="Popup-Button">
+                        <div className="Countdown-Timer">
+                            {timer} sn
+                        </div>
                         <button className="Popup-Btn">
                             Add
                         </button>
