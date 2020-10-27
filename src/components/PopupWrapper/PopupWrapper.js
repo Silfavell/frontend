@@ -1,6 +1,8 @@
 import React from 'react'
 import { IoIosClose } from 'react-icons/io'
 
+import PaymentPopup from '../PaymentPopup/PaymentPopup'
+
 class PopupWrapper extends React.PureComponent {
     render() {
         return (
@@ -17,7 +19,7 @@ class PopupWrapper extends React.PureComponent {
                 justifyContent: 'center'
             }} onClick={this.props.onOutsideClick}>
                 <div
-                    className='col-md-7'
+                    className='col-md-5'
                     style={{
                         backgroundColor: 'white',
                         maxHeight: '90%',
@@ -30,7 +32,7 @@ class PopupWrapper extends React.PureComponent {
                         style={{
                             position: 'absolute',
                             top: 10,
-                            right: 10,
+                            right: 0,
                             cursor: 'pointer',
                             zIndex: 11
                         }}
@@ -42,10 +44,10 @@ class PopupWrapper extends React.PureComponent {
                         this.props.children
                     }
 
+                    <PaymentPopup />
                 </div>
             </div>
         )
     }
 }
-
 export default PopupWrapper

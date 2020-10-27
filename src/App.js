@@ -31,7 +31,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './style/css/googleMukta.css'
 import './style/css/owl.theme.default.min.css'
 import './style/css/style.css'
-import PaymentPopup from './pages/PaymentPopup/PaymentPopup'
+import PaymentPopup from './components/PaymentPopup/PaymentPopup'
+import PopupWrapper from './components/PopupWrapper/PopupWrapper'
 
 axios()
 
@@ -39,7 +40,8 @@ class App extends React.PureComponent {
     render() {
         return (
           <div>
-                <PaymentPopup></PaymentPopup>
+                <PopupWrapper></PopupWrapper>
+                
             </div>
         )
     }
