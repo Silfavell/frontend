@@ -11,8 +11,7 @@
         display: unset;
     }
 }
-
 #shop-single-accordion .collapsing .p-4,
 #shop-single-accordion .collapse .p-4{
-    padding: 1.5rem 0 !important;
+    padding: 1rem 0 !important;
 }
