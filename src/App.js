@@ -31,7 +31,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './style/css/googleMukta.css'
 import './style/css/owl.theme.default.min.css'
 import './style/css/style.css'
-//import PaymentPopup from './pages/PaymentPopup/PaymentPopup'
 
 axios()
 
@@ -67,8 +66,3 @@ class App extends React.PureComponent {
     }
 }
 export default App
-/*
-<div>
-                <PaymentPopup></PaymentPopup>
-            </div>
-*/

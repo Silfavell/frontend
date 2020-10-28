@@ -65,8 +65,8 @@ class CartItem extends React.Component {
         const url = `${process.env.REACT_APP_API_URL}/assets/products/${slug}_300x300.webp`
 
         return (
-            <tr>
-                 <div style={{ position: 'relative' ,bottom: 0, right: 0, padding: 6, zIndex: 2, cursor: 'pointer'}} onClick={this.removeProduct}>
+            <tr style={{ position: 'relative' }}>
+                <div style={{ position: 'absolute', bottom: 0, right: 0, padding: 6, zIndex: 2, cursor: 'pointer' }} onClick={this.removeProduct}>
                     <IoIosClose size={24} color={'black'} />
                 </div>
                 <td className='product-thumbnail img-container'>
