@@ -40,7 +40,7 @@ class App extends React.PureComponent {
     render() {
         return (
           <div>
-                <PopupWrapper></PopupWrapper>
+                <PaymentPopup></PaymentPopup>
                 
             </div>
         )

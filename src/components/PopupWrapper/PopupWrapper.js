@@ -1,8 +1,6 @@
 import React from 'react'
 import { IoIosClose } from 'react-icons/io'
 
-import PaymentPopup from '../PaymentPopup/PaymentPopup'
-
 class PopupWrapper extends React.PureComponent {
     render() {
         return (
@@ -43,8 +41,6 @@ class PopupWrapper extends React.PureComponent {
                     {
                         this.props.children
                     }
-
-                    <PaymentPopup />
                 </div>
             </div>
         )

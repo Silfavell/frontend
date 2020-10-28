@@ -1,83 +1,95 @@
 import React from 'react'
 
+import PopupWrapper from '../PopupWrapper/PopupWrapper'
 import './PaymentPopup.css'
 
 export default class PaymentPopup extends React.Component {
-    constructor() {
-        super();
-        this.state = { time: {}, seconds: 180 };
-        this.timer = 0;
-        this.startTimer = this.startTimer.bind(this);
-        this.countDown = this.countDown.bind(this);
-    }
+    state = { time: {}, seconds: 180 }
 
-    secondsToTime(secs) {
-        let hours = Math.floor(secs / (60 * 60));
+    timer = 0
 
-        let divisor_for_minutes = secs % (60 * 60);
-        let minutes = Math.floor(divisor_for_minutes / 60);
+    secondsToTime = (secs) => {
+        const hours = Math.floor(secs / (60 * 60))
 
-        let divisor_for_seconds = divisor_for_minutes % 60;
-        let seconds = Math.ceil(divisor_for_seconds);
+        const divisorForMinutes = secs % (60 * 60)
+        const minutes = Math.floor(divisorForMinutes / 60)
 
-        let obj = {
+        const divisorForSeconds = divisorForMinutes % 60
+        const seconds = Math.ceil(divisorForSeconds)
+
+        const obj = {
             'h': hours,
             'm': minutes,
             's': seconds
-        };
-        return obj;
+        }
+        return obj
     }
 
-    componentDidMount() {
-        let timeLeftVar = this.secondsToTime(this.state.seconds);
-        this.setState({ time: timeLeftVar });
+    componentDidMount = () => {
+        const timeLeftVar = this.secondsToTime(this.state.seconds)
+        this.setState({ time: timeLeftVar })
     }
 
-    startTimer() {
-        if (this.timer == 0 && this.state.seconds > 0) {
-            this.timer = setInterval(this.countDown, 1000);
+    startTimer = () => {
+        if (this.timer === 0 && this.state.seconds > 0) {
+            this.timer = setInterval(this.countDown, 1000)
         }
     }
 
-    countDown() {
-        let seconds = this.state.seconds - 1;
+    countDown = () => {
+        const seconds = this.state.seconds - 1
         this.setState({
             time: this.secondsToTime(seconds),
             seconds: seconds,
-        });
+        })
 
-        if (seconds == 0) {
-            clearInterval(this.timer);
+        if (seconds === 0) {
+            clearInterval(this.timer)
         }
     }
+    /* OnClickOlayları
+    onOutsideClick = (event) => {
+        if (event.target !== event.currentTarget) {
+            return
+        }
+
+        this.props.hideSaveAddressPopup()
+    }
+
+    onCloseClick = (event) => {
+        this.props.hideSaveAddressPopup()
+    }
+    */
 
     render() {
         return (
-            <div className='container'>
-                <div className='flex-Popup'>
-                    <div className='someText-container'>
-                        <div className='someText'>
-                            Lütfen telefonunuza gönderilen kodu giriniz
+            <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
+                <div className='container'>
+                    <div className='flex-Popup'>
+                        <div className='someText-container'>
+                            <div className='someText'>
+                                Lütfen telefonunuza gönderilen kodu giriniz
                         </div>
-                    </div>
+                        </div>
 
-                    <div className='Popup-Input'>
-                        <div id='divOuter'>
-                            <div id='divInner'>
-                                <input id='partitioned' type='text' maxlength='4' />
+                        <div className='Popup-Input'>
+                            <div id='divOuter'>
+                                <div id='divInner'>
+                                    <input id='partitioned' type='text' maxlength='4' />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className='Popup-Button'>
-                        <div className='Countdown-Timer'>
-                            <div onClick={this.startTimer()}>
-                                  0{this.state.time.m}:{this.state.time.s}
+                        <div className='Popup-Button'>
+                            <div className='Countdown-Timer'>
+                                <div onChange={this.startTimer()}>
+                                    0{this.state.time.m}:{this.state.time.s}
+                                </div>
                             </div>
+                            <button className='btn btn-primary btn-lg btn-block'>Evet</button>
                         </div>
-                        <button className='btn btn-primary btn-lg btn-block'>Evet</button>
                     </div>
                 </div>
-            </div>
+            </PopupWrapper>
         )
     }
 }
