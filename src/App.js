@@ -65,5 +65,4 @@ class App extends React.PureComponent {
         )
     }
 }
-
 export default App

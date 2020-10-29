@@ -17,7 +17,7 @@ class PopupWrapper extends React.PureComponent {
                 justifyContent: 'center'
             }} onClick={this.props.onOutsideClick}>
                 <div
-                    className='col-md-7'
+                    className={this.props.isSmall ? 'col-md-7' : 'col-md-5'}
                     style={{
                         backgroundColor: 'white',
                         maxHeight: '90%',
@@ -30,7 +30,7 @@ class PopupWrapper extends React.PureComponent {
                         style={{
                             position: 'absolute',
                             top: 10,
-                            right: 10,
+                            right: 0,
                             cursor: 'pointer',
                             zIndex: 11
                         }}
@@ -41,11 +41,9 @@ class PopupWrapper extends React.PureComponent {
                     {
                         this.props.children
                     }
-
                 </div>
             </div>
         )
     }
 }
-
 export default PopupWrapper
