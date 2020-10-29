@@ -1,12 +1,32 @@
 import React from 'react'
+import VanillaToasts from 'vanillatoasts'
 
 import PopupWrapper from '../PopupWrapper/PopupWrapper'
+import { deleteAddress } from '../../scripts/requests'
+
+import PaymentClosePage from './PaymentClosePage'
 import './PaymentPopup.css'
 
 export default class PaymentPopup extends React.Component {
-    state = { time: {}, seconds: 180 }
-
     timer = 0
+
+    showDeletePaymentPopup = (deleteAddressId) => {
+        this.setState({ showDeletePaymentPopup: true, deleteAddressId })
+    }
+
+    hideDeletePaymentPopup = (payment) => {
+        this.setState({ showDeletePaymentPopup: true, payment: payment ?? this.state.payment })
+    }
+
+    state = {
+        time: {},
+        seconds: 180,
+        payment: [],
+
+        showDeletePaymentPopup: false,
+
+        deleteAddressId: null
+    }
 
     secondsToTime = (secs) => {
         const hours = Math.floor(secs / (60 * 60))
@@ -47,29 +67,33 @@ export default class PaymentPopup extends React.Component {
             clearInterval(this.timer)
         }
     }
-    /* OnClickOlayları
+
     onOutsideClick = (event) => {
         if (event.target !== event.currentTarget) {
             return
         }
+        else {
+            this.hideDeletePaymentPopup()
+        }
 
-        this.props.hideSaveAddressPopup()
     }
 
     onCloseClick = (event) => {
-        this.props.hideSaveAddressPopup()
+        this.hideDeletePaymentPopup()
     }
-    */
 
     render() {
         return (
-            <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
+            <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick} className={this.props.isSmall} >
+                {
+                    this.state.showDeletePaymentPopup && <PaymentClosePage deleteAddressId={this.state.deleteAddressId} hideDeletePaymentPopup={this.hideDeletePaymentPopup} />
+                }
                 <div className='container'>
                     <div className='flex-Popup'>
                         <div className='someText-container'>
                             <div className='someText'>
                                 Lütfen telefonunuza gönderilen kodu giriniz
-                        </div>
+                            </div>
                         </div>
 
                         <div className='Popup-Input'>
@@ -85,7 +109,7 @@ export default class PaymentPopup extends React.Component {
                                     0{this.state.time.m}:{this.state.time.s}
                                 </div>
                             </div>
-                            <button className='btn btn-primary btn-lg btn-block'>Evet</button>
+                            <button className='btn btn-primary btn-lg btn-block' onClick={this.onConfirm}>Evet</button>
                         </div>
                     </div>
                 </div>
