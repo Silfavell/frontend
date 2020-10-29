@@ -38,30 +38,30 @@ class App extends React.PureComponent {
     render() {
         return (
             <Router>
-            <Switch>
-                <Route exact path='/' component={Home} />
+                <Switch>
+                    <Route exact path='/' component={Home} />
 
-                <Route path='/contact' component={Contact} />
-                <Route path='/about-us' component={AboutUs} />
-                <Route path='/shop' component={Shop} />
-                <Route path='/sign-in' component={SignIn} />
-                <Route path='/sign-up' component={SignUp} />
-                <Route path='/cart' component={Cart} />
-                <Route path='/payment' component={Payment} />
-                <Route path='/payment-completed' component={PaymentCompleted} />
-                <Route path='/edit-profile' component={EditProfile} />
+                    <Route path='/contact' component={Contact} />
+                    <Route path='/about-us' component={AboutUs} />
+                    <Route path='/shop' component={Shop} />
+                    <Route path='/sign-in' component={SignIn} />
+                    <Route path='/sign-up' component={SignUp} />
+                    <Route path='/cart' component={Cart} />
+                    <Route path='/payment' component={Payment} />
+                    <Route path='/payment-completed' component={PaymentCompleted} />
+                    <Route path='/edit-profile' component={EditProfile} />
 
-                <Route path='/favorite-products' component={FavoriteProducts} />
-                <Route path='/previous-orders' component={PreviousOrders} />
-                <Route path='/return-items/:_id' component={ReturnItems} />
-                <Route path='/return-items-completed/:_id' component={ReturnItemsCompleted} />
+                    <Route path='/favorite-products' component={FavoriteProducts} />
+                    <Route path='/previous-orders' component={PreviousOrders} />
+                    <Route path='/return-items/:_id' component={ReturnItems} />
+                    <Route path='/return-items-completed/:_id' component={ReturnItemsCompleted} />
 
-                <Route path='/update-password' component={UpdatePassword} />
-                <Route path='/forgot-password' component={ForgotPassword} />
-                <Route path='/:_id/p' component={ShopSingle} />
-                <Route exact path='*' component={NotFound} />
-            </Switch>
-        </Router>
+                    <Route path='/update-password' component={UpdatePassword} />
+                    <Route path='/forgot-password' component={ForgotPassword} />
+                    <Route path='/:_id/p' component={ShopSingle} />
+                    <Route exact path='*' component={NotFound} />
+                </Switch>
+            </Router>
         )
     }
 }
