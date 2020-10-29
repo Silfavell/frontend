@@ -1,13 +1,10 @@
 import React from 'react'
-import VanillaToasts from 'vanillatoasts'
 
 import PopupWrapper from '../PopupWrapper/PopupWrapper'
-import { deleteAddress } from '../../scripts/requests'
-
-import PaymentClosePage from './PaymentClosePage'
+import activationClosePage from './activationClosePage'
 import './PaymentPopup.css'
 
-export default class PaymentPopup extends React.Component {
+export default class activationPopup extends React.Component {
     timer = 0
 
     showDeletePaymentPopup = (deleteAddressId) => {
@@ -86,7 +83,7 @@ export default class PaymentPopup extends React.Component {
         return (
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick} className={this.props.isSmall} >
                 {
-                    this.state.showDeletePaymentPopup && <PaymentClosePage deleteAddressId={this.state.deleteAddressId} hideDeletePaymentPopup={this.hideDeletePaymentPopup} />
+                    this.state.showDeletePaymentPopup && <activationClosePage deleteAddressId={this.state.deleteAddressId} hideDeletePaymentPopup={this.hideDeletePaymentPopup} />
                 }
                 <div className='container'>
                     <div className='flex-Popup'>
