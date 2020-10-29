@@ -31,46 +31,38 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './style/css/googleMukta.css'
 import './style/css/owl.theme.default.min.css'
 import './style/css/style.css'
-import PaymentPopup from './components/PaymentPopup/PaymentPopup'
-import PopupWrapper from './components/PopupWrapper/PopupWrapper'
 
 axios()
 
 class App extends React.PureComponent {
     render() {
         return (
-          <div>
-                <PaymentPopup></PaymentPopup>
-                
-            </div>
+            <Router>
+            <Switch>
+                <Route exact path='/' component={Home} />
+
+                <Route path='/contact' component={Contact} />
+                <Route path='/about-us' component={AboutUs} />
+                <Route path='/shop' component={Shop} />
+                <Route path='/sign-in' component={SignIn} />
+                <Route path='/sign-up' component={SignUp} />
+                <Route path='/cart' component={Cart} />
+                <Route path='/payment' component={Payment} />
+                <Route path='/payment-completed' component={PaymentCompleted} />
+                <Route path='/edit-profile' component={EditProfile} />
+
+                <Route path='/favorite-products' component={FavoriteProducts} />
+                <Route path='/previous-orders' component={PreviousOrders} />
+                <Route path='/return-items/:_id' component={ReturnItems} />
+                <Route path='/return-items-completed/:_id' component={ReturnItemsCompleted} />
+
+                <Route path='/update-password' component={UpdatePassword} />
+                <Route path='/forgot-password' component={ForgotPassword} />
+                <Route path='/:_id/p' component={ShopSingle} />
+                <Route exact path='*' component={NotFound} />
+            </Switch>
+        </Router>
         )
     }
 }
 export default App
-/*
-  <Router>
-                <Switch>
-                    <Route exact path='/' component={Home} />
-
-                    <Route path='/contact' component={Contact} />
-                    <Route path='/about-us' component={AboutUs} />
-                    <Route path='/shop' component={Shop} />
-                    <Route path='/sign-in' component={SignIn} />
-                    <Route path='/sign-up' component={SignUp} />
-                    <Route path='/cart' component={Cart} />
-                    <Route path='/payment' component={Payment} />
-                    <Route path='/payment-completed' component={PaymentCompleted} />
-                    <Route path='/edit-profile' component={EditProfile} />
-
-                    <Route path='/favorite-products' component={FavoriteProducts} />
-                    <Route path='/previous-orders' component={PreviousOrders} />
-                    <Route path='/return-items/:_id' component={ReturnItems} />
-                    <Route path='/return-items-completed/:_id' component={ReturnItemsCompleted} />
-
-                    <Route path='/update-password' component={UpdatePassword} />
-                    <Route path='/forgot-password' component={ForgotPassword} />
-                    <Route path='/:_id/p' component={ShopSingle} />
-                    <Route exact path='*' component={NotFound} />
-                </Switch>
-            </Router>
-*/
