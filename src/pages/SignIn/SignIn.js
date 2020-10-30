@@ -45,8 +45,12 @@ class SignIn extends React.Component {
             if (data.user.alias) {
                 localStorage.setItem('alias', data.user.alias)
             }
+            if (data.user.favoriteProducts) {
+                localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
+            } else {
+                localStorage.setItem('favoriteProducts', [])
+            }
 
-            localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
 
             if (window.localStorage.getItem('cart')) {
                 await bulkCart()
