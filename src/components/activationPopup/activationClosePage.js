@@ -7,7 +7,7 @@ export default class ActivationClosePage extends Component {
         return (
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick} className={this.props.isSmall} >
                 <div style={{ width: '100%', height: '50vh' }}>
-                    Deneme1234567890
+                    Deneme12345678901
                 </div>
             </PopupWrapper>
         )
