@@ -20,7 +20,6 @@ class CustomTabs extends React.Component {
     }
 
     render() {
-        localStorage.clear()
         if (this.state.bestSeller.length > 0) {
             return (
                 <Tabs defaultIndex={0} className='w-100'>

@@ -175,7 +175,12 @@ export const setProductQuantity = async (productId, quantity, products) => {
 export const getInitialDatas = async () => {
   if (cookies.get('token')) {
     const [categories, products, favoriteProducts] = await Promise.all([getCategories(), getCartProducts(), getFavoriteProducts()])
-    localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts))
+
+    if (favoriteProducts) {
+      localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts))
+    } else {
+      localStorage.setItem('favoriteProducts', JSON.stringify([]))
+    }
 
     return { categories, products }
   } else {
