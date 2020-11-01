@@ -36,7 +36,7 @@ class SignIn extends React.Component {
             phoneNumber,
             password
         } = this.state
-
+        
         const { status, data } = await login({ phoneNumber, password })
         if (status === 200) {
             cookies.set('token', data.token)
@@ -45,8 +45,13 @@ class SignIn extends React.Component {
             if (data.user.alias) {
                 localStorage.setItem('alias', data.user.alias)
             }
-
-            localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
+            console.log(data.user.favoriteProducts)
+            if (data.user.favoriteProducts) {
+                localStorage.setItem('favoriteProducts', JSON.stringify(data.user.favoriteProducts))
+            } else {
+                localStorage.setItem('favoriteProducts', JSON.stringify([]))
+            }
+            
 
             if (window.localStorage.getItem('cart')) {
                 await bulkCart()

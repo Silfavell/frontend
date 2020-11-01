@@ -25,7 +25,7 @@ const cookies = new Cookies()
 
 class ShopContent extends React.Component {
   getInitialValues = () => {
-    const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
+    const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : JSON.parse(localStorage.getItem('[]'))
     const loggedIn = cookies.get('token')
     this.props.location.search = decodeURIComponent(this.props.location.search)
 
