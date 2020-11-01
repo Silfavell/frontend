@@ -35,8 +35,6 @@ class PreviousOrders extends React.Component {
                     fetching: false
                 })
             })
-        } else {
-            props.history.push('/sign-in')
         }
     }
 
