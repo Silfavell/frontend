@@ -147,12 +147,12 @@ class ShopSingle extends React.Component {
                     <meta name='description' content={details} data-react-helmet='true' />
                 </Helmet>
                 <div className='row'>
-                    <div className='col-md-6 pb-5 px-5'>
+                    <div className='col-lg-6 pb-5 px-5'>
                         <ProductImages
                             _id={_id}
                             images={this.getImages(image, imageCount)} />
                     </div>
-                    <div className='col-md-6 pb-4'>
+                    <div className='col-lg-6 pb-4'>
                         <h2 className='text-black'>{name}</h2>
                         <a
                             href={`/shop/${this.state.categorySlug}/${this.state.subCategorySlug}?brands=${this.state.product.brand.split(' ').join('+')}`}
