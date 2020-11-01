@@ -5,7 +5,7 @@ import joi from '@hapi/joi'
 
 import { changePassword } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 
 class UpdatePassword extends React.Component {
@@ -120,85 +120,82 @@ class UpdatePassword extends React.Component {
             reNewPassword
         } = this.state
 
-        const breadcrumb = [
-            {
-                path: null,
-                title: 'Şifremi Değiştir'
-            }
-        ]
-
         return (
-            <SiteWrap
-                breadcrumb={breadcrumb}>
-                <div className='container'>
-                    <div className='row'>
-                        <ProfileColumn />
-                        <form className='col-md-9 my-2' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
-                            <div className='w-100 h-100 border py-4 d-flex align-items-center justify-content-center'>
-                                <div className='col-md-6'>
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='old_password' className='text-black'>Eski Şifre <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onOldPasswordChange}
-                                                type='password'
-                                                className='form-control'
-                                                id='old_password'
-                                                name='old_password'
-                                                placeholder='Eski Şifrenizi giriniz'
-                                                value={oldPassword} />
-                                        </div>
+            <div className='container'>
+                <div className='row'>
+                    <ProfileColumn />
+                    <form className='col-md-9 my-2' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
+                        <div className='w-100 h-100 border py-4 d-flex align-items-center justify-content-center'>
+                            <div className='col-md-6'>
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='old_password' className='text-black'>Eski Şifre <span className='text-danger'>*</span></label>
+                                        <input
+                                            onChange={this.onOldPasswordChange}
+                                            type='password'
+                                            className='form-control'
+                                            id='old_password'
+                                            name='old_password'
+                                            placeholder='Eski Şifrenizi giriniz'
+                                            value={oldPassword} />
                                     </div>
+                                </div>
 
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='new_password' className='text-black'>Yeni Şifre <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onNewPasswordChange}
-                                                type='password'
-                                                className='form-control'
-                                                id='new_password'
-                                                name='new_password'
-                                                placeholder='Yeni Şifrenizi giriniz'
-                                                value={newPassword} />
-                                        </div>
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='new_password' className='text-black'>Yeni Şifre <span className='text-danger'>*</span></label>
+                                        <input
+                                            onChange={this.onNewPasswordChange}
+                                            type='password'
+                                            className='form-control'
+                                            id='new_password'
+                                            name='new_password'
+                                            placeholder='Yeni Şifrenizi giriniz'
+                                            value={newPassword} />
                                     </div>
+                                </div>
 
-                                    <div className='form-group row'>
-                                        <div className='col-md-12'>
-                                            <label htmlFor='re_new_password' className='text-black'>Yeni Şifre (tekrar) <span className='text-danger'>*</span></label>
-                                            <input
-                                                onChange={this.onReNewPasswordChange}
-                                                type='password'
-                                                className='form-control'
-                                                id='re_new_password'
-                                                name='re_new_password'
-                                                placeholder='Yeni Şifrenizi tekrar giriniz'
-                                                value={reNewPassword} />
-                                        </div>
+                                <div className='form-group row'>
+                                    <div className='col-md-12'>
+                                        <label htmlFor='re_new_password' className='text-black'>Yeni Şifre (tekrar) <span className='text-danger'>*</span></label>
+                                        <input
+                                            onChange={this.onReNewPasswordChange}
+                                            type='password'
+                                            className='form-control'
+                                            id='re_new_password'
+                                            name='re_new_password'
+                                            placeholder='Yeni Şifrenizi tekrar giriniz'
+                                            value={reNewPassword} />
                                     </div>
+                                </div>
 
-                                    <div className='form-group row'>
-                                        <div className='col-lg-12'>
-                                            <div
-                                                onClick={this.onUpdateClick}
-                                                className='btn btn-primary btn-lg btn-block'
-                                                disabled={
-                                                    this.state.invalidOldPassword || !this.state.isOldPasswordInitialized
-                                                    || this.state.invalidNewPassword || !this.state.isNewPasswordInitialized
-                                                    || this.state.invalidReNewPassword || !this.state.isReNewPasswordInitialized
-                                                }
-                                            >Şifremi Güncelle</div>
-                                        </div>
+                                <div className='form-group row'>
+                                    <div className='col-lg-12'>
+                                        <div
+                                            onClick={this.onUpdateClick}
+                                            className='btn btn-primary btn-lg btn-block'
+                                            disabled={
+                                                this.state.invalidOldPassword || !this.state.isOldPasswordInitialized
+                                                || this.state.invalidNewPassword || !this.state.isNewPasswordInitialized
+                                                || this.state.invalidReNewPassword || !this.state.isReNewPasswordInitialized
+                                            }
+                                        >Şifremi Güncelle</div>
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
-            </SiteWrap >
+            </div>
         )
     }
 }
 
-export default UpdatePassword
+const breadcrumb = [
+    {
+        path: null,
+        title: 'Şifremi Değiştir'
+    }
+]
+
+export default SiteWrapHoc(UpdatePassword, { breadcrumb })

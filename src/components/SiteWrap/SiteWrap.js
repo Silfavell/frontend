@@ -13,87 +13,86 @@ import {
     getInitialDatas
 } from './scripts'
 
-class SiteWrap extends React.Component {
-    state = {
-        isMobileMenuOpen: false,
-        categories: [],
-        products: []
-    }
-
-    changeMobileMenuStatus = (isMobileMenuOpen) => {
-        this.setState({ isMobileMenuOpen })
-    }
-
-    onOutsideMenuClick = (event) => {
-        if (this.state.isMobileMenuOpen && $('.site-mobile-menu').find(event.target).length === 0) {
-            this.changeMobileMenuStatus(false)
+const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb } = {}) => {
+    return class extends React.Component {
+        state = {
+            isMobileMenuOpen: false,
+            categories: [],
+            products: []
         }
-    }
 
-    onIncreaseClick = async (productId, quantity = 1, dontShowToast) => {
-        const products = await onIncreaseClick(productId, quantity, dontShowToast, this.state.products)
+        changeMobileMenuStatus = (isMobileMenuOpen) => {
+            this.setState({ isMobileMenuOpen })
+        }
 
-        this.setState({ products })
-    }
+        onOutsideMenuClick = (event) => {
+            if (this.state.isMobileMenuOpen && $('.site-mobile-menu').find(event.target).length === 0) {
+                this.changeMobileMenuStatus(false)
+            }
+        }
 
-    onDecreaseClick = async (productId, quantity = 1, dontShowToast) => {
-        const products = await onDecreaseClick(productId, quantity, dontShowToast, this.state.products)
+        onIncreaseClick = async (productId, quantity = 1, dontShowToast) => {
+            const products = await onIncreaseClick(productId, quantity, dontShowToast, this.state.products)
 
-        this.setState({ products })
-    }
+            this.setState({ products })
+        }
 
-    setProductQuantity = async (productId, quantity = 1) => {
-        const products = await setProductQuantity(productId, quantity, this.state.products)
+        onDecreaseClick = async (productId, quantity = 1, dontShowToast) => {
+            const products = await onDecreaseClick(productId, quantity, dontShowToast, this.state.products)
 
-        this.setState({ products })
-    }
+            this.setState({ products })
+        }
 
-    async componentDidMount() {
-        const initialDatas = await getInitialDatas()
+        setProductQuantity = async (productId, quantity = 1) => {
+            const products = await setProductQuantity(productId, quantity, this.state.products)
 
-        this.setState(initialDatas)
-    }
+            this.setState({ products })
+        }
 
-    render() {
-        return (
-            <div
-                className={`site-wrap ${this.state.isMobileMenuOpen ? 'offcanvas-menu' : ''}`}
-                onClick={this.onOutsideMenuClick}>
+        async componentDidMount() {
+            const initialDatas = await getInitialDatas()
 
-                <Header
-                    categories={this.state.categories}
-                    products={this.state.products}
-                    firstImage={this.props.firstImage}
-                    changeMobileMenuStatus={this.changeMobileMenuStatus}
-                    setProductQuantity={this.setProductQuantity}
-                />
+            this.setState(initialDatas)
+        }
 
-                {
-                    this.props.firstImage && <FirstImage />
-                }
+        render() {
+            return (
+                <div
+                    className={`site-wrap ${this.state.isMobileMenuOpen ? 'offcanvas-menu' : ''}`}
+                    onClick={this.onOutsideMenuClick}>
 
-                {
-                    this.props.breadcrumb && <Breadcrumb breadcrumb={this.props.breadcrumb} />
-                }
+                    <Header
+                        categories={this.state.categories}
+                        products={this.state.products}
+                        firstImage={firstImage}
+                        changeMobileMenuStatus={this.changeMobileMenuStatus}
+                        setProductQuantity={this.setProductQuantity}
+                    />
 
-                <div className='site-section'>
                     {
-                        React.Children.map(this.props.children, (child) => (
-                            React.cloneElement(child, {
-                                categories: this.state.categories,
-                                products: this.state.products,
-                                onIncreaseClick: this.onIncreaseClick,
-                                onDecreaseClick: this.onDecreaseClick,
-                                setProductQuantity: this.setProductQuantity
-                            })
-                        ))
+                        firstImage && <FirstImage />
                     }
-                </div>
 
-                <Footer />
-            </div>
-        )
+                    {
+                        breadcrumb && <Breadcrumb breadcrumb={breadcrumb} />
+                    }
+
+                    <div className='site-section'>
+                        <WrappedComponent
+                            categories={this.state.categories}
+                            products={this.state.products}
+                            onIncreaseClick={this.onIncreaseClick}
+                            onDecreaseClick={this.onDecreaseClick}
+                            setProductQuantity={this.setProductQuantity}
+                            history={this.props.history}
+                        />
+                    </div>
+
+                    <Footer />
+                </div>
+            )
+        }
     }
 }
 
-export default SiteWrap
+export default SiteWrapHoc

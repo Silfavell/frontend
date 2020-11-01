@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import OrderItem from '../../components/OrderItem/OrderItem'
 
 import { getOrderById } from '../../scripts/requests'
@@ -40,7 +40,6 @@ class ReturnItemsCompleted extends React.Component {
 
     render() {
         return (
-            <SiteWrap>
                 <div className='container'>
                     <div className='col-md-12'>
                         <div
@@ -62,9 +61,8 @@ class ReturnItemsCompleted extends React.Component {
                         }
                     </div>
                 </div>
-            </SiteWrap>
         )
     }
 }
 
-export default ReturnItemsCompleted
+export default SiteWrapHoc(ReturnItemsCompleted)

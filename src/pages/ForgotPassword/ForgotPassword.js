@@ -5,7 +5,7 @@ import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
 
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 
 import { resetPassword, sendActivationCode } from '../../scripts/requests'
 
@@ -248,26 +248,24 @@ class UpdatePassword extends React.Component {
     )
 
     render() {
-        const breadcrumb = [
-            {
-                path: null, title: 'Şifremi Unuttum'
-            }
-        ]
-
         return (
-            <SiteWrap breadcrumb={breadcrumb}>
-                <div className='container'>
-                    <div className='col-md-12 d-flex align-items-center justify-content-center'>
-                        <div className='col-md-6'>
-                            {
-                                this.state.isActivationCodeSended ? this.renderPasswordSection() : this.renderPhoneSection()
-                            }
-                        </div>
+            <div className='container'>
+                <div className='col-md-12 d-flex align-items-center justify-content-center'>
+                    <div className='col-md-6'>
+                        {
+                            this.state.isActivationCodeSended ? this.renderPasswordSection() : this.renderPhoneSection()
+                        }
                     </div>
                 </div>
-            </SiteWrap>
+            </div>
         )
     }
 }
 
-export default UpdatePassword
+const breadcrumb = [
+    {
+        path: null, title: 'Şifremi Unuttum'
+    }
+]
+
+export default SiteWrapHoc(UpdatePassword, { breadcrumb })

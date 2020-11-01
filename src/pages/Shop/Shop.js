@@ -84,9 +84,7 @@ class Shop extends React.Component {
         }
 
         if (this.state.fetching) {
-            return (
-                <Loading />
-            )
+            return <Loading />
         } else if (!this.state.fetching && !currentCategory) {
             return (
                 <SiteWrap>
