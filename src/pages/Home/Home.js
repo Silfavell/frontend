@@ -13,7 +13,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 
 class Home extends React.Component {
     state = {
-        shop: {},
+        shop: {}
     }
 
     fetchShop = async (visitedProductIds) => {

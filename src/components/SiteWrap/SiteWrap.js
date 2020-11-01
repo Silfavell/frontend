@@ -1,6 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 
 import Header from './Header/Header'
@@ -63,8 +63,6 @@ class SiteWrap extends React.Component {
         const shouldBeLoggedInPages = [
             '/payment',
             '/update-password',
-            '/shop',
-            '/card',
             '/payment',
             '/payment-completed',
             '/edit-profile',
@@ -73,12 +71,12 @@ class SiteWrap extends React.Component {
             '/return-items',
             '/return-items-completed',
             '/update-password',
-            '/forgot-password'
         ]
 
         const shouldNotBeLoggedInPages = [
             '/sign-in',
-            '/sign-up'
+            '/sign-up',
+            '/forgot-password'
         ]
 
         const loggedIn = cookies.get('token')
