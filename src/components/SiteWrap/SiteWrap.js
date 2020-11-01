@@ -1,5 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
+import { Redirect } from "react-router-dom";
+import Cookies from 'universal-cookie'
 
 import Header from './Header/Header'
 import Footer from './Footer'
@@ -12,6 +14,8 @@ import {
     setProductQuantity,
     getInitialDatas
 } from './scripts'
+
+const cookies = new Cookies()
 
 class SiteWrap extends React.Component {
     state = {
@@ -55,6 +59,38 @@ class SiteWrap extends React.Component {
     }
 
     render() {
+
+        const shouldBeLoggedInPages = [
+            '/payment',
+            '/update-password',
+            '/shop',
+            '/card',
+            '/payment',
+            '/payment-completed',
+            '/edit-profile',
+            '/favorite-products',
+            '/previous-orders',
+            '/return-items',
+            '/return-items-completed',
+            '/update-password',
+            '/forgot-password'
+        ]
+
+        const shouldNotBeLoggedInPages = [
+            '/sign-in',
+            '/sign-up'
+        ]
+
+        const loggedIn = cookies.get('token')
+
+        if (shouldBeLoggedInPages.includes(window.location.pathname) && !loggedIn) {
+            return <Redirect to='/sign-in' />
+        }
+
+        if (shouldNotBeLoggedInPages.includes(window.location.pathname) && loggedIn) {
+            return <Redirect to='/' />
+        }
+
         return (
             <div
                 className={`site-wrap ${this.state.isMobileMenuOpen ? 'offcanvas-menu' : ''}`}

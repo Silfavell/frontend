@@ -23,14 +23,6 @@ class SignIn extends React.Component {
         invalidPassword: false
     }
 
-    constructor(props) {
-        super(props)
-
-        if (cookies.get('token')) {
-            this.props.history.push('/')
-        }
-    }
-
     onSignInClick = async () => {
         const {
             phoneNumber,

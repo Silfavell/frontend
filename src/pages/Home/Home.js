@@ -1,6 +1,5 @@
 /* eslint-disable react/style-prop-object */
 import React from 'react'
-import { Redirect } from "react-router-dom";
 
 import { fetchShop } from '../../scripts/requests'
 
@@ -15,7 +14,6 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 class Home extends React.Component {
     state = {
         shop: {},
-        redirect: null
     }
 
     fetchShop = async (visitedProductIds) => {
@@ -34,9 +32,6 @@ class Home extends React.Component {
     }
 
     renderHomeContent = ({ onIncreaseClick }) => {
-        if (this.state.redirect) {
-            return <Redirect to={this.state.redirect} />
-        }
         return (
             <div className='container'>
                 <div className='row'>
