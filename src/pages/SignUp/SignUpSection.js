@@ -58,7 +58,7 @@ const SignUpSection = ({ state,
         </div>
       </div>
 
-      <form className='form-group row' autoComplete='off' action=''>
+      <div className='form-group row' autoComplete='off' action=''>
         <div className='col-md-12'>
           <label htmlFor='phoneNumber' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
           <InputMask
@@ -73,7 +73,7 @@ const SignUpSection = ({ state,
               placeholder='Telefon Numaranızı giriniz' />
           </InputMask>
         </div>
-      </form>
+      </div>
 
       <form className='form-group row' autoComplete='off' action=''>
         <div className='col-md-12'>
