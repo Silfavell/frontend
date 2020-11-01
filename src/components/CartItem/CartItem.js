@@ -67,11 +67,13 @@ class CartItem extends React.Component {
         return (
             <tr style={{ position: 'relative' }}>
                 {
-                    ! (returnItem || returnOrderItem) && <div style={{ position: 'absolute', bottom: 0, right: 0, padding: 6, zIndex: 2, cursor: 'pointer' }} onClick={this.removeProduct}>
-                    <IoIosClose size={24} color={'black'} />
-                </div>
+                    !(order || returnOrderItem) && (
+                        <div style={{ position: 'absolute', bottom: 0, right: 0, padding: 6, zIndex: 2, cursor: 'pointer' }} onClick={this.removeProduct}>
+                            <IoIosClose size={24} color={'black'} />
+                        </div>
+                    )
                 }
-                
+
                 <td className='product-thumbnail img-container'>
                     <img
                         src={url}
