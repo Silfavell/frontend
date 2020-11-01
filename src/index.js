@@ -1,3 +1,4 @@
+import './scripts/wydr'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import 'dotenv/config'
