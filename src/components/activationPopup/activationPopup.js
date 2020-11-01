@@ -8,12 +8,8 @@ import './ActivationPopup.css'
 export default class ActivationPopup extends React.Component {
     timer = 0
 
-    showDeleteactivationPopup = (deleteAddressId) => {
-        this.setState({ showDeleteactivationPopup: true, deleteAddressId })
-    }
-
-    hideDeleteactivationPopup = (activation) => {
-        this.setState({ showDeleteactivationPopup: true, activation: activation ?? this.state.activation })
+    hideDeleteActivationPopup = (Activation) => {
+        this.setState({ showDeleteActivationPopup: true, Activation: Activation ?? this.state.Activation })
     }
 
     secondsToTime = (secs) => {
@@ -59,9 +55,9 @@ export default class ActivationPopup extends React.Component {
     state = {
         time: {},
         seconds: 180,
-        activation: [],
+        Activation: [],
 
-        showDeleteactivationPopup: false,
+        showDeleteActivationPopup: false,
 
         deleteAddressId: null
     }
@@ -71,20 +67,20 @@ export default class ActivationPopup extends React.Component {
             return
         }
         else {
-            this.hideDeleteactivationPopup()
+            this.hideDeleteActivationPopup()
         }
 
     }
 
     onCloseClick = (event) => {
-        this.hideDeleteactivationPopup()
+        this.hideDeleteActivationPopup()
     }
 
     render() {
         return (
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick} className={this.props.isSmall} >
                 {
-                    this.state.showDeleteactivationPopup && <ActivationClosePage deleteAddressId={this.state.deleteAddressId} hideDeleteactivationPopup={this.hideDeleteactivationPopup} />
+                    this.state.showDeleteActivationPopup && <ActivationClosePage deleteAddressId={this.state.deleteAddressId} hideDeleteActivationPopup={this.hideDeleteActivationPopup} />
                 }
                 <div className='container'>
                     <div className='flex-Popup'>
