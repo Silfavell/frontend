@@ -43,7 +43,7 @@ class App extends React.PureComponent {
 
                     <Route path='/contact' component={Contact} />
                     <Route path='/about-us' component={AboutUs} />
-                    <Route path='/shop' component={Shop} />
+                    <Route path='/shop/:category/:subCategory' component={Shop} />
                     <Route path='/sign-in' component={SignIn} />
                     <Route path='/sign-up' component={SignUp} />
                     <Route path='/cart' component={Cart} />

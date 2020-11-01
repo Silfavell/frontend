@@ -1,7 +1,5 @@
 import React from 'react'
 
-import SiteWrapHoc from '../SiteWrap/SiteWrap'
-
 class Loading extends React.PureComponent {
     render() {
         return (
@@ -14,4 +12,4 @@ class Loading extends React.PureComponent {
     }
 }
 
-export default SiteWrapHoc(Loading)
+export default Loading
