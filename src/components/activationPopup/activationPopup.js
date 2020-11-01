@@ -1,28 +1,19 @@
 import React from 'react'
 
 import PopupWrapper from '../PopupWrapper/PopupWrapper'
-import activationClosePage from './activationClosePage'
-import './PaymentPopup.css'
+import ActivationClosePage from './ActivationClosePage'
 
-export default class activationPopup extends React.Component {
+import './ActivationPopup.css'
+
+export default class ActivationPopup extends React.Component {
     timer = 0
 
-    showDeletePaymentPopup = (deleteAddressId) => {
-        this.setState({ showDeletePaymentPopup: true, deleteAddressId })
+    showDeleteactivationPopup = (deleteAddressId) => {
+        this.setState({ showDeleteactivationPopup: true, deleteAddressId })
     }
 
-    hideDeletePaymentPopup = (payment) => {
-        this.setState({ showDeletePaymentPopup: true, payment: payment ?? this.state.payment })
-    }
-
-    state = {
-        time: {},
-        seconds: 180,
-        payment: [],
-
-        showDeletePaymentPopup: false,
-
-        deleteAddressId: null
+    hideDeleteactivationPopup = (activation) => {
+        this.setState({ showDeleteactivationPopup: true, activation: activation ?? this.state.activation })
     }
 
     secondsToTime = (secs) => {
@@ -65,25 +56,35 @@ export default class activationPopup extends React.Component {
         }
     }
 
+    state = {
+        time: {},
+        seconds: 180,
+        activation: [],
+
+        showDeleteactivationPopup: false,
+
+        deleteAddressId: null
+    }
+
     onOutsideClick = (event) => {
         if (event.target !== event.currentTarget) {
             return
         }
         else {
-            this.hideDeletePaymentPopup()
+            this.hideDeleteactivationPopup()
         }
 
     }
 
     onCloseClick = (event) => {
-        this.hideDeletePaymentPopup()
+        this.hideDeleteactivationPopup()
     }
 
     render() {
         return (
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick} className={this.props.isSmall} >
                 {
-                    this.state.showDeletePaymentPopup && <activationClosePage deleteAddressId={this.state.deleteAddressId} hideDeletePaymentPopup={this.hideDeletePaymentPopup} />
+                    this.state.showDeleteactivationPopup && <ActivationClosePage deleteAddressId={this.state.deleteAddressId} hideDeleteactivationPopup={this.hideDeleteactivationPopup} />
                 }
                 <div className='container'>
                     <div className='flex-Popup'>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import PopupWrapper from '../PopupWrapper/PopupWrapper'
 
-export default class activationClosePage extends Component {
+export default class ActivationClosePage extends Component {
     render() {
         return (
             <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick} className={this.props.isSmall} >
