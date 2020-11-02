@@ -101,7 +101,7 @@ class Comments extends React.Component {
             <div className='p-4'>
 
                 {
-                    this.state.showWriteReviewPopup && <WriteReviewPopup productId={this.props.productId} hideWriteReviewPopup={this.hideWriteReviewPopup} />
+                    this.state.showWriteReviewPopup && <WriteReviewPopup productId={this.props.productId} hidePopup={this.hideWriteReviewPopup} />
                 }
 
                 <div className='col-md-12 text-black py-4'>

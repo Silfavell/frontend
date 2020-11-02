@@ -106,7 +106,10 @@ class OrderItem extends React.PureComponent {
                                         <tbody>
                                             {
                                                 products.map((product) => (
-                                                    <CartItem item={product} order />
+                                                    <CartItem
+                                                        key={`${this.props.item._id}:${product._id}`}
+                                                        item={product}
+                                                        order />
                                                 ))
                                             }
                                         </tbody>

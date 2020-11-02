@@ -1,12 +1,12 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import Loading from '../../components/Loading/Loading'
 import EmptyShop from './EmptyShop'
 import ShopContent from './ShopContent'
 
-import { getCategories, makeCustomRequest } from '../../scripts/requests'
+import { makeCustomRequest } from '../../scripts/requests'
 import {
     maximumProductLengthInOnePage
 } from './scripts'
@@ -15,7 +15,6 @@ import './Shop.css'
 
 class Shop extends React.Component {
     state = {
-        categories: [],
         shop: {},
         fetching: true
     }
@@ -23,12 +22,6 @@ class Shop extends React.Component {
     filterShop = async () => {
         const url = `${process.env.REACT_APP_API_URL}/filter-shop${this.props.location.pathname.replace('/shop', '')}${this.props.location.search}${this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${maximumProductLengthInOnePage}`
         const { data } = await makeCustomRequest({ url })
-
-        return data
-    }
-
-    getCategories = async () => {
-        const { data } = await getCategories()
 
         return data
     }
@@ -42,10 +35,9 @@ class Shop extends React.Component {
     }
 
     async componentDidMount() {
-        const [categories, shop] = await Promise.all([this.getCategories(), this.filterShop()])
+        const shop = await this.filterShop()
 
         this.setState({
-            categories,
             shop,
             fetching: false
         })
@@ -58,44 +50,19 @@ class Shop extends React.Component {
     }
 
     render() {
-        const currentCategory = this.state.categories.find(category => category._id === this.state.shop._id)
-        const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.shop.subCategoryId) : null
-
-        let breadcrumb = []
-
-        if (subCategory) {
-            breadcrumb = [
-                {
-                    path: `/shop/${currentCategory?.slug}`,
-                    title: currentCategory?.name
-                },
-                {
-                    path: null,
-                    title: subCategory.name
-                }
-            ]
-        } else {
-            breadcrumb = [
-                {
-                    path: null,
-                    title: currentCategory?.name
-                }
-            ]
-        }
+        const { category: categorySlug, subCategory: subCategorySlug } = this.props.match.params
+        const currentCategory = this.props.categories.find(category => category.slug === categorySlug)
+        const subCategory = subCategorySlug ? currentCategory?.subCategories.find((subCategory) => subCategory.slug === subCategorySlug) : null
 
         if (this.state.fetching) {
-            return (
-                <Loading />
-            )
+            return <Loading />
         } else if (!this.state.fetching && !currentCategory) {
             return (
-                <SiteWrap>
-                    <EmptyShop />
-                </SiteWrap>
+                <EmptyShop />
             )
         } else {
             return (
-                <SiteWrap breadcrumb={breadcrumb}>
+                <>
                     <Helmet>
                         <title>{`${(subCategory ?? currentCategory)?.name} | Silfavell`}</title>
                         <meta name='description' content={`${(subCategory ?? currentCategory)?.name}`} data-react-helmet='true' />
@@ -103,10 +70,10 @@ class Shop extends React.Component {
                     <ShopContent
                         location={this.props.location}
                         shop={this.state.shop} />
-                </SiteWrap>
+                </>
             )
         }
     }
 }
 
-export default Shop
+export default SiteWrapHoc(Shop, { page: 'Shop' })

@@ -3,7 +3,7 @@ import React from 'react'
 
 import { fetchShop } from '../../scripts/requests'
 
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import Carousel from '../../components/Carousel/Carousel'
 import Tabs from './Tabs'
 
@@ -31,7 +31,7 @@ class Home extends React.Component {
         }
     }
 
-    renderHomeContent = ({ onIncreaseClick }) => {
+    render() {
         return (
             <div className='container'>
                 <div className='row'>
@@ -41,7 +41,7 @@ class Home extends React.Component {
                     </div>
 
                     <Tabs
-                        onIncreaseClick={onIncreaseClick}
+                        onIncreaseClick={this.props.onIncreaseClick}
                     />
 
                     {
@@ -54,7 +54,7 @@ class Home extends React.Component {
 
                                 <Carousel
                                     products={this.state.shop.products}
-                                    onIncreaseClick={onIncreaseClick}
+                                    onIncreaseClick={this.props.onIncreaseClick}
                                 />
                             </>
                         )
@@ -63,14 +63,6 @@ class Home extends React.Component {
             </div>
         )
     }
-
-    render() {
-        return (
-            <SiteWrap firstImage>
-                <this.renderHomeContent />
-            </SiteWrap>
-        )
-    }
 }
 
-export default Home
+export default SiteWrapHoc(Home, { firstImage: true })

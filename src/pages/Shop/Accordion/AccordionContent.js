@@ -11,6 +11,7 @@ class AccordionContent extends React.PureComponent {
           {
             this.props.items.map((item, index) => (
               <AccordionItem
+                key={`collapse${this.props.id}:AccordionContent:${index}`}
                 item={item}
                 index={index}
                 location={this.props.location}

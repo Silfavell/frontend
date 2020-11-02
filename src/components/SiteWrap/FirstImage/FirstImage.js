@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Carousel } from 'react-bootstrap'
 
-import bg from '../../style/images/hero_2.jpg'
+import bg from '../../../style/images/hero_2.jpg'
 
 function FirstImage() {
     const [index, setIndex] = useState(0)

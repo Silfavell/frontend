@@ -3,7 +3,7 @@ import joi from '@hapi/joi'
 import { Helmet } from 'react-helmet'
 
 import Loading from '../../components/Loading/Loading'
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import ProductImages from './ProductImages'
 import Tabs from './Tabs'
 import Accordion from './Accordion'
@@ -36,9 +36,9 @@ class ShopSingle extends React.Component {
         return data
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         try {
-            const [product, relatedProducts] = await Promise.all([this.fetchAndSetProduct(this.props.match.params._id), this.fetchRelatedProducts(this.props.match.params._id)])
+            const [product, relatedProducts] = await Promise.all([this.fetchAndSetProduct(this.props.match.params.slug), this.fetchRelatedProducts(this.props.match.params.slug)])
 
             this.setState({ product, relatedProducts }, () => {
                 const visitedProducts = window.localStorage.getItem('visitedProducts')
@@ -262,24 +262,9 @@ class ShopSingle extends React.Component {
     }
 
     render() {
-        const {
-            categoryName,
-            subCategoryName,
-            categorySlug,
-            subCategorySlug
-        } = this.state
-
-        const breadcrumb = [
-            { path: `/shop/${categorySlug}`, title: categoryName },
-            { path: `/shop/${categorySlug}/${subCategorySlug}`, title: subCategoryName },
-            { path: null, title: this.state.product.name }
-        ]
-
         if (this.state.product._id) {
             return (
-                <SiteWrap breadcrumb={breadcrumb}>
-                    <this.renderContent />
-                </SiteWrap>
+                <this.renderContent {...this.props} />
             )
         } else {
             return <Loading />
@@ -287,4 +272,4 @@ class ShopSingle extends React.Component {
     }
 }
 
-export default ShopSingle
+export default SiteWrapHoc(ShopSingle, { page: 'ShopSingle' })

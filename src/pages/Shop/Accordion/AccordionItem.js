@@ -22,7 +22,7 @@ class AccordionItem extends React.PureComponent {
           id={this.props.id}
           className='mr-2 mt-1'
           style={{ cursor: 'pointer', width: 18, height: 18, pointerEvents: 'none' }}
-          checked={this.props.location.search.includes(`${this.props.filterKey}=${this.props.filterValue.split(' ').join('+')}`)}
+          defaultChecked={this.props.location.search.includes(`${this.props.filterKey}=${this.props.filterValue.split(' ').join('+')}`)}
         />
 
         <span className='text-black'>

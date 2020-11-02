@@ -7,7 +7,7 @@ class Specifications extends React.PureComponent {
   render() {
     return (
       this.props.shop.specifications.map((specification, index) => (
-        <div className='card mb-3'>
+        <div className='card mb-3' key={`specification:${index}`}>
           <AccordionHeader
             title={specification.name}
             id={index}

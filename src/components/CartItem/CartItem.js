@@ -32,10 +32,6 @@ class CartItem extends React.Component {
             })
     }
 
-    onImageError = (event) => {
-        event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
-    }
-
     removeProduct = (event) => {
         event.stopPropagation()
         event.preventDefault()
@@ -78,7 +74,6 @@ class CartItem extends React.Component {
                     <img
                         src={url}
                         alt=''
-                        onError={this.onImageError}
                         className='img-fluid img' />
                 </td>
                 <td className='right-td'>

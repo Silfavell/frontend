@@ -58,10 +58,6 @@ class Product extends React.Component {
         }
     }
 
-    onImageError = (event) => {
-        event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
-    }
-
     render() {
         const {
             name,
@@ -79,7 +75,6 @@ class Product extends React.Component {
                         <img
                             src={url}
                             alt=''
-                            onError={this.onImageError}
                             className='w-100 py-5' />
 
                         <div className='interface'>

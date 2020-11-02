@@ -43,7 +43,7 @@ class App extends React.PureComponent {
 
                     <Route path='/contact' component={Contact} />
                     <Route path='/about-us' component={AboutUs} />
-                    <Route path='/shop' component={Shop} />
+                    <Route path='/shop/:category/:subCategory' component={Shop} />
                     <Route path='/sign-in' component={SignIn} />
                     <Route path='/sign-up' component={SignUp} />
                     <Route path='/cart' component={Cart} />
@@ -58,7 +58,7 @@ class App extends React.PureComponent {
 
                     <Route path='/update-password' component={UpdatePassword} />
                     <Route path='/forgot-password' component={ForgotPassword} />
-                    <Route path='/:_id/p' component={ShopSingle} />
+                    <Route path='/:slug/p' component={ShopSingle} />
                     <Route exact path='*' component={NotFound} />
                 </Switch>
             </Router>

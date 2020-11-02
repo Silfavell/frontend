@@ -73,9 +73,6 @@ class ShopProduct extends React.Component {
                         <img
                             src={url}
                             alt=''
-                            onError={(e) => {
-                                e.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
-                            }}
                             className='w-100 py-5' />
 
                         <div className='interface'>
