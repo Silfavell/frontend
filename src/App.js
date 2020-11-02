@@ -58,7 +58,7 @@ class App extends React.PureComponent {
 
                     <Route path='/update-password' component={UpdatePassword} />
                     <Route path='/forgot-password' component={ForgotPassword} />
-                    <Route path='/:_id/p' component={ShopSingle} />
+                    <Route path='/:slug/p' component={ShopSingle} />
                     <Route exact path='*' component={NotFound} />
                 </Switch>
             </Router>

@@ -2,9 +2,9 @@ import React from 'react'
 import $ from 'jquery'
 
 import Header from './Header/Header'
-import Footer from './Footer'
-import Breadcrumb from './Breadcrumb'
-import FirstImage from './FirstImage'
+import Footer from './Footer/Footer'
+import Breadcrumb from './Breadcrumb/Breadcrumb'
+import FirstImage from './FirstImage/FirstImage'
 
 import {
     onIncreaseClick,
@@ -12,8 +12,9 @@ import {
     setProductQuantity,
     getInitialDatas
 } from './scripts'
+import { dynamicBreadcrumb } from './dynamic-breadcrumb'
 
-const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb } = {}) => {
+const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb, page } = {}) => {
     return class extends React.Component {
         state = {
             isMobileMenuOpen: false,
@@ -51,11 +52,22 @@ const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb } = {}) => {
 
         async componentDidMount() {
             const initialDatas = await getInitialDatas()
+            let breadcrumb = []
 
-            this.setState(initialDatas)
+            if (page) {
+                breadcrumb = await dynamicBreadcrumb({ page, categories: initialDatas.categories, urlParams: this.props.match.params })
+            }
+
+            if (page) {
+                this.setState({ ...initialDatas, breadcrumb })
+            } else {
+                this.setState(initialDatas)
+            }
         }
 
         render() {
+            const _breadcrumb = (page ? this.state.breadcrumb : breadcrumb) ?? []
+
             return (
                 <div
                     className={`site-wrap ${this.state.isMobileMenuOpen ? 'offcanvas-menu' : ''}`}
@@ -74,7 +86,7 @@ const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb } = {}) => {
                     }
 
                     {
-                        breadcrumb && <Breadcrumb breadcrumb={breadcrumb} />
+                        _breadcrumb && <Breadcrumb breadcrumb={_breadcrumb} />
                     }
 
                     <div className='site-section'>
@@ -85,6 +97,8 @@ const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb } = {}) => {
                             onDecreaseClick={this.onDecreaseClick}
                             setProductQuantity={this.setProductQuantity}
                             history={this.props.history}
+                            match={this.props.match}
+                            location={this.props.location}
                         />
                     </div>
 
