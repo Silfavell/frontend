@@ -86,7 +86,7 @@ const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb, page } = {}) =>
                     }
 
                     {
-                        _breadcrumb && <Breadcrumb breadcrumb={_breadcrumb} />
+                        _breadcrumb.length > 0 && <Breadcrumb breadcrumb={_breadcrumb} />
                     }
 
                     <div className='site-section'>
