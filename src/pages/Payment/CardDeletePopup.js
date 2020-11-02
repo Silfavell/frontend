@@ -1,9 +1,9 @@
 import React from 'react'
 import VanillaToasts from 'vanillatoasts'
 
-import { removeCard } from '../../scripts/requests'
+import PopupWrapperHoc from '../../components/PopupWrapper/PopupWrapper'
 
-import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
+import { removeCard } from '../../scripts/requests'
 
 class CardDeletePopup extends React.PureComponent {
     onConfirm = async () => {
@@ -17,50 +17,36 @@ class CardDeletePopup extends React.PureComponent {
                     timeout: 3 * 1000
                 })
 
-                this.props.hideDeleteCardPopup(this.props.deleteCardToken)
+                this.props.hidePopup(this.props.deleteCardToken)
             }
         } catch (error) {
-            this.props.hideDeleteCardPopup()
+            this.props.hidePopup()
         }
-    }
-
-    onOutsideClick = (event) => {
-        if (event.target !== event.currentTarget) {
-            return
-        }
-
-        this.props.hideDeleteCardPopup()
-    }
-
-    onCloseClick = (event) => {
-        this.props.hideDeleteCardPopup()
     }
 
     render() {
         return (
-            <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
-                <div className='col-md-12'>
-                    <div className='row'>
-                        <div className='col-md-12'>
-                            <div className='p-lg-5'>
-                                <div className='form-group row mb-5'>
-                                    <div className='col-lg-12'>
-                                        <span className='text-black h5'>Kartınızın silinmesini onaylıyor musunuz?</span>
-                                    </div>
+            <div className='col-md-12'>
+                <div className='row'>
+                    <div className='col-md-12'>
+                        <div className='p-lg-5'>
+                            <div className='form-group row mb-5'>
+                                <div className='col-lg-12'>
+                                    <span className='text-black h5'>Kartınızın silinmesini onaylıyor musunuz?</span>
                                 </div>
-                                <div className='form-group row'>
-                                    <div className='col-lg-6 ml-auto'>
-                                        <button className='btn btn-primary btn-lg btn-block' onClick={this.onConfirm}>Evet</button>
-                                    </div>
+                            </div>
+                            <div className='form-group row'>
+                                <div className='col-lg-6 ml-auto'>
+                                    <button className='btn btn-primary btn-lg btn-block' onClick={this.onConfirm}>Evet</button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
-            </PopupWrapper>
+            </div>
         )
     }
 }
 
-export default CardDeletePopup
+export default PopupWrapperHoc(CardDeletePopup)

@@ -234,19 +234,19 @@ class Payment extends React.Component {
                 <>
 
                     {
-                        this.state.showSaveAddressPopup && <AddressPopup hideSaveAddressPopup={this.hideSaveAddressPopup} />
+                        this.state.showSaveAddressPopup && <AddressPopup hidePopup={this.hideSaveAddressPopup} />
                     }
 
                     {
-                        this.state.showDeleteAddressPopup && <AddressDeletePopup deleteAddressId={this.state.deleteAddressId} hideDeleteAddressPopup={this.hideDeleteAddressPopup} />
+                        this.state.showDeleteAddressPopup && <AddressDeletePopup deleteAddressId={this.state.deleteAddressId} hidePopup={this.hideDeleteAddressPopup} />
                     }
 
                     {
-                        this.state.showCardPopup && <CreditCardPopup hideCreditCardPopup={this.hideCreditCardPopup} />
+                        this.state.showCardPopup && <CreditCardPopup hidePopup={this.hideCreditCardPopup} />
                     }
 
                     {
-                        this.state.showDeleteCardPopup && <CardDeletePopup deleteCardToken={this.state.deleteCardToken} hideDeleteCardPopup={this.hideDeleteCardPopup} />
+                        this.state.showDeleteCardPopup && <CardDeletePopup deleteCardToken={this.state.deleteCardToken} hidePopup={this.hideDeleteCardPopup} />
                     }
 
                     {

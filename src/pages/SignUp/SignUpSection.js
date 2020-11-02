@@ -4,7 +4,8 @@ import InputMask from 'react-input-mask'
 import MembershipAgreement from './MembershipAgreement'
 import KvkkAgreement from './KvkkAgreement'
 
-const SignUpSection = ({ state,
+const SignUpSection = ({
+  state,
   onInputChange,
   sendActivationCode,
   showAgreementPopup,
@@ -23,11 +24,11 @@ const SignUpSection = ({ state,
   return (
     <div id={'register'} className='p-3 p-lg-5'>
       {
-        state.showAgreementPopup && <MembershipAgreement hideAgreementPopup={hideAgreementPopup} />
+        state.showAgreementPopup && <MembershipAgreement hidePopup={hideAgreementPopup} />
       }
 
       {
-        state.showKvkkAgreementPopup && <KvkkAgreement hideKvkkAgreementPopup={hideKvkkAgreementPopup} />
+        state.showKvkkAgreementPopup && <KvkkAgreement hidePopup={hideKvkkAgreementPopup} />
       }
 
       <div className='form-group row'>

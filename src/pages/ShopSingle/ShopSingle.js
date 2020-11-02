@@ -36,7 +36,7 @@ class ShopSingle extends React.Component {
         return data
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         try {
             const [product, relatedProducts] = await Promise.all([this.fetchAndSetProduct(this.props.match.params.slug), this.fetchRelatedProducts(this.props.match.params.slug)])
 
