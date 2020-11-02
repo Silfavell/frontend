@@ -30,9 +30,6 @@ function ProductImages({ _id, images }) {
                             <img
                                 src={image}
                                 alt=''
-                                onError={(event) => {
-                                    event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
-                                }}
                                 className='img-fluid'
                             />
                         </div>

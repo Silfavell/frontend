@@ -21,9 +21,6 @@ class SearchProduct extends React.Component {
                     <img
                         src={url}
                         alt=''
-                        onError={(event) => {
-                            event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
-                        }}
                         className='w-100 mb-3 py-3' />
 
                     <div className='col-md-12 d-flex align-items-center justify-content-center'>
