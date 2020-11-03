@@ -1,8 +1,8 @@
 import React from 'react'
+
 import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
 
 class Comment extends React.Component {
-
     onLikeClick = () => {
         this.props.onLikeClick(this.props.item._id, this.props.item.likes.includes(localStorage.getItem('_id')))
     }
@@ -16,7 +16,9 @@ class Comment extends React.Component {
     }
 
     render() {
-        const { ownerAlias, title, comment, verified, likes, dislikes, generalRate } = this.props.item
+        const {
+            ownerAlias, title, comment, verified, likes, dislikes, generalRate
+        } = this.props.item
 
         const alreadyLiked = likes.includes(localStorage.getItem('_id'))
         const alreadyDisliked = dislikes.includes(localStorage.getItem('_id'))
@@ -51,24 +53,36 @@ class Comment extends React.Component {
                                     <span
                                         onClick={this.onLikeClick}
                                         style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }}
-                                        className={`text-white font-weight-bolder px-3 py-1 ${alreadyLiked ? 'bg-warning' : 'bg-secondary'}`}>Evet</span>
+                                        className={`text-white font-weight-bolder px-3 py-1 ${alreadyLiked ? 'bg-warning' : 'bg-secondary'}`}
+                                    >
+                                        Evet
+
+                                    </span>
                                     <span
                                         onClick={this.onDislikeClick}
                                         style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }}
-                                        className={`ml-2 text-white font-weight-bolder px-3 py-1 ${alreadyDisliked ? 'bg-warning' : 'bg-secondary'}`}>Hayır</span>
+                                        className={`ml-2 text-white font-weight-bolder px-3 py-1 ${alreadyDisliked ? 'bg-warning' : 'bg-secondary'}`}
+                                    >
+                                        Hayır
+
+                                    </span>
                                     <span
                                         onClick={this.onReportClick}
                                         style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }}
-                                        className='ml-2 text-white font-weight-bolder px-3 py-1 bg-secondary'>Bildir</span>
+                                        className='ml-2 text-white font-weight-bolder px-3 py-1 bg-secondary'
+                                    >
+                                        Bildir
+
+                                    </span>
                                 </div>
                             ) : (
-                                    <div className='px-3 py-1 text-black' style={{ backgroundColor: 'rgb(255 250 204 / 76%)', borderRadius: '.25rem' }}>
-                                        Yorum gönderdiğiniz için teşekkür ederiz! Yorumunuz şu anda inceleniyor ve görüntülenmesi için bir kaç gün geçmesi gerekebilir.
-                                    </div>
-                                )
+                                <div className='px-3 py-1 text-black' style={{ backgroundColor: 'rgb(255 250 204 / 76%)', borderRadius: '.25rem' }}>
+                                    Yorum gönderdiğiniz için teşekkür ederiz! Yorumunuz şu anda inceleniyor ve görüntülenmesi için bir kaç gün geçmesi gerekebilir.
+                                </div>
+                            )
                         }
                     </div>
-                    <div className='col-md-2'></div>
+                    <div className='col-md-2' />
                 </div>
             </div>
         )

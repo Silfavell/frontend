@@ -1,10 +1,10 @@
 import React from 'react'
-import Cookies from 'universal-cookie'
+
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
+import Cookies from 'universal-cookie'
 
 import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
-
 import { bulkCart, login } from '../../scripts/requests'
 
 const cookies = new Cookies()
@@ -29,12 +29,24 @@ class SignIn extends React.Component {
         }
     }
 
+    shouldComponentUpdate(_, nextState) {
+        if (
+            (this.state.phoneNumber === '' && nextState.phoneNumber === '+90 (___) ___ __ __')
+            || (this.state.phoneNumber === '+90 (___) ___ __ __' && nextState.phoneNumber === '')
+        // eslint-disable-next-line max-len
+        ) { // empty phoneNumber input changes to `+90 (___) ___ __ __` this onClick and rechanges to empty string on click outside, to test if its true comment this function and check wydr logs. Due to this SiteWrap rerenders.
+            return false
+        }
+
+        return true
+    }
+
     onSignInClick = async () => {
         const {
             phoneNumber,
             password
         } = this.state
-        
+
         const { status, data } = await login({ phoneNumber, password })
         if (status === 200) {
             cookies.set('token', data.token)
@@ -49,7 +61,6 @@ class SignIn extends React.Component {
             } else {
                 localStorage.setItem('favoriteProducts', JSON.stringify([]))
             }
-            
 
             if (window.localStorage.getItem('cart')) {
                 await bulkCart()
@@ -61,12 +72,10 @@ class SignIn extends React.Component {
                 } else {
                     this.props.history.push('/')
                 }
+            } else if (document.referrer.includes(window.location.origin)) {
+                this.props.history.goBack()
             } else {
-                if (document.referrer.includes(window.location.origin)) {
-                    this.props.history.goBack()
-                } else {
-                    this.props.history.push('/')
-                }
+                this.props.history.push('/')
             }
         }
     }
@@ -83,12 +92,13 @@ class SignIn extends React.Component {
             .strict()
             .min(19)
             .max(19)
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
             })
-
     }
 
     onPasswordChange = (event) => {
@@ -97,26 +107,17 @@ class SignIn extends React.Component {
         joi.string()
             .alphanum()
             .min(4)
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ password: value, isPasswordInitialized: true, invalidPassword: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ password: value, isPasswordInitialized: true, invalidPassword: !!err })
             })
     }
 
     onSubmitForm = (event) => {
         event.preventDefault()
-    }
-
-    shouldComponentUpdate(_, nextState) {
-        if (
-            (this.state.phoneNumber === '' && nextState.phoneNumber === '+90 (___) ___ __ __') ||
-            (this.state.phoneNumber === '+90 (___) ___ __ __' && nextState.phoneNumber === '')
-        ) { // empty phoneNumber input changes to `+90 (___) ___ __ __` this onClick and rechanges to empty string on click outside, to test if its true comment this function and check wydr logs. Due to this SiteWrap rerenders. 
-            return false
-        }
-
-        return true
     }
 
     render() {
@@ -183,7 +184,11 @@ class SignIn extends React.Component {
                                             || !isPhoneNumberInitialized
                                             || invalidPassword
                                             || !isPasswordInitialized
-                                        }>Oturum Aç</button>
+                                        }
+                                    >
+                                        Oturum Aç
+
+                                    </button>
                                 </div>
                             </div>
                             <div className='row'>
@@ -191,7 +196,10 @@ class SignIn extends React.Component {
                                     <button
                                         className='btn btn-primary btn-lg btn-block'
                                         onClick={this.onSignUpClick}
-                                    >Üye Ol</button>
+                                    >
+                                        Üye Ol
+
+                                    </button>
                                 </div>
                             </div>
                         </div>

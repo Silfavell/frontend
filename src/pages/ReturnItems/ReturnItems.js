@@ -167,7 +167,7 @@ class ReturnItems extends React.Component {
                                     return (
                                         <div style={{ position: 'relative' }}>
                                             <CartItem
-                                                key={returnItem._id + ':' + returnItem.quantity}
+                                                key={`${returnItem._id}:${returnItem.quantity}`}
                                                 item={product}
                                                 onDecreaseClick={this.onDecreaseClick}
                                                 onIncreaseClick={this.onIncreaseClick}

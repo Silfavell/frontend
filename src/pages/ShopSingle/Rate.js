@@ -1,15 +1,12 @@
 import React from 'react'
-import { IoIosStar, IoIosStarOutline, } from 'react-icons/io'
+
+import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
 
 class Rate extends React.Component {
     state = {
         rate: 0,
         rateHover: 0,
         showRateHover: false
-    }
-
-    onRateContainerRef = (ref) => {
-        this.rateContainerRef = ref
     }
 
     componentDidMount() {
@@ -22,6 +19,10 @@ class Rate extends React.Component {
         })
     }
 
+    onRateContainerRef = (ref) => {
+        this.rateContainerRef = ref
+    }
+
     render() {
         return (
             <li ref={this.onRateContainerRef} style={{ flexDirection: 'row', display: 'flex' }}>
@@ -30,24 +31,30 @@ class Rate extends React.Component {
                         if (this.state.showRateHover && rate <= this.state.rateHover) {
                             return (
                                 <div>
-                                    <IoIosStar style={{ cursor: 'pointer' }} size={32} color='orange'
+                                    <IoIosStar
+                                        style={{ cursor: 'pointer' }}
+                                        size={32}
+                                        color='orange'
                                         onMouseEnter={() => {
                                             this.setState({ rateHover: rate })
                                         }}
                                         onClick={() => {
-                                            this.setState({ rate: rate })
+                                            this.setState({ rate })
                                         }} />
                                 </div>
                             )
-                        } else if (!this.state.showRateHover && rate <= this.state.rate) {
+                        } if (!this.state.showRateHover && rate <= this.state.rate) {
                             return (
                                 <div>
-                                    <IoIosStar style={{ cursor: 'pointer' }} size={32} color='orange'
+                                    <IoIosStar
+                                        style={{ cursor: 'pointer' }}
+                                        size={32}
+                                        color='orange'
                                         onMouseEnter={() => {
                                             this.setState({ rateHover: rate })
                                         }}
                                         onClick={() => {
-                                            this.setState({ rate: rate })
+                                            this.setState({ rate })
                                         }} />
                                 </div>
                             )
@@ -55,12 +62,15 @@ class Rate extends React.Component {
 
                         return (
                             <div>
-                                <IoIosStarOutline style={{ cursor: 'pointer' }} size={32} color='orange'
+                                <IoIosStarOutline
+                                    style={{ cursor: 'pointer' }}
+                                    size={32}
+                                    color='orange'
                                     onMouseEnter={() => {
                                         this.setState({ rateHover: rate })
                                     }}
                                     onClick={() => {
-                                        this.setState({ rate: rate })
+                                        this.setState({ rate })
                                     }} />
                             </div>
                         )
@@ -70,6 +80,5 @@ class Rate extends React.Component {
         )
     }
 }
-
 
 export default Rate

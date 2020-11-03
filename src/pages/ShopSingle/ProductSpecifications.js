@@ -1,7 +1,6 @@
 import React from 'react'
 
 class ProductSpecifications extends React.Component {
-
     renderDetailRow = ({ title, value, first }) => (
         <div className={`col-md-12 ${!first ? 'border-top' : ''}`}>
             <div className='row'>

@@ -1,14 +1,17 @@
 import React from 'react'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+
+import {
+    Tab, Tabs, TabList, TabPanel
+} from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 
+import Comments from './Comments'
 import ProductSpecifications from './ProductSpecifications'
 import ReturnConditions from './ReturnConditions'
-import Comments from './Comments'
 
 import './Tabs.css'
 
-class CustomTabs extends React.Component {
+class CustomTabs extends React.PureComponent {
     render() {
         return (
             <Tabs defaultIndex={0} className='w-100'>

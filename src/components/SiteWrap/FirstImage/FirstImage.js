@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
+
 import { Carousel } from 'react-bootstrap'
 
 import bg from '../../../style/images/hero_2.jpg'
@@ -7,15 +8,16 @@ import bg from '../../../style/images/hero_2.jpg'
 function FirstImage() {
     const [index, setIndex] = useState(0)
 
-    const handleSelect = (selectedIndex, e) => {
-        setIndex(selectedIndex);
+    const handleSelect = (selectedIndex) => {
+        setIndex(selectedIndex)
     }
 
     return (
         <Carousel
             activeIndex={index}
             controls={false}
-            onSelect={handleSelect}>
+            onSelect={handleSelect}
+        >
             {
                 [1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
                     <Carousel.Item key={x}>
@@ -27,11 +29,10 @@ function FirstImage() {
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center'
                             }}
-                            data-aos='fade'>
+                            data-aos='fade'
+                        >
                             <div className='container'>
-                                <div className='row'>
-
-                                </div>
+                                <div className='row' />
                             </div>
                         </div>
                     </Carousel.Item>
