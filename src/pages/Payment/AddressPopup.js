@@ -1,7 +1,6 @@
 import React from 'react'
 
 import PopupWrapperHoc from '../../components/PopupWrapper/PopupWrapper'
-
 import { saveAddress } from '../../scripts/requests'
 
 class AddressPopup extends React.Component {
@@ -37,21 +36,26 @@ class AddressPopup extends React.Component {
                 <div className='m-3 p-lg-5'>
                     <div className='form-group row'>
                         <div className='col-md-12'>
-                            <label htmlFor='addressTitle' className='text-black'>Adres Başlığı <span className='text-danger'>*</span></label>
+                            <label htmlFor='addressTitle' className='text-black'>
+                                Adres Başlığı
+                                <span className='text-danger'>*</span>
+                            </label>
                             <input
                                 onChange={this.onTitleChange}
                                 type='text'
                                 className='form-control'
                                 id='addressTitle'
                                 name='addressTitle'
-                                value={addressTitle}
-                            />
+                                value={addressTitle} />
                         </div>
                     </div>
 
                     <div className='form-group row'>
                         <div className='col-md-12'>
-                            <label htmlFor='openAddress' className='text-black'>Adres <span className='text-danger'>*</span></label>
+                            <label htmlFor='openAddress' className='text-black'>
+                                Adres
+                                <span className='text-danger'>*</span>
+                            </label>
                             <textarea
                                 onChange={this.onAddressChange}
                                 style={{ resize: 'none' }}
@@ -60,8 +64,7 @@ class AddressPopup extends React.Component {
                                 cols='30'
                                 rows='7'
                                 className='form-control'
-                                value={openAddress}
-                            ></textarea>
+                                value={openAddress} />
                         </div>
                     </div>
                     <div className='form-group row'>

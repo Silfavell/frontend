@@ -49,6 +49,9 @@ module.exports = {
         'no-param-reassign': 'off',
         'global-require': 'off',
         'no-shadow': 'off',
+        radix: 'off',
+        'no-restricted-syntax': 'off', // TODO remove
+        'react/no-array-index-key': 'off', // TODO remove
         'no-underscore-dangle': ['error', { allow: ['_id', '__v', '__t', '_source'] }], // allow use of '_id' property
         'no-use-before-define': ['error', { functions: true, classes: false, variables: false }],
         'jsx-quotes': [2, 'prefer-single'],

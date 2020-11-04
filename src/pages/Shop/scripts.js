@@ -76,6 +76,8 @@ export const onPageLtClick = ({ location }) => {
     if (startingIndexOfPage >= maximumProductLengthInOnePage * maximumPageCount) {
         return onFilterLinkClick({
             filter: 'start',
+            // TODO
+            // eslint-disable-next-line no-mixed-operators
             filterValue: startingIndex - (startingIndex % (maximumProductLengthInOnePage * maximumPageCount) + maximumProductLengthInOnePage),
             location
         })

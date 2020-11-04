@@ -21,14 +21,15 @@ class AddressCard extends React.PureComponent {
                 style={{
                     border: this.props.selected ? '1px solid #80DF80' : '1px solid #dee2e6'
                 }}
-                onClick={this.onClick}>
+                onClick={this.onClick}
+            >
                 <div className='row p-4'>
                     <div className='col-md-12' style={{ fontWeight: 'bold' }}>
                         {
                             addressTitle
                         }
                     </div>
-                    <div className='col-md-12' style={{ textOverflow: 'ellipsis', overflow: 'hidden' }} >
+                    <div className='col-md-12' style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
                         {
                             openAddress
                         }
@@ -37,7 +38,8 @@ class AddressCard extends React.PureComponent {
                         <span
                             className='text-primary float-md-right'
                             style={{ fontWeight: 'bold', cursor: 'pointer' }}
-                            onClick={this.onDeleteClick}>
+                            onClick={this.onDeleteClick}
+                        >
                             Sil
                         </span>
                     </div>

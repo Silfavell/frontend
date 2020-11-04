@@ -1,8 +1,8 @@
 import React from 'react'
+
 import VanillaToasts from 'vanillatoasts'
 
 import PopupWrapperHoc from '../../components/PopupWrapper/PopupWrapper'
-
 import { removeCard } from '../../scripts/requests'
 
 class CardDeletePopup extends React.PureComponent {

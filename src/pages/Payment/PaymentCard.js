@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {
     FaCcVisa,
     FaCcMastercard
@@ -7,11 +8,11 @@ import {
 class PaymentCard extends React.PureComponent {
     getCardLogo = () => {
         switch (this.props.item.cardAssociation) {
-            case "MASTER_CARD": return <FaCcMastercard size={48} color={'black'} />
+            case 'MASTER_CARD': return <FaCcMastercard size={48} color='black' />
 
-            case "VISA": return <FaCcVisa size={48} color={'black'} />
+            case 'VISA': return <FaCcVisa size={48} color='black' />
 
-            default: return null;
+            default: return null
         }
     }
 
@@ -30,14 +31,15 @@ class PaymentCard extends React.PureComponent {
                 style={{
                     border: this.props.selected ? '1px solid #80DF80' : '1px solid #dee2e6'
                 }}
-                onClick={this.onClick}>
+                onClick={this.onClick}
+            >
                 <div className='row p-4'>
                     <div className='col-md-12'>
                         <span className='text-black font-weight-bold'>{this.props.item.cardAlias}</span>
 
-                        <span style={{ fontWeight: 'normal' }} className={'pl-4'}>{`**** **** **** ${this.props.item.lastFourDigits}`}</span>
+                        <span style={{ fontWeight: 'normal' }} className='pl-4'>{`**** **** **** ${this.props.item.lastFourDigits}`}</span>
 
-                        <span style={{ fontWeight: 'normal' }} className={'pl-5'}>
+                        <span style={{ fontWeight: 'normal' }} className='pl-5'>
                             {
                                 this.getCardLogo()
                             }
@@ -46,7 +48,8 @@ class PaymentCard extends React.PureComponent {
                         <span
                             className='text-primary float-md-right'
                             style={{ fontWeight: 'bold', cursor: 'pointer' }}
-                            onClick={this.onDeleteClick}>
+                            onClick={this.onDeleteClick}
+                        >
                             Sil
                         </span>
                     </div>

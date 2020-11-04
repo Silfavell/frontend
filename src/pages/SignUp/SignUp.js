@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import $ from 'jquery'
-import Cookies from 'universal-cookie'
+
 import JoiBase from '@hapi/joi'
 import JoiPhoneNumber from 'joi-phone-number'
-
-import { bulkCart, signUp, sendActivationCode } from '../../scripts/requests'
+import $ from 'jquery'
+import Cookies from 'universal-cookie'
 
 import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
+import { bulkCart, signUp, sendActivationCode } from '../../scripts/requests'
 import ActivationSection from './ActivationSection'
 import SignUpSection from './SignUpSection'
 
@@ -90,12 +90,10 @@ class SignUp extends React.Component {
                 } else {
                     this.props.history.push('/')
                 }
+            } else if (document.referrer.includes(window.location.origin)) {
+                window.history.back()
             } else {
-                if (document.referrer.includes(window.location.origin)) {
-                    window.history.back()
-                } else {
-                    this.props.history.push('/')
-                }
+                this.props.history.push('/')
             }
         }
     }
@@ -144,15 +142,13 @@ class SignUp extends React.Component {
                             hideAgreementPopup={this.hideAgreementPopup}
                             showKvkkAgreementPopup={this.showKvkkAgreementPopup}
                             hideKvkkAgreementPopup={this.hideKvkkAgreementPopup}
-                            state={this.state}
-                        />
+                            state={this.state} />
 
                         <ActivationSection
                             onInputChange={this.onInputChange}
                             onSignUpClick={this.onSignUpClick}
                             activationCode={this.state.activationCode}
-                            validationError={this.state.validationError}
-                        />
+                            validationError={this.state.validationError} />
                     </div>
                 </div>
             </div>

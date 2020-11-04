@@ -3,12 +3,9 @@ import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
 
-if (cookies.get('token')) {
-
-}
-
 const instance = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
+    // eslint-disable-next-line func-names
     transformRequest: [function (data, headers) {
         const token = cookies.get('token')
         if (token) {
