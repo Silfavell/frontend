@@ -82,7 +82,7 @@ const SignUpSection = ({
             className='form-control'
             id='password'
             name='password'
-            autoComplete='on'
+            autoComplete='password'
             placeholder='Şifrenizi giriniz' />
         </div>
       </form>
