@@ -14,10 +14,7 @@ const SignUpSection = ({
   hideKvkkAgreementPopup
 }) => {
   const {
-    phoneNumber,
-    nameSurname,
-    email,
-    password,
+    phoneNumber
     // rePassword
   } = state
 
@@ -36,12 +33,12 @@ const SignUpSection = ({
           <label htmlFor='nameSurname' className='text-black'>Adınız Soyadınız <span className='text-danger'>*</span></label>
           <input
             onChange={onInputChange}
-            type='text'
+            type='name'
             className='form-control'
             id='nameSurname'
-            name='nameSurname'
-            placeholder='Adınız ve Soyadınızı giriniz'
-            value={nameSurname} />
+            name='name'
+            autoComplete='name'
+            placeholder='Adınız ve Soyadınızı giriniz' />
         </div>
       </div>
 
@@ -50,12 +47,12 @@ const SignUpSection = ({
           <label htmlFor='c_email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
           <input
             onChange={onInputChange}
-            type='text'
+            type='email'
             className='form-control'
             id='c_email'
+            autoComplete='email'
             name='email'
-            placeholder='E-Posta adresinizi giriniz'
-            value={email} />
+            placeholder='E-Posta adresinizi giriniz' />
         </div>
       </div>
 
@@ -85,8 +82,8 @@ const SignUpSection = ({
             className='form-control'
             id='password'
             name='password'
-            placeholder='Şifrenizi giriniz'
-            value={password} />
+            autoComplete='on'
+            placeholder='Şifrenizi giriniz' />
         </div>
       </form>
 
