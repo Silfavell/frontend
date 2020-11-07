@@ -66,13 +66,16 @@ const SignUpSection = ({
           <InputMask
             mask='\+\9\0 \(999\) 999 99 99'
             value={phoneNumber}
-            onChange={onInputChange}>
+            maskChar=''
+            beforeMaskedValueChange='\+\9\0 \(999\) 999 99 99'
+            onChange={onInputChange}
+          >
             <input
-              autoComplete='tel'
-              type='phone'
               className='form-control'
               id='phone_number'
+              autoComplete='phone'
               name='phoneNumber'
+              type='tel'
               placeholder='Telefon Numaranızı giriniz' />
           </InputMask>
         </div>
