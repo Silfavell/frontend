@@ -146,7 +146,8 @@ class SignIn extends React.Component {
                                         autoComplete='tel'
                                         id='phone_number'
                                         format='+90 (###) ### ## ##'
-                                        mask='_'/>
+                                        mask='_'
+                                        value={phoneNumber} />
                                 </div>
                                 <div className='col-md-12'>
                                     <label htmlFor='password' className='text-black'>Şifre</label>
