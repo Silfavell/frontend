@@ -17,7 +17,7 @@ const SignUpSection = ({
     phoneNumber,
     nameSurname,
     email,
-    password
+    password,
     // rePassword
   } = state
 
@@ -36,7 +36,6 @@ const SignUpSection = ({
           <label htmlFor='nameSurname' className='text-black'>Adınız Soyadınız <span className='text-danger'>*</span></label>
           <input
             onChange={onInputChange}
-            type='text'
             className='form-control'
             id='nameSurname'
             name='nameSurname'
@@ -51,7 +50,7 @@ const SignUpSection = ({
           <label htmlFor='c_email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
           <input
             onChange={onInputChange}
-            type='Email'
+            type='email'
             className='form-control'
             id='c_email'
             autoComplete='Email'
@@ -69,7 +68,8 @@ const SignUpSection = ({
             value={phoneNumber}
             onChange={onInputChange}>
             <input
-              type='text'
+              autoComplete='tel'
+              type='phone'
               className='form-control'
               id='phone_number'
               name='phoneNumber'
@@ -100,7 +100,7 @@ const SignUpSection = ({
                     <label htmlFor='repassword' className='text-black'>Şifre (repeat) <span className='text-danger'>*</span></label>
                     <input
                         onChange={onInputChange}
-
+ 
                         type='password'
                         className='form-control'
                         id='repassword'
