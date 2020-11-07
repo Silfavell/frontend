@@ -110,8 +110,7 @@ class ShopProduct extends React.Component {
                                         paddingRight: 15,
                                         ...(discountedPrice ? { textDecoration: 'line-through', color: 'grey' } : { color: 'black' })
                                     }
-                                }
-                            >
+                                }>
                                 {`₺${price.toFixed(2).toString().replace('.', ',')}`}
                             </div>
 

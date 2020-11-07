@@ -362,8 +362,7 @@ class Payment extends React.Component {
                                                 || !this.state.cards[this.state.selectedCard]
                                         }
                                         className='btn btn-primary btn-lg btn-block'
-                                        onClick={this.onCompletePaymentClick}
-                                    >
+                                        onClick={this.onCompletePaymentClick}>
                                         Ödemeyi Tamamla
                                     </button>
                                 </div>

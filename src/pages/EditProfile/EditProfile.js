@@ -184,8 +184,7 @@ class EditProfile extends React.Component {
                                             disabled={
                                                 this.state.invalidEmail || !this.state.isEmailInitialized
                                                 || this.state.invalidNameSurname || !this.state.isNameSurnameInitialized
-                                            }
-                                        >
+                                            }>
                                             Kaydet
                                         </button>
                                     </div>

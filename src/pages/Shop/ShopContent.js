@@ -87,8 +87,7 @@ class ShopContent extends React.Component {
                                               href={onPageLtClick({ location: this.props.location })}
                                               style={{
                                                   marginLeft: 5, cursor: 'pointer', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                                              }}
-                                          >
+                                              }}>
                                               <IoIosArrowBack color='#707070' />
                                           </a>
                                       </li>
@@ -98,8 +97,7 @@ class ShopContent extends React.Component {
                                               <li
                                                   key={`page${index}`}
                                                   style={{ marginLeft: 5, cursor: 'pointer' }}
-                                                  className={isPageActive({ index, location: this.props.location }) ? 'active' : ''}
-                                              >
+                                                  className={isPageActive({ index, location: this.props.location }) ? 'active' : ''}>
                                                   <a
                                                       className='text-black'
                                                       href={
@@ -112,8 +110,7 @@ class ShopContent extends React.Component {
                                                               keep: true,
                                                               location: this.props.location
                                                           })
-                                                      }
-                                                  >
+                                                      }>
                                                       {getPageText({
                                                           index,
                                                           location: this.props.location
@@ -130,8 +127,7 @@ class ShopContent extends React.Component {
                                               })}
                                               style={{
                                                   marginLeft: 5, cursor: 'pointer', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                                              }}
-                                          >
+                                              }}>
                                               <IoIosArrowForward color='#707070' />
                                           </a>
                                       </li>

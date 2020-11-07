@@ -141,8 +141,7 @@ class SignIn extends React.Component {
                                     <InputMask
                                         mask='\+\9\0 \(999\) 999 99 99'
                                         value={phoneNumber}
-                                        onChange={this.onPhoneChange}
-                                    >
+                                        onChange={this.onPhoneChange}>
                                         <input
                                             type='text'
                                             className='form-control'
@@ -184,8 +183,7 @@ class SignIn extends React.Component {
                                             || !isPhoneNumberInitialized
                                             || invalidPassword
                                             || !isPasswordInitialized
-                                        }
-                                    >
+                                        }>
                                         Oturum Aç
 
                                     </button>
@@ -195,8 +193,7 @@ class SignIn extends React.Component {
                                 <div className='col-lg-12'>
                                     <button
                                         className='btn btn-primary btn-lg btn-block'
-                                        onClick={this.onSignUpClick}
-                                    >
+                                        onClick={this.onSignUpClick}>
                                         Üye Ol
 
                                     </button>

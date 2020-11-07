@@ -108,8 +108,7 @@ class Slider extends React.Component {
                             data-toggle='collapse'
                             data-target={`#collapse${'price'}`}
                             aria-expanded='true'
-                            aria-controls={`collapse${'price'}`}
-                        >
+                            aria-controls={`collapse${'price'}`}>
                             Fiyat Aralığı
                         </button>
                     </h5>
@@ -149,8 +148,7 @@ class Slider extends React.Component {
                                         multiple: '',
                                         price: { min: this.state.min, max: this.state.max },
                                         location: this.props.location
-                                    })}
-                                >
+                                    })}>
                                     <IoIosArrowForward />
                                 </a>
                             </div>

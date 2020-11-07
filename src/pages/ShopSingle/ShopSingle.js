@@ -153,8 +153,7 @@ class ShopSingle extends React.Component {
                         <a
                             href={`/shop/${this.state.categorySlug}/${this.state.subCategorySlug}?brands=${this.state.product.brand.split(' ').join('+')}`}
                             className='text-primary h5'
-                            style={{ cursor: 'pointer' }}
-                        >
+                            style={{ cursor: 'pointer' }}>
                             {brand}
 
                         </a>
@@ -171,8 +170,7 @@ class ShopSingle extends React.Component {
                                                     className={`mr-2 ${groupColor._id === _id ? 'border' : ''}`}
                                                     style={{
                                                         padding: '.3rem', height: 36, width: 36, borderRadius: '50%', cursor: 'pointer'
-                                                    }}
-                                                >
+                                                    }}>
                                                     <div style={{
                                                         height: '100%',
                                                         width: '100%',
@@ -223,8 +221,7 @@ class ShopSingle extends React.Component {
 
                         <button
                             onClick={() => this.onAddToCartClick(onIncreaseClick)}
-                            className='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'
-                        >
+                            className='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>
                             Sepete Ekle
 
                         </button>

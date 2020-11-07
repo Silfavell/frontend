@@ -75,8 +75,7 @@ const SignUpSection = ({
                     <InputMask
                         mask='\+\9\0 \(999\) 999 99 99'
                         value={phoneNumber}
-                        onChange={onInputChange}
-                    >
+                        onChange={onInputChange}>
                         <input
                             type='text'
                             className='form-control'
@@ -126,15 +125,13 @@ const SignUpSection = ({
             <div className='form-group row form-check'>
                 <label
                     htmlFor='agreement'
-                    className='form-check-label'
-                >
+                    className='form-check-label'>
                     Hesap oluşturarak
                     {' '}
                     <span
                         id='agreement'
                         className='text-primary agreement'
-                        onClick={showAgreementPopup}
-                    >
+                        onClick={showAgreementPopup}>
                         Üyelik Sözleşmesini
                     </span>
                     {' '}
@@ -143,8 +140,7 @@ const SignUpSection = ({
                     <span
                         id='kvkk'
                         className='text-primary agreement'
-                        onClick={showKvkkAgreementPopup}
-                    >
+                        onClick={showKvkkAgreementPopup}>
                         KVKK Aydınlatma Metnini
                     </span>
                     {' '}
@@ -173,8 +169,7 @@ const SignUpSection = ({
                     <button
                         className='btn btn-primary btn-lg btn-block'
                         onClick={sendActivationCode}
-                        disabled={!state.validationError?.includes('activationCode')}
-                    >
+                        disabled={!state.validationError?.includes('activationCode')}>
                         Üye Ol
                     </button>
                 </div>

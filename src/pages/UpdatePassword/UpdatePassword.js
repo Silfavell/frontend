@@ -194,8 +194,7 @@ class UpdatePassword extends React.Component {
                                                 this.state.invalidOldPassword || !this.state.isOldPasswordInitialized
                                                 || this.state.invalidNewPassword || !this.state.isNewPasswordInitialized
                                                 || this.state.invalidReNewPassword || !this.state.isReNewPasswordInitialized
-                                            }
-                                        >
+                                            }>
                                             Şifremi Güncelle
 
                                         </div>

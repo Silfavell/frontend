@@ -31,8 +31,7 @@ class PaymentCard extends React.PureComponent {
                 style={{
                     border: this.props.selected ? '1px solid #80DF80' : '1px solid #dee2e6'
                 }}
-                onClick={this.onClick}
-            >
+                onClick={this.onClick}>
                 <div className='row p-4'>
                     <div className='col-md-12'>
                         <span className='text-black font-weight-bold'>{this.props.item.cardAlias}</span>
@@ -48,8 +47,7 @@ class PaymentCard extends React.PureComponent {
                         <span
                             className='text-primary float-md-right'
                             style={{ fontWeight: 'bold', cursor: 'pointer' }}
-                            onClick={this.onDeleteClick}
-                        >
+                            onClick={this.onDeleteClick}>
                             Sil
                         </span>
                     </div>

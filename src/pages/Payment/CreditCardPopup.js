@@ -222,8 +222,7 @@ class NewCreditCardPopup extends React.Component {
                             <InputMask
                                 mask='9999 9999 9999 9999'
                                 onChange={this.onCardNumberChange}
-                                value={cardNumber}
-                            >
+                                value={cardNumber}>
                                 <input
                                     type='text'
                                     className='form-control'
@@ -247,8 +246,7 @@ class NewCreditCardPopup extends React.Component {
                                 id='expireMonth'
                                 placeholder='Ay'
                                 name='expireMonth'
-                                value={expireMonth}
-                            >
+                                value={expireMonth}>
                                 <option disabled unselectable value=''>Lütfen Ay Seçiniz</option>
                                 <option value='01'>01</option>
                                 <option value='02'>02</option>
@@ -276,8 +274,7 @@ class NewCreditCardPopup extends React.Component {
                                 id='expireYear'
                                 placeholder='Yıl'
                                 name='expireYear'
-                                value={expireYear}
-                            >
+                                value={expireYear}>
                                 <option disabled unselectable value=''>Lütfen Yıl Seçiniz</option>
                                 {
                                     this.getYearSelectorValues()
@@ -296,8 +293,7 @@ class NewCreditCardPopup extends React.Component {
                                     || this.state.invalidCardNumber || !this.state.isCardNumberInitialized
                                     || this.state.invalidExpireYear || !this.state.isExpireYearInitialized
                                     || this.state.invalidExpireMonth || !this.state.isExpireMonthInitialized
-                                }
-                            >
+                                }>
                                 Kartı Kaydet
                             </button>
                         </div>

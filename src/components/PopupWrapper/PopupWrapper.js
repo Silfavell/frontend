@@ -30,8 +30,7 @@ const PopupWrapperHoc = (WrappedComponent) => class extends React.PureComponent 
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onClick={this.onOutsideClick}
-                >
+                    onClick={this.onOutsideClick}>
                     <div
                         className='col-md-7'
                         style={{
@@ -40,8 +39,7 @@ const PopupWrapperHoc = (WrappedComponent) => class extends React.PureComponent 
                             width: '100%',
                             position: 'relative',
                             overflow: 'auto'
-                        }}
-                    >
+                        }}>
                         <IoIosClose
                             onClick={this.onCloseClick}
                             style={{

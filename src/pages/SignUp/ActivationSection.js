@@ -27,8 +27,7 @@ const ActivationSection = ({
                 <button
                     className='btn btn-primary btn-lg btn-block'
                     onClick={onSignUpClick}
-                    disabled={validationError}
-                >
+                    disabled={validationError}>
                     Üye Ol
                 </button>
             </div>

@@ -23,8 +23,7 @@ function ProductImages({ _id, images }) {
             interval={null}
             prevIcon={<IoIosArrowBack size={24} color='black' />}
             nextIcon={<IoIosArrowForward size={24} color='black' />}
-            onSelect={handleSelect}
-        >
+            onSelect={handleSelect}>
             {
                 images.map((image) => (
                     <Carousel.Item key={image}>

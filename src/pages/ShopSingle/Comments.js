@@ -109,8 +109,7 @@ class Comments extends React.Component {
                             style={{ borderRadius: '0.25rem', cursor: 'pointer', backgroundColor: '#EE4266' }}
                             onClick={this.onWriteReviewClick}
                             id='write-review'
-                            className='btn text-white font-weight-bolder text-align-center px-4 py-2'
-                        >
+                            className='btn text-white font-weight-bolder text-align-center px-4 py-2'>
                             {cookies.get('token') ? 'Değerlendirme yazın' : 'Değerlendirme yazmak için giriş yapın'}
 
                         </button>

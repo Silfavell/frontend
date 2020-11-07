@@ -14,8 +14,7 @@ class SearchProduct extends React.PureComponent {
             <a
                 href={`/${slug}/p`}
                 className='col-md-4 p-2'
-                style={{ cursor: 'pointer' }}
-            >
+                style={{ cursor: 'pointer' }}>
 
                 <div className='px-4 py-2 border h-100'>
                     <img

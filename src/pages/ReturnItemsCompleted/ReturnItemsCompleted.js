@@ -37,12 +37,10 @@ class ReturnItemsCompleted extends React.Component {
                 <div className='col-md-12'>
                     <div
                         className='col-md-12 d-flex align-items-center justify-content-center flex-column border'
-                        style={{ backgroundColor: 'rgba(81, 198, 37, 0.1)' }}
-                    >
+                        style={{ backgroundColor: 'rgba(81, 198, 37, 0.1)' }}>
                         <h5
                             className='p-3 pb-0'
-                            style={{ color: '#51C625' }}
-                        >
+                            style={{ color: '#51C625' }}>
                             Aşağıdaki ürün(ler) için sipariş iade talebiniz alınmıştır.
                         </h5>
                         <p className='text-black'>Ürününüz kargo aracılığıyla depomuza ulaştıktan sonra iade işleminiz tamamlanmak üzere işleme konulacaktır.</p>

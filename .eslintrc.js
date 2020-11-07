@@ -67,7 +67,10 @@ module.exports = {
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/label-has-associated-control': 'off',
-        'react/jsx-closing-bracket-location': [2, { selfClosing: 'after-props' }],
+        'react/jsx-closing-bracket-location': [2, {
+            nonEmpty: 'after-props',
+            selfClosing: 'after-props'
+        }],
         'react/button-has-type': 'off',
         'object-curly-newline': ['error', {
             ObjectExpression: { minProperties: 4, multiline: true, consistent: true },

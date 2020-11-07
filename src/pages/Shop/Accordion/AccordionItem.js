@@ -15,8 +15,7 @@ class AccordionItem extends React.PureComponent {
                 })}
                 key={this.props.id}
                 htmlFor={this.props.id}
-                style={{ cursor: 'pointer' }}
-            >
+                style={{ cursor: 'pointer' }}>
 
                 <input
                     type='checkbox'

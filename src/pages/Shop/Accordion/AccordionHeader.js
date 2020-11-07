@@ -11,8 +11,7 @@ class AccordionHeader extends React.PureComponent {
                         data-toggle='collapse'
                         data-target={`#collapse${this.props.id}`}
                         aria-expanded='true'
-                        aria-controls={`collapse${this.props.id}`}
-                    >
+                        aria-controls={`collapse${this.props.id}`}>
                         {this.props.title}
                     </button>
                 </h5>

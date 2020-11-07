@@ -169,8 +169,7 @@ class UpdatePassword extends React.Component {
                     <InputMask
                         mask='\+\9\0 \(999\) 999 99 99'
                         value={this.state.phoneNumber}
-                        onChange={this.onPhoneChange}
-                    >
+                        onChange={this.onPhoneChange}>
                         <input
                             type='text'
                             className='form-control'
@@ -188,8 +187,7 @@ class UpdatePassword extends React.Component {
                         className='btn btn-primary btn-lg btn-block'
                         disabled={
                             this.state.invalidPhoneNumber || !this.state.isPhoneNumberInitialized
-                        }
-                    >
+                        }>
                         Aktivasyon kodu gönder
                     </div>
                 </div>
@@ -260,8 +258,7 @@ class UpdatePassword extends React.Component {
                             this.state.invalidPhoneNumber || !this.state.isPhoneNumberInitialized
                             || this.state.invalidActivationCode || !this.state.isActivationCodeInitialized
                             || this.state.invalidNewPassword || !this.state.isNewPasswordInitialized
-                        }
-                    >
+                        }>
                         Şifremi Sıfırla
                     </div>
                 </div>

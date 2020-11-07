@@ -71,8 +71,7 @@ const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb, page } = {}) =>
             return (
                 <div
                     className={`site-wrap ${this.state.isMobileMenuOpen ? 'offcanvas-menu' : ''}`}
-                    onClick={this.onOutsideMenuClick}
-                >
+                    onClick={this.onOutsideMenuClick}>
 
                     <Header
                         categories={this.state.categories}

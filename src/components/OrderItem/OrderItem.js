@@ -35,8 +35,7 @@ class OrderItem extends React.PureComponent {
             return (
                 <a
                     href={`/return-items/${_id}`}
-                    className='d-flex align-items-center justify-content-between border-top py-3 text-black'
-                >
+                    className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
                     <span className='font-weight-bold' style={{ color: '#EE4266' }}>İade Talebinde Bulun</span>
                     <IoIosArrowForward size={24} />
                 </a>
@@ -45,8 +44,7 @@ class OrderItem extends React.PureComponent {
             return (
                 <a
                     href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${message}`}
-                    className='d-flex align-items-center justify-content-between border-top py-3 text-black'
-                >
+                    className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
                     <span className='font-weight-bold' style={{ color: '#EE4266' }}>Kargo Takip</span>
                     <IoIosArrowForward size={24} />
                 </a>
@@ -170,8 +168,7 @@ class OrderItem extends React.PureComponent {
                         <div className='col-md-12 pb-3'>
                             <div
                                 className='col-md-12 d-flex align-items-center justify-content-center flex-column'
-                                style={{ border: '1px solid #ee4266' }}
-                            >
+                                style={{ border: '1px solid #ee4266' }}>
                                 <h6 className='px-5 py-3 text-black' style={{ textAlign: 'center' }}>
                                     {
                                         `Iade etmek için seçtiğiniz ürünleri 7 iş günü içinde kargoya vermeniz gerekmektedir. <KOD> kodu ile ürününüzü ÜCRETSIZ olarak gönderebilirsiniz.` // Gönderim kodunuz mail adresinize gönderilmiştir.

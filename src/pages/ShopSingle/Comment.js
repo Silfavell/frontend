@@ -53,24 +53,21 @@ class Comment extends React.Component {
                                     <span
                                         onClick={this.onLikeClick}
                                         style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }}
-                                        className={`text-white font-weight-bolder px-3 py-1 ${alreadyLiked ? 'bg-warning' : 'bg-secondary'}`}
-                                    >
+                                        className={`text-white font-weight-bolder px-3 py-1 ${alreadyLiked ? 'bg-warning' : 'bg-secondary'}`}>
                                         Evet
 
                                     </span>
                                     <span
                                         onClick={this.onDislikeClick}
                                         style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }}
-                                        className={`ml-2 text-white font-weight-bolder px-3 py-1 ${alreadyDisliked ? 'bg-warning' : 'bg-secondary'}`}
-                                    >
+                                        className={`ml-2 text-white font-weight-bolder px-3 py-1 ${alreadyDisliked ? 'bg-warning' : 'bg-secondary'}`}>
                                         Hayır
 
                                     </span>
                                     <span
                                         onClick={this.onReportClick}
                                         style={{ fontSize: 16, borderRadius: '.25rem', cursor: 'pointer' }}
-                                        className='ml-2 text-white font-weight-bolder px-3 py-1 bg-secondary'
-                                    >
+                                        className='ml-2 text-white font-weight-bolder px-3 py-1 bg-secondary'>
                                         Bildir
 
                                     </span>

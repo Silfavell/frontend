@@ -16,8 +16,7 @@ function FirstImage() {
         <Carousel
             activeIndex={index}
             controls={false}
-            onSelect={handleSelect}
-        >
+            onSelect={handleSelect}>
             {
                 [1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
                     <Carousel.Item key={x}>
@@ -29,8 +28,7 @@ function FirstImage() {
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center'
                             }}
-                            data-aos='fade'
-                        >
+                            data-aos='fade'>
                             <div className='container'>
                                 <div className='row' />
                             </div>

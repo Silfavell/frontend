@@ -38,8 +38,7 @@ class CarouselComponent extends React.PureComponent {
                     containerClass='carousel-container'
                     responsive={responsive}
                     renderButtonGroupOutside
-                    autoPlay={false}
-                >
+                    autoPlay={false}>
                     {
                         this.props.products.map((product) => (
                             <Product

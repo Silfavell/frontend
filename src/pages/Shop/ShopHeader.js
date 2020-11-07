@@ -22,8 +22,7 @@ class ShopHeader extends React.PureComponent {
                                 filter: 'sortType',
                                 filterValue: 0,
                                 location: this.props.location
-                            })}
-                        >
+                            })}>
                             Akıllı Sıralama
                         </a>
 
@@ -33,8 +32,7 @@ class ShopHeader extends React.PureComponent {
                                 filter: 'sortType',
                                 filterValue: 1,
                                 location: this.props.location
-                            })}
-                        >
+                            })}>
                             Çok Satanlar
                         </a>
 
@@ -44,8 +42,7 @@ class ShopHeader extends React.PureComponent {
                                 filter: 'sortType',
                                 filterValue: 2,
                                 location: this.props.location
-                            })}
-                        >
+                            })}>
                             En Yeniler
                         </a>
 
@@ -55,8 +52,7 @@ class ShopHeader extends React.PureComponent {
                                 filter: 'sortType',
                                 filterValue: 3,
                                 location: this.props.location
-                            })}
-                        >
+                            })}>
                             En Düşük Fiyat
                         </a>
 
@@ -66,8 +62,7 @@ class ShopHeader extends React.PureComponent {
                                 filter: 'sortType',
                                 filterValue: 4,
                                 location: this.props.location
-                            })}
-                        >
+                            })}>
                             En Yüksek Fiyat
                         </a>
                     </div>

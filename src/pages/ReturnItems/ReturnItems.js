@@ -149,8 +149,7 @@ class ReturnItems extends React.Component {
                         <label
                             style={{ cursor: 'pointer', display: 'unset' }}
                             htmlFor='select-all'
-                            className='form-check-label ml-4 text-black'
-                        >
+                            className='form-check-label ml-4 text-black'>
                             Tümünü Seç
                         </label>
                     </div>
@@ -190,8 +189,7 @@ class ReturnItems extends React.Component {
                 <div className='col-md-12 d-flex justify-content-end'>
                     <button
                         className='btn btn-primary'
-                        onClick={this.onReturnBtnClick}
-                    >
+                        onClick={this.onReturnBtnClick}>
                         Seçili Ürünleri Iade Et
                     </button>
                 </div>

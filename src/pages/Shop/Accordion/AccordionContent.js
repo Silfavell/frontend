@@ -8,8 +8,7 @@ class AccordionContent extends React.PureComponent {
             <div
                 id={`collapse${this.props.id}`}
                 className={`collapse ${this.props.show ? 'show' : ''}`}
-                aria-labelledby={`heading${this.props.id}`}
-            >
+                aria-labelledby={`heading${this.props.id}`}>
                 <div className='card-body'>
                     {
                         this.props.items.map((item, index) => (

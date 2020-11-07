@@ -219,8 +219,7 @@ class WriteReviewPopup extends React.Component {
                             onClick={this.onConfirm}
                             className='btn px-4 py-2 text-white'
                             disabled={!isAgreementChecked}
-                            style={{ backgroundColor: '#EE4266', borderRadius: '.25rem', cursor: 'pointer' }}
-                        >
+                            style={{ backgroundColor: '#EE4266', borderRadius: '.25rem', cursor: 'pointer' }}>
                             Yorumu Gönder
 
                         </button>

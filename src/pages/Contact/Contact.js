@@ -127,8 +127,7 @@ class Contact extends React.Component {
                       || email.length === 0
                       || subject.length === 0
                       || message.length === 0
-                                      }
-                                  >
+                                      }>
                                       Mesajı Gönder
 
                                   </button>
