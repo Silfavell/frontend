@@ -1,7 +1,7 @@
 import React from 'react'
 import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
-import InputMask from 'react-input-mask'
+import NumberFormat from 'react-number-format'
 
 import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 
@@ -206,18 +206,16 @@ class NewCreditCardPopup extends React.Component {
                     <div className='form-group row'>
                         <div className='col-md-12'>
                             <label htmlFor='cardNumber' className='text-black'>Kart No <span className='text-danger'>*</span></label>
-                            <InputMask
-                                mask={'9999 9999 9999 9999'}
+                            <NumberFormat
+                                mask='_'
+                                format='### ### ### ###'
                                 onChange={this.onCardNumberChange}
-                                value={cardNumber}>
-                                <input
-                                    type='text'
-                                    className='form-control'
-                                    id='cardNumber'
-                                    placeholder='Kart numarası'
-                                    name='cardNumber'
-                                />
-                            </InputMask>
+                                type='text'
+                                className='form-control'
+                                id='cardNumber'
+                                placeholder='Kart numarası'
+                                name='cardNumber'
+                                value={cardNumber} />
                         </div>
                     </div>
 
