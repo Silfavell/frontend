@@ -4,6 +4,7 @@ import $ from 'jquery'
 import Cookies from 'universal-cookie'
 import JoiBase from '@hapi/joi'
 import JoiPhoneNumber from 'joi-phone-number'
+import joi from '@hapi/joi'
 
 import { bulkCart, signUp, sendActivationCode } from '../../scripts/requests'
 
@@ -37,6 +38,9 @@ class SignUp extends React.Component {
         showAgreementPopup: false,
         showKvkkAgreementPopup: false,
 
+        isPhoneNumberInitialized: false,
+        invalidPhoneNumber: false,
+
         validationError: null
     }
 
@@ -45,6 +49,22 @@ class SignUp extends React.Component {
             ...state,
             validationError: registerSchema.validate(state).error?.message
         }
+    }
+
+    onPhoneChange = (event) => {
+        const { value } = event.target
+
+        joi.string()
+            .trim()
+            .strict()
+            .min(19)
+            .max(19)
+            .validateAsync(value).then(() => {
+                this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: false })
+            }).catch((err) => {
+                this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
+            })
+
     }
 
     onInputChange = (event) => {
@@ -139,6 +159,7 @@ class SignUp extends React.Component {
                     <div className='col-md-6 px-0'>
                         <SignUpSection
                             onInputChange={this.onInputChange}
+                            onPhoneChange= {this.onPhoneChange}
                             sendActivationCode={this.sendActivationCode}
                             showAgreementPopup={this.showAgreementPopup}
                             hideAgreementPopup={this.hideAgreementPopup}

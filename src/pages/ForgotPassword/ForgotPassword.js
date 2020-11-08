@@ -3,7 +3,7 @@ import React from 'react'
 import $ from 'jquery'
 import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
-import InputMask from 'react-input-mask'
+import NumberFormat from 'react-number-format'
 
 import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 
@@ -156,18 +156,17 @@ class UpdatePassword extends React.Component {
             <div className='form-group row'>
                 <div className='col-md-12'>
                     <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
-                    <InputMask
-                        mask='\+\9\0 \(999\) 999 99 99'
+                    <NumberFormat
+                        format='+90 (###) ### ## ##'
+                        mask='_'
                         value={this.state.phoneNumber}
                         onChange={this.onPhoneChange}
-                    >
-                        <input
-                            type='text'
-                            className='form-control'
-                            id='phone_number'
-                            name='phone'
-                            placeholder='Telefon Numaranızı giriniz' />
-                    </InputMask>
+                        type='tel'
+                        autoComplete='tel'                
+                        className='form-control'
+                        id='phone_number'
+                        name='Phone'
+                        placeholder='Telefon Numaranızı giriniz' />
                 </div>
             </div>
 

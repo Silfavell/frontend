@@ -1,5 +1,5 @@
 import React from 'react'
-import InputMask from 'react-input-mask'
+import NumberFormat from 'react-number-format'
 
 import MembershipAgreement from './MembershipAgreement'
 import KvkkAgreement from './KvkkAgreement'
@@ -7,6 +7,7 @@ import KvkkAgreement from './KvkkAgreement'
 const SignUpSection = ({
   state,
   onInputChange,
+  onPhoneChange,
   sendActivationCode,
   showAgreementPopup,
   hideAgreementPopup,
@@ -60,28 +61,24 @@ const SignUpSection = ({
         </div>
       </div>
 
-      <form className='form-group row' autoComplete='off' action=''>
+      <div className='form-group row'>
         <div className='col-md-12'>
           <label htmlFor='phoneNumber' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
-          <InputMask
-            mask='\+\9\0 \(999\) 999 99 99'
+          <NumberFormat
             value={phoneNumber}
-            maskChar=''
-            beforeMaskedValueChange='\+\9\0 \(999\) 999 99 99'
-            onChange={onInputChange}
-          >
-            <input
-              className='form-control'
-              id='phone_number'
-              autoComplete='phone'
-              name='phoneNumber'
-              type='tel'
-              placeholder='Telefon Numaranızı giriniz' />
-          </InputMask>
+            onChange={onPhoneChange}
+            format='+90 (###) ### ## ##'
+            mask='_'
+            className='form-control'
+            id='phone_number'
+            autoComplete='tel'
+            name='Phone'
+            type='tel'
+            placeholder='Telefon Numaranızı giriniz' />
         </div>
-      </form>
+      </div>
 
-      <form className='form-group row' autoComplete='off' action=''>
+      <div className='form-group row'>
         <div className='col-md-12'>
           <label htmlFor='password' className='text-black'>Şifre <span className='text-danger'>*</span></label>
           <input
@@ -94,7 +91,7 @@ const SignUpSection = ({
             placeholder='Şifrenizi giriniz'
             value={password} />
         </div>
-      </form>
+      </div>
 
       {
         /*
