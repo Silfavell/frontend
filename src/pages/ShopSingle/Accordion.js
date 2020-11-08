@@ -1,11 +1,12 @@
 import React from 'react'
+
 import { Accordion, Card } from 'react-bootstrap'
 
+import Comments from './Comments'
 import ProductSpecifications from './ProductSpecifications'
 import ReturnConditions from './ReturnConditions'
-import Comments from './Comments'
 
-class ProductAccordion extends React.Component {
+class ProductAccordion extends React.PureComponent {
     render() {
         return (
             <Accordion defaultActiveKey='0' className='w-100'>

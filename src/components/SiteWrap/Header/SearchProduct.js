@@ -1,8 +1,7 @@
 import React from 'react'
 
-class SearchProduct extends React.Component {
+class SearchProduct extends React.PureComponent {
     render() {
-
         const {
             name,
             price,
@@ -25,7 +24,7 @@ class SearchProduct extends React.Component {
 
                     <div className='col-md-12 d-flex align-items-center justify-content-center'>
                         <div className='h5 text-black font-weight-normal'>
-                            {'₺' + price.toFixed(2).toString().replace('.', ',')}
+                            {`₺${price.toFixed(2).toString().replace('.', ',')}`}
                         </div>
                     </div>
 

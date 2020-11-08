@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
-import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
+
 import { Carousel } from 'react-bootstrap'
+import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 
 function ProductImages({ _id, images }) {
     const [index, setIndex] = useState(0)
 
-    const handleSelect = (selectedIndex, e) => {
-        setIndex(selectedIndex);
+    const handleSelect = (selectedIndex) => {
+        setIndex(selectedIndex)
     }
 
     useEffect(() => {
@@ -30,8 +31,7 @@ function ProductImages({ _id, images }) {
                             <img
                                 src={image}
                                 alt=''
-                                className='img-fluid'
-                            />
+                                className='img-fluid' />
                         </div>
                     </Carousel.Item>
                 ))

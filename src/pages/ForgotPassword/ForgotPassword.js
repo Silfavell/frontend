@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import $ from 'jquery'
-import VanillaToasts from 'vanillatoasts'
+
 import joi from '@hapi/joi'
+import $ from 'jquery'
 import InputMask from 'react-input-mask'
+import VanillaToasts from 'vanillatoasts'
 
 import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
-
 import { resetPassword, sendActivationCode } from '../../scripts/requests'
 
 class UpdatePassword extends React.Component {
@@ -20,12 +20,12 @@ class UpdatePassword extends React.Component {
 
         invalidPhoneNumber: false,
         invalidNewPassword: false,
-        invalidReNewPassword: false,
+        // invalidReNewPassword: false,
         invalidActivationCode: false,
 
         isPhoneNumberInitialized: false,
         isNewPasswordInitialized: false,
-        isReNewPasswordInitialized: false,
+        // isReNewPasswordInitialized: false,
         isActivationCodeInitialized: false
     }
 
@@ -91,9 +91,11 @@ class UpdatePassword extends React.Component {
         joi.string()
             .alphanum()
             .min(4)
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ newPassword: value, isNewPasswordInitialized: true, invalidNewPassword: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ newPassword: value, isNewPasswordInitialized: true, invalidNewPassword: !!err })
             })
     }
@@ -104,10 +106,12 @@ class UpdatePassword extends React.Component {
         joi.string()
             .alphanum()
             .min(4)
-            .validateAsync(value).then(() => {
-                this.setState({ reNewPassword: value, isReNewPasswordInitialized: true, invalidReNewPassword: false })
-            }).catch((err) => {
-                this.setState({ reNewPassword: value, isReNewPasswordInitialized: true, invalidReNewPassword: !!err })
+            .validateAsync(value)
+            .then(() => {
+                this.setState({ reNewPassword: value /* isReNewPasswordInitialized: true, invalidReNewPassword: false */ })
+            })
+            .catch(() => {
+                this.setState({ reNewPassword: value /* isReNewPasswordInitialized: true, invalidReNewPassword: !!er */ })
             })
     }
 
@@ -119,12 +123,13 @@ class UpdatePassword extends React.Component {
             .strict()
             .min(19)
             .max(19)
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
             })
-
     }
 
     onActivationCodeChange = (event) => {
@@ -136,9 +141,11 @@ class UpdatePassword extends React.Component {
             .strict()
             .min(4)
             .max(4)
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ activationCode: value, isActivationCodeInitialized: true, invalidActivationCode: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 if (err.details[0].message.includes('4') && err.details[0].message.includes('equal')) {
                     this.setState({ isActivationCodeInitialized: true, invalidActivationCode: false })
                 } else {
@@ -155,12 +162,14 @@ class UpdatePassword extends React.Component {
         <form id='phone-section' className='p-3 p-lg-5' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
             <div className='form-group row'>
                 <div className='col-md-12'>
-                    <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
+                    <label htmlFor='phone' className='text-black'>
+                        Telefon Numarası
+                        <span className='text-danger'>*</span>
+                    </label>
                     <InputMask
                         mask='\+\9\0 \(999\) 999 99 99'
                         value={this.state.phoneNumber}
-                        onChange={this.onPhoneChange}
-                    >
+                        onChange={this.onPhoneChange}>
                         <input
                             type='text'
                             className='form-control'
@@ -178,8 +187,9 @@ class UpdatePassword extends React.Component {
                         className='btn btn-primary btn-lg btn-block'
                         disabled={
                             this.state.invalidPhoneNumber || !this.state.isPhoneNumberInitialized
-                        }
-                    >Aktivasyon kodu gönder</div>
+                        }>
+                        Aktivasyon kodu gönder
+                    </div>
                 </div>
             </div>
         </form>
@@ -190,7 +200,10 @@ class UpdatePassword extends React.Component {
 
             <div className='form-group row'>
                 <div className='col-md-12'>
-                    <label htmlFor='new_password' className='text-black'>Yeni Şifre <span className='text-danger'>*</span></label>
+                    <label htmlFor='new_password' className='text-black'>
+                        Yeni Şifre
+                        <span className='text-danger'>*</span>
+                    </label>
                     <input
                         onChange={this.onNewPasswordChange}
                         type='password'
@@ -204,7 +217,10 @@ class UpdatePassword extends React.Component {
 
             <div className='form-group row'>
                 <div className='col-md-12'>
-                    <label htmlFor='re_new_password' className='text-black'>Yeni Şifre (tekrar) <span className='text-danger'>*</span></label>
+                    <label htmlFor='re_new_password' className='text-black'>
+                        Yeni Şifre (tekrar)
+                        <span className='text-danger'>*</span>
+                    </label>
                     <input
                         onChange={this.onReNewPasswordChange}
                         type='password'
@@ -218,7 +234,10 @@ class UpdatePassword extends React.Component {
 
             <div className='form-group row'>
                 <div className='col-md-12'>
-                    <label htmlFor='activation-code' className='text-black'>Aktivasyon Kodu <span className='text-danger'>*</span></label>
+                    <label htmlFor='activation-code' className='text-black'>
+                        Aktivasyon Kodu
+                        <span className='text-danger'>*</span>
+                    </label>
                     <input
                         onChange={this.onActivationCodeChange}
                         type='text'
@@ -239,8 +258,9 @@ class UpdatePassword extends React.Component {
                             this.state.invalidPhoneNumber || !this.state.isPhoneNumberInitialized
                             || this.state.invalidActivationCode || !this.state.isActivationCodeInitialized
                             || this.state.invalidNewPassword || !this.state.isNewPasswordInitialized
-                        }
-                    >Şifremi Sıfırla</div>
+                        }>
+                        Şifremi Sıfırla
+                    </div>
                 </div>
             </div>
 

@@ -1,29 +1,29 @@
 import React from 'react'
+
 import {
     BrowserRouter as Router,
     Switch,
     Route
 } from 'react-router-dom'
 
-import Home from './pages/Home/Home'
-import Contact from './pages/Contact/Contact'
-import ShopSingle from './pages/ShopSingle/ShopSingle'
 import AboutUs from './pages/AboutUs/AboutUs'
-import Shop from './pages/Shop/Shop'
-import SignIn from './pages/SignIn/SignIn'
-import SignUp from './pages/SignUp/SignUp'
 import Cart from './pages/Cart/Cart'
+import Contact from './pages/Contact/Contact'
 import EditProfile from './pages/EditProfile/EditProfile'
-import UpdatePassword from './pages/UpdatePassword/UpdatePassword'
-import ForgotPassword from './pages/ForgotPassword/ForgotPassword'
-import Payment from './pages/Payment/Payment'
 import FavoriteProducts from './pages/FavoriteProducts/FavoriteProducts'
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword'
+import Home from './pages/Home/Home'
+import NotFound from './pages/NotFound/NotFound'
+import Payment from './pages/Payment/Payment'
+import PaymentCompleted from './pages/PaymentCompleted/PaymentCompleted'
 import PreviousOrders from './pages/PreviousOrders/PreviousOrders'
 import ReturnItems from './pages/ReturnItems/ReturnItems'
 import ReturnItemsCompleted from './pages/ReturnItemsCompleted/ReturnItemsCompleted'
-import PaymentCompleted from './pages/PaymentCompleted/PaymentCompleted'
-import NotFound from './pages/NotFound/NotFound'
-
+import Shop from './pages/Shop/Shop'
+import ShopSingle from './pages/ShopSingle/ShopSingle'
+import SignIn from './pages/SignIn/SignIn'
+import SignUp from './pages/SignUp/SignUp'
+import UpdatePassword from './pages/UpdatePassword/UpdatePassword'
 import axios from './scripts/axios'
 
 import 'vanillatoasts/vanillatoasts.css'

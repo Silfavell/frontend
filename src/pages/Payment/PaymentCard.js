@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {
     FaCcVisa,
     FaCcMastercard
@@ -7,11 +8,11 @@ import {
 class PaymentCard extends React.PureComponent {
     getCardLogo = () => {
         switch (this.props.item.cardAssociation) {
-            case "MASTER_CARD": return <FaCcMastercard size={48} color={'black'} />
+            case 'MASTER_CARD': return <FaCcMastercard size={48} color='black' />
 
-            case "VISA": return <FaCcVisa size={48} color={'black'} />
+            case 'VISA': return <FaCcVisa size={48} color='black' />
 
-            default: return null;
+            default: return null
         }
     }
 
@@ -35,9 +36,9 @@ class PaymentCard extends React.PureComponent {
                     <div className='col-md-12'>
                         <span className='text-black font-weight-bold'>{this.props.item.cardAlias}</span>
 
-                        <span style={{ fontWeight: 'normal' }} className={'pl-4'}>{`**** **** **** ${this.props.item.lastFourDigits}`}</span>
+                        <span style={{ fontWeight: 'normal' }} className='pl-4'>{`**** **** **** ${this.props.item.lastFourDigits}`}</span>
 
-                        <span style={{ fontWeight: 'normal' }} className={'pl-5'}>
+                        <span style={{ fontWeight: 'normal' }} className='pl-5'>
                             {
                                 this.getCardLogo()
                             }

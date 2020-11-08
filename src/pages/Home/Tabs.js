@@ -1,10 +1,12 @@
 import React from 'react'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+
+import {
+    Tab, Tabs, TabList, TabPanel
+} from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 
-import { getBestSellerProducts } from '../../scripts/requests'
-
 import Carousel from '../../components/Carousel/Carousel'
+import { getBestSellerProducts } from '../../scripts/requests'
 
 import './Tabs.css'
 
@@ -26,17 +28,16 @@ class CustomTabs extends React.Component {
                     <TabList>
                         {
                             this.state.bestSeller.map((category) => (
-                                <Tab key={'Tab:' + category.name}>{category.name}</Tab>
+                                <Tab key={`Tab:${category.name}`}>{category.name}</Tab>
                             ))
                         }
                     </TabList>
                     {
                         this.state.bestSeller.map((category) => (
-                            <TabPanel key={'TabPane:' + category.name} className='w-100'>
+                            <TabPanel key={`TabPane:${category.name}`} className='w-100'>
                                 <Carousel
                                     products={category.products}
-                                    onIncreaseClick={this.props.onIncreaseClick}
-                                />
+                                    onIncreaseClick={this.props.onIncreaseClick} />
                             </TabPanel>
                         ))
                     }

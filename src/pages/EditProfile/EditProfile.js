@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import Cookies from 'universal-cookie'
+
 import joi from '@hapi/joi'
+import Cookies from 'universal-cookie'
 import VanillaToasts from 'vanillatoasts'
 
-import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
-
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import { getProfile, updateProfile } from '../../scripts/requests'
 
 const cookies = new Cookies()
@@ -69,7 +69,8 @@ class EditProfile extends React.Component {
             .trim()
             .validateAsync(value).then(() => {
                 this.setState({ nameSurname: value, isNameSurnameInitialized: true, invalidNameSurname: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ nameSurname: value, isNameSurnameInitialized: true, invalidNameSurname: !!err })
             })
     }
@@ -81,9 +82,11 @@ class EditProfile extends React.Component {
             .trim()
             .strict()
             .email({ tlds: { allow: false } })
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ email: value, isEmailInitialized: true, invalidEmail: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ email: value, isEmailInitialized: true, invalidEmail: !!err })
             })
     }
@@ -105,7 +108,10 @@ class EditProfile extends React.Component {
 
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='nameSurname' className='text-black'>Adınız Soyadınız <span className='text-danger'>*</span></label>
+                                        <label htmlFor='nameSurname' className='text-black'>
+                                            Adınız Soyadınız
+                                            <span className='text-danger'>*</span>
+                                        </label>
                                         <input
                                             onChange={this.onNameSurnameChange}
                                             type='name'
@@ -119,20 +125,27 @@ class EditProfile extends React.Component {
 
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
+                                        <label htmlFor='email' className='text-black'>
+                                            E-Posta
+                                            <span className='text-danger'>*</span>
+                                        </label>
                                         <input
                                             onChange={this.onEmailChange}
                                             type='email'
                                             className='form-control'
                                             id='email'
                                             name='email'
-                                            placeholder='E-Posta adresinizi giriniz' value={email} />
+                                            placeholder='E-Posta adresinizi giriniz'
+                                            value={email} />
                                     </div>
                                 </div>
 
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
+                                        <label htmlFor='phone' className='text-black'>
+                                            Telefon Numarası
+                                            <span className='text-danger'>*</span>
+                                        </label>
                                         <input
                                             type='phone'
                                             className='form-control'
@@ -144,14 +157,16 @@ class EditProfile extends React.Component {
                                     </div>
                                 </div>
 
-                                {   /*
-                                <div className='form-group row'>
-                                    <div className='col-md-12 d-flex align-items-md-start justify-content-md-start'>
-                                        <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' checked />
-                                        <label style={{ display: 'unset' }} htmlFor='dont-forget' className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
+                                { /*
+                                    <div className='form-group row'>
+                                        <div className='col-md-12 d-flex align-items-md-start justify-content-md-start'>
+                                            <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' checked />
+                                            <label
+                                            style={{ display: 'unset' }}
+                                            htmlFor='dont-forget' className='form-check-label ml-2'>Tarafımla pazarlama ve tanıtım amaçlı iletişime geçilmesine izin veriyorum.</label>
+                                        </div>
                                     </div>
-                                </div>
-                            */
+                                */
                                 }
 
                                 <div className='form-group row'>
@@ -169,8 +184,9 @@ class EditProfile extends React.Component {
                                             disabled={
                                                 this.state.invalidEmail || !this.state.isEmailInitialized
                                                 || this.state.invalidNameSurname || !this.state.isNameSurnameInitialized
-                                            }
-                                        >Kaydet</button>
+                                            }>
+                                            Kaydet
+                                        </button>
                                     </div>
                                 </div>
 

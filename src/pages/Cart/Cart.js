@@ -1,8 +1,8 @@
 import React from 'react'
 
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import EmptyCart from './EmptyCart'
 import FilledCart from './FilledCart'
-import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 
 class Cart extends React.PureComponent {
     render() {
@@ -10,8 +10,7 @@ class Cart extends React.PureComponent {
             return (
                 <FilledCart
                     {...this.props}
-                    history={this.props.history}
-                />
+                    history={this.props.history} />
             )
         }
 

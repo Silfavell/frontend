@@ -1,7 +1,7 @@
 import React from 'react'
 
-import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import OrderItem from '../../components/OrderItem/OrderItem'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 
 class PaymentCompleted extends React.PureComponent {
     render() {
@@ -15,7 +15,7 @@ class PaymentCompleted extends React.PureComponent {
                             className='p-3 mb-0'
                             style={{ color: '#51C625' }}>
                             Siparişiniz alınmıştır.
-                            </h5>
+                        </h5>
                     </div>
                 </div>
                 <div className='w-100 order-1 py-4' style={{ overflowX: 'auto' }}>

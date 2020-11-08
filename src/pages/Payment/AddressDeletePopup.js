@@ -1,8 +1,8 @@
 import React from 'react'
+
 import VanillaToasts from 'vanillatoasts'
 
 import PopupWrapperHoc from '../../components/PopupWrapper/PopupWrapper'
-
 import { deleteAddress } from '../../scripts/requests'
 
 class AddressDeletePopup extends React.PureComponent {

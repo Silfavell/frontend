@@ -1,4 +1,5 @@
 import React from 'react'
+
 import MultiSlider from 'multi-slider'
 import { IoIosArrowForward } from 'react-icons/io'
 
@@ -8,14 +9,15 @@ class Slider extends React.Component {
     constructor(props) {
         super(props)
 
-        let min = this.props.min, max = this.props.max
+        let { min } = this.props
+        let { max } = this.props
 
         // eslint-disable-next-line
         this.props.location.search.split('&').map((q) => {
             if (q.includes('minPrice')) {
-                min = parseInt(q.substring(q.indexOf('=') + 1))
+                min = parseInt(q.substring(q.indexOf('=') + 1), 2)
             } else if (q.includes('maxPrice')) {
-                max = parseInt(q.substring(q.indexOf('=') + 1))
+                max = parseInt(q.substring(q.indexOf('=') + 1), 2)
             }
         })
 
@@ -43,8 +45,9 @@ class Slider extends React.Component {
         }
     }
 
-    onMaxChange = (event) => {
-        let { values, max, min } = this.state
+    onMaxChange = () => {
+        const { values, min } = this.state
+        let { max } = this.state
         const distance = (this.props.max - this.props.min)
 
         if (max < min) {
@@ -66,8 +69,9 @@ class Slider extends React.Component {
         })
     }
 
-    onMinChange = (event) => {
-        let { values, max, min } = this.state
+    onMinChange = () => {
+        const { values, max } = this.state
+        let { min } = this.state
 
         const distance = (this.props.max - this.props.min)
 
@@ -92,7 +96,7 @@ class Slider extends React.Component {
     }
 
     render() {
-        var colors = ['#FCBD7E', '#EB9F71', '#E6817C']
+        const colors = ['#FCBD7E', '#EB9F71', '#E6817C']
 
         return (
             <div className='card mb-3'>
@@ -105,7 +109,7 @@ class Slider extends React.Component {
                             data-target={`#collapse${'price'}`}
                             aria-expanded='true'
                             aria-controls={`collapse${'price'}`}>
-                            {'Fiyat Aralığı'}
+                            Fiyat Aralığı
                         </button>
                     </h5>
                 </div>
@@ -152,8 +156,7 @@ class Slider extends React.Component {
                         <MultiSlider
                             colors={colors}
                             values={this.state.values}
-                            onChange={this.onSliderChange}
-                        />
+                            onChange={this.onSliderChange} />
                     </div>
                 </div>
             </div>

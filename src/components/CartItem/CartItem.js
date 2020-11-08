@@ -1,4 +1,5 @@
 import React from 'react'
+
 import joi from '@hapi/joi'
 import { IoIosClose } from 'react-icons/io'
 import './CartItem.css'
@@ -28,7 +29,7 @@ class CartItem extends React.Component {
         joi.number()
             .min(1)
             .validateAsync(value).then(() => {
-                this.setState({ quantity: parseInt(value) })
+                this.setState({ quantity: parseInt(value, 2) })
             })
     }
 
@@ -64,8 +65,12 @@ class CartItem extends React.Component {
             <tr style={{ position: 'relative' }}>
                 {
                     !(order || returnOrderItem) && (
-                        <div style={{ position: 'absolute', bottom: 0, right: 0, padding: 6, zIndex: 2, cursor: 'pointer' }} onClick={this.removeProduct}>
-                            <IoIosClose size={24} color={'black'} />
+                        <div
+                            style={{
+                                position: 'absolute', bottom: 0, right: 0, padding: 6, zIndex: 2, cursor: 'pointer'
+                            }}
+                            onClick={this.removeProduct}>
+                            <IoIosClose size={24} color='black' />
                         </div>
                     )
                 }
@@ -108,8 +113,7 @@ class CartItem extends React.Component {
                                 onChange={this.onQuantityChange}
                                 disabled={order || returnOrderItem}
                                 onBlur={this.onFocusOut}
-                                placeholder=''
-                            />
+                                placeholder='' />
                             {
                                 !(order || returnOrderItem) && (
                                     <div className='input-group-append'>
@@ -129,23 +133,23 @@ class CartItem extends React.Component {
                             (returnItem || returnOrderItem) ? (
                                 <div className='direction-row'>
                                     <h5 className='font-weight-normal' style={{ fontSize: 20 }}>
-                                        {'₺' + (paidPrice * quantity).toFixed(2).toString().replace('.', ',')}
+                                        {`₺${(paidPrice * quantity).toFixed(2).toString().replace('.', ',')}`}
                                     </h5>
                                 </div>
                             ) : (
-                                    <div className='direction-row mx-3'>
-                                        <h5 className='font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
-                                            {'₺' + (price * quantity).toFixed(2).toString().replace('.', ',')}
-                                        </h5>
-                                        {
-                                            discountedPrice && (
-                                                <h5 className='font-weight-normal ml-3' style={{ fontSize: 20 }}>
-                                                    {'₺' + (discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}
-                                                </h5>
-                                            )
-                                        }
-                                    </div>
-                                )
+                                <div className='direction-row mx-3'>
+                                    <h5 className='font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through', fontSize: 20, color: 'grey' } : { fontSize: 20 }}>
+                                        {`₺${(price * quantity).toFixed(2).toString().replace('.', ',')}`}
+                                    </h5>
+                                    {
+                                        discountedPrice && (
+                                            <h5 className='font-weight-normal ml-3' style={{ fontSize: 20 }}>
+                                                {`₺${(discountedPrice * quantity).toFixed(2).toString().replace('.', ',')}`}
+                                            </h5>
+                                        )
+                                    }
+                                </div>
+                            )
                         }
                     </div>
                 </td>

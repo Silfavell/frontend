@@ -1,25 +1,39 @@
 import React from 'react'
+
 import $ from 'jquery'
 
-import Header from './Header/Header'
-import Footer from './Footer/Footer'
 import Breadcrumb from './Breadcrumb/Breadcrumb'
+import { dynamicBreadcrumb } from './dynamic-breadcrumb'
 import FirstImage from './FirstImage/FirstImage'
-
+import Footer from './Footer/Footer'
+import Header from './Header/Header'
 import {
     onIncreaseClick,
     onDecreaseClick,
     setProductQuantity,
     getInitialDatas
 } from './scripts'
-import { dynamicBreadcrumb } from './dynamic-breadcrumb'
 
-const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb, page } = {}) => {
-    return class extends React.Component {
+const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb, page } = {}) => class extends React.Component {
         state = {
             isMobileMenuOpen: false,
             categories: [],
             products: []
+        }
+
+        async componentDidMount() {
+            const initialDatas = await getInitialDatas()
+            let breadcrumb = []
+
+            if (page) {
+                breadcrumb = await dynamicBreadcrumb({ page, categories: initialDatas.categories, urlParams: this.props.match.params })
+            }
+
+            if (page) {
+                this.setState({ ...initialDatas, breadcrumb })
+            } else {
+                this.setState(initialDatas)
+            }
         }
 
         changeMobileMenuStatus = (isMobileMenuOpen) => {
@@ -50,22 +64,8 @@ const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb, page } = {}) =>
             this.setState({ products })
         }
 
-        async componentDidMount() {
-            const initialDatas = await getInitialDatas()
-            let breadcrumb = []
-
-            if (page) {
-                breadcrumb = await dynamicBreadcrumb({ page, categories: initialDatas.categories, urlParams: this.props.match.params })
-            }
-
-            if (page) {
-                this.setState({ ...initialDatas, breadcrumb })
-            } else {
-                this.setState(initialDatas)
-            }
-        }
-
         render() {
+            // eslint-disable-next-line no-underscore-dangle
             const _breadcrumb = (page ? this.state.breadcrumb : breadcrumb) ?? []
 
             return (
@@ -78,8 +78,7 @@ const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb, page } = {}) =>
                         products={this.state.products}
                         firstImage={firstImage}
                         changeMobileMenuStatus={this.changeMobileMenuStatus}
-                        setProductQuantity={this.setProductQuantity}
-                    />
+                        setProductQuantity={this.setProductQuantity} />
 
                     {
                         firstImage && <FirstImage />
@@ -98,15 +97,13 @@ const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb, page } = {}) =>
                             setProductQuantity={this.setProductQuantity}
                             history={this.props.history}
                             match={this.props.match}
-                            location={this.props.location}
-                        />
+                            location={this.props.location} />
                     </div>
 
                     <Footer />
                 </div>
             )
         }
-    }
 }
 
 export default SiteWrapHoc

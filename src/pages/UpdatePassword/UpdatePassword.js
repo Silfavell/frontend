@@ -1,15 +1,13 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import VanillaToasts from 'vanillatoasts'
-import joi from '@hapi/joi'
 
+import joi from '@hapi/joi'
+import VanillaToasts from 'vanillatoasts'
+
+import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import { changePassword } from '../../scripts/requests'
 
-import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
-import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
-
 class UpdatePassword extends React.Component {
-
     state = {
         oldPassword: '',
         newPassword: '',
@@ -76,9 +74,11 @@ class UpdatePassword extends React.Component {
         joi.string()
             .alphanum()
             .min(4)
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ oldPassword: value, isOldPasswordInitialized: true, invalidOldPassword: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ oldPassword: value, isOldPasswordInitialized: true, invalidOldPassword: !!err })
             })
     }
@@ -89,9 +89,11 @@ class UpdatePassword extends React.Component {
         joi.string()
             .alphanum()
             .min(4)
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ newPassword: value, isNewPasswordInitialized: true, invalidNewPassword: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ newPassword: value, isNewPasswordInitialized: true, invalidNewPassword: !!err })
             })
     }
@@ -102,9 +104,11 @@ class UpdatePassword extends React.Component {
         joi.string()
             .alphanum()
             .min(4)
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ reNewPassword: value, isReNewPasswordInitialized: true, invalidReNewPassword: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ reNewPassword: value, isReNewPasswordInitialized: true, invalidReNewPassword: !!err })
             })
     }
@@ -129,7 +133,11 @@ class UpdatePassword extends React.Component {
                             <div className='col-md-6'>
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='old_password' className='text-black'>Eski Şifre <span className='text-danger'>*</span></label>
+                                        <label htmlFor='old_password' className='text-black'>
+                                            Eski Şifre
+                                            {' '}
+                                            <span className='text-danger'>*</span>
+                                        </label>
                                         <input
                                             onChange={this.onOldPasswordChange}
                                             type='password'
@@ -143,7 +151,11 @@ class UpdatePassword extends React.Component {
 
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='new_password' className='text-black'>Yeni Şifre <span className='text-danger'>*</span></label>
+                                        <label htmlFor='new_password' className='text-black'>
+                                            Yeni Şifre
+                                            {' '}
+                                            <span className='text-danger'>*</span>
+                                        </label>
                                         <input
                                             onChange={this.onNewPasswordChange}
                                             type='password'
@@ -157,7 +169,11 @@ class UpdatePassword extends React.Component {
 
                                 <div className='form-group row'>
                                     <div className='col-md-12'>
-                                        <label htmlFor='re_new_password' className='text-black'>Yeni Şifre (tekrar) <span className='text-danger'>*</span></label>
+                                        <label htmlFor='re_new_password' className='text-black'>
+                                            Yeni Şifre (tekrar)
+                                            {' '}
+                                            <span className='text-danger'>*</span>
+                                        </label>
                                         <input
                                             onChange={this.onReNewPasswordChange}
                                             type='password'
@@ -178,8 +194,10 @@ class UpdatePassword extends React.Component {
                                                 this.state.invalidOldPassword || !this.state.isOldPasswordInitialized
                                                 || this.state.invalidNewPassword || !this.state.isNewPasswordInitialized
                                                 || this.state.invalidReNewPassword || !this.state.isReNewPasswordInitialized
-                                            }
-                                        >Şifremi Güncelle</div>
+                                            }>
+                                            Şifremi Güncelle
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>

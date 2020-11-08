@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React from 'react'
+
 import Carousel from 'react-multi-carousel'
 import Cookies from 'universal-cookie'
 import 'react-multi-carousel/lib/styles.css'
@@ -36,9 +37,8 @@ class CarouselComponent extends React.PureComponent {
                 <Carousel
                     containerClass='carousel-container'
                     responsive={responsive}
-                    renderButtonGroupOutside={true}
-                    autoPlay={false}
-                >
+                    renderButtonGroupOutside
+                    autoPlay={false}>
                     {
                         this.props.products.map((product) => (
                             <Product

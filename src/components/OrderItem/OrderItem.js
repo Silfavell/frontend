@@ -1,8 +1,9 @@
 import React from 'react'
+
 import { IoIosArrowForward } from 'react-icons/io'
 
-import CartItem from '../CartItem/CartItem'
 import OrderStatus from '../../models/OrderStatus'
+import CartItem from '../CartItem/CartItem'
 
 class OrderItem extends React.PureComponent {
     getOrderStatus = (status) => {
@@ -32,15 +33,17 @@ class OrderItem extends React.PureComponent {
 
         if (status === OrderStatus.RETURNABLE) {
             return (
-                <a href={`/return-items/${_id}`}
+                <a
+                    href={`/return-items/${_id}`}
                     className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
                     <span className='font-weight-bold' style={{ color: '#EE4266' }}>İade Talebinde Bulun</span>
                     <IoIosArrowForward size={24} />
                 </a>
             )
-        } else if (status === OrderStatus.APPROVED) {
+        } if (status === OrderStatus.APPROVED) {
             return (
-                <a href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${message}`}
+                <a
+                    href={`http://kargotakip.araskargo.com.tr/mainpage.aspx?code=${message}`}
                     className='d-flex align-items-center justify-content-between border-top py-3 text-black'>
                     <span className='font-weight-bold' style={{ color: '#EE4266' }}>Kargo Takip</span>
                     <IoIosArrowForward size={24} />
