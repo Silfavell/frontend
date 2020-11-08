@@ -1,5 +1,5 @@
 import React from 'react'
-import InputMask from 'react-input-mask'
+import NumberFormat from 'react-number-format'
 
 import MembershipAgreement from './MembershipAgreement'
 import KvkkAgreement from './KvkkAgreement'
@@ -7,6 +7,7 @@ import KvkkAgreement from './KvkkAgreement'
 const SignUpSection = ({
   state,
   onInputChange,
+  onPhoneChange,
   sendActivationCode,
   showAgreementPopup,
   hideAgreementPopup,
@@ -36,12 +37,12 @@ const SignUpSection = ({
           <label htmlFor='nameSurname' className='text-black'>Adınız Soyadınız <span className='text-danger'>*</span></label>
           <input
             onChange={onInputChange}
-            type='text'
             className='form-control'
             id='nameSurname'
             name='nameSurname'
-            placeholder='Adınız ve Soyadınızı giriniz'
-            value={nameSurname} />
+            autoComplete='name'
+            value={nameSurname}
+            placeholder='Adınız ve Soyadınızı giriniz' />
         </div>
       </div>
 
@@ -50,33 +51,34 @@ const SignUpSection = ({
           <label htmlFor='c_email' className='text-black'>E-Posta <span className='text-danger'>*</span></label>
           <input
             onChange={onInputChange}
-            type='text'
+            type='email'
             className='form-control'
             id='c_email'
+            autoComplete='Email'
             name='email'
-            placeholder='E-Posta adresinizi giriniz'
-            value={email} />
+            value={email}
+            placeholder='E-Posta adresinizi giriniz' />
         </div>
       </div>
 
-      <form className='form-group row' autoComplete='off' action=''>
+      <div className='form-group row'>
         <div className='col-md-12'>
           <label htmlFor='phoneNumber' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
-          <InputMask
-            mask='\+\9\0 \(999\) 999 99 99'
+          <NumberFormat
             value={phoneNumber}
-            onChange={onInputChange}>
-            <input
-              type='text'
-              className='form-control'
-              id='phone_number'
-              name='phoneNumber'
-              placeholder='Telefon Numaranızı giriniz' />
-          </InputMask>
+            onChange={onPhoneChange}
+            format='+90 (###) ### ## ##'
+            mask='_'
+            className='form-control'
+            id='phone_number'
+            autoComplete='tel'
+            name='Phone'
+            type='tel'
+            placeholder='Telefon Numaranızı giriniz' />
         </div>
-      </form>
+      </div>
 
-      <form className='form-group row' autoComplete='off' action=''>
+      <div className='form-group row'>
         <div className='col-md-12'>
           <label htmlFor='password' className='text-black'>Şifre <span className='text-danger'>*</span></label>
           <input
@@ -85,10 +87,11 @@ const SignUpSection = ({
             className='form-control'
             id='password'
             name='password'
+            autoComplete='password'
             placeholder='Şifrenizi giriniz'
             value={password} />
         </div>
-      </form>
+      </div>
 
       {
         /*
@@ -97,7 +100,7 @@ const SignUpSection = ({
                     <label htmlFor='repassword' className='text-black'>Şifre (repeat) <span className='text-danger'>*</span></label>
                     <input
                         onChange={onInputChange}
-
+ 
                         type='password'
                         className='form-control'
                         id='repassword'

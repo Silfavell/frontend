@@ -1,7 +1,7 @@
 import React from 'react'
 import Cookies from 'universal-cookie'
 import joi from '@hapi/joi'
-import InputMask from 'react-input-mask'
+import NumberFormat from 'react-number-format'
 
 import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 
@@ -137,21 +137,18 @@ class SignIn extends React.Component {
                             <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
                                 <div className='col-md-12'>
                                     <label htmlFor='phone_number' className='text-black'>Telefon Numarası</label>
-                                    <InputMask
-                                        mask='\+\9\0 \(999\) 999 99 99'
-                                        value={phoneNumber}
+                                    <NumberFormat
+                                        type='tel'
+                                        className='form-control'
+                                        placeholder='Telefon Numaranızı giriniz'
                                         onChange={this.onPhoneChange}
-                                    >
-                                        <input
-                                            type='text'
-                                            className='form-control'
-                                            id='phone_number'
-                                            name='phone'
-                                            placeholder='Telefon Numaranızı giriniz' />
-                                    </InputMask>
+                                        name='Phone'
+                                        autoComplete='tel'
+                                        id='phone_number'
+                                        format='+90 (###) ### ## ##'
+                                        mask='_'
+                                        value={phoneNumber} />
                                 </div>
-                            </form>
-                            <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
                                 <div className='col-md-12'>
                                     <label htmlFor='password' className='text-black'>Şifre</label>
                                     <input
