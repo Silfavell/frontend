@@ -30,7 +30,6 @@ const responsive = {
 class CarouselComponent extends React.PureComponent {
     render() {
         const favoriteProducts = localStorage.getItem('favoriteProducts') ? JSON.parse(localStorage.getItem('favoriteProducts')) : []
-        const loggedIn = cookies.get('token')
 
         return (
             <div className={`col-md-12 carousel-container ${this.props.shopSingle ? 'px-0' : ''}`}>
@@ -45,7 +44,7 @@ class CarouselComponent extends React.PureComponent {
                                 key={product._id}
                                 favorite={favoriteProducts.includes(product._id)}
                                 item={product}
-                                loggedIn={loggedIn}
+                                loggedIn={cookies.get('token')}
                                 onIncreaseClick={this.props.onIncreaseClick} />
                         ))
                     }

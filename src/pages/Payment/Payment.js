@@ -1,8 +1,6 @@
 import React from 'react'
 
 import $ from 'jquery'
-import Cookies from 'universal-cookie'
-import VanillaToasts from 'vanillatoasts'
 
 import Loading from '../../components/Loading/Loading'
 import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
@@ -18,8 +16,6 @@ import EmptyAddressCard from './EmptyAddressCard'
 import PaymentCard from './PaymentCard'
 import PreInfo from './PreInfo'
 import SalesContract from './SalesContract'
-
-const cookies = new Cookies()
 
 class Payment extends React.Component {
     state = {
@@ -48,18 +44,7 @@ class Payment extends React.Component {
     }
 
     componentDidMount() {
-        if (cookies.get('token')) {
-            this.setDatas()
-        } else {
-            VanillaToasts.create({
-                title: `Devam etmeden önce giriş yapmalısınız.`,
-                positionClass: 'topRight',
-                type: 'error',
-                timeout: 5 * 1000
-            })
-
-            this.props.history.push('/sign-in')
-        }
+        this.setDatas()
     }
 
     setSelectedCard = (selectedCard) => {

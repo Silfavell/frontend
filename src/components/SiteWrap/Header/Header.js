@@ -20,7 +20,6 @@ const cookies = new Cookies()
 
 class Header extends React.Component {
     state = {
-        loggedIn: cookies.get('token'),
         searchText: '',
         searchedProducts: []
     }
@@ -96,7 +95,7 @@ class Header extends React.Component {
                                     <div className='site-menu'>
                                         <li className='has-children person-menu'>
                                             <IoMdPerson size={26} onClick={this.onPersonClick} />
-                                            <PersonMenu loggedIn={this.state.loggedIn} />
+                                            <PersonMenu loggedIn={cookies.get('token')} />
                                         </li>
                                         <li>
                                             <span className='icons-btn d-inline-block bag'>

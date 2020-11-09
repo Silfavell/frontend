@@ -1,14 +1,10 @@
 import React from 'react'
 
-import Cookies from 'universal-cookie'
-
 import Loading from '../../components/Loading/Loading'
 import ShopProduct from '../../components/Product/ShopProduct'
 import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import { listFavorites } from '../../scripts/requests'
-
-const cookies = new Cookies()
 
 class FavoriteProducts extends React.Component {
     state = {
@@ -17,16 +13,12 @@ class FavoriteProducts extends React.Component {
     }
 
     async componentDidMount() {
-        if (cookies.get('token')) {
-            const result = await listFavorites()
+        const result = await listFavorites()
 
-            this.setState({
-                products: result.data.favoriteProducts,
-                fetching: false
-            })
-        } else {
-            this.props.history.push('/sign-in')
-        }
+        this.setState({
+            products: result.data.favoriteProducts,
+            fetching: false
+        })
     }
 
     render() {
