@@ -1,17 +1,15 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import Cookies from 'universal-cookie'
+
 import joi from '@hapi/joi'
 import InputMask from 'react-input-mask'
+import Cookies from 'universal-cookie'
 
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import { bulkCart, login } from '../../scripts/requests'
-
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
 
 const cookies = new Cookies()
 
 class SignIn extends React.Component {
-
     state = {
         phoneNumber: '',
         password: '',
@@ -28,7 +26,7 @@ class SignIn extends React.Component {
             phoneNumber,
             password
         } = this.state
-        
+
         const { status, data } = await login({ phoneNumber, password })
         if (status === 200) {
             cookies.set('token', data.token)
@@ -43,7 +41,6 @@ class SignIn extends React.Component {
             } else {
                 localStorage.setItem('favoriteProducts', JSON.stringify([]))
             }
-            
 
             if (window.localStorage.getItem('cart')) {
                 await bulkCart()
@@ -55,12 +52,10 @@ class SignIn extends React.Component {
                 } else {
                     this.props.history.push('/')
                 }
+            } else if (document.referrer.includes(window.location.origin)) {
+                this.props.history.goBack()
             } else {
-                if (document.referrer.includes(window.location.origin)) {
-                    this.props.history.goBack()
-                } else {
-                    this.props.history.push('/')
-                }
+                this.props.history.push('/')
             }
         }
     }
@@ -77,12 +72,13 @@ class SignIn extends React.Component {
             .strict()
             .min(19)
             .max(19)
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ phoneNumber: value, isPhoneNumberInitialized: true, invalidPhoneNumber: !!err })
             })
-
     }
 
     onPasswordChange = (event) => {
@@ -91,9 +87,11 @@ class SignIn extends React.Component {
         joi.string()
             .alphanum()
             .min(4)
-            .validateAsync(value).then(() => {
+            .validateAsync(value)
+            .then(() => {
                 this.setState({ password: value, isPasswordInitialized: true, invalidPassword: false })
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 this.setState({ password: value, isPasswordInitialized: true, invalidPassword: !!err })
             })
     }
@@ -103,10 +101,6 @@ class SignIn extends React.Component {
     }
 
     render() {
-        const breadcrumb = [
-            { path: null, title: 'Giriş Yap' }
-        ]
-
         const {
             phoneNumber,
             password,
@@ -117,78 +111,84 @@ class SignIn extends React.Component {
         } = this.state
 
         return (
-            <SiteWrap breadcrumb={breadcrumb}>
-                <div className='container'>
-                    <div className='w-100 d-flex align-items-center justify-content-center'>
-                        <div className='col-md-6 px-0'>
-                            <div className='p-3 p-lg-5'>
-                                <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
-                                    <div className='col-md-12'>
-                                        <label htmlFor='phone_number' className='text-black'>Telefon Numarası</label>
-                                        <InputMask
-                                            mask='\+\9\0 \(999\) 999 99 99'
-                                            value={phoneNumber}
-                                            onChange={this.onPhoneChange}
-                                        >
-                                            <input
-                                                type='text'
-                                                className='form-control'
-                                                id='phone_number'
-                                                name='phone'
-                                                placeholder='Telefon Numaranızı giriniz' />
-                                        </InputMask>
-                                    </div>
-                                </form>
-                                <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
-                                    <div className='col-md-12'>
-                                        <label htmlFor='password' className='text-black'>Şifre</label>
+            <div className='container'>
+                <div className='w-100 d-flex align-items-center justify-content-center'>
+                    <div className='col-md-6 px-0'>
+                        <div className='p-3 p-lg-5'>
+                            <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
+                                <div className='col-md-12'>
+                                    <label htmlFor='phone_number' className='text-black'>Telefon Numarası</label>
+                                    <InputMask
+                                        mask='\+\9\0 \(999\) 999 99 99'
+                                        value={phoneNumber}
+                                        onChange={this.onPhoneChange}>
                                         <input
-                                            value={password}
-                                            onChange={this.onPasswordChange}
-                                            type='password'
+                                            type='text'
                                             className='form-control'
-                                            id='password'
-                                            name='password'
-                                            placeholder='Şifrenizi giriniz' />
-                                    </div>
-                                </form>
-                                <div className='form-group row'>
-                                    <div className='col-6 d-flex align-items-center justify-content-start'>
-                                        <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' />
-                                        <label style={{ display: 'unset' }} htmlFor='dont-forget' className='form-check-label ml-2'>Beni Unutma</label>
-                                    </div>
-                                    <div className='col-6 d-flex align-items-flex-end justify-content-end'>
-                                        <a href='/forgot-password'>Şifremi Unuttum</a>
-                                    </div>
+                                            id='phone_number'
+                                            name='phone'
+                                            placeholder='Telefon Numaranızı giriniz' />
+                                    </InputMask>
                                 </div>
-                                <div className='form-group row'>
-                                    <div className='col-lg-12'>
-                                        <button
-                                            className='btn btn-primary btn-lg btn-block'
-                                            onClick={this.onSignInClick}
-                                            disabled={
-                                                invalidPhoneNumber
-                                                || !isPhoneNumberInitialized
-                                                || invalidPassword
-                                                || !isPasswordInitialized
-                                            }>Oturum Aç</button>
-                                    </div>
+                            </form>
+                            <form className='form-group row' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
+                                <div className='col-md-12'>
+                                    <label htmlFor='password' className='text-black'>Şifre</label>
+                                    <input
+                                        value={password}
+                                        onChange={this.onPasswordChange}
+                                        type='password'
+                                        className='form-control'
+                                        id='password'
+                                        name='password'
+                                        placeholder='Şifrenizi giriniz' />
                                 </div>
-                                <div className='row'>
-                                    <div className='col-lg-12'>
-                                        <button
-                                            className='btn btn-primary btn-lg btn-block'
-                                            onClick={this.onSignUpClick}
-                                        >Üye Ol</button>
-                                    </div>
+                            </form>
+                            <div className='form-group row'>
+                                <div className='col-6 d-flex align-items-center justify-content-start'>
+                                    <input type='checkbox' className='form-check-label' id='dont-forget' name='dont-forget' placeholder='' />
+                                    <label style={{ display: 'unset' }} htmlFor='dont-forget' className='form-check-label ml-2'>Beni Unutma</label>
+                                </div>
+                                <div className='col-6 d-flex align-items-flex-end justify-content-end'>
+                                    <a href='/forgot-password'>Şifremi Unuttum</a>
+                                </div>
+                            </div>
+                            <div className='form-group row'>
+                                <div className='col-lg-12'>
+                                    <button
+                                        className='btn btn-primary btn-lg btn-block'
+                                        onClick={this.onSignInClick}
+                                        disabled={
+                                            invalidPhoneNumber
+                                            || !isPhoneNumberInitialized
+                                            || invalidPassword
+                                            || !isPasswordInitialized
+                                        }>
+                                        Oturum Aç
+
+                                    </button>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col-lg-12'>
+                                    <button
+                                        className='btn btn-primary btn-lg btn-block'
+                                        onClick={this.onSignUpClick}>
+                                        Üye Ol
+
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </SiteWrap>
+            </div>
         )
     }
 }
 
-export default SignIn
+const breadcrumb = [
+    { path: null, title: 'Giriş Yap' }
+]
+
+export default SiteWrapHoc(SignIn, { breadcrumb })

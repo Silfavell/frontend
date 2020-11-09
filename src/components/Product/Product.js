@@ -1,6 +1,7 @@
 import React from 'react'
-import VanillaToasts from 'vanillatoasts'
+
 import { IoMdHeart, IoMdHeartEmpty, IoMdCart } from 'react-icons/io'
+import VanillaToasts from 'vanillatoasts'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { addFavorite, removeFavorite } from '../../scripts/requests'
@@ -46,7 +47,6 @@ class Product extends React.Component {
         })
     }
 
-
     removeFromFavoriteProdutcs = async (event) => {
         event.stopPropagation()
         event.preventDefault()
@@ -56,10 +56,6 @@ class Product extends React.Component {
         if (status === 200) {
             this.setState({ favorite: false }, this.onRemoveFromFavoriteProductsSuccess)
         }
-    }
-
-    onImageError = (event) => {
-        event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
     }
 
     render() {
@@ -79,7 +75,6 @@ class Product extends React.Component {
                         <img
                             src={url}
                             alt=''
-                            onError={this.onImageError}
                             className='w-100 py-5' />
 
                         <div className='interface'>
@@ -88,9 +83,9 @@ class Product extends React.Component {
                                     <div onClick={this.props.loggedIn && (this.state.favorite ? this.removeFromFavoriteProdutcs : this.addToFavoriteProducts)}>
                                         {
                                             this.props.loggedIn && (
-                                                this.state.favorite ?
-                                                    <IoMdHeart size={28} color={'black'} />
-                                                    : <IoMdHeartEmpty size={28} color={'black'} />
+                                                this.state.favorite
+                                                    ? <IoMdHeart size={28} color='black' />
+                                                    : <IoMdHeartEmpty size={28} color='black' />
                                             )
                                         }
                                     </div>
@@ -100,7 +95,7 @@ class Product extends React.Component {
                             <div className='bottom col-md-12'>
                                 <div className='col-md-12 d-flex align-items-center justify-content-end text-white add-to-cart'>
                                     <div onClick={this.addProductToCart}>
-                                        <IoMdCart size={28} color={'black'} />
+                                        <IoMdCart size={28} color='black' />
                                     </div>
                                 </div>
                             </div>
@@ -110,13 +105,13 @@ class Product extends React.Component {
                     <div className='mb-3'>
                         <div className='col-md-12 d-flex justify-content-start align-items-center p-0' style={{ textAlign: 'left' }}>
                             <div className='h5 pl-4 pr-2 py-2 font-weight-normal' style={discountedPrice ? { textDecoration: 'line-through', color: 'grey' } : { color: 'black' }}>
-                                {'₺' + price.toFixed(2).toString().replace('.', ',')}
+                                {`₺${price.toFixed(2).toString().replace('.', ',')}`}
                             </div>
 
                             {
                                 discountedPrice && (
                                     <div className='h5 py-2 text-black font-weight-normal'>
-                                        {'₺' + discountedPrice.toFixed(2).toString().replace('.', ',')}
+                                        {`₺${discountedPrice.toFixed(2).toString().replace('.', ',')}`}
                                     </div>
                                 )
                             }

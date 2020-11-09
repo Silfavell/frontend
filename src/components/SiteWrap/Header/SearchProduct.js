@@ -1,8 +1,7 @@
 import React from 'react'
 
-class SearchProduct extends React.Component {
+class SearchProduct extends React.PureComponent {
     render() {
-
         const {
             name,
             price,
@@ -21,14 +20,11 @@ class SearchProduct extends React.Component {
                     <img
                         src={url}
                         alt=''
-                        onError={(event) => {
-                            event.target.src = process.env.PUBLIC_URL + '/empty-image.webp'
-                        }}
                         className='w-100 mb-3 py-3' />
 
                     <div className='col-md-12 d-flex align-items-center justify-content-center'>
                         <div className='h5 text-black font-weight-normal'>
-                            {'₺' + price.toFixed(2).toString().replace('.', ',')}
+                            {`₺${price.toFixed(2).toString().replace('.', ',')}`}
                         </div>
                     </div>
 

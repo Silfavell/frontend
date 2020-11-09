@@ -1,15 +1,15 @@
 import React from 'react'
+
 import joi from '@hapi/joi'
 import { Helmet } from 'react-helmet'
 
+import Carousel from '../../components/Carousel/Carousel'
 import Loading from '../../components/Loading/Loading'
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
+import { getProductBySlug, getRelatedProductsBySlug } from '../../scripts/requests'
+import Accordion from './Accordion'
 import ProductImages from './ProductImages'
 import Tabs from './Tabs'
-import Accordion from './Accordion'
-import Carousel from '../../components/Carousel/Carousel'
-
-import { getProductBySlug, getRelatedProductsBySlug } from '../../scripts/requests'
 
 import './ShopSingle.css'
 
@@ -19,26 +19,13 @@ class ShopSingle extends React.Component {
         relatedProducts: [],
         quantity: 1,
         categoryName: '',
-        subCategoryName: '',
         categorySlug: '',
         subCategorySlug: ''
     }
 
-    fetchAndSetProduct = async (productSlug) => {
-        const { data } = await getProductBySlug(productSlug)
-
-        return data
-    }
-
-    fetchRelatedProducts = async (productSlug) => {
-        const { data } = await getRelatedProductsBySlug(productSlug)
-
-        return data
-    }
-
-    async componentWillMount() {
+    async componentDidMount() {
         try {
-            const [product, relatedProducts] = await Promise.all([this.fetchAndSetProduct(this.props.match.params._id), this.fetchRelatedProducts(this.props.match.params._id)])
+            const [product, relatedProducts] = await Promise.all([this.fetchAndSetProduct(this.props.match.params.slug), this.fetchRelatedProducts(this.props.match.params.slug)])
 
             this.setState({ product, relatedProducts }, () => {
                 const visitedProducts = window.localStorage.getItem('visitedProducts')
@@ -64,6 +51,18 @@ class ShopSingle extends React.Component {
         }
     }
 
+    fetchAndSetProduct = async (productSlug) => {
+        const { data } = await getProductBySlug(productSlug)
+
+        return data
+    }
+
+    fetchRelatedProducts = async (productSlug) => {
+        const { data } = await getRelatedProductsBySlug(productSlug)
+
+        return data
+    }
+
     onColorClick = async (productSlug) => {
         const product = await this.fetchAndSetProduct(productSlug)
 
@@ -84,7 +83,7 @@ class ShopSingle extends React.Component {
         joi.number()
             .min(1)
             .validateAsync(value).then(() => {
-                this.setState({ quantity: parseInt(value) })
+                this.setState({ quantity: parseInt(value, 2) })
             })
     }
 
@@ -93,11 +92,9 @@ class ShopSingle extends React.Component {
         this.setState({ quantity: 1 })
     }
 
-    getImages = (image, imageCount) => {
-        return Array.from(new Array(imageCount)).map((_, index) => (
-            `${process.env.REACT_APP_API_URL}/assets/products/${this.state.product.slug}_${index}_940x940.webp`
-        ))
-    }
+    getImages = (image, imageCount) => Array.from(new Array(imageCount)).map((_, index) => (
+        `${process.env.REACT_APP_API_URL}/assets/products/${this.state.product.slug}_${index}_940x940.webp`
+    ))
 
     renderDetailRow = ({ title, value, first }) => (
         <div className={`col-md-12 ${!first ? 'border-top' : ''}`}>
@@ -128,13 +125,12 @@ class ShopSingle extends React.Component {
             group
         } = this.state.product
 
-        const category = categories.find(category => category._id === categoryId)
+        const category = categories.find((category) => category._id === categoryId)
         const subCategory = category?.subCategories.find((subCategory) => subCategory._id === subCategoryId)
 
         if (this.state.categoryName.length === 0 && category && subCategory) {
             this.setState({
                 categoryName: category.name,
-                subCategoryName: subCategory.name,
                 categorySlug: category.slug,
                 subCategorySlug: subCategory.slug
             })
@@ -157,7 +153,10 @@ class ShopSingle extends React.Component {
                         <a
                             href={`/shop/${this.state.categorySlug}/${this.state.subCategorySlug}?brands=${this.state.product.brand.split(' ').join('+')}`}
                             className='text-primary h5'
-                            style={{ cursor: 'pointer' }}>{brand}</a>
+                            style={{ cursor: 'pointer' }}>
+                            {brand}
+
+                        </a>
                         {
                             (color && group.length > 1) && (
                                 <p className='my-4'>
@@ -168,7 +167,10 @@ class ShopSingle extends React.Component {
                                             group.map((groupColor) => (
                                                 <div
                                                     onClick={() => { this.onColorClick(groupColor.slug) }}
-                                                    className={`mr-2 ${groupColor._id === _id ? 'border' : ''}`} style={{ padding: '.3rem', height: 36, width: 36, borderRadius: '50%', cursor: 'pointer' }}>
+                                                    className={`mr-2 ${groupColor._id === _id ? 'border' : ''}`}
+                                                    style={{
+                                                        padding: '.3rem', height: 36, width: 36, borderRadius: '50%', cursor: 'pointer'
+                                                    }}>
                                                     <div style={{
                                                         height: '100%',
                                                         width: '100%',
@@ -187,11 +189,11 @@ class ShopSingle extends React.Component {
 
                         <p className='my-4'>
                             <strong className='h4' style={discountedPrice ? { textDecoration: 'line-through', color: 'grey' } : { color: 'black' }}>
-                                {'₺' + price.toFixed(2).toString().replace('.', ',')}
+                                {`₺${price.toFixed(2).toString().replace('.', ',')}`}
                             </strong>
                             {
                                 discountedPrice && (
-                                    <strong className='h4 ml-3 text-black'>{'₺' + discountedPrice.toFixed(2).toString().replace('.', ',')}</strong>
+                                    <strong className='h4 ml-3 text-black'>{`₺${discountedPrice.toFixed(2).toString().replace('.', ',')}`}</strong>
                                 )
                             }
                         </p>
@@ -219,7 +221,10 @@ class ShopSingle extends React.Component {
 
                         <button
                             onClick={() => this.onAddToCartClick(onIncreaseClick)}
-                            className='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Sepete Ekle</button>
+                            className='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>
+                            Sepete Ekle
+
+                        </button>
 
                     </div>
                 </div>
@@ -228,8 +233,7 @@ class ShopSingle extends React.Component {
                         productId={_id}
                         details={details}
                         comments={comments}
-                        specifications={specifications}
-                    />
+                        specifications={specifications} />
                 </div>
 
                 <div className='mt-5' id='shop-single-accordion'>
@@ -237,8 +241,7 @@ class ShopSingle extends React.Component {
                         productId={_id}
                         details={details}
                         comments={comments}
-                        specifications={specifications}
-                    />
+                        specifications={specifications} />
                 </div>
 
                 {
@@ -252,8 +255,7 @@ class ShopSingle extends React.Component {
                             <Carousel
                                 shopSingle
                                 products={this.state.relatedProducts}
-                                onIncreaseClick={onIncreaseClick}
-                            />
+                                onIncreaseClick={onIncreaseClick} />
                         </>
                     )
                 }
@@ -262,29 +264,14 @@ class ShopSingle extends React.Component {
     }
 
     render() {
-        const {
-            categoryName,
-            subCategoryName,
-            categorySlug,
-            subCategorySlug
-        } = this.state
-
-        const breadcrumb = [
-            { path: `/shop/${categorySlug}`, title: categoryName },
-            { path: `/shop/${categorySlug}/${subCategorySlug}`, title: subCategoryName },
-            { path: null, title: this.state.product.name }
-        ]
-
         if (this.state.product._id) {
             return (
-                <SiteWrap breadcrumb={breadcrumb}>
-                    <this.renderContent />
-                </SiteWrap>
+                <this.renderContent {...this.props} />
             )
-        } else {
-            return <Loading />
         }
+
+        return <Loading />
     }
 }
 
-export default ShopSingle
+export default SiteWrapHoc(ShopSingle, { page: 'ShopSingle' })

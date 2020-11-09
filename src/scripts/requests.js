@@ -3,38 +3,32 @@ import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
 
-
-if (cookies.get('token')) {
-
-}
-
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-  transformRequest: [function (data, headers) {
-    const token = cookies.get('token')
-    if (token) {
-      headers['Authorization'] = token
-    }
+    baseURL: process.env.REACT_APP_API_URL,
+    // eslint-disable-next-line func-names
+    transformRequest: [function (data, headers) {
+        const token = cookies.get('token')
+        if (token) {
+            headers.Authorization = token
+        }
 
-    return JSON.stringify(data)
-  }],
-  headers: {
-    'Content-Type': 'application/json'
-  }
-  //  timeout: 1000,
+        return JSON.stringify(data)
+    }],
+    headers: {
+        'Content-Type': 'application/json'
+    }
+    //  timeout: 1000,
 })
 
 export const makeCustomRequest = ({
-  method,
-  url,
-  data
-}) => {
-  return instance({
     method,
     url,
     data
-  })
-}
+}) => instance({
+    method,
+    url,
+    data
+})
 
 export const getCategories = () => instance.get('/categories')
 
@@ -43,9 +37,9 @@ export const fetchShop = (productIds) => instance.get(`/filter-shop?${productIds
 export const getCartProducts = () => instance.get('/user/cart')
 
 export const fetchOfflineCartProducts = () => {
-  const url = `/filter-shop?${JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => `productIds=${cartProduct._id}`).join('&')}`
+    const url = `/filter-shop?${JSON.parse(window.localStorage.getItem('cart')).map((cartProduct) => `productIds=${cartProduct._id}`).join('&')}`
 
-  return instance.get(url)
+    return instance.get(url)
 }
 
 export const increaseProductQuantity = (productId, quantity) => instance.put(`/add-product/${productId}`, { quantity })

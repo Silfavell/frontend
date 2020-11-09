@@ -1,13 +1,12 @@
 import React from 'react'
+
 import VanillaToasts from 'vanillatoasts'
 
+import PopupWrapperHoc from '../../components/PopupWrapper/PopupWrapper'
 import { saveComment } from '../../scripts/requests'
-
-import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 import Rate from './Rate'
 
 class WriteReviewPopup extends React.Component {
-
     state = {
         title: '',
         comment: '',
@@ -23,13 +22,12 @@ class WriteReviewPopup extends React.Component {
         } = this.state
 
         if (
-            title.trim().length > 0 &&
-            comment.trim().length >= 30 &&
-            this.generalRateRef.state.rate > 0 &&
-            this.qualityRateRef.state.rate > 0 &&
-            this.priceRateRef.state.rate > 0 &&
-            (localStorage.getItem('alias') || ownerAlias.trim().length > 0)) {
-
+            title.trim().length > 0
+            && comment.trim().length >= 30
+            && this.generalRateRef.state.rate > 0
+            && this.qualityRateRef.state.rate > 0
+            && this.priceRateRef.state.rate > 0
+            && (localStorage.getItem('alias') || ownerAlias.trim().length > 0)) {
             try {
                 const { data, status } = await saveComment({
                     productId: this.props.productId,
@@ -53,9 +51,9 @@ class WriteReviewPopup extends React.Component {
                     }
                 }
 
-                this.props.hideWriteReviewPopup(data)
+                this.props.hidePopup(data)
             } catch (error) {
-                this.props.hideWriteReviewPopup()
+                this.props.hidePopup()
             }
         } else {
             VanillaToasts.create({
@@ -65,18 +63,6 @@ class WriteReviewPopup extends React.Component {
                 timeout: 3 * 1000
             })
         }
-    }
-
-    onOutsideClick = (event) => {
-        if (event.target !== event.currentTarget) {
-            return
-        }
-
-        this.props.hideWriteReviewPopup()
-    }
-
-    onCloseClick = (event) => {
-        this.props.hideWriteReviewPopup()
     }
 
     onChange = (event) => {
@@ -107,116 +93,141 @@ class WriteReviewPopup extends React.Component {
             isAgreementChecked
         } = this.state
 
-
         return (
-            <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
-                <div className='col-md-12 p-5'>
-                    <h4 className='text-black'>Flormar Perfect Coverage Liquid Concealer Kapatıcı 004 Medium Beige hakkındaki Yorumum</h4>
-                    <br />
-                    <div>
+            <div className='col-md-12 p-5'>
+                <h4 className='text-black'>Flormar Perfect Coverage Liquid Concealer Kapatıcı 004 Medium Beige hakkındaki Yorumum</h4>
+                <br />
+                <div>
 
-                        <div className='form-group row border-top border-bottom py-4'>
-                            <div className='col-md-6 d-flex align-items-center'>
-                                <span className='text-black font-weight-bold'>Genel Derecelendirme <span className='text-danger'>*</span></span>
-                            </div>
-
-                            <div className='col-md-6 d-flex align-items-center justify-content-center'>
-                                <Rate ref={this.onGeneralRateRef} />
-                            </div>
+                    <div className='form-group row border-top border-bottom py-4'>
+                        <div className='col-md-6 d-flex align-items-center'>
+                            <span className='text-black font-weight-bold'>
+                                Genel Derecelendirme
+                                {' '}
+                                <span className='text-danger'>*</span>
+                            </span>
                         </div>
 
-                        <div className='form-group row'>
-                            <div className='col-md-12'>
-                                <label htmlFor='title' className='text-black'>Yorum Başlığı <span className='text-danger'>*</span></label>
-                                <input
-                                    type='text'
-                                    className='form-control'
-                                    id='title'
-                                    name='title'
-                                    onChange={this.onChange}
-                                    value={title} />
-                            </div>
+                        <div className='col-md-6 d-flex align-items-center justify-content-center'>
+                            <Rate ref={this.onGeneralRateRef} />
                         </div>
+                    </div>
 
-                        <div className='form-group row'>
-                            <div className='col-md-12'>
-                                <div className='d-flex justify-content-between'>
-                                    <label htmlFor='title' className='text-black'>Yorum <span className='text-danger'>*</span></label>
-                                    {
-                                        comment.length < 30 && (
-                                            <span style={{ color: 'red' }}>{`En az 30 karakter (${comment.length})`}</span>
-                                        )
-                                    }
-                                </div>
-                                <textarea
-                                    type='text'
-                                    className='form-control'
-                                    id='comment'
-                                    name='comment'
-                                    onChange={this.onChange}
-                                    rows={4}
-                                    value={comment} />
-                            </div>
+                    <div className='form-group row'>
+                        <div className='col-md-12'>
+                            <label htmlFor='title' className='text-black'>
+                                Yorum Başlığı
+                                {' '}
+                                <span className='text-danger'>*</span>
+                            </label>
+                            <input
+                                type='text'
+                                className='form-control'
+                                id='title'
+                                name='title'
+                                onChange={this.onChange}
+                                value={title} />
                         </div>
+                    </div>
 
-                        {
-                            !localStorage.getItem('alias') && (
-                                <div className='form-group row'>
-                                    <div className='col-md-12'>
-                                        <label htmlFor='ownerAlias' className='text-black'>Takma Ad <span className='text-danger'>*</span></label>
-                                        <input
-                                            type='text'
-                                            className='form-control'
-                                            id='ownerAlias'
-                                            name='ownerAlias'
-                                            placeholder='Diğer kullanıcıların gördüğü'
-                                            onChange={this.onChange}
-                                            value={ownerAlias} />
-                                    </div>
-                                </div>
-                            )
-                        }
-
-                        <div className='form-group row border-top border-bottom py-4'>
-                            <div className='col-md-6 d-flex align-items-center justify-content-center'>
-                                <span className='text-black font-weight-bold'>Bu ürünün kalitesi için nasıl bir değerlendirme yaparsınız? <span className='text-danger'>*</span></span>
-                            </div>
-
-                            <div className='col-md-6 d-flex align-items-center justify-content-center'>
-                                <Rate ref={this.onQualityRateRef} />
-                            </div>
-                        </div>
-
-                        <div className='form-group row border-bottom pb-4'>
-                            <div className='col-md-6 d-flex align-items-center'>
-                                <span className='text-black font-weight-bold'>Bu ürünün, fiyatının karşılığı ne kadar verdiğini nasıl değerlendirirsiniz? <span className='text-danger'>*</span></span>
-                            </div>
-
-                            <div className='col-md-6 d-flex align-items-center justify-content-center'>
-                                <Rate ref={this.onPriceRateRef} />
-                            </div>
-                        </div>
-
-                        <div className='flex-row d-flex justify-content-between'>
-                            <div className='form-check form-check-inline'>
-                                <input className='form-check-input' type='checkbox' checked={this.state.isAgreementChecked} onChange={this.onAgreementChange} style={{ width: 24, height: 24, cursor: 'pointer' }} />
-                                <label className='form-check-label  ml-2'>
-                                    <span onClick={this.showPreInfoPopup} className='text-primary' style={{ cursor: 'pointer' }}>Şartlar ve koşulları</span> kabul ediyorum.
+                    <div className='form-group row'>
+                        <div className='col-md-12'>
+                            <div className='d-flex justify-content-between'>
+                                <label htmlFor='title' className='text-black'>
+                                    Yorum
+                                    {' '}
+                                    <span className='text-danger'>*</span>
                                 </label>
+                                {
+                                    comment.length < 30 && (
+                                        <span style={{ color: 'red' }}>{`En az 30 karakter (${comment.length})`}</span>
+                                    )
+                                }
                             </div>
+                            <textarea
+                                type='text'
+                                className='form-control'
+                                id='comment'
+                                name='comment'
+                                onChange={this.onChange}
+                                rows={4}
+                                value={comment} />
+                        </div>
+                    </div>
 
-                            <button
-                                onClick={this.onConfirm}
-                                className='btn px-4 py-2 text-white'
-                                disabled={!isAgreementChecked}
-                                style={{ backgroundColor: '#EE4266', borderRadius: '.25rem', cursor: 'pointer' }}>Yorumu Gönder</button>
+                    {
+                        !localStorage.getItem('alias') && (
+                            <div className='form-group row'>
+                                <div className='col-md-12'>
+                                    <label htmlFor='ownerAlias' className='text-black'>
+                                        Takma Ad
+                                        {' '}
+                                        <span className='text-danger'>*</span>
+                                    </label>
+                                    <input
+                                        type='text'
+                                        className='form-control'
+                                        id='ownerAlias'
+                                        name='ownerAlias'
+                                        placeholder='Diğer kullanıcıların gördüğü'
+                                        onChange={this.onChange}
+                                        value={ownerAlias} />
+                                </div>
+                            </div>
+                        )
+                    }
+
+                    <div className='form-group row border-top border-bottom py-4'>
+                        <div className='col-md-6 d-flex align-items-center justify-content-center'>
+                            <span className='text-black font-weight-bold'>
+                                Bu ürünün kalitesi için nasıl bir değerlendirme yaparsınız?
+                                {' '}
+                                <span className='text-danger'>*</span>
+                            </span>
                         </div>
 
+                        <div className='col-md-6 d-flex align-items-center justify-content-center'>
+                            <Rate ref={this.onQualityRateRef} />
+                        </div>
+                    </div>
+
+                    <div className='form-group row border-bottom pb-4'>
+                        <div className='col-md-6 d-flex align-items-center'>
+                            <span className='text-black font-weight-bold'>
+                                Bu ürünün, fiyatının karşılığı ne kadar verdiğini nasıl değerlendirirsiniz?
+                                {' '}
+                                <span className='text-danger'>*</span>
+                            </span>
+                        </div>
+
+                        <div className='col-md-6 d-flex align-items-center justify-content-center'>
+                            <Rate ref={this.onPriceRateRef} />
+                        </div>
+                    </div>
+
+                    <div className='flex-row d-flex justify-content-between'>
+                        <div className='form-check form-check-inline'>
+                            <input className='form-check-input' type='checkbox' checked={this.state.isAgreementChecked} onChange={this.onAgreementChange} style={{ width: 24, height: 24, cursor: 'pointer' }} />
+                            <label className='form-check-label  ml-2'>
+                                <span onClick={this.showPreInfoPopup} className='text-primary' style={{ cursor: 'pointer' }}>Şartlar ve koşulları</span>
+                                {' '}
+                                kabul ediyorum.
+                            </label>
+                        </div>
+
+                        <button
+                            onClick={this.onConfirm}
+                            className='btn px-4 py-2 text-white'
+                            disabled={!isAgreementChecked}
+                            style={{ backgroundColor: '#EE4266', borderRadius: '.25rem', cursor: 'pointer' }}>
+                            Yorumu Gönder
+
+                        </button>
                     </div>
                 </div>
-            </PopupWrapper>
+            </div>
         )
     }
 }
 
-export default WriteReviewPopup
+export default PopupWrapperHoc(WriteReviewPopup)

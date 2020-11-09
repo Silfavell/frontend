@@ -7,24 +7,26 @@ class Breadcrumb extends React.PureComponent {
                 <div className='container'>
                     <div className='row'>
                         <div className='col-md-12 mb-0'>
-                            <a href={`/`} className='text-capitalize'>{'Ana sayfa'}</a>
+                            <a href='/' className='text-capitalize'>Ana sayfa</a>
                             {
                                 this.props.breadcrumb.map((crumb, index) => {
                                     if (crumb.path) {
                                         return (
-                                            <React.Fragment key={'crumb' + index}>
+                                            // eslint-disable-next-line react/no-array-index-key
+                                            <React.Fragment key={`crumb${index}`}>
                                                 <span className='mx-2 mb-0'>/</span>
                                                 <a href={crumb.path} className='text-capitalize'>{crumb.title}</a>
                                             </React.Fragment>
                                         )
-                                    } else {
-                                        return (
-                                            <React.Fragment key={'crumb' + index}>
-                                                <span className='mx-2 mb-0'>/</span>
-                                                <strong className='text-capitalize text-black'>{crumb.title}</strong>
-                                            </React.Fragment>
-                                        )
                                     }
+
+                                    return (
+                                        // eslint-disable-next-line react/no-array-index-key
+                                        <React.Fragment key={`crumb${index}`}>
+                                            <span className='mx-2 mb-0'>/</span>
+                                            <strong className='text-capitalize text-black'>{crumb.title}</strong>
+                                        </React.Fragment>
+                                    )
                                 })
                             }
                         </div>

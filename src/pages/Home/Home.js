@@ -1,25 +1,17 @@
-/* eslint-disable react/style-prop-object */
 import React from 'react'
 
-import { fetchShop } from '../../scripts/requests'
-
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import Carousel from '../../components/Carousel/Carousel'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
+import { fetchShop } from '../../scripts/requests'
 import Tabs from './Tabs'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'jquery/dist/jquery.min.js'
-import 'bootstrap/dist/js/bootstrap.min.js'
+import 'jquery/dist/jquery.min'
+import 'bootstrap/dist/js/bootstrap.min'
 
 class Home extends React.Component {
     state = {
         shop: {}
-    }
-
-    fetchShop = async (visitedProductIds) => {
-        const { data } = await fetchShop(visitedProductIds)
-
-        return data || {}
     }
 
     async componentDidMount() {
@@ -31,7 +23,13 @@ class Home extends React.Component {
         }
     }
 
-    renderHomeContent = ({ onIncreaseClick }) => {
+    fetchShop = async (visitedProductIds) => {
+        const { data } = await fetchShop(visitedProductIds)
+
+        return data || {}
+    }
+
+    render() {
         return (
             <div className='container'>
                 <div className='row'>
@@ -41,8 +39,7 @@ class Home extends React.Component {
                     </div>
 
                     <Tabs
-                        onIncreaseClick={onIncreaseClick}
-                    />
+                        onIncreaseClick={this.props.onIncreaseClick} />
 
                     {
                         (this.state.shop.products && this.state.shop.products.length > 0) && (
@@ -54,8 +51,7 @@ class Home extends React.Component {
 
                                 <Carousel
                                     products={this.state.shop.products}
-                                    onIncreaseClick={onIncreaseClick}
-                                />
+                                    onIncreaseClick={this.props.onIncreaseClick} />
                             </>
                         )
                     }
@@ -63,14 +59,6 @@ class Home extends React.Component {
             </div>
         )
     }
-
-    render() {
-        return (
-            <SiteWrap firstImage>
-                <this.renderHomeContent />
-            </SiteWrap>
-        )
-    }
 }
 
-export default Home
+export default SiteWrapHoc(Home, { firstImage: true })

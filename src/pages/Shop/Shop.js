@@ -1,34 +1,42 @@
 import React from 'react'
+
 import { Helmet } from 'react-helmet'
 
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import Loading from '../../components/Loading/Loading'
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
+import { makeCustomRequest } from '../../scripts/requests'
 import EmptyShop from './EmptyShop'
-import ShopContent from './ShopContent'
-
-import { getCategories, makeCustomRequest } from '../../scripts/requests'
 import {
     maximumProductLengthInOnePage
 } from './scripts'
+import ShopContent from './ShopContent'
 
 import './Shop.css'
 
 class Shop extends React.Component {
     state = {
-        categories: [],
         shop: {},
         fetching: true
+    }
+
+    async componentDidMount() {
+        const shop = await this.filterShop()
+
+        this.setState({
+            shop,
+            fetching: false
+        })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.location.search !== prevProps.location.search) {
+            this.refresh()
+        }
     }
 
     filterShop = async () => {
         const url = `${process.env.REACT_APP_API_URL}/filter-shop${this.props.location.pathname.replace('/shop', '')}${this.props.location.search}${this.props.location.search.startsWith('?') ? '&' : '?'}quantity=${maximumProductLengthInOnePage}`
         const { data } = await makeCustomRequest({ url })
-
-        return data
-    }
-
-    getCategories = async () => {
-        const { data } = await getCategories()
 
         return data
     }
@@ -41,72 +49,31 @@ class Shop extends React.Component {
         })
     }
 
-    async componentDidMount() {
-        const [categories, shop] = await Promise.all([this.getCategories(), this.filterShop()])
-
-        this.setState({
-            categories,
-            shop,
-            fetching: false
-        })
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.location.search !== prevProps.location.search) {
-            this.refresh()
-        }
-    }
-
     render() {
-        const currentCategory = this.state.categories.find(category => category._id === this.state.shop._id)
-        const subCategory = [...this.props.location.pathname].filter(letter => letter === '/').length > 2 ? currentCategory?.subCategories.find((subCategory) => subCategory._id === this.state.shop.subCategoryId) : null
-
-        let breadcrumb = []
-
-        if (subCategory) {
-            breadcrumb = [
-                {
-                    path: `/shop/${currentCategory?.slug}`,
-                    title: currentCategory?.name
-                },
-                {
-                    path: null,
-                    title: subCategory.name
-                }
-            ]
-        } else {
-            breadcrumb = [
-                {
-                    path: null,
-                    title: currentCategory?.name
-                }
-            ]
-        }
+        const { category: categorySlug, subCategory: subCategorySlug } = this.props.match.params
+        const currentCategory = this.props.categories.find((category) => category.slug === categorySlug)
+        const subCategory = subCategorySlug ? currentCategory?.subCategories.find((subCategory) => subCategory.slug === subCategorySlug) : null
 
         if (this.state.fetching) {
+            return <Loading />
+        } if (!this.state.fetching && !currentCategory) {
             return (
-                <Loading />
-            )
-        } else if (!this.state.fetching && !currentCategory) {
-            return (
-                <SiteWrap>
-                    <EmptyShop />
-                </SiteWrap>
-            )
-        } else {
-            return (
-                <SiteWrap breadcrumb={breadcrumb}>
-                    <Helmet>
-                        <title>{`${(subCategory ?? currentCategory)?.name} | Silfavell`}</title>
-                        <meta name='description' content={`${(subCategory ?? currentCategory)?.name}`} data-react-helmet='true' />
-                    </Helmet>
-                    <ShopContent
-                        location={this.props.location}
-                        shop={this.state.shop} />
-                </SiteWrap>
+                <EmptyShop />
             )
         }
+
+        return (
+            <>
+                <Helmet>
+                    <title>{`${(subCategory ?? currentCategory)?.name} | Silfavell`}</title>
+                    <meta name='description' content={`${(subCategory ?? currentCategory)?.name}`} data-react-helmet='true' />
+                </Helmet>
+                <ShopContent
+                    location={this.props.location}
+                    shop={this.state.shop} />
+            </>
+        )
     }
 }
 
-export default Shop
+export default SiteWrapHoc(Shop, { page: 'Shop' })

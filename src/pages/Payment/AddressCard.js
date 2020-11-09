@@ -28,7 +28,7 @@ class AddressCard extends React.PureComponent {
                             addressTitle
                         }
                     </div>
-                    <div className='col-md-12' style={{ textOverflow: 'ellipsis', overflow: 'hidden' }} >
+                    <div className='col-md-12' style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
                         {
                             openAddress
                         }

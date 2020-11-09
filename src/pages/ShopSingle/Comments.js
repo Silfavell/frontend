@@ -1,18 +1,17 @@
 import React from 'react'
+
 import Cookies from 'universal-cookie'
 import VanillaToasts from 'vanillatoasts'
 
 import { likeComment, unlikeComment } from '../../scripts/requests'
-
-import WriteReviewPopup from './WriteReviewPopup'
 import Comment from './Comment'
+import WriteReviewPopup from './WriteReviewPopup'
 
 import './Comments.css'
 
 const cookies = new Cookies()
 
 class Comments extends React.Component {
-
     state = {
         showWriteReviewPopup: false,
         comments: this.props.comments
@@ -61,7 +60,7 @@ class Comments extends React.Component {
         }
     }
 
-    onReportClick = (_id) => {
+    onReportClick = () => {
         VanillaToasts.create({
             title: 'Yorum Bildirildi',
             positionClass: 'topRight',
@@ -101,7 +100,7 @@ class Comments extends React.Component {
             <div className='p-4'>
 
                 {
-                    this.state.showWriteReviewPopup && <WriteReviewPopup productId={this.props.productId} hideWriteReviewPopup={this.hideWriteReviewPopup} />
+                    this.state.showWriteReviewPopup && <WriteReviewPopup productId={this.props.productId} hidePopup={this.hideWriteReviewPopup} />
                 }
 
                 <div className='col-md-12 text-black py-4'>
@@ -110,7 +109,10 @@ class Comments extends React.Component {
                             style={{ borderRadius: '0.25rem', cursor: 'pointer', backgroundColor: '#EE4266' }}
                             onClick={this.onWriteReviewClick}
                             id='write-review'
-                            className='btn text-white font-weight-bolder text-align-center px-4 py-2'>{cookies.get('token') ? 'Değerlendirme yazın' : 'Değerlendirme yazmak için giriş yapın'}</button>
+                            className='btn text-white font-weight-bolder text-align-center px-4 py-2'>
+                            {cookies.get('token') ? 'Değerlendirme yazın' : 'Değerlendirme yazmak için giriş yapın'}
+
+                        </button>
                     </div>
                 </div>
 

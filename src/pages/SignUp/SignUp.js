@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import $ from 'jquery'
-import Cookies from 'universal-cookie'
+
 import JoiBase from '@hapi/joi'
 import JoiPhoneNumber from 'joi-phone-number'
+import $ from 'jquery'
+import Cookies from 'universal-cookie'
 
+import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import { bulkCart, signUp, sendActivationCode } from '../../scripts/requests'
-
-import SiteWrap from '../../components/SiteWrap/SiteWrap'
 import ActivationSection from './ActivationSection'
 import SignUpSection from './SignUpSection'
 
@@ -25,7 +25,6 @@ const registerSchema = Joi.object({
 }).unknown()
 
 class SignUp extends React.Component {
-
     state = {
         phoneNumber: '',
         nameSurname: '',
@@ -91,12 +90,10 @@ class SignUp extends React.Component {
                 } else {
                     this.props.history.push('/')
                 }
+            } else if (document.referrer.includes(window.location.origin)) {
+                window.history.back()
             } else {
-                if (document.referrer.includes(window.location.origin)) {
-                    window.history.back()
-                } else {
-                    this.props.history.push('/')
-                }
+                this.props.history.push('/')
             }
         }
     }
@@ -134,39 +131,35 @@ class SignUp extends React.Component {
     }
 
     render() {
-        const breadcrumb = [
-            {
-                path: null, title: 'Üye Ol'
-            }
-        ]
-
         return (
-            <SiteWrap breadcrumb={breadcrumb}>
-                <div className='container'>
-                    <div className='w-100 d-flex align-items-center justify-content-center'>
-                        <div className='col-md-6 px-0'>
-                            <SignUpSection
-                                onInputChange={this.onInputChange}
-                                sendActivationCode={this.sendActivationCode}
-                                showAgreementPopup={this.showAgreementPopup}
-                                hideAgreementPopup={this.hideAgreementPopup}
-                                showKvkkAgreementPopup={this.showKvkkAgreementPopup}
-                                hideKvkkAgreementPopup={this.hideKvkkAgreementPopup}
-                                state={this.state}
-                            />
+            <div className='container'>
+                <div className='w-100 d-flex align-items-center justify-content-center'>
+                    <div className='col-md-6 px-0'>
+                        <SignUpSection
+                            onInputChange={this.onInputChange}
+                            sendActivationCode={this.sendActivationCode}
+                            showAgreementPopup={this.showAgreementPopup}
+                            hideAgreementPopup={this.hideAgreementPopup}
+                            showKvkkAgreementPopup={this.showKvkkAgreementPopup}
+                            hideKvkkAgreementPopup={this.hideKvkkAgreementPopup}
+                            state={this.state} />
 
-                            <ActivationSection
-                                onInputChange={this.onInputChange}
-                                onSignUpClick={this.onSignUpClick}
-                                activationCode={this.state.activationCode}
-                                validationError={this.state.validationError}
-                            />
-                        </div>
+                        <ActivationSection
+                            onInputChange={this.onInputChange}
+                            onSignUpClick={this.onSignUpClick}
+                            activationCode={this.state.activationCode}
+                            validationError={this.state.validationError} />
                     </div>
                 </div>
-            </SiteWrap>
+            </div>
         )
     }
 }
 
-export default SignUp
+const breadcrumb = [
+    {
+        path: null, title: 'Üye Ol'
+    }
+]
+
+export default SiteWrapHoc(SignUp, { breadcrumb })

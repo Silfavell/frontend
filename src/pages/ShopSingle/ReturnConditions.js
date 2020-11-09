@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
 import React from 'react'
 
-class ReturnConditions extends React.Component {
+class ReturnConditions extends React.PureComponent {
     render() { // TODO review gerekebilir
         return (
             <div className='border-bottom p-4'>

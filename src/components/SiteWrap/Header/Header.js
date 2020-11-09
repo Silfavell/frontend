@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import Cookies from 'universal-cookie'
-import { IoMdPerson, IoIosBasket, IoMdMenu } from 'react-icons/io'
 
-import NavCartItem from './NavCartItem'
-import SearchBarBottom from './SearchBarBottom'
-import SearchBarTop from './SearchBarTop'
-import MobileMenu from './MobileMenu'
-import Navbar from './Navbar'
-import PersonMenu from './PersonMenu'
-import Logo from './Logo'
+import { IoMdPerson, IoIosBasket, IoMdMenu } from 'react-icons/io'
+import Cookies from 'universal-cookie'
 
 import { search } from '../../../scripts/requests'
+import Logo from './Logo'
+import MobileMenu from './MobileMenu'
+import Navbar from './Navbar'
+import NavCartItem from './NavCartItem'
+import PersonMenu from './PersonMenu'
+import SearchBarBottom from './SearchBarBottom'
+import SearchBarTop from './SearchBarTop'
 
 import './Header.css'
 
@@ -89,8 +89,7 @@ class Header extends React.Component {
                                 onSearchTextChange={this.onSearchTextChange}
                                 onSearchClearClick={this.onSearchClearClick}
                                 searchText={this.state.searchText}
-                                searchedProducts={this.state.searchedProducts}
-                            />
+                                searchedProducts={this.state.searchedProducts} />
 
                             <div className='icons d-flex align-items-center justify-content-center flex-grow-1'>
                                 <div className='site-navigation icon-dropdown'>
@@ -101,11 +100,11 @@ class Header extends React.Component {
                                         </li>
                                         <li>
                                             <span className='icons-btn d-inline-block bag'>
-                                                <IoIosBasket color={'#8C92A0'} size={26} onClick={this.onBagClick} />
+                                                <IoIosBasket color='#8C92A0' size={26} onClick={this.onBagClick} />
                                                 <span className='number' onClick={this.onBagClick}>{this.props.products.length}</span>
                                                 {
-                                                    this.props.products.length > 0 &&
-                                                    (
+                                                    this.props.products.length > 0
+                                                    && (
                                                         <div className='cart'>
                                                             {
                                                                 this.props.products.map((product) => (
@@ -127,7 +126,7 @@ class Header extends React.Component {
                                         </li>
                                         <li>
                                             <a href='#' className='site-menu-toggle js-menu-toggle d-inline-block d-lg-none'>
-                                                <IoMdMenu color={'#8C92A0'} size={26} onClick={this.onMenuClick} />
+                                                <IoMdMenu color='#8C92A0' size={26} onClick={this.onMenuClick} />
                                             </a>
                                         </li>
                                     </div>
@@ -144,11 +143,9 @@ class Header extends React.Component {
                                 onSearchTextChange={this.onSearchTextChange}
                                 onSearchClearClick={this.onSearchClearClick}
                                 searchText={this.state.searchText}
-                                searchedProducts={this.state.searchedProducts}
-                            />
+                                searchedProducts={this.state.searchedProducts} />
                             <Navbar
-                                categories={this.props.categories}
-                            />
+                                categories={this.props.categories} />
                         </div>
                     </div>
                 </div>

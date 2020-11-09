@@ -1,7 +1,6 @@
 import React from 'react'
 
-import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
-
+import PopupWrapperHoc from '../../components/PopupWrapper/PopupWrapper'
 import { saveAddress } from '../../scripts/requests'
 
 class AddressPopup extends React.Component {
@@ -22,20 +21,8 @@ class AddressPopup extends React.Component {
         const { status, data } = await saveAddress(this.state)
 
         if (status === 200) {
-            this.props.hideSaveAddressPopup(data.addresses)
+            this.props.hidePopup(data.addresses)
         }
-    }
-
-    onOutsideClick = (event) => {
-        if (event.target !== event.currentTarget) {
-            return
-        }
-
-        this.props.hideSaveAddressPopup()
-    }
-
-    onCloseClick = (event) => {
-        this.props.hideSaveAddressPopup()
     }
 
     render() {
@@ -45,48 +32,50 @@ class AddressPopup extends React.Component {
         } = this.state
 
         return (
-            <PopupWrapper onOutsideClick={this.onOutsideClick} onCloseClick={this.onCloseClick}>
-                <div className='col-md-12'>
-                    <div className='m-3 p-lg-5'>
-                        <div className='form-group row'>
-                            <div className='col-md-12'>
-                                <label htmlFor='addressTitle' className='text-black'>Adres Başlığı <span className='text-danger'>*</span></label>
-                                <input
-                                    onChange={this.onTitleChange}
-                                    type='text'
-                                    className='form-control'
-                                    id='addressTitle'
-                                    name='addressTitle'
-                                    value={addressTitle}
-                                />
-                            </div>
+            <div className='col-md-12'>
+                <div className='m-3 p-lg-5'>
+                    <div className='form-group row'>
+                        <div className='col-md-12'>
+                            <label htmlFor='addressTitle' className='text-black'>
+                                Adres Başlığı
+                                <span className='text-danger'>*</span>
+                            </label>
+                            <input
+                                onChange={this.onTitleChange}
+                                type='text'
+                                className='form-control'
+                                id='addressTitle'
+                                name='addressTitle'
+                                value={addressTitle} />
                         </div>
+                    </div>
 
-                        <div className='form-group row'>
-                            <div className='col-md-12'>
-                                <label htmlFor='openAddress' className='text-black'>Adres <span className='text-danger'>*</span></label>
-                                <textarea
-                                    onChange={this.onAddressChange}
-                                    style={{ resize: 'none' }}
-                                    name='openAddress'
-                                    id='openAddress'
-                                    cols='30'
-                                    rows='7'
-                                    className='form-control'
-                                    value={openAddress}
-                                ></textarea>
-                            </div>
+                    <div className='form-group row'>
+                        <div className='col-md-12'>
+                            <label htmlFor='openAddress' className='text-black'>
+                                Adres
+                                <span className='text-danger'>*</span>
+                            </label>
+                            <textarea
+                                onChange={this.onAddressChange}
+                                style={{ resize: 'none' }}
+                                name='openAddress'
+                                id='openAddress'
+                                cols='30'
+                                rows='7'
+                                className='form-control'
+                                value={openAddress} />
                         </div>
-                        <div className='form-group row'>
-                            <div className='col-lg-12'>
-                                <button className='btn btn-primary btn-lg btn-block' onClick={this.onSaveAddressClick}>Adresi Kaydet</button>
-                            </div>
+                    </div>
+                    <div className='form-group row'>
+                        <div className='col-lg-12'>
+                            <button className='btn btn-primary btn-lg btn-block' onClick={this.onSaveAddressClick}>Adresi Kaydet</button>
                         </div>
                     </div>
                 </div>
-            </PopupWrapper>
+            </div>
         )
     }
 }
 
-export default AddressPopup
+export default PopupWrapperHoc(AddressPopup)
