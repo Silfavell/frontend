@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import $ from 'jquery'
+import NumberFormat from 'react-number-format'
 import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
 import NumberFormat from 'react-number-format'
@@ -155,14 +156,17 @@ class UpdatePassword extends React.Component {
         <form id='phone-section' className='p-3 p-lg-5' autoComplete='off' action='' onSubmit={this.onSubmitForm}>
             <div className='form-group row'>
                 <div className='col-md-12'>
-                    <label htmlFor='phone' className='text-black'>Telefon Numarası <span className='text-danger'>*</span></label>
+                    <label htmlFor='phone' className='text-black'>
+                        Telefon Numarası
+                        <span className='text-danger'>*</span>
+                    </label>
                     <NumberFormat
                         format='+90 (###) ### ## ##'
                         mask='_'
                         value={this.state.phoneNumber}
                         onChange={this.onPhoneChange}
                         type='tel'
-                        autoComplete='tel'                
+                        autoComplete='tel'
                         className='form-control'
                         id='phone_number'
                         name='Phone'

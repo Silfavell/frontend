@@ -1,4 +1,7 @@
 import React from 'react'
+
+import joi from '@hapi/joi'
+import NumberFormat from 'react-number-format'
 import Cookies from 'universal-cookie'
 import joi from '@hapi/joi'
 import NumberFormat from 'react-number-format'
