@@ -2,10 +2,6 @@ import React from 'react'
 import VanillaToasts from 'vanillatoasts'
 import joi from '@hapi/joi'
 import NumberFormat from 'react-number-format'
-<<<<<<< HEAD
-import VanillaToasts from 'vanillatoasts'
-=======
->>>>>>> 4e93090084ddb5ae8494a3832615dd1c1d86b67c
 
 import PopupWrapper from '../../components/PopupWrapper/PopupWrapper'
 
