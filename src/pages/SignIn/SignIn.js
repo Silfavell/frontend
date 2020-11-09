@@ -21,26 +21,6 @@ class SignIn extends React.Component {
         invalidPassword: false
     }
 
-    constructor(props) {
-        super(props)
-
-        if (cookies.get('token')) {
-            this.props.history.push('/')
-        }
-    }
-
-    shouldComponentUpdate(_, nextState) {
-        if (
-            (this.state.phoneNumber === '' && nextState.phoneNumber === '+90 (___) ___ __ __')
-            || (this.state.phoneNumber === '+90 (___) ___ __ __' && nextState.phoneNumber === '')
-        // eslint-disable-next-line max-len
-        ) { // empty phoneNumber input changes to `+90 (___) ___ __ __` this onClick and rechanges to empty string on click outside, to test if its true comment this function and check wydr logs. Due to this SiteWrap rerenders.
-            return false
-        }
-
-        return true
-    }
-
     onSignInClick = async () => {
         const {
             phoneNumber,

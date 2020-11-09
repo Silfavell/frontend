@@ -2,14 +2,11 @@
 import React from 'react'
 
 import joi from '@hapi/joi'
-import Cookies from 'universal-cookie'
 import VanillaToasts from 'vanillatoasts'
 
 import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import { getProfile, updateProfile } from '../../scripts/requests'
-
-const cookies = new Cookies()
 
 class EditProfile extends React.Component {
     state = {
@@ -25,18 +22,14 @@ class EditProfile extends React.Component {
     }
 
     async componentDidMount() {
-        if (cookies.get('token')) {
-            try {
-                const { status, data } = await getProfile()
+        try {
+            const { status, data } = await getProfile()
 
-                if (status === 200) {
-                    this.setState(data)
-                }
-            } catch (error) {
-                this.props.history.push('/')
+            if (status === 200) {
+                this.setState(data)
             }
-        } else {
-            this.props.history.push('/sign-in')
+        } catch (error) {
+            this.props.history.push('/')
         }
     }
 

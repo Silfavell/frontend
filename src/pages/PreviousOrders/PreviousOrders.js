@@ -1,14 +1,10 @@
 import React from 'react'
 
-import Cookies from 'universal-cookie'
-
 import Loading from '../../components/Loading/Loading'
 import OrderItem from '../../components/OrderItem/OrderItem'
 import ProfileColumn from '../../components/ProfileColumn/ProfileColumn'
 import SiteWrapHoc from '../../components/SiteWrap/SiteWrap'
 import { getOrders } from '../../scripts/requests'
-
-const cookies = new Cookies()
 
 const fetchOrders = async () => {
     const { data } = await getOrders()
@@ -22,17 +18,13 @@ class PreviousOrders extends React.Component {
         fetching: true
     }
 
-    componentDidMount() {
-        if (cookies.get('token')) {
-            fetchOrders().then((orders) => {
-                this.setState({
-                    orders,
-                    fetching: false
-                })
-            })
-        } else {
-            this.props.history.push('/sign-in')
-        }
+    async componentDidMount() {
+        const orders = await fetchOrders()
+
+        this.setState({
+            orders,
+            fetching: false
+        })
     }
 
     render() {

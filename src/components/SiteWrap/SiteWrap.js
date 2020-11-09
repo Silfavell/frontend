@@ -1,6 +1,8 @@
 import React from 'react'
 
 import $ from 'jquery'
+import { Redirect } from 'react-router-dom'
+import Cookies from 'universal-cookie'
 
 import Breadcrumb from './Breadcrumb/Breadcrumb'
 import { dynamicBreadcrumb } from './dynamic-breadcrumb'
@@ -13,6 +15,8 @@ import {
     setProductQuantity,
     getInitialDatas
 } from './scripts'
+
+const cookies = new Cookies()
 
 const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb, page } = {}) => class extends React.Component {
         state = {
@@ -67,6 +71,34 @@ const SiteWrapHoc = (WrappedComponent, { firstImage, breadcrumb, page } = {}) =>
         render() {
             // eslint-disable-next-line no-underscore-dangle
             const _breadcrumb = (page ? this.state.breadcrumb : breadcrumb) ?? []
+            const shouldBeLoggedInPages = [
+                '/payment',
+                '/update-password',
+                '/payment',
+                '/payment-completed',
+                '/edit-profile',
+                '/favorite-products',
+                '/previous-orders',
+                '/return-items',
+                '/return-items-completed',
+                '/update-password'
+            ]
+
+            const shouldNotBeLoggedInPages = [
+                '/sign-in',
+                '/sign-up',
+                '/forgot-password'
+            ]
+
+            const loggedIn = cookies.get('token')
+
+            if (shouldBeLoggedInPages.includes(window.location.pathname) && !loggedIn) {
+                return <Redirect to='/sign-in' />
+            }
+
+            if (shouldNotBeLoggedInPages.includes(window.location.pathname) && loggedIn) {
+                return <Redirect to='/' />
+            }
 
             return (
                 <div
